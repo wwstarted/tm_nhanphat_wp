@@ -1,0 +1,19 @@
+/**
+ * Animation/transition dùng chung. Tôn trọng prefers-reduced-motion (accessibility).
+ */
+@media (prefers-reduced-motion: no-preference) {
+	.fade-in {
+		animation: tmnhanphat-fade-in 0.4s ease-in-out both;
+	}
+}
+
+@keyframes tmnhanphat-fade-in {
+	from {
+		opacity: 0;
+		transform: translateY(8px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}

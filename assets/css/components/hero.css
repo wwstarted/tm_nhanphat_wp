@@ -1,0 +1,19 @@
+.hero {
+	padding: var(--space-xl) var(--container-padding);
+	background-color: var(--color-bg-alt);
+	text-align: center;
+}
+
+.hero__inner {
+	max-width: var(--container-max-width);
+	margin-inline: auto;
+}
+
+.hero__title {
+	margin-bottom: var(--space-xs);
+}
+
+.hero__subtitle {
+	color: var(--color-text-muted);
+	font-size: 1.125rem;
+}

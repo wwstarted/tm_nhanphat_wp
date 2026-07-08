@@ -1,0 +1,14 @@
+.front-page .latest-posts {
+	padding: var(--space-xl) var(--container-padding);
+}
+
+.front-page .section-title {
+	max-width: var(--container-max-width);
+	margin-inline: auto;
+	margin-bottom: var(--space-md);
+}
+
+.front-page .post-grid {
+	max-width: var(--container-max-width);
+	margin-inline: auto;
+}

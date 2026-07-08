@@ -1,0 +1,21 @@
+.breadcrumb {
+	margin-bottom: var(--space-md);
+	font-size: 0.875rem;
+	color: var(--color-text-muted);
+}
+
+.breadcrumb__list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-xs);
+}
+
+.breadcrumb__item:not(:last-child)::after {
+	content: "/";
+	margin-left: var(--space-xs);
+	color: var(--color-border);
+}
+
+.breadcrumb__item a:hover {
+	color: var(--color-primary);
+}

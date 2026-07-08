@@ -1,0 +1,36 @@
+/**
+ * Utility class dùng chung — chỉ thêm class thực sự tái sử dụng nhiều nơi.
+ */
+.container {
+	width: 100%;
+	max-width: var(--container-max-width);
+	margin-inline: auto;
+	padding-inline: var(--container-padding);
+}
+
+.screen-reader-text,
+.visually-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+.skip-link {
+	position: absolute;
+	top: -100px;
+	left: 0;
+	z-index: 999;
+	padding: var(--space-xs) var(--space-sm);
+	background: var(--color-primary);
+	color: #fff;
+}
+
+.skip-link:focus {
+	top: 0;
+}

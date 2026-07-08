@@ -1,0 +1,43 @@
+/**
+ * Typography nền tảng — dùng biến từ variables.css, không hardcode giá trị lặp lại.
+ */
+body {
+	font-family: var(--font-family-base);
+	font-size: var(--font-size-base);
+	line-height: var(--line-height-base);
+	color: var(--color-text);
+	background-color: var(--color-bg);
+}
+
+h1,
+h2,
+h3,
+h4 {
+	line-height: 1.25;
+	font-weight: 700;
+}
+
+h1 {
+	font-size: clamp(1.75rem, 1.4rem + 1.5vw, 2.75rem);
+}
+
+h2 {
+	font-size: clamp(1.5rem, 1.25rem + 1vw, 2rem);
+}
+
+h3 {
+	font-size: 1.25rem;
+}
+
+p {
+	margin-bottom: var(--space-sm);
+}
+
+a {
+	transition: color var(--transition-base);
+}
+
+a:hover,
+a:focus-visible {
+	color: var(--color-primary);
+}

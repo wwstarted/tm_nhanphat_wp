@@ -1,0 +1,17 @@
+/*
+Theme Name:   TMNhanPhat
+Theme URI:    https://tmnhanphat.com
+Author:       TMNhanPhat Team
+Author URI:   https://tmnhanphat.com
+Description:  Custom WordPress theme cho TMNhanPhat — kiến trúc modular, tối ưu SEO và Core Web Vitals.
+Version:      1.0.0
+Requires at least: 6.4
+Tested up to: 6.8
+Requires PHP: 8.0
+License:      GNU General Public License v2 or later
+License URI:  http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain:  tmnhanphat
+
+Toàn bộ CSS thực tế nằm trong assets/src/css (build ra assets/dist bằng Vite).
+File này chỉ giữ Theme Header bắt buộc của WordPress — xem PROJECT_RULES.md mục 6.
+*/

@@ -1,0 +1,18 @@
+.page .container {
+	max-width: 860px;
+	padding-block: var(--space-lg);
+}
+
+.page-content__title {
+	margin-bottom: var(--space-md);
+}
+
+.page-content__thumbnail {
+	margin-bottom: var(--space-md);
+	border-radius: var(--radius-base);
+	overflow: hidden;
+}
+
+.page-content__body {
+	line-height: 1.75;
+}

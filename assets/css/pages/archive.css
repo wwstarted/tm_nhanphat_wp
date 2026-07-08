@@ -1,0 +1,12 @@
+.archive .container,
+.search-results .container {
+	padding-block: var(--space-lg);
+}
+
+.archive-header {
+	margin-bottom: var(--space-lg);
+}
+
+.archive-description {
+	color: var(--color-text-muted);
+}

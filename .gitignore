@@ -1,0 +1,11 @@
+# Dependencies
+node_modules/
+
+# Build output (sinh ra từ assets/src bằng `npm run build` — không commit, xem PROJECT_RULES.md mục 21)
+assets/dist/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
