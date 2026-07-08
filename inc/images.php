@@ -16,6 +16,12 @@ function tmnhanphat_image_sizes() {
 	add_image_size( 'tmnhanphat-card', 480, 320, true );
 	add_image_size( 'tmnhanphat-hero', 1600, 900, true );
 	add_image_size( 'tmnhanphat-thumb', 150, 150, true );
+	// Logo đối tác: KHÔNG crop (false) — chỉ resize vừa khung, giữ nguyên tỉ lệ gốc,
+	// tránh méo/kéo giãn logo thương hiệu (PROJECT_RULES.md — Partners Section).
+	add_image_size( 'tmnhanphat-partner-logo', 240, 120, false );
+	// Ảnh thang máy About Section: KHÔNG crop (false) — chỉ resize vừa khung tối đa, giữ
+	// nguyên tỉ lệ gốc, không méo/kéo giãn (PROJECT_RULES.md — About Company Section).
+	add_image_size( 'tmnhanphat-about-image', 800, 900, false );
 }
 add_action( 'after_setup_theme', 'tmnhanphat_image_sizes' );
 
@@ -27,8 +33,10 @@ add_action( 'after_setup_theme', 'tmnhanphat_image_sizes' );
  */
 function tmnhanphat_custom_image_sizes_names( $sizes ) {
 	return array_merge( $sizes, array(
-		'tmnhanphat-card' => __( 'Thẻ bài viết', 'tmnhanphat' ),
-		'tmnhanphat-hero' => __( 'Ảnh Hero', 'tmnhanphat' ),
+		'tmnhanphat-card'          => __( 'Thẻ bài viết', 'tmnhanphat' ),
+		'tmnhanphat-hero'          => __( 'Ảnh Hero', 'tmnhanphat' ),
+		'tmnhanphat-partner-logo'  => __( 'Logo đối tác', 'tmnhanphat' ),
+		'tmnhanphat-about-image'   => __( 'Ảnh About Company', 'tmnhanphat' ),
 	) );
 }
 add_filter( 'image_size_names_choose', 'tmnhanphat_custom_image_sizes_names' );

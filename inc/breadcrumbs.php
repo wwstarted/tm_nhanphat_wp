@@ -1,7 +1,10 @@
 <?php
 /**
- * Breadcrumb component logic (semantic + Schema BreadcrumbList) — xem PROJECT_RULES.md mục 14.
+ * Breadcrumb component logic — chỉ xây danh sách item để hiển thị HTML (vị trí điều hướng).
  * Markup thực tế render ở template-parts/components/breadcrumb.php.
+ *
+ * Theme KHÔNG in Breadcrumb Schema (JSON-LD) — dữ liệu SEO/structured data là trách nhiệm
+ * riêng của Plugin SEO (Rank Math/Yoast/...), xem PROJECT_RULES.md mục 23.
  *
  * @package TMNhanPhat
  */
@@ -47,36 +50,3 @@ function tmnhanphat_get_breadcrumb_items() {
 
 	return apply_filters( 'tmnhanphat_breadcrumb_items', $items );
 }
-
-/**
- * JSON-LD BreadcrumbList tương ứng với danh sách breadcrumb hiện tại.
- */
-function tmnhanphat_output_breadcrumb_schema() {
-	if ( is_front_page() ) {
-		return;
-	}
-
-	$items    = tmnhanphat_get_breadcrumb_items();
-	$list_items = array();
-
-	foreach ( $items as $position => $item ) {
-		$entry = array(
-			'@type'    => 'ListItem',
-			'position' => $position + 1,
-			'name'     => wp_strip_all_tags( $item['label'] ),
-		);
-		if ( ! empty( $item['url'] ) ) {
-			$entry['item'] = $item['url'];
-		}
-		$list_items[] = $entry;
-	}
-
-	$schema = array(
-		'@context'        => 'https://schema.org',
-		'@type'           => 'BreadcrumbList',
-		'itemListElement' => $list_items,
-	);
-
-	printf( '<script type="application/ld+json">%s</script>' . "\n", wp_json_encode( $schema ) );
-}
-add_action( 'wp_head', 'tmnhanphat_output_breadcrumb_schema', 3 );

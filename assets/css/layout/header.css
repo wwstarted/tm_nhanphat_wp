@@ -1,28 +1,156 @@
+/**
+ * Header: layout mặc định (solid, trong luồng tài liệu) + trạng thái transparent/sticky.
+ * Toàn bộ giá trị --header-* là CSS custom property do inc/customizer/header-customizer.php
+ * sinh ra và gắn vào bằng wp_add_inline_style() trong inc/enqueue.php — xem PROJECT_RULES.md
+ * mục 22. File này KHÔNG hardcode giá trị người dùng có thể đổi trong Customizer.
+ */
+
+/* ==================== KHUNG HEADER ==================== */
 .site-header {
+	position: relative;
+	z-index: 100;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background-color: var(--header-bg, #ffffff);
+	border-bottom: var(--header-border-bottom, none);
+	box-shadow: none;
+	transition:
+		background-color var(--header-transition-duration, 250ms) ease,
+		box-shadow var(--header-transition-duration, 250ms) ease,
+		color var(--header-transition-duration, 250ms) ease;
+	/*
+	 * Màu Navigation (menu/hamburger/dropdown icon) dùng biến RIÊNG --header-nav-*
+	 * thay vì phụ thuộc inherit từ `color` — vì `color` bị .main-navigation__panel
+	 * (offcanvas, luôn nền sáng) ghi đè khi lồng qua nhiều lớp div. Mặc định ở đây là
+	 * bộ màu Sticky; .site-header--transparent override lại thành bộ màu Floating.
+	 * Xem inc/customizer/header-customizer.php (nhóm "Navigation").
+	 */
+	--header-nav-color: var(--header-nav-text-sticky, #222222);
+	--header-nav-hover: var(--header-nav-hover-sticky, #0d6efd);
+	--header-nav-active: var(--header-nav-active-sticky, #0d6efd);
+}
+
+.site-header__inner {
+	max-width: var(--header-container-width, 1200px);
+	min-height: var(--header-height, 96px);
+	margin-inline: auto;
+	padding: var(--header-padding-top, 0) var(--container-padding) var(--header-padding-bottom, 0);
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	flex-wrap: wrap;
-	gap: var(--space-sm);
-	padding: var(--space-sm) var(--container-padding);
-	border-bottom: 1px solid var(--color-border);
-	transition: box-shadow var(--transition-base);
+	gap: var(--space-md);
 }
 
-.site-header.is-scrolled {
-	box-shadow: 0 2px 8px rgb(0 0 0 / 0.06);
+/* ==================== LOGO (trái) ==================== */
+.site-branding {
+	flex-shrink: 0;
+}
+
+.site-branding__logo-link {
+	display: inline-flex;
+}
+
+.site-branding img {
+	width: var(--header-logo-width, 160px);
+	max-width: 100%;
+	height: auto;
 }
 
 .site-branding .site-title {
 	font-size: 1.25rem;
 	font-weight: 700;
+	color: inherit;
 }
 
 .site-branding .site-description {
-	font-size: 0.875rem;
-	color: var(--color-text-muted);
+	font-size: 0.8125rem;
+	opacity: 0.8;
+	color: inherit;
 }
 
+/* ==================== TRẠNG THÁI: SOLID CỐ ĐỊNH TỪ KHI TẢI TRANG ==================== */
+/* Áp dụng cho mọi trang KHÔNG transparent khi Sticky đang bật (site-header--fixed) */
+.site-header--fixed {
+	position: fixed;
+	top: 0;
+	left: 0;
+}
+
+.site-header--solid.site-header--fixed {
+	background-color: var(--header-sticky-bg, #ffffff);
+	color: var(--header-sticky-text, #1a1a1a);
+	box-shadow: var(--header-shadow, 0 2px 10px rgb(0 0 0 / 0.06));
+}
+
+/* Chừa khoảng trống bằng chiều cao header để nội dung không bị header fixed đè lên */
+body.has-fixed-header {
+	padding-top: var(--header-height, 96px);
+}
+
+/* ==================== TRẠNG THÁI: TRANSPARENT (chỉ Trang chủ) ==================== */
+/* Ban đầu: nằm đè lên Hero, nền trong suốt, không viền/bóng đổ. */
+.site-header--transparent {
+	position: absolute; /* fallback khi Sticky bị tắt trong Customizer — cuộn trôi cùng trang, không bám viewport */
+	top: 0;
+	left: 0;
+	background-color: transparent;
+	border-bottom: none;
+	box-shadow: none;
+	color: var(--header-transparent-text, #ffffff);
+	transform: translateY(0);
+	opacity: 1;
+	will-change: transform, background-color, box-shadow;
+	--header-nav-color: var(--header-nav-text-floating, #ffffff);
+	--header-nav-hover: var(--header-nav-hover-floating, #0d6efd);
+	--header-nav-active: var(--header-nav-active-floating, #0d6efd);
+}
+
+/*
+ * Khi Sticky đang bật: header BÁM VIEWPORT (position:fixed) NGAY TỪ ĐẦU, kể cả lúc còn
+ * trong suốt đè lên Hero — không đợi cuộn qua ngưỡng mới chuyển fixed. Nhờ vậy header
+ * không bao giờ "biến mất rồi hiện lại": vị trí không đổi trong suốt quá trình cuộn,
+ * chỉ có background/box-shadow/color/transform/opacity chuyển động mượt bằng transition.
+ */
+.site-header--transparent.site-header--sticky-enabled {
+	position: fixed;
+}
+
+/* Cuộn qua ngưỡng (JS thêm .is-scrolled qua rAF, xem assets/js/layout/header.js):
+   chỉ đổi màu sắc/bóng đổ — KHÔNG đổi position nên không giật, không reflow, không flicker.
+   Trả --header-nav-* về bộ màu Sticky vì lúc này Header đã hiện solid như các trang khác. */
+.site-header--transparent.is-scrolled {
+	background-color: var(--header-sticky-bg, #ffffff);
+	color: var(--header-sticky-text, #1a1a1a);
+	box-shadow: var(--header-shadow, 0 2px 10px rgb(0 0 0 / 0.06));
+	animation: tmnhanphat-header-solidify var(--header-transition-duration, 300ms) ease-out;
+	--header-nav-color: var(--header-nav-text-sticky, #222222);
+	--header-nav-hover: var(--header-nav-hover-sticky, #0d6efd);
+	--header-nav-active: var(--header-nav-active-sticky, #0d6efd);
+}
+
+/* Hiệu ứng "settle" nhẹ (translateY + opacity) đúng lúc header chuyển sang nền đặc —
+ * chỉ chạy 1 lần khi .is-scrolled được thêm, không lặp, không ảnh hưởng layout (transform/opacity
+ * là compositor property, không trigger reflow) — an toàn cho 60fps kể cả trên mobile.
+ */
+@keyframes tmnhanphat-header-solidify {
+	from {
+		transform: translateY(-10px);
+		opacity: 0.96;
+	}
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.site-header--transparent.is-scrolled {
+		animation: none;
+	}
+}
+
+/* ==================== NAVIGATION (phải) ==================== */
 .main-navigation {
 	display: flex;
 	align-items: center;
@@ -31,38 +159,214 @@
 
 .primary-menu {
 	display: flex;
-	gap: var(--space-md);
+	align-items: center;
+	gap: var(--header-menu-spacing, 32px);
+	font-family: var(--header-menu-font, var(--font-family-base));
+	font-size: var(--header-menu-font-size, 16px);
+	font-weight: var(--header-menu-font-weight, 500);
 }
 
-.mobile-menu-toggle {
+.primary-menu > li {
+	position: relative;
+	display: flex;
+	align-items: center;
+}
+
+/*
+ * Active/Hover CHỈ đổi màu chữ — không underline, không border-bottom, không pseudo-element,
+ * không transform (mục 3/4/6 — thiết kế tối giản, hiện đại). Toàn bộ dùng chung 1 biến màu
+ * thương hiệu qua --header-nav-hover/--header-nav-active (mặc định #0d6efd, đăng ký ở
+ * inc/customizer/header-customizer.php nhóm "Navigation").
+ */
+.primary-menu a {
+	color: var(--header-nav-color, #222222);
+	transition: color 0.28s ease;
+}
+
+.primary-menu > li > a {
+	padding-block: 0.35em;
+}
+
+.primary-menu a:hover,
+.primary-menu a:focus-visible {
+	color: var(--header-nav-hover, #0d6efd);
+}
+
+.primary-menu > li.current-menu-item > a,
+.primary-menu > li.current_page_item > a,
+.primary-menu > li.current-menu-ancestor > a {
+	color: var(--header-nav-active, #0d6efd);
+}
+
+/* ==================== DROPDOWN (2 cấp) ==================== */
+.sub-menu {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	min-width: 220px;
+	background-color: var(--color-bg);
+	color: var(--color-text);
+	box-shadow: 0 8px 24px rgb(0 0 0 / 0.12);
+	border-radius: var(--radius-base);
+	padding: var(--space-xs) 0;
+	opacity: 0;
+	visibility: hidden;
+	transform: translateY(6px);
+	transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+	z-index: 10;
+}
+
+.menu-item-has-children:hover > .sub-menu,
+.menu-item-has-children:focus-within > .sub-menu,
+.menu-item-has-children.is-submenu-open > .sub-menu {
+	opacity: 1;
+	visibility: visible;
+	transform: translateY(0);
+}
+
+.sub-menu li {
+	position: relative;
+}
+
+.sub-menu a {
+	display: block;
+	padding: var(--space-xs) var(--space-sm);
+	white-space: nowrap;
+	color: var(--color-text);
+}
+
+.sub-menu a:hover {
+	background-color: var(--color-bg-alt);
+}
+
+/* Nút mở dropdown bằng cảm ứng/bàn phím (ẩn trên desktop, CSS động hiện lại dưới mobile
+   breakpoint — xem tmnhanphat_render_header_css_vars() trong inc/template-functions.php) */
+.submenu-toggle {
 	display: none;
-	flex-direction: column;
-	gap: 4px;
+	align-items: center;
+	justify-content: center;
+	width: 1.5em;
+	height: 1.5em;
+	margin-left: 0.25em;
 	background: none;
 	border: 0;
 	cursor: pointer;
-	padding: var(--space-xs);
+	/* Dùng --header-nav-color thay vì inherit — nằm trong .main-navigation__panel nên
+	   inherit sẽ lấy nhầm màu chữ cố định của panel offcanvas thay vì màu Floating/Sticky. */
+	color: var(--header-nav-color, #222222);
 }
 
-.mobile-menu-toggle__bar {
+.submenu-toggle-icon {
+	width: 0.5em;
+	height: 0.5em;
+	border-right: 2px solid currentColor;
+	border-bottom: 2px solid currentColor;
+	transform: rotate(45deg);
+	transition: transform 0.2s ease;
+}
+
+.submenu-toggle[aria-expanded="true"] .submenu-toggle-icon {
+	transform: rotate(-135deg);
+}
+
+/* ==================== HAMBURGER TOGGLE (ẩn trên desktop mặc định) ==================== */
+.main-navigation__toggle {
+	display: none;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 5px;
+	width: 40px;
+	height: 40px;
+	background: none;
+	border: 0;
+	cursor: pointer;
+	padding: 0;
+	color: var(--header-nav-color, #222222);
+}
+
+.main-navigation__toggle-bar {
 	width: 22px;
 	height: 2px;
-	background-color: var(--color-text);
+	background-color: currentColor;
+	transition: transform 0.25s ease, opacity 0.25s ease;
 }
 
-@media (max-width: 768px) {
-	.mobile-menu-toggle {
-		display: flex;
-	}
+.main-navigation__toggle[aria-expanded="true"] .main-navigation__toggle-bar:nth-child(1) {
+	transform: translateY(7px) rotate(45deg);
+}
 
-	.primary-menu {
-		display: none;
-		flex-direction: column;
+.main-navigation__toggle[aria-expanded="true"] .main-navigation__toggle-bar:nth-child(2) {
+	opacity: 0;
+}
+
+.main-navigation__toggle[aria-expanded="true"] .main-navigation__toggle-bar:nth-child(3) {
+	transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ==================== OVERLAY NỀN TỐI (offcanvas) ==================== */
+.main-navigation__overlay {
+	position: fixed;
+	inset: 0;
+	background-color: rgb(0 0 0 / 0.4);
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.25s ease, visibility 0.25s ease;
+	z-index: 199;
+}
+
+.main-navigation.is-open .main-navigation__overlay {
+	opacity: 1;
+	visibility: visible;
+}
+
+/* ==================== PANEL OFFCANVAS (tablet/mobile) ==================== */
+/* Mặc định (mobile-first cho phần này): panel trượt từ phải vào, full-height.
+   Desktop reset về display tĩnh qua media query render động (Mobile Breakpoint). */
+.main-navigation__panel {
+	position: fixed;
+	top: 0;
+	right: 0;
+	height: 100%;
+	width: min(360px, 100%);
+	background-color: var(--color-bg);
+	color: var(--color-text);
+	box-shadow: -8px 0 24px rgb(0 0 0 / 0.15);
+	transform: translateX(100%);
+	transition: transform 0.3s ease;
+	z-index: 200;
+	overflow-y: auto;
+	padding: var(--space-md);
+}
+
+.main-navigation.is-open .main-navigation__panel {
+	transform: translateX(0);
+}
+
+.main-navigation__panel-close {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+	margin-left: auto;
+	margin-bottom: var(--space-sm);
+	background: none;
+	border: 0;
+	cursor: pointer;
+	font-size: 1.5rem;
+	line-height: 1;
+	color: inherit;
+}
+
+/* Fullscreen trên màn hình rất nhỏ (điện thoại) thay vì panel hẹp như tablet */
+@media (max-width: 480px) {
+	.main-navigation__panel {
 		width: 100%;
-		gap: var(--space-sm);
 	}
+}
 
-	.main-navigation.is-open .primary-menu {
-		display: flex;
-	}
+/* Khoá cuộn trang nền khi offcanvas đang mở (class do assets/js/layout/mobile-menu.js gắn) */
+body.no-scroll {
+	overflow: hidden;
 }

@@ -1,0 +1,211 @@
+/**
+ * About Company Section — trang chủ. BẢN V3: dùng ẢNH THIẾT KẾ THẬT do designer xuất từ Figma
+ * làm nền (Rectangle 19.png qua background-image) — KHÔNG còn clip-path/polygon()/skew()/SVG
+ * tự vẽ hình như bản v1-v2. Ảnh thang máy PNG nền trong suốt là 1 LAYER position:absolute
+ * riêng, đè lên trên cùng, KHÔNG nằm trong .container/Grid/Flex nào. Toàn bộ giá trị động lấy
+ * từ CSS custom property do inc/template-functions.php::tmnhanphat_render_about_css_vars()
+ * sinh ra (mục 22).
+ *
+ * THỨ TỰ LAYER (thấp → cao, khớp DOM order trong template-parts/home/about.php):
+ * nền trắng (.about-home) → .about-home__shape (z-index:1) → .container (z-index:2, chứa Text)
+ * → .about-home__image (z-index mặc định 3, tuỳ chỉnh qua Customizer — luôn trên cùng).
+ */
+
+.about-home {
+	position: relative;
+	overflow: hidden;
+	background-color: var(--color-bg);
+	/* --about-home-height là "thước đo tham chiếu" DÙNG CHUNG cho việc tính kích thước Elevator
+	   (xem .about-home__image) — KHÔNG dùng % trực tiếp giữa 2 phần tử (containing block auto
+	   sẽ không resolve % đúng chuẩn CSS) mà cả 2 cùng calc() theo 1 biến duy nhất, luôn nhất
+	   quán bất kể Text dài/ngắn khiến section thực tế cao hơn giá trị tham chiếu này. */
+	--about-home-height: clamp(480px, 46vw, 640px);
+	min-height: var(--about-home-height);
+	padding-block: clamp(48px, 6vw, 96px);
+	display: flex;
+	align-items: var(--about-vertical-align, center);
+}
+
+/* Rectangle 19.png — background DECORATION thuần tuý, KHÔNG phải container, không chứa nội
+   dung nào bên trong (đúng yêu cầu "Polygon chỉ là background decoration"). inset:0 phủ kín
+   toàn bộ section bất kể chiều cao thực tế bao nhiêu. */
+.about-home__shape {
+	display: var(--about-shape-display, block);
+	position: absolute;
+	inset: 0;
+	z-index: 1;
+	background-color: var(--about-background, #cc322d);
+	background-image: var(--about-shape-image, none);
+	background-repeat: no-repeat;
+	background-size: var(--about-shape-bg-size, 100% 100%);
+	background-position: var(--about-shape-bg-position, center);
+	opacity: var(--about-shape-opacity, 1);
+}
+
+.about-home > .container {
+	position: relative;
+	z-index: 2;
+	max-width: var(--about-container-width, var(--container-max-width));
+}
+
+.about-home__content {
+	max-width: var(--about-text-width, 42%);
+	display: flex;
+	flex-direction: column;
+	/* Khoảng cách ĐỀU giữa Label → Heading → Description (yêu cầu spacing rộng, đồng đều). */
+	gap: clamp(16px, 2vw, 28px);
+}
+
+.about-home__label {
+	margin: 0;
+	color: #ffffff;
+	font-size: 0.95rem;
+	font-weight: 600;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+}
+
+.about-home__heading {
+	margin: 0;
+	color: #ffffff;
+	font-size: clamp(1.75rem, 1.3rem + 2vw, 2.5rem);
+	font-weight: 800;
+	line-height: 1.25;
+}
+
+.about-home__description {
+	margin: 0;
+	max-width: var(--about-description-max-width, 420px);
+	color: rgb(255 255 255 / 0.9);
+	font-size: 1rem;
+	line-height: 1.7;
+}
+
+/* Elevator PNG — layer RIÊNG, không nằm trong .container/Grid/Flex nào, không đặt trong khối
+   Shape. Kích thước tính theo % --about-home-height (xem ghi chú ở .about-home) rồi
+   object-fit:contain giữ nguyên tỉ lệ — không crop/méo. Đứng gần mép phải section, KHÔNG sát
+   hẳn mép, đè lên Shape theo Horizontal/Vertical Offset (Customizer). */
+.about-home__image {
+	position: absolute;
+	top: 50%;
+	right: 8%;
+	--about-reveal-x: 0px;
+	transform: translate(calc(var(--about-image-offset-x, -20px) + var(--about-reveal-x)), calc(-50% + var(--about-image-offset-y, 0px)));
+	height: calc(var(--about-home-height) * var(--about-elevator-ratio, 0.86));
+	width: auto;
+	z-index: var(--about-elevator-zindex, 3);
+}
+
+.about-home__image-el {
+	display: block;
+	width: auto;
+	height: 100%;
+	max-width: none;
+	object-fit: contain; /* giữ nguyên tỉ lệ gốc — không crop/stretch/méo */
+}
+
+/* ==================== RESPONSIVE ==================== */
+/* Tablet: vẫn giữ layer chồng lớp (Elevator đè lên Shape) như Desktop, chỉ giảm kích thước
+   Elevator qua --about-elevator-ratio (đã redefine theo breakpoint trong
+   tmnhanphat_render_about_css_vars()) — không để che khuất Text. */
+@media (max-width: 991px) {
+	.about-home__heading {
+		font-size: clamp(1.5rem, 1.2rem + 1.6vw, 2rem);
+	}
+}
+
+/* Mobile: bỏ position:absolute của Text/Elevator, quay về luồng tài liệu bình thường
+   (Text ↓ Elevator, hoặc ngược lại theo setting Mobile Layout) — Shape vẫn dùng ảnh nền như cũ,
+   chỉ giảm chiều cao section. */
+@media (max-width: 599px) {
+	.about-home {
+		min-height: 0;
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	.about-home > .container,
+	.about-home__image {
+		position: static;
+		transform: none;
+	}
+
+	.about-home__content {
+		max-width: 100%;
+	}
+
+	.about-home__image {
+		display: flex;
+		justify-content: center;
+		padding: 24px var(--container-padding);
+	}
+
+	.about-home__image-el {
+		height: auto;
+		width: 70%;
+		max-width: 320px;
+	}
+
+	.about-home--image-first {
+		flex-direction: column-reverse;
+	}
+}
+
+/* ==================== ANIMATION (fade nhẹ khi cuộn tới) ==================== */
+/* Trạng thái ban đầu chỉ áp dụng khi JS xác nhận trình duyệt hỗ trợ (class .js-about-ready
+   do assets/js/pages/front-page.js gắn) — progressive enhancement, nếu JS lỗi/bị chặn thì nội
+   dung vẫn hiển thị đầy đủ ngay lập tức, chỉ mất hiệu ứng.
+   Lưu ý: .about-home__image đã có transform riêng để định vị (offset + căn giữa dọc) — hiệu
+   ứng trượt vào (slide-in) được CỘNG THÊM vào biểu thức transform đó qua biến
+   --about-reveal-x (0px sau khi hiện, dương trước khi hiện) thay vì khai báo transform mới
+   đè lên, tránh ghi đè mất vị trí gốc của ảnh. */
+.js-about-ready .about-home__shape {
+	opacity: 0;
+	transition: opacity 0.8s ease-out;
+}
+
+.js-about-ready .about-home__shape.is-visible {
+	opacity: 1;
+}
+
+.js-about-ready .about-home__image {
+	--about-reveal-x: 20px;
+	opacity: 0;
+	transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.js-about-ready .about-home__image.is-visible {
+	--about-reveal-x: 0px;
+	opacity: 1;
+}
+
+.js-about-ready .about-home__content {
+	opacity: 0;
+	transform: translateY(20px);
+	transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.js-about-ready .about-home__content.is-visible {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.js-about-ready .about-home__shape,
+	.js-about-ready .about-home__image,
+	.js-about-ready .about-home__content {
+		opacity: 1;
+		transform: none;
+		transition: none;
+	}
+}
+
+/* Mobile: vô hiệu hoá phần transform định vị/slide-in của Elevator (đã chuyển về luồng tài
+   liệu bình thường) — đặt SAU khối animation để thắng đúng bằng thứ tự nguồn khi độ đặc
+   hiệu (specificity) bằng nhau với các rule .is-visible ở trên. */
+@media (max-width: 599px) {
+	.js-about-ready .about-home__image,
+	.js-about-ready .about-home__image.is-visible {
+		transform: none;
+	}
+}

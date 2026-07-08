@@ -44,13 +44,13 @@ function tmnhanphat_get_excerpt( $post_id, $length = 25 ) {
 }
 
 /**
- * Kiểm tra theme hiện có đang chạy chế độ phát triển (WP_DEBUG) hay không.
- * Dùng trong inc/enqueue.php để quyết định đọc manifest.json hay dùng file dev không hash.
+ * Sanitize callback dùng chung cho mọi Customizer checkbox setting.
  *
+ * @param mixed $checked Giá trị nhận từ Customizer (boolean thật, không phải chuỗi 'false').
  * @return bool
  */
-function tmnhanphat_is_dev_mode() {
-	return defined( 'WP_DEBUG' ) && WP_DEBUG;
+function tmnhanphat_sanitize_checkbox( $checked ) {
+	return (bool) $checked;
 }
 
 /**

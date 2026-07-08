@@ -16,6 +16,8 @@ get_header();
 <main id="main" class="site-main front-page">
 	<?php
 	get_template_part( 'template-parts/home/hero' );
+	get_template_part( 'template-parts/home/partners' );
+	get_template_part( 'template-parts/home/about' );
 	get_template_part( 'template-parts/home/latest-posts' );
 
 	while ( have_posts() ) :

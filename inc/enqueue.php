@@ -55,23 +55,42 @@ function tmnhanphat_enqueue_assets() {
 	// ----- Global: load ở MỌI trang (reset/variables/typography/helpers + layout + mobile-menu). -----
 	tmnhanphat_enqueue_style_file( 'tmnhanphat-reset', 'assets/css/global/reset.css' );
 	tmnhanphat_enqueue_style_file( 'tmnhanphat-variables', 'assets/css/global/variables.css' );
+	// CSS custom property --container-padding (Desktop/Tablet/Mobile) theo Customizer panel
+	// "Global Settings" → Layout (mục 27) — nguồn DUY NHẤT cho khoảng cách 2 bên toàn site.
+	// Gắn ngay sau variables.css, TRƯỚC mọi module khác, để Header/Hero/Partner/Footer/
+	// .container (Archive/Single/Page...) phía sau đều tự động dùng đúng giá trị mới.
+	wp_add_inline_style( 'tmnhanphat-variables', tmnhanphat_render_global_css_vars() );
 	tmnhanphat_enqueue_style_file( 'tmnhanphat-typography', 'assets/css/global/typography.css', array( 'tmnhanphat-variables' ) );
 	tmnhanphat_enqueue_style_file( 'tmnhanphat-helpers-css', 'assets/css/global/helpers.css', array( 'tmnhanphat-variables' ) );
 	tmnhanphat_enqueue_style_file( 'tmnhanphat-animation', 'assets/css/global/animation.css' );
 	tmnhanphat_enqueue_style_file( 'tmnhanphat-header-css', 'assets/css/layout/header.css', array( 'tmnhanphat-variables' ) );
+	// CSS custom properties + media query theo Customizer panel "Header" (mục 22) — gắn ngay
+	// sau stylesheet header để override đúng giá trị mặc định của var(--header-*, ...).
+	wp_add_inline_style( 'tmnhanphat-header-css', tmnhanphat_render_header_css_vars() );
 	tmnhanphat_enqueue_style_file( 'tmnhanphat-footer-css', 'assets/css/layout/footer.css', array( 'tmnhanphat-variables' ) );
+	// CSS custom properties theo Customizer panel "Footer" (mục 22) — gắn ngay sau stylesheet footer.
+	wp_add_inline_style( 'tmnhanphat-footer-css', tmnhanphat_render_footer_css_vars() );
 	tmnhanphat_enqueue_style_file( 'tmnhanphat-sidebar-css', 'assets/css/layout/sidebar.css', array( 'tmnhanphat-variables' ) );
 
 	tmnhanphat_enqueue_script_file( 'tmnhanphat-helpers', 'assets/js/global/helpers.js' );
 	tmnhanphat_enqueue_script_file( 'tmnhanphat-app', 'assets/js/global/app.js' );
 	tmnhanphat_enqueue_script_file( 'tmnhanphat-header-js', 'assets/js/layout/header.js', array( 'tmnhanphat-helpers' ) );
-	tmnhanphat_enqueue_script_file( 'tmnhanphat-mobile-menu', 'assets/js/layout/mobile-menu.js' );
+	tmnhanphat_enqueue_script_file( 'tmnhanphat-mobile-menu', 'assets/js/layout/mobile-menu.js', array( 'tmnhanphat-helpers' ) );
 
 	// ----- Theo từng loại trang: chỉ load đúng 1 nhóm CSS/JS cần thiết. -----
 	if ( is_front_page() ) {
 		tmnhanphat_enqueue_style_file( 'tmnhanphat-hero', 'assets/css/components/hero.css' );
+		// CSS custom properties theo Customizer panel "Homepage" → Hero (mục 22) — chỉ trang chủ.
+		wp_add_inline_style( 'tmnhanphat-hero', tmnhanphat_render_hero_css_vars() );
 		tmnhanphat_enqueue_style_file( 'tmnhanphat-card', 'assets/css/components/card.css' );
+		tmnhanphat_enqueue_style_file( 'tmnhanphat-partners', 'assets/css/components/partners.css' );
+		// CSS custom properties theo Customizer panel "Homepage" → Partners (mục 22) — chỉ trang chủ.
+		wp_add_inline_style( 'tmnhanphat-partners', tmnhanphat_render_partners_css_vars() );
+		tmnhanphat_enqueue_style_file( 'tmnhanphat-about', 'assets/css/components/about.css' );
+		// CSS custom properties theo Customizer panel "About Home" (mục 22) — chỉ trang chủ.
+		wp_add_inline_style( 'tmnhanphat-about', tmnhanphat_render_about_css_vars() );
 		tmnhanphat_enqueue_style_file( 'tmnhanphat-front-page', 'assets/css/pages/front-page.css' );
+		tmnhanphat_enqueue_script_file( 'tmnhanphat-front-page', 'assets/js/pages/front-page.js' );
 	} elseif ( is_singular( 'post' ) ) {
 		tmnhanphat_enqueue_style_file( 'tmnhanphat-breadcrumb', 'assets/css/components/breadcrumb.css' );
 		tmnhanphat_enqueue_style_file( 'tmnhanphat-single', 'assets/css/pages/single.css' );

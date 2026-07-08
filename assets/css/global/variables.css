@@ -19,7 +19,10 @@
 
 	/* Layout */
 	--container-max-width: 1200px;
-	--container-padding: 1rem;
+	/* Giá trị dự phòng — thực tế luôn được ghi đè theo Customizer "Global Settings" → Layout
+	   qua wp_add_inline_style() trong inc/enqueue.php (PROJECT_RULES.md mục 27). Không sửa
+	   khoảng cách 2 bên ở đây; đổi trong Customizer để áp dụng toàn site. */
+	--container-padding: 24px;
 	--space-xs: 0.5rem;
 	--space-sm: 1rem;
 	--space-md: 1.5rem;

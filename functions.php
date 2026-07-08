@@ -22,12 +22,12 @@ define( 'TMNHANPHAT_URI', get_template_directory_uri() );
  */
 $tmnhanphat_modules = array(
 	'inc/helpers.php',
+	'inc/template-functions.php',
 	'inc/setup.php',
 	'inc/enqueue.php',
 	'inc/menus.php',
 	'inc/widgets.php',
 	'inc/images.php',
-	'inc/seo.php',
 	'inc/breadcrumbs.php',
 	'inc/pagination.php',
 	'inc/security.php',
@@ -35,6 +35,7 @@ $tmnhanphat_modules = array(
 	'inc/performance.php',
 	'inc/ajax.php',
 	'inc/api.php',
+	'inc/customizer.php',
 );
 
 foreach ( $tmnhanphat_modules as $tmnhanphat_module ) {

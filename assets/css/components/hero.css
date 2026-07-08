@@ -1,19 +1,287 @@
+/**
+ * Hero Banner (trang chủ). Toàn bộ giá trị --hero-* là CSS custom property do
+ * inc/customizer/hero-customizer.php sinh ra và gắn bằng wp_add_inline_style() trong
+ * inc/enqueue.php — xem PROJECT_RULES.md mục 22. File này KHÔNG hardcode giá trị
+ * người dùng có thể đổi trong Customizer.
+ *
+ * Header ở trang chủ là Transparent Floating Header (position:fixed, xem
+ * assets/css/layout/header.css) — Hero không cần padding-top bù trừ, header tự overlay lên trên.
+ *
+ * Desktop: Hero LUÔN đúng 100vh, không tự giãn theo nội dung (height/min-height/max-height
+ * cố định + overflow:hidden) — mọi khoảng cách bên trong (spacing, font-size, line-height)
+ * được tinh chỉnh + giới hạn (line-clamp cho Description) để nội dung luôn nằm gọn.
+ */
+
 .hero {
-	padding: var(--space-xl) var(--container-padding);
-	background-color: var(--color-bg-alt);
-	text-align: center;
+	position: relative;
+	isolation: isolate; /* tạo stacking context riêng cho overlay/background */
+	display: flex;
+	overflow: hidden;
+	height: var(--hero-height-desktop, 100vh);
+	min-height: var(--hero-height-desktop, 100vh);
+	max-height: var(--hero-height-desktop, 100vh);
+	background-color: var(--hero-fallback-bg, #1a1a1a);
+	color: #ffffff;
 }
 
+/* ==================== BACKGROUND ==================== */
+.hero__background {
+	position: absolute;
+	inset: 0;
+	z-index: 0;
+}
+
+.hero__bg-image {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+}
+
+/* ==================== OVERLAY ==================== */
+.hero__overlay {
+	position: absolute;
+	inset: 0;
+	z-index: 1;
+	background-color: var(--hero-overlay-color, #000000);
+	opacity: var(--hero-overlay-opacity, 0.45);
+	mix-blend-mode: var(--hero-overlay-blend, normal);
+}
+
+/* ==================== INNER / CONTENT ==================== */
+/* Không dùng justify-content:space-between để đẩy Stats xuống đáy — sẽ tạo khoảng trắng
+   lớn khi content ngắn. Thay vào đó Content xếp tự nhiên từ trên, Stats theo sau với
+   margin-top riêng (--hero-stats-margin-top), toàn bộ tổng chiều cao được kiểm soát bằng
+   Top/Bottom Padding + margin-bottom từng phần tử (mục 5/12) để luôn vừa khít 100vh. */
 .hero__inner {
+	position: relative;
+	z-index: 2;
+	width: 100%;
+	height: 100%;
 	max-width: var(--container-max-width);
 	margin-inline: auto;
+	padding-inline: var(--container-padding);
+	padding-top: var(--hero-padding-top, 100px);
+	padding-bottom: var(--hero-padding-bottom, 40px);
+	display: flex;
+	flex-direction: column;
+	justify-content: var(--hero-content-align, center);
+	overflow: hidden;
 }
 
-.hero__title {
-	margin-bottom: var(--space-xs);
+.hero__content {
+	max-width: var(--hero-content-max-width, 720px);
+	text-align: left;
 }
 
 .hero__subtitle {
-	color: var(--color-text-muted);
-	font-size: 1.125rem;
+	margin-bottom: var(--space-xs);
+	color: var(--hero-subtitle-color, #ffffff);
+	font-size: var(--hero-subtitle-size, 18px);
+	font-weight: var(--hero-subtitle-weight, 500);
+	line-height: 1.3;
+}
+
+.hero__heading {
+	margin-bottom: var(--hero-heading-margin-bottom, 16px);
+	color: var(--hero-heading-color, #ffffff);
+	font-size: clamp(1.5rem, 1rem + 2vw, var(--hero-heading-size, 40px));
+	font-weight: var(--hero-heading-weight, 800);
+	line-height: 1.1;
+}
+
+.hero__description {
+	margin-bottom: var(--hero-description-margin-bottom, 20px);
+	max-width: 640px;
+	color: var(--hero-description-color, #e5e5e5);
+	font-size: var(--hero-description-size, 16px);
+	line-height: 1.6;
+}
+
+/* Giới hạn số dòng — không để Description kéo Hero cao hơn 100vh (mục 3). */
+.hero__description--clamp {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: var(--hero-description-max-lines, 3);
+	overflow: hidden;
+}
+
+/* ==================== CTA BUTTONS ==================== */
+.hero__cta {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-sm);
+	margin-bottom: var(--hero-cta-margin-bottom, 24px);
+}
+
+.hero__btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: var(--hero-btn-padding-y, 14px) var(--hero-btn-padding-x, 28px);
+	border-radius: var(--hero-btn-radius, 6px);
+	font-weight: 600;
+	white-space: nowrap;
+	transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.hero__btn--primary {
+	background-color: var(--hero-btn-primary-bg, #cc322d);
+	color: var(--hero-btn-primary-text, #ffffff);
+}
+
+.hero__btn--primary:hover,
+.hero__btn--primary:focus-visible {
+	background-color: var(--hero-btn-primary-hover-bg, #a8281f);
+	transform: translateY(-2px);
+}
+
+.hero__btn--secondary {
+	background-color: var(--hero-btn-secondary-bg, #0d6efd);
+	color: var(--hero-btn-secondary-text, #ffffff);
+}
+
+.hero__btn--secondary:hover,
+.hero__btn--secondary:focus-visible {
+	background-color: var(--hero-btn-secondary-hover-bg, #0b5ed7);
+	transform: translateY(-2px);
+}
+
+/* ==================== COMPANY STATS CARD ==================== */
+/* Theo Figma: Stats không nổi trực tiếp trên ảnh mà nằm trong 1 Card riêng (mục 6/7) —
+   nền trắng trong suốt nhẹ + backdrop-blur + viền mờ + bo góc lớn + bóng rất nhẹ.
+   Toàn bộ style Card tắt được qua "Enable Background Card" (khi đó các biến --hero-stats-card-*
+   được PHP tính sẵn về giá trị "vô hiệu hoá": bg trong suốt, radius 0, border/shadow none). */
+.hero__stats {
+	position: relative;
+	z-index: 1;
+	margin-top: var(--hero-stats-margin-top, 32px);
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: var(--space-lg);
+	padding: var(--space-md) var(--space-lg);
+	background-color: var(--hero-stats-card-bg, rgb(255 255 255 / 0.78));
+	border-radius: var(--hero-stats-card-radius, 24px);
+	border: var(--hero-stats-card-border, 1px solid rgb(255 255 255 / 0.35));
+	box-shadow: var(--hero-stats-card-shadow, 0 10px 30px rgb(0 0 0 / 0.08));
+	backdrop-filter: blur(var(--hero-stats-card-blur, 18px));
+	-webkit-backdrop-filter: blur(var(--hero-stats-card-blur, 18px));
+}
+
+.hero__stat {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+/* Vertical Divider mảnh giữa các item — chỉ Desktop (mục 9), căn giữa theo chiều dọc,
+   cao 60% item, nằm giữa khoảng gap nhờ căn theo nửa gap âm. */
+.hero__stat:not(:last-child)::after {
+	content: "";
+	position: absolute;
+	top: 20%;
+	bottom: 20%;
+	right: calc(var(--space-lg) / -2);
+	width: 1px;
+	background-color: rgb(0 0 0 / 0.1);
+}
+
+.hero__stat-icon {
+	margin-bottom: 2px;
+}
+
+.hero__stat-number {
+	margin: 0;
+	color: var(--hero-stats-number-color, #1a1a1a);
+	font-size: clamp(1.5rem, 1.2rem + 1vw, 2.25rem);
+	font-weight: 800;
+	line-height: 1;
+}
+
+.hero__stat-badge {
+	display: inline-flex;
+	align-self: flex-start;
+	padding: 0.2em 0.75em;
+	border-radius: 999px;
+	background-color: var(--hero-stats-badge-bg, #0d6efd);
+	color: var(--hero-stats-badge-text, #ffffff);
+	font-size: 0.75rem;
+	font-weight: 600;
+}
+
+.hero__stat-description {
+	margin: 0;
+	color: var(--hero-stats-desc-color, #5c5c5c);
+	font-size: 0.75rem;
+	line-height: 1.4;
+}
+
+/* ==================== ANIMATION (fade-up + stagger + scale) ==================== */
+/* Trạng thái ban đầu chỉ áp dụng khi JS xác nhận trình duyệt hỗ trợ + animation đang bật
+   (class .js-hero-stats-ready do assets/js/pages/front-page.js gắn) — tránh nội dung bị ẩn
+   vĩnh viễn nếu JS lỗi/bị chặn (progressive enhancement, không gây CLS xấu vì stat vẫn
+   chiếm đúng chỗ nhờ opacity/transform, không phải display/height). */
+.js-hero-stats-ready .hero__stat {
+	opacity: 0;
+	transform: translateY(16px) scale(0.97);
+	transition:
+		opacity var(--hero-animation-duration, 600ms) ease-out,
+		transform var(--hero-animation-duration, 600ms) ease-out;
+	transition-delay: calc(var(--stagger-index, 0) * var(--hero-animation-delay, 100ms));
+}
+
+.js-hero-stats-ready .hero__stat.is-visible {
+	opacity: 1;
+	transform: translateY(0) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.js-hero-stats-ready .hero__stat {
+		opacity: 1;
+		transform: none;
+		transition: none;
+	}
+}
+
+/* ==================== RESPONSIVE ==================== */
+/* Tablet: bỏ 100vh, cao tự động theo nội dung; stats 2 cột, bỏ divider dọc */
+@media (max-width: 991px) {
+	.hero {
+		height: auto;
+		min-height: 0;
+		max-height: none;
+		overflow: visible;
+	}
+
+	.hero__inner {
+		height: auto;
+		overflow: visible;
+	}
+
+	.hero__stats {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.hero__stat:not(:last-child)::after {
+		display: none;
+	}
+}
+
+/* Mobile: padding gọn, CTA/stat full width, button xuống dòng full width, card full width */
+@media (max-width: 599px) {
+	.hero__cta {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	.hero__btn {
+		width: 100%;
+	}
+
+	.hero__stats {
+		grid-template-columns: repeat(2, 1fr);
+		gap: var(--space-md);
+		padding: var(--space-sm);
+	}
 }

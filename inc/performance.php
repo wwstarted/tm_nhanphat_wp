@@ -34,25 +34,6 @@ function tmnhanphat_defer_scripts( $tag, $handle ) {
 add_filter( 'script_loader_tag', 'tmnhanphat_defer_scripts', 10, 2 );
 
 /**
- * Preconnect tới Google Fonts (nếu theme dùng) để giảm thời gian tải font.
- *
- * @param array  $urls          Danh sách resource hint hiện có.
- * @param string $relation_type Loại resource hint (dns-prefetch, preconnect...).
- * @return array
- */
-function tmnhanphat_resource_hints( $urls, $relation_type ) {
-	if ( 'preconnect' === $relation_type ) {
-		$urls[] = array(
-			'href'        => 'https://fonts.gstatic.com',
-			'crossorigin' => true,
-		);
-	}
-
-	return $urls;
-}
-add_filter( 'wp_resource_hints', 'tmnhanphat_resource_hints', 10, 2 );
-
-/**
  * Giới hạn số revision bài viết để giảm dung lượng database (không ảnh hưởng frontend
  * nhưng gián tiếp giúp truy vấn admin nhanh hơn).
  */
