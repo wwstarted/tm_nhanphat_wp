@@ -1,0 +1,284 @@
+/**
+ * Process Section ("Quy trình hợp tác", trang chủ). Toàn bộ giá trị --process-* là CSS
+ * custom property do tmnhanphat_render_process_css_vars() sinh ra, gắn bằng
+ * wp_add_inline_style() trong inc/enqueue.php (PROJECT_RULES.md mục 22) — file này
+ * KHÔNG hardcode giá trị người dùng đổi được trong Customizer.
+ *
+ * Timeline: đường dọc chạy xuyên suốt (::before trên <ol>), mỗi Step có circle number
+ * đè lên đường. Active/Inactive điều khiển bằng class .is-active trên <li> —
+ * assets/js/components/process.js xoay vòng class này (auto-active), CSS transition
+ * đảm nhiệm hiệu ứng đổi màu/opacity mượt. Không có JS = Step 1 active tĩnh.
+ */
+
+.process-home {
+	position: relative;
+	isolation: isolate;
+	overflow: hidden;
+	margin-block: var(--process-margin, 0);
+	padding-block: var(--process-padding, 96px);
+	background-color: var(--process-bg, #ffffff);
+}
+
+.process-home__background {
+	position: absolute;
+	inset: 0;
+	z-index: 0;
+}
+
+.process-home__bg-image {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+}
+
+.process-home__container {
+	position: relative;
+	z-index: 1;
+	max-width: var(--process-container-width, var(--container-max-width));
+}
+
+/* ==================== HEADER ==================== */
+.process-home__header {
+	text-align: var(--process-heading-align, left);
+}
+
+.process-home__heading {
+	margin: 0 0 var(--process-heading-margin, 12px);
+	font-size: var(--process-heading-size, 40px);
+	font-weight: var(--process-heading-weight, 800);
+	line-height: var(--process-heading-lh, 1.2);
+	letter-spacing: var(--process-heading-ls, 0);
+}
+
+.process-home__heading-blue {
+	color: var(--process-heading-blue, #046AB5);
+}
+
+.process-home__heading-red {
+	color: var(--process-heading-red, #E31F2B);
+}
+
+.process-home__description {
+	margin: 0 var(--process-desc-margin-x, 0) var(--process-desc-margin, 48px);
+	max-width: var(--process-desc-max-width, 640px);
+	color: var(--process-desc-color, #5c5c5c);
+	font-size: var(--process-desc-size, 15px);
+	line-height: 1.7;
+}
+
+/* ==================== CONTENT 2 CỘT ==================== */
+.process-home__content {
+	display: flex;
+	align-items: flex-start;
+	gap: 48px;
+}
+
+.process-home__timeline {
+	flex: 0 0 var(--process-timeline-width, 46%);
+	max-width: var(--process-timeline-width, 46%);
+}
+
+/* ==================== TIMELINE ==================== */
+.process-home__steps {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: var(--process-step-gap, 40px);
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+/* Đường dọc xuyên suốt toàn bộ Timeline — đi qua tâm các circle, chừa nửa circle ở
+   đầu/cuối để đường không thò ra ngoài Step đầu và Step cuối (đúng design). */
+.process-home__steps::before {
+	content: "";
+	position: absolute;
+	top: calc(var(--process-circle-size, 44px) / 2);
+	bottom: calc(var(--process-circle-size, 44px) / 2);
+	left: calc((var(--process-circle-size, 44px) - var(--process-line-width, 2px)) / 2);
+	width: var(--process-line-width, 2px);
+	background-color: var(--process-line-color, #E5E7EB);
+}
+
+.process-step {
+	position: relative;
+	display: flex;
+	align-items: flex-start;
+	gap: 20px;
+	padding: var(--process-step-padding, 0);
+	border-radius: var(--process-step-radius, 0);
+}
+
+/* Circle number — nằm ĐÈ lên đường dọc (z-index 1 + nền đặc che line phía sau). */
+.process-step__marker {
+	position: relative;
+	z-index: 1;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex: 0 0 var(--process-circle-size, 44px);
+	width: var(--process-circle-size, 44px);
+	height: var(--process-circle-size, 44px);
+	border: var(--process-circle-border, 1px solid #D9D9D9);
+	border-radius: 100%;
+	background-color: var(--process-circle-inactive-bg, #ffffff);
+	color: var(--process-inactive-text, #C4C9D0);
+	font-weight: 700;
+	box-shadow: 0 0 0 0 transparent;
+	transition: background-color var(--process-transition, 400ms) ease,
+		color var(--process-transition, 400ms) ease,
+		border-color var(--process-transition, 400ms) ease,
+		transform var(--process-transition, 400ms) ease,
+		box-shadow var(--process-transition, 400ms) ease;
+}
+
+.process-step__icon {
+	width: 60%;
+	height: 60%;
+	object-fit: contain;
+}
+
+/* Active: đổi màu + phóng nhẹ + quầng sáng (ring) mờ quanh circle — mượt, không giật. */
+.process-step.is-active .process-step__marker {
+	border-color: var(--process-circle-active-bg, #E31F2B);
+	background-color: var(--process-circle-active-bg, #E31F2B);
+	color: #ffffff;
+	transform: scale(1.06);
+	box-shadow: 0 0 0 6px var(--process-circle-ring, rgb(227 31 43 / 0.15));
+}
+
+.process-step__body {
+	/* Bù chiều cao circle để Title thẳng hàng giữa với circle. */
+	padding-top: calc((var(--process-circle-size, 44px) - 1.35em) / 2);
+}
+
+.process-step__title {
+	margin: 0 0 8px;
+	color: var(--process-inactive-text, #C4C9D0);
+	font-size: 20px;
+	font-weight: 800;
+	line-height: 1.35;
+	transition: color var(--process-transition, 400ms) ease;
+}
+
+.process-step.is-active .process-step__title {
+	color: var(--process-active-text, #1a1a1a);
+}
+
+/* Description: fade + trượt lên nhẹ khi active (transform không ảnh hưởng layout các
+   step khác — chỉ hiệu ứng thị giác). */
+.process-step__description {
+	margin: 0;
+	max-width: 94%;
+	color: var(--process-desc-color, #5c5c5c);
+	font-size: 14px;
+	line-height: 1.6;
+	opacity: var(--process-inactive-desc-opacity, 0.45);
+	transform: translateY(5px);
+	transition: opacity var(--process-transition, 400ms) ease,
+		transform var(--process-transition, 400ms) ease;
+}
+
+.process-step.is-active .process-step__description {
+	opacity: var(--process-active-desc-opacity, 1);
+	transform: translateY(0);
+}
+
+/* ==================== RIGHT IMAGE ==================== */
+.process-home__media {
+	flex: 1;
+	display: flex;
+	justify-content: var(--process-image-align, center);
+	min-width: 0;
+}
+
+.process-home__image {
+	width: var(--process-image-width, 100%);
+	max-width: 100%;
+	height: var(--process-image-height, auto);
+	/* Khung LANDSCAPE cố định 4:3 — ảnh gốc dọc/ngang gì cũng nằm gọn trong khung,
+	   không kéo giãn chiều cao section theo ảnh. Image Height trong Customizer (>0)
+	   vẫn được ưu tiên đè lên ratio; max-height chặn trần cho cột quá rộng. */
+	aspect-ratio: 4 / 3;
+	max-height: 460px;
+	border-radius: var(--process-image-radius, 12px);
+	object-fit: var(--process-image-fit, cover);
+	object-position: center;
+	transition: opacity var(--process-transition, 400ms) ease,
+		transform var(--process-transition, 400ms) ease;
+}
+
+/* JS swap ảnh theo Step active: fade + thu nhẹ rồi bung lại (class do process.js
+   gắn/gỡ; ảnh mới được preload trước khi fade nên không có khung trắng chờ tải). */
+.process-home__image.is-fading {
+	opacity: 0;
+	transform: scale(0.98);
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 991px) {
+	.process-home__content {
+		gap: 32px;
+	}
+}
+
+/* Mobile: xếp dọc Header → Timeline → Image, timeline full width (ưu tiên nội dung
+   trước — cùng hướng các section khác của theme). */
+@media (max-width: 599px) {
+	.process-home__content {
+		flex-direction: column;
+		gap: 32px;
+	}
+
+	.process-home__timeline {
+		flex: 1 1 auto;
+		max-width: 100%;
+	}
+
+	.process-home__steps {
+		gap: calc(var(--process-step-gap, 40px) * 0.6);
+	}
+
+	.process-step__marker {
+		--process-circle-size: 36px;
+	}
+
+	.process-home__steps::before {
+		top: 18px;
+		bottom: 18px;
+		left: calc((36px - var(--process-line-width, 2px)) / 2);
+	}
+
+	.process-step__title {
+		font-size: 17px;
+	}
+
+	.process-step__description {
+		font-size: 13px;
+	}
+
+	.process-home__media {
+		width: 100%;
+	}
+}
+
+/* ==================== REDUCED MOTION ==================== */
+@media (prefers-reduced-motion: reduce) {
+	.process-step__marker,
+	.process-step__title,
+	.process-step__description,
+	.process-home__image {
+		transition: none;
+	}
+
+	.process-step.is-active .process-step__marker,
+	.process-home__image.is-fading {
+		transform: none;
+	}
+
+	.process-step__description {
+		transform: none;
+	}
+}

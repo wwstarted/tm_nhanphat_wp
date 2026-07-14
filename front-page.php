@@ -6,7 +6,7 @@
  * @package TMNhanPhat
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
 	exit;
 }
 
@@ -14,16 +14,25 @@ get_header();
 ?>
 
 <main id="main" class="site-main front-page">
-	<?php
-	get_template_part( 'template-parts/home/hero' );
-	get_template_part( 'template-parts/home/partners' );
-	get_template_part( 'template-parts/home/about' );
-	get_template_part( 'template-parts/home/latest-posts' );
-
-	while ( have_posts() ) :
-		the_post();
-		the_content();
-	endwhile;
+    <?php
+	get_template_part('template-parts/home/hero');
+	get_template_part('template-parts/home/partners');
+	get_template_part('template-parts/home/about');
+	get_template_part('template-parts/home/services');
+	get_template_part('template-parts/home/why-choose');
+	get_template_part('template-parts/home/process');
+	get_template_part('template-parts/home/products');
+	get_template_part('template-parts/home/projects');
+	get_template_part('template-parts/home/customer-review');
+	get_template_part('template-parts/home/news');
+	get_template_part('template-parts/home/quote');
+	get_template_part('template-parts/home/faq');
+	// get_template_part( 'template-parts/home/latest-posts' );
+	
+	// while ( have_posts() ) :
+	// 	the_post();
+	// 	the_content();
+	// endwhile;
 	?>
 </main>
 

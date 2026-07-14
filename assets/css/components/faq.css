@@ -1,0 +1,246 @@
+/**
+ * FAQ Section ("Câu hỏi thường gặp", trang chủ). Toàn bộ giá trị --faq-* là CSS
+ * custom property do tmnhanphat_render_faq_css_vars() sinh ra, gắn bằng
+ * wp_add_inline_style() trong inc/enqueue.php (PROJECT_RULES.md mục 22) — file này
+ * KHÔNG hardcode giá trị người dùng đổi được trong Customizer.
+ *
+ * Grid 2 cột × 3 hàng (CSS Grid theo --faq-cols). Accordion: JS đo scrollHeight rồi
+ * animate max-height (slide down/up 300ms). Header reuse .review-home__heading.
+ */
+
+.faq-home {
+	position: relative;
+	margin-block: var(--faq-margin, 0);
+	padding-block: var(--faq-padding, 96px);
+	background-color: var(--faq-bg, #ffffff);
+	background-image: var(--faq-bg-image, none);
+	background-size: cover;
+	background-position: center;
+}
+
+.faq-home__container {
+	max-width: var(--faq-container-width, var(--container-max-width));
+}
+
+/* ==================== HEADER ==================== */
+.faq-home__header {
+	margin-bottom: var(--faq-header-margin, 48px);
+	text-align: var(--faq-header-align, center);
+}
+
+.faq-home__small {
+	display: block;
+	margin-bottom: 10px;
+	color: var(--faq-heading-blue, #046AB5);
+	font-size: var(--faq-small-size, 13px);
+	font-weight: 700;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+}
+
+.faq-home__heading {
+	margin: 0 0 12px;
+	font-size: var(--faq-title-size, 40px);
+	font-weight: 800;
+	line-height: 1.2;
+}
+
+.faq-home__heading-blue {
+	color: var(--faq-heading-blue, #046AB5);
+}
+
+.faq-home__heading-red {
+	color: var(--faq-heading-red, #E31F2B);
+}
+
+/* Divider fallback khi KHÔNG reuse review-home__heading. */
+.faq-home__header:not(.faq-home__header--reuse) .faq-home__heading::after {
+	content: "";
+	display: block;
+	width: 56px;
+	height: 4px;
+	margin: 10px var(--faq-header-margin-x, auto) 0;
+	border-radius: 2px;
+	background: linear-gradient(90deg, #046AB5 0 45%, transparent 45% 55%, #E31F2B 55% 100%);
+}
+
+.faq-home__header--reuse .faq-home__heading::after {
+	margin-inline: var(--faq-header-margin-x, auto);
+}
+
+.faq-home__description {
+	margin: 0 var(--faq-header-margin-x, auto);
+	max-width: var(--faq-desc-max-width, 640px);
+	color: var(--faq-desc-color, #5c5c5c);
+	font-size: var(--faq-desc-size, 14px);
+	line-height: 1.7;
+}
+
+/* ==================== GRID (2 cột × 3 hàng) ==================== */
+.faq-home__grid {
+	display: grid;
+	grid-template-columns: repeat(var(--faq-cols, 2), 1fr);
+	gap: var(--faq-gap, 20px);
+	align-items: start; /* card cao theo nội dung — mở FAQ không kéo giãn card cùng hàng. */
+}
+
+/* ==================== FAQ CARD ==================== */
+.faq-card {
+	position: relative;
+	border: var(--faq-border-width, 1px) solid var(--faq-border-color, #EAEEF3);
+	border-left: var(--faq-border-width, 1px) solid var(--faq-border-color, #EAEEF3);
+	border-radius: var(--faq-card-radius, 12px);
+	background-color: #ffffff;
+	box-shadow: var(--faq-card-shadow, none);
+	overflow: hidden;
+	transition: box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.faq-card:hover {
+	box-shadow: var(--faq-card-hover-shadow, 0 6px 20px rgb(6 24 44 / 0.06));
+}
+
+/* Mở: viền trái xanh dày (design). */
+.faq-card.is-open {
+	border-left: 3px solid var(--faq-active-border, #046AB5);
+	box-shadow: var(--faq-card-hover-shadow, 0 6px 20px rgb(6 24 44 / 0.06));
+}
+
+.faq-card__question-heading {
+	margin: 0;
+	font-size: inherit;
+	font-weight: inherit;
+}
+
+.faq-card__toggle {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	width: 100%;
+	padding: var(--faq-card-padding, 20px);
+	border: none;
+	background: transparent;
+	text-align: left;
+	cursor: pointer;
+	font-family: inherit;
+}
+
+/* ==================== NUMBER BADGE ==================== */
+.faq-card__badge {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex: 0 0 var(--faq-badge-size, 34px);
+	width: var(--faq-badge-size, 34px);
+	height: var(--faq-badge-size, 34px);
+	border-radius: var(--faq-badge-radius, 8px);
+	background-color: var(--faq-badge-bg, #EAF2FB);
+	color: var(--faq-badge-color, #046AB5);
+	font-size: 13px;
+	font-weight: 700;
+	transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.faq-card.is-open .faq-card__badge {
+	background-color: var(--faq-badge-active-bg, #E31F2B);
+	color: var(--faq-badge-active-color, #ffffff);
+}
+
+/* ==================== QUESTION ==================== */
+.faq-card__question {
+	flex: 1;
+	min-width: 0;
+	color: var(--faq-q-color, #1a1a1a);
+	font-size: var(--faq-q-size, 16px);
+	font-weight: var(--faq-q-weight, 700);
+	line-height: 1.4;
+	transition: color 0.2s ease;
+}
+
+.faq-card__toggle:hover .faq-card__question {
+	color: var(--faq-q-hover-color, #046AB5);
+}
+
+.faq-card.is-open .faq-card__question {
+	color: var(--faq-q-hover-color, #046AB5);
+}
+
+/* ==================== ICON ==================== */
+.faq-card__icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex: 0 0 var(--faq-circle-size, 30px);
+	width: var(--faq-circle-size, 30px);
+	height: var(--faq-circle-size, 30px);
+	border-radius: 50%;
+	background-color: var(--faq-circle-bg, #EAF2FB);
+	color: var(--faq-badge-color, #046AB5);
+	transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.faq-card.is-open .faq-card__icon {
+	background-color: var(--faq-circle-active-bg, #046AB5);
+	color: #ffffff;
+}
+
+.faq-card__icon svg {
+	width: var(--faq-icon-size, 16px);
+	height: var(--faq-icon-size, 16px);
+}
+
+/* Plus mặc định, Minus khi mở (không hiển thị cả 2). */
+.faq-card__icon-minus {
+	display: none;
+}
+
+.faq-card.is-open .faq-card__icon-plus {
+	display: none;
+}
+
+.faq-card.is-open .faq-card__icon-minus {
+	display: block;
+}
+
+/* ==================== PANEL / ANSWER (slide down/up) ==================== */
+.faq-card__panel {
+	overflow: hidden;
+}
+
+/* Khi JS điều khiển: animate max-height (JS đặt inline max-height cụ thể). */
+.faq-card__panel.is-animating {
+	transition: max-height var(--faq-expand-duration, 300ms) ease;
+}
+
+.faq-card__answer {
+	padding: var(--faq-a-pt, 12px) var(--faq-card-padding, 20px) calc(var(--faq-card-padding, 20px) + var(--faq-a-pb, 4px));
+	color: var(--faq-a-color, #6B7280);
+	font-size: var(--faq-a-size, 14px);
+	line-height: var(--faq-a-lh, 1.7);
+}
+
+.faq-card__answer p {
+	margin: 0 0 10px;
+}
+
+.faq-card__answer p:last-child {
+	margin-bottom: 0;
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 599px) {
+	.faq-card__toggle {
+		gap: 10px;
+	}
+}
+
+/* ==================== REDUCED MOTION ==================== */
+@media (prefers-reduced-motion: reduce) {
+	.faq-card,
+	.faq-card__badge,
+	.faq-card__icon,
+	.faq-card__question,
+	.faq-card__panel.is-animating {
+		transition: none;
+	}
+}

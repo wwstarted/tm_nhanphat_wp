@@ -39,12 +39,14 @@
 }
 
 /* ==================== OVERLAY ==================== */
+/* Gradient thay vì màu phẳng — tối dần về phía dưới để Heading/Description luôn nổi bật
+   trên ảnh nền, không làm tối đều toàn bộ ảnh (mục Overlay Audit — luxury design). */
 .hero__overlay {
 	position: absolute;
 	inset: 0;
 	z-index: 1;
-	background-color: var(--hero-overlay-color, #000000);
-	opacity: var(--hero-overlay-opacity, 0.45);
+	background: linear-gradient(180deg, rgb(0 0 0 / 0) 0%, var(--hero-overlay-color, #000000) 100%);
+	opacity: var(--hero-overlay-opacity, 0.55);
 	mix-blend-mode: var(--hero-overlay-blend, normal);
 }
 
@@ -58,6 +60,8 @@
 	z-index: 2;
 	width: 100%;
 	height: 100%;
+	/* Content Hero canh theo ĐÚNG container chung của site (--container-max-width) + padding
+	   2 bên (--container-padding) — thẳng hàng với mọi section bên dưới, không lệch trái. */
 	max-width: var(--container-max-width);
 	margin-inline: auto;
 	padding-inline: var(--container-padding);
@@ -75,27 +79,31 @@
 }
 
 .hero__subtitle {
-	margin-bottom: var(--space-xs);
+	/* Design: subtitle → Title cách ~24px; letter-spacing rộng hơn (0.18em). */
+	margin-bottom: var(--space-md);
 	color: var(--hero-subtitle-color, #ffffff);
-	font-size: var(--hero-subtitle-size, 18px);
+	font-size: var(--hero-subtitle-size, 15px);
 	font-weight: var(--hero-subtitle-weight, 500);
 	line-height: 1.3;
+	text-transform: uppercase;
+	letter-spacing: 0.18em;
 }
 
 .hero__heading {
-	margin-bottom: var(--hero-heading-margin-bottom, 16px);
+	margin-bottom: var(--hero-heading-margin-bottom, 24px);
 	color: var(--hero-heading-color, #ffffff);
-	font-size: clamp(1.5rem, 1rem + 2vw, var(--hero-heading-size, 40px));
+	font-size: clamp(2rem, 1.2rem + 2.6vw, var(--hero-heading-size, 56px));
 	font-weight: var(--hero-heading-weight, 800);
-	line-height: 1.1;
+	line-height: 1.15;
 }
 
+/* Design: Description hẹp hơn Title (~650px), kết thúc gần giữa Hero, line-height thoáng. */
 .hero__description {
-	margin-bottom: var(--hero-description-margin-bottom, 20px);
-	max-width: 640px;
-	color: var(--hero-description-color, #e5e5e5);
+	margin-bottom: var(--hero-description-margin-bottom, 28px);
+	max-width: 650px;
+	color: var(--hero-description-color, rgb(255 255 255 / 0.82));
 	font-size: var(--hero-description-size, 16px);
-	line-height: 1.6;
+	line-height: 1.75;
 }
 
 /* Giới hạn số dòng — không để Description kéo Hero cao hơn 100vh (mục 3). */
@@ -126,24 +134,27 @@
 }
 
 .hero__btn--primary {
-	background-color: var(--hero-btn-primary-bg, #cc322d);
-	color: var(--hero-btn-primary-text, #ffffff);
+	background-color: var(--hero-btn-primary-bg, #C9A86A);
+	color: var(--hero-btn-primary-text, #111111);
 }
 
 .hero__btn--primary:hover,
 .hero__btn--primary:focus-visible {
-	background-color: var(--hero-btn-primary-hover-bg, #a8281f);
+	background-color: var(--hero-btn-primary-hover-bg, #b8935a);
 	transform: translateY(-2px);
 }
 
+/* Ghost button — không nền, chỉ viền mờ, nổi bật kiểu tinh tế trên nền tối (luxury design). */
 .hero__btn--secondary {
-	background-color: var(--hero-btn-secondary-bg, #0d6efd);
+	background-color: var(--hero-btn-secondary-bg, transparent);
+	border: var(--hero-btn-secondary-border, 1px solid rgb(255 255 255 / 0.4));
 	color: var(--hero-btn-secondary-text, #ffffff);
 }
 
 .hero__btn--secondary:hover,
 .hero__btn--secondary:focus-visible {
-	background-color: var(--hero-btn-secondary-hover-bg, #0b5ed7);
+	background-color: var(--hero-btn-secondary-hover-bg, rgb(255 255 255 / 0.08));
+	border-color: rgb(255 255 255 / 0.7);
 	transform: translateY(-2px);
 }
 
@@ -160,9 +171,9 @@
 	grid-template-columns: repeat(4, 1fr);
 	gap: var(--space-lg);
 	padding: var(--space-md) var(--space-lg);
-	background-color: var(--hero-stats-card-bg, rgb(255 255 255 / 0.78));
+	background-color: var(--hero-stats-card-bg, rgb(255 255 255 / 0.06));
 	border-radius: var(--hero-stats-card-radius, 24px);
-	border: var(--hero-stats-card-border, 1px solid rgb(255 255 255 / 0.35));
+	border: var(--hero-stats-card-border, 1px solid rgb(255 255 255 / 0.12));
 	box-shadow: var(--hero-stats-card-shadow, 0 10px 30px rgb(0 0 0 / 0.08));
 	backdrop-filter: blur(var(--hero-stats-card-blur, 18px));
 	-webkit-backdrop-filter: blur(var(--hero-stats-card-blur, 18px));
@@ -184,7 +195,7 @@
 	bottom: 20%;
 	right: calc(var(--space-lg) / -2);
 	width: 1px;
-	background-color: rgb(0 0 0 / 0.1);
+	background-color: rgb(255 255 255 / 0.15);
 }
 
 .hero__stat-icon {
@@ -193,8 +204,8 @@
 
 .hero__stat-number {
 	margin: 0;
-	color: var(--hero-stats-number-color, #1a1a1a);
-	font-size: clamp(1.5rem, 1.2rem + 1vw, 2.25rem);
+	color: var(--hero-stats-number-color, #ffffff);
+	font-size: clamp(1.75rem, 1.3rem + 1.2vw, 2.5rem);
 	font-weight: 800;
 	line-height: 1;
 }
@@ -202,19 +213,21 @@
 .hero__stat-badge {
 	display: inline-flex;
 	align-self: flex-start;
-	padding: 0.2em 0.75em;
+	padding: 0.18em 0.7em;
 	border-radius: 999px;
-	background-color: var(--hero-stats-badge-bg, #0d6efd);
-	color: var(--hero-stats-badge-text, #ffffff);
+	background-color: var(--hero-stats-badge-bg, #E5E7EB);
+	color: var(--hero-stats-badge-text, #1F2937);
 	font-size: 0.75rem;
-	font-weight: 600;
+	font-weight: 700;
 }
 
+/* Design: mô tả stat ngắn gọn, giới hạn width để không tràn/kéo dài sang item bên. */
 .hero__stat-description {
 	margin: 0;
-	color: var(--hero-stats-desc-color, #5c5c5c);
+	max-width: 200px;
+	color: var(--hero-stats-desc-color, rgb(255 255 255 / 0.75));
 	font-size: 0.75rem;
-	line-height: 1.4;
+	line-height: 1.5;
 }
 
 /* ==================== ANIMATION (fade-up + stagger + scale) ==================== */

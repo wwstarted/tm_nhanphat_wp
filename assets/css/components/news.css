@@ -1,0 +1,328 @@
+/**
+ * Featured News Section ("Tin tức nổi bật", trang chủ). Toàn bộ giá trị --news-* là
+ * CSS custom property do tmnhanphat_render_news_css_vars() sinh ra, gắn bằng
+ * wp_add_inline_style() trong inc/enqueue.php (PROJECT_RULES.md mục 22) — file này
+ * KHÔNG hardcode giá trị người dùng đổi được trong Customizer.
+ *
+ * Slider dùng lại base .tmnp-slider (viewport/track/slide/dots/arrows/is-enhanced)
+ * định nghĩa trong services.css — enqueue khai báo dependency 'tmnhanphat-services'.
+ * File này chỉ override theo scope .news-home: 3/2/1 card, màu/kích thước dots +
+ * arrows riêng. Header TÁI SỬ DỤNG .review-home__heading (gạch đôi đỏ/xanh) khi
+ * "Reuse Heading Style" bật — chỉ override màu span + căn lề, không dựng lại divider.
+ */
+
+.news-home {
+	position: relative;
+	isolation: isolate;
+	overflow: hidden; /* decoration góc phải không tạo scroll ngang */
+	margin-block: var(--news-margin, 0);
+	padding-block: var(--news-padding, 96px);
+	background-color: var(--news-bg, #ffffff);
+}
+
+/* Background Image trang trí — layer dưới cùng, opacity riêng, không ảnh hưởng layout. */
+.news-home::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: 0;
+	background-image: var(--news-bg-image, none);
+	background-position: var(--news-bg-position, center);
+	background-size: var(--news-bg-size, cover);
+	background-repeat: no-repeat;
+	opacity: var(--news-bg-opacity, 1);
+	pointer-events: none;
+}
+
+/* Decoration tam giác xanh — neo sát mép phải + phía trên, dưới Header/Slider (z 1),
+   không co giãn sai tỉ lệ (width/height cố định theo Customizer). */
+.news-home__decoration {
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 1;
+	width: min(var(--news-deco-width, 381px), 40vw);
+	height: auto;
+	pointer-events: none;
+}
+
+.news-home__container {
+	position: relative;
+	z-index: 2;
+	max-width: var(--news-container-width, var(--container-max-width));
+}
+
+/* ==================== HEADER ==================== */
+.news-home__header {
+	margin-bottom: var(--news-header-margin, 56px);
+	text-align: var(--news-header-align, center);
+}
+
+.news-home__small {
+	display: block;
+	margin-bottom: 10px;
+	color: var(--news-heading-blue, #046AB5);
+	font-size: var(--news-small-size, 13px);
+	font-weight: 700;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+}
+
+.news-home__heading {
+	margin: 0 0 12px;
+	font-size: var(--news-title-size, 40px);
+	font-weight: 800;
+	line-height: 1.2;
+}
+
+.news-home__heading-blue {
+	color: var(--news-heading-blue, #046AB5);
+}
+
+.news-home__heading-red {
+	color: var(--news-heading-red, #E31F2B);
+}
+
+/* Divider fallback khi KHÔNG reuse review-home__heading — vẽ gạch đôi đỏ/xanh riêng. */
+.news-home__header:not(.news-home__header--reuse) .news-home__heading::after {
+	content: "";
+	display: block;
+	width: 56px;
+	height: 4px;
+	margin: 10px var(--news-header-margin-x, auto) 0;
+	border-radius: 2px;
+	background: linear-gradient(90deg, #046AB5 0 45%, transparent 45% 55%, #E31F2B 55% 100%);
+}
+
+/* Khi reuse: divider do .review-home__heading::after lo — chỉ căn lề theo News align. */
+.news-home__header--reuse .news-home__heading::after {
+	margin-inline: var(--news-header-margin-x, auto);
+}
+
+.news-home__description {
+	margin: 0 var(--news-header-margin-x, auto) 0;
+	max-width: var(--news-desc-max-width, 720px);
+	color: var(--news-desc-color, #5c5c5c);
+	font-size: var(--news-desc-size, 14px);
+	line-height: 1.7;
+}
+
+/* ==================== SLIDER (override base .tmnp-slider theo scope) ==================== */
+.news-home .tmnp-slider__track {
+	gap: var(--news-gap, 24px);
+	/* Card có shadow — chừa chỗ để overflow:hidden của viewport không cắt shadow. */
+	padding-block: 6px 16px;
+}
+
+/* 3/2/1 card mỗi khung nhìn (trần bề rộng = Card Width Figma 513px). */
+.news-home .tmnp-slider__slide {
+	flex: 0 0 calc((100% - 2 * var(--news-gap, 24px)) / 3);
+	max-width: min(var(--news-card-width, 513px), calc((100% - 2 * var(--news-gap, 24px)) / 3));
+}
+
+.news-home .tmnp-slider.is-enhanced .tmnp-slider__track {
+	transition: transform var(--news-transition, 600ms) ease;
+}
+
+.news-home .tmnp-slider__viewport:focus-visible {
+	outline: 2px solid var(--news-dot-active, #046AB5);
+	outline-offset: 4px;
+}
+
+/* Dots — đè màu/kích thước theo Customizer News. */
+.news-home .tmnp-slider__dots {
+	gap: var(--news-dot-gap, 8px);
+	margin-top: 32px;
+}
+
+.news-home .tmnp-slider__dot {
+	width: var(--news-dot-size, 8px);
+	height: var(--news-dot-size, 8px);
+	background-color: var(--news-dot-inactive, #D9D9D9);
+}
+
+.news-home .tmnp-slider__dot.is-active {
+	background-color: var(--news-dot-active, #046AB5);
+}
+
+/* Arrows — tròn nền xanh giống design. */
+.news-home .tmnp-slider__arrow {
+	width: var(--news-arrow-size, 40px);
+	height: var(--news-arrow-size, 40px);
+	border-radius: var(--news-arrow-radius, 100%);
+	background-color: var(--news-arrow-bg, #046AB5);
+	color: var(--news-arrow-color, #ffffff);
+}
+
+.news-home .tmnp-slider__arrow:hover,
+.news-home .tmnp-slider__arrow:focus-visible {
+	background-color: var(--news-arrow-bg, #046AB5);
+	filter: brightness(1.1);
+}
+
+.news-home .tmnp-slider__arrow--prev {
+	left: -20px;
+}
+
+.news-home .tmnp-slider__arrow--next {
+	right: -20px;
+}
+
+/* ==================== NEWS CARD (Figma 513×561) ==================== */
+/* Card: CHỈ 1 lớp border (design) + shadow nhẹ cấu hình được. overflow:hidden để ảnh
+   thumb bo góc trên khớp Card Radius, không có khoảng thừa quanh ảnh. */
+.news-card {
+	display: flex;
+	flex-direction: column;
+	min-height: var(--news-card-height, auto);
+	border: 1px solid var(--news-card-border-color, #ECECEC);
+	border-radius: var(--news-card-radius, 16px);
+	background-color: #ffffff;
+	box-shadow: var(--news-card-shadow, 0 6px 20px rgb(6 24 44 / 0.06));
+	overflow: hidden;
+	transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.news-card:hover,
+.news-card:focus-within {
+	box-shadow: var(--news-card-hover-shadow, 0 14px 34px rgb(6 24 44 / 0.14));
+	transform: translateY(-4px);
+}
+
+/* Ảnh KHỚP SÁT viền card (không margin) — card overflow:hidden tự bo góc trên. */
+.news-card__media {
+	position: relative;
+	overflow: hidden;
+}
+
+.news-card__media-link {
+	display: block;
+}
+
+.news-card__image {
+	display: block;
+	width: 100%;
+	height: var(--news-thumb-height, 240px);
+	object-fit: var(--news-thumb-fit, cover);
+	object-position: center;
+	transition: transform 0.35s ease;
+}
+
+.news-card__image--placeholder {
+	background: linear-gradient(135deg, #e8eef4 0%, #d5dfe9 100%);
+}
+
+.news-card:hover .news-card__image {
+	transform: scale(var(--news-thumb-zoom, 1.05));
+}
+
+/* Padding trên/dưới gọn để box thấp hơn — nội dung khít, không khoảng trắng thừa. */
+.news-card__body {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	padding: 16px var(--news-card-padding, 20px) var(--news-card-padding, 20px);
+}
+
+/* Meta: Date bên TRÁI — Author bên PHẢI (space-between, đúng design). */
+.news-card__meta {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 4px 14px;
+	margin-bottom: 10px;
+	color: var(--news-meta-color, #9CA3AF);
+	font-size: var(--news-meta-size, 12px);
+}
+
+.news-card__title {
+	margin: 0 0 8px;
+	font-size: var(--news-ptitle-size, 20px);
+	font-weight: var(--news-ptitle-weight, 700);
+	line-height: 1.4;
+	color: var(--news-ptitle-color, #1a1a1a);
+}
+
+.news-card__title a {
+	color: inherit;
+	transition: color 0.2s ease;
+}
+
+.news-card__title a:hover,
+.news-card__title a:focus-visible {
+	color: var(--news-heading-blue, #046AB5);
+}
+
+.news-card__excerpt {
+	margin: 0 0 12px;
+	color: var(--news-pdesc-color, #6B7280);
+	font-size: var(--news-pdesc-size, 13px);
+	line-height: 1.6;
+}
+
+/* Read More neo đáy card + căn PHẢI (design) — thẳng hàng dù title 1-2 dòng. */
+.news-card__readmore {
+	margin-top: auto;
+	align-self: flex-end;
+	color: var(--news-readmore-color, #E9A13B);
+	font-size: var(--news-pdesc-size, 13px);
+	font-weight: 600;
+	transition: color 0.2s ease;
+}
+
+.news-card__readmore:hover,
+.news-card__readmore:focus-visible {
+	color: var(--news-readmore-hover, #C77F1B);
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 991px) {
+	/* Tablet: 2 card/khung nhìn — card tự scale theo container, không giữ width cố định. */
+	.news-home .tmnp-slider__slide {
+		flex: 0 0 calc((100% - var(--news-gap, 24px)) / 2);
+		max-width: calc((100% - var(--news-gap, 24px)) / 2);
+	}
+
+	.news-home__decoration {
+		width: min(var(--news-deco-width, 381px), 30vw);
+	}
+}
+
+@media (max-width: 599px) {
+	/* Mobile: 1 card full width, ẩn arrow (slider.js vẫn cho swipe + dot). */
+	.news-home .tmnp-slider__slide {
+		flex: 0 0 100%;
+		max-width: 100%;
+	}
+
+	.news-home .tmnp-slider__arrow {
+		display: none;
+	}
+
+	.news-card {
+		min-height: 0; /* mobile để card cao tự nhiên, tránh khoảng trắng thừa. */
+	}
+
+	/* Decoration tự ẩn khi không đủ chỗ — không che Header (spec Responsive). */
+	.news-home__decoration {
+		display: none;
+	}
+}
+
+/* ==================== REDUCED MOTION ==================== */
+@media (prefers-reduced-motion: reduce) {
+	.news-home .tmnp-slider.is-enhanced .tmnp-slider__track,
+	.news-card,
+	.news-card__image {
+		transition: none;
+	}
+
+	.news-card:hover {
+		transform: none;
+	}
+
+	.news-card:hover .news-card__image {
+		transform: none;
+	}
+}

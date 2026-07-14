@@ -52,3 +52,40 @@ function tmnhanphat_verify_ajax_request() {
 		wp_send_json_error( array( 'message' => __( 'Yêu cầu không hợp lệ.', 'tmnhanphat' ) ), 403 );
 	}
 }
+
+/**
+ * Lọc danh sách sản phẩm theo Sub Category cho Products Home Section — trả về HTML các
+ * product-card (đúng component template-parts/components/product-card.php dùng khi render
+ * lần đầu, không lặp markup). Term ID được xác thực phải thuộc cây Category cha "Sản phẩm"
+ * (tmnhanphat_is_valid_products_term) — không cho query category tuỳ ý (mục 18).
+ *
+ * Fallback không JS: tab là link thẳng tới archive của category, handler này không cần chạy.
+ */
+function tmnhanphat_ajax_filter_products() {
+	tmnhanphat_verify_ajax_request();
+
+	$term_id = isset( $_POST['term_id'] ) ? absint( $_POST['term_id'] ) : 0;
+
+	if ( ! tmnhanphat_is_valid_products_term( $term_id ) ) {
+		wp_send_json_error( array( 'message' => __( 'Danh mục không hợp lệ.', 'tmnhanphat' ) ), 400 );
+	}
+
+	$query = tmnhanphat_get_products_query( $term_id );
+
+	ob_start();
+	if ( $query->have_posts() ) {
+		while ( $query->have_posts() ) {
+			$query->the_post();
+			get_template_part( 'template-parts/components/product-card' );
+		}
+		wp_reset_postdata();
+	}
+	$html = ob_get_clean();
+
+	wp_send_json_success( array(
+		'html'  => $html,
+		'count' => (int) $query->post_count,
+	) );
+}
+add_action( 'wp_ajax_tmnhanphat_filter_products', 'tmnhanphat_ajax_filter_products' );
+add_action( 'wp_ajax_nopriv_tmnhanphat_filter_products', 'tmnhanphat_ajax_filter_products' );

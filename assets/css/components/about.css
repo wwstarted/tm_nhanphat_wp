@@ -15,25 +15,37 @@
 	position: relative;
 	overflow: hidden;
 	background-color: var(--color-bg);
-	/* --about-home-height là "thước đo tham chiếu" DÙNG CHUNG cho việc tính kích thước Elevator
-	   (xem .about-home__image) — KHÔNG dùng % trực tiếp giữa 2 phần tử (containing block auto
-	   sẽ không resolve % đúng chuẩn CSS) mà cả 2 cùng calc() theo 1 biến duy nhất, luôn nhất
-	   quán bất kể Text dài/ngắn khiến section thực tế cao hơn giá trị tham chiếu này. */
-	--about-home-height: clamp(480px, 46vw, 640px);
-	min-height: var(--about-home-height);
+	/* HỆ TOẠ ĐỘ FIGMA (audit lần 2): Polygon (1925×808) + Elevator (873×873) là MỘT CỤM ĐỒ HOẠ
+	   đặt theo toạ độ tuyệt đối như artboard Figma, không phải 2 phần tử layout độc lập.
+	   --about-fpx = "1 pixel Figma": bằng đúng 1px khi viewport ≥ 1925px (canvas gốc), co lại
+	   theo tỉ lệ 100vw/1925 khi màn hẹp hơn — MỌI kích thước/toạ độ của cả 2 asset đều nhân với
+	   biến này nên tương quan giữa chúng (khoảng cách 1020px, lệch đỉnh 27px, các đường xiên cắt
+	   qua Elevator) giữ nguyên TUYỆT ĐỐI ở mọi viewport, đúng yêu cầu "scale đồng đều, không đổi
+	   tương quan". Chặn dưới 0.6px: dưới ngưỡng đó Polygon thấp hơn khối Text (Text không scale
+	   theo composition) — khi chạm sàn, Polygon rộng hơn viewport và bị crop ĐỀU 2 bên (neo giữa
+	   bằng translateX(-50%)), góc xiên không đổi. */
+	--about-fpx: clamp(0.6px, 100vw / 1925, 1px);
+	/* 900 = đáy Elevator trong hệ Figma (27 đỉnh + 873 cao) — chân Elevator nhô khỏi Polygon
+	   (808) ~92px nằm trên nền trắng, giống hệt Figma. */
+	min-height: calc(900 * var(--about-fpx));
 	padding-block: clamp(48px, 6vw, 96px);
 	display: flex;
 	align-items: var(--about-vertical-align, center);
 }
 
-/* Rectangle 19.png — background DECORATION thuần tuý, KHÔNG phải container, không chứa nội
-   dung nào bên trong (đúng yêu cầu "Polygon chỉ là background decoration"). inset:0 phủ kín
-   toàn bộ section bất kể chiều cao thực tế bao nhiêu. */
+/* Rectangle Polygon — asset ĐỘC LẬP giữ ĐÚNG kích thước thiết kế 1925×808 (nhân --about-fpx),
+   neo giữa bằng left:50% + translateX(-50%) — KHÔNG width:100%, KHÔNG kéo giãn theo section.
+   Tỉ lệ width/height LUÔN là 1925:808 ở mọi viewport (cùng nhân 1 biến = scale đồng đều,
+   tương đương transform:scale() nhưng tham gia được vào phép tính toạ độ của Elevator). */
 .about-home__shape {
 	display: var(--about-shape-display, block);
 	position: absolute;
-	inset: 0;
+	top: 0;
+	left: 50%;
 	z-index: 1;
+	width: calc(1925 * var(--about-fpx));
+	height: calc(808 * var(--about-fpx));
+	transform: translateX(-50%);
 	background-color: var(--about-background, #cc322d);
 	background-image: var(--about-shape-image, none);
 	background-repeat: no-repeat;
@@ -46,6 +58,10 @@
 	position: relative;
 	z-index: 2;
 	max-width: var(--about-container-width, var(--container-max-width));
+	/* Section cao 900fpx nhưng Polygon chỉ 808fpx (92fpx cuối là nền trắng cho chân Elevator) —
+	   bù margin-bottom đúng 92fpx để phép căn giữa dọc (align-items:center) của Text rơi vào
+	   TÂM POLYGON (phần màu tối) chứ không phải tâm section. */
+	margin-bottom: calc(92 * var(--about-fpx));
 }
 
 .about-home__content {
@@ -56,42 +72,48 @@
 	gap: clamp(16px, 2vw, 28px);
 }
 
+/* Design mới: bỏ gold — Subtitle trắng mờ nhẹ, letter-spacing rộng hơn cho thanh thoát. */
 .about-home__label {
 	margin: 0;
-	color: #ffffff;
+	color: rgb(255 255 255 / 0.85);
 	font-size: 0.95rem;
 	font-weight: 600;
-	letter-spacing: 0.04em;
+	letter-spacing: 0.12em;
 	text-transform: uppercase;
 }
 
+/* Design mới: Title TRẮNG, to & bold (không còn gold). */
 .about-home__heading {
 	margin: 0;
 	color: #ffffff;
-	font-size: clamp(1.75rem, 1.3rem + 2vw, 2.5rem);
+	font-size: clamp(1.75rem, 1.3rem + 2vw, 2.75rem);
 	font-weight: 800;
-	line-height: 1.25;
+	line-height: 1.2;
 }
 
 .about-home__description {
 	margin: 0;
-	max-width: var(--about-description-max-width, 420px);
+	max-width: var(--about-description-max-width, 660px);
 	color: rgb(255 255 255 / 0.9);
 	font-size: 1rem;
-	line-height: 1.7;
+	line-height: 1.75;
 }
 
-/* Elevator PNG — layer RIÊNG, không nằm trong .container/Grid/Flex nào, không đặt trong khối
-   Shape. Kích thước tính theo % --about-home-height (xem ghi chú ở .about-home) rồi
-   object-fit:contain giữ nguyên tỉ lệ — không crop/méo. Đứng gần mép phải section, KHÔNG sát
-   hẳn mép, đè lên Shape theo Horizontal/Vertical Offset (Customizer). */
+/* Elevator PNG — asset tuyệt đối 873×873, đặt THEO TOẠ ĐỘ CỦA POLYGON chứ không theo mép
+   phải/Flexbox. Số liệu Figma: Polygon X=-3, Elevator X=1017 → mép trái Elevator cách mép trái
+   Polygon 1020fpx; Polygon Y=2254, Elevator Y=2281 → đỉnh Elevator thấp hơn đỉnh Polygon 27fpx.
+   Mép trái Polygon = 50% - 962.5fpx (nửa của 1925), nên left Elevator = 50% + (1020 - 962.5)fpx
+   = 50% + 57.5fpx. Với các mốc này, đường xiên trên của Polygon cắt qua ~15-18% chiều cao
+   Elevator và đường xiên dưới cắt ~88% — chân Elevator nhô khỏi Polygon đúng như Figma.
+   --about-elevator-ratio (Customizer, mặc định 1 = đúng 873fpx thiết kế) là hệ số tinh chỉnh
+   kích thước; Horizontal/Vertical Offset cộng thêm qua translate() như cũ. */
 .about-home__image {
 	position: absolute;
-	top: 50%;
-	right: 8%;
+	top: calc(27 * var(--about-fpx));
+	left: calc(50% + 57.5 * var(--about-fpx));
 	--about-reveal-x: 0px;
-	transform: translate(calc(var(--about-image-offset-x, -20px) + var(--about-reveal-x)), calc(-50% + var(--about-image-offset-y, 0px)));
-	height: calc(var(--about-home-height) * var(--about-elevator-ratio, 0.86));
+	transform: translate(calc(var(--about-image-offset-x, 0px) + var(--about-reveal-x)), var(--about-image-offset-y, 0px));
+	height: calc(873 * var(--about-fpx) * var(--about-elevator-ratio, 1));
 	width: auto;
 	z-index: var(--about-elevator-zindex, 3);
 }
@@ -124,10 +146,24 @@
 		align-items: stretch;
 	}
 
+	/* Mobile: composition Figma nhường chỗ cho luồng dọc — Polygon quay về vai trò background
+	   phủ kín section (Text/Elevator xếp chồng theo document flow bên trên), vẫn giữ ảnh xiên
+	   qua background-size nên hiệu ứng góc cạnh không mất. */
+	.about-home__shape {
+		left: 0;
+		width: 100%;
+		height: 100%;
+		transform: none;
+	}
+
 	.about-home > .container,
 	.about-home__image {
 		position: static;
 		transform: none;
+	}
+
+	.about-home > .container {
+		margin-bottom: 0;
 	}
 
 	.about-home__content {

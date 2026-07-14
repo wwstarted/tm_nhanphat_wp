@@ -1,0 +1,301 @@
+/**
+ * Services Section (trang chủ) + slider component dùng chung (.tmnp-slider). Toàn bộ giá trị
+ * --services-* là CSS custom property do tmnhanphat_render_services_css_vars() sinh ra, gắn
+ * bằng wp_add_inline_style() trong inc/enqueue.php (PROJECT_RULES.md mục 22) — file này KHÔNG
+ * hardcode giá trị người dùng đổi được trong Customizer.
+ *
+ * Progressive enhancement: KHÔNG có JS, .tmnp-slider__track là dải flex cuộn ngang được
+ * (overflow-x + scroll-snap). Khi assets/js/components/slider.js chạy, section được gắn
+ * .js-services-ready và slider root được gắn .is-enhanced → chuyển sang transform-based.
+ */
+
+.services-home {
+	background-color: var(--services-bg, #ffffff);
+	padding-block: var(--services-padding, 80px);
+}
+
+.services-home__container {
+	max-width: var(--services-container-width, var(--container-max-width));
+}
+
+/* ==================== HEADER ==================== */
+.services-home__header {
+	text-align: var(--services-heading-align, center);
+}
+
+.services-home__heading {
+	margin: 0 0 var(--services-heading-margin, 12px);
+	font-size: clamp(1.5rem, 1.1rem + 1.6vw, var(--services-heading-size, 40px));
+	font-weight: var(--services-heading-weight, 800);
+	line-height: 1.2;
+}
+
+.services-home__heading-red {
+	color: var(--services-heading-red, #E31F2B);
+}
+
+.services-home__heading-blue {
+	color: var(--services-heading-blue, #046AB5);
+}
+
+.services-home__description {
+	margin: 0 auto var(--services-desc-margin, 48px);
+	max-width: var(--services-desc-max-width, 780px);
+	color: var(--services-desc-color, #6b7280);
+	font-size: var(--services-desc-size, 15px);
+	line-height: 1.7;
+}
+
+/* ==================== SLIDER (generic .tmnp-slider) ==================== */
+.tmnp-slider {
+	position: relative;
+}
+
+.tmnp-slider__viewport {
+	overflow: hidden;
+}
+
+.tmnp-slider__viewport:focus-visible {
+	outline: 2px solid var(--services-dot-active, #046AB5);
+	outline-offset: 4px;
+}
+
+/* No-JS fallback: track tự cuộn ngang + snap từng card. */
+.tmnp-slider__track {
+	display: flex;
+	gap: var(--services-gap, 24px);
+	overflow-x: auto;
+	scroll-snap-type: x mandatory;
+	-webkit-overflow-scrolling: touch;
+}
+
+/* Bề rộng 1 slide theo số cột breakpoint — công thức Flexbox chuẩn của theme (mục 25). */
+.tmnp-slider__slide {
+	flex: 0 0 calc((100% - (var(--services-cols, 3) - 1) * var(--services-gap, 24px)) / var(--services-cols, 3));
+	max-width: calc((100% - (var(--services-cols, 3) - 1) * var(--services-gap, 24px)) / var(--services-cols, 3));
+	scroll-snap-align: start;
+}
+
+/* JS đã nâng cấp: tắt cuộn tay (transform đảm nhiệm), ẩn scrollbar, track trượt mượt. */
+.tmnp-slider.is-enhanced .tmnp-slider__track {
+	overflow: visible;
+	scroll-snap-type: none;
+	will-change: transform;
+	transition: transform var(--services-transition, 600ms) ease;
+}
+
+.tmnp-slider.is-enhanced .tmnp-slider__track.is-dragging {
+	transition: none;
+	cursor: grabbing;
+	user-select: none;
+}
+
+/* ==================== DOTS (slider.js sinh DOM khi bật) ==================== */
+.tmnp-slider__dots {
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+	margin-top: 28px;
+}
+
+.tmnp-slider__dot {
+	width: 10px;
+	height: 10px;
+	padding: 0;
+	border: none;
+	border-radius: 50%;
+	background-color: var(--services-dot-inactive, #D9D9D9);
+	cursor: pointer;
+	transition: background-color 0.25s ease, transform 0.25s ease;
+}
+
+.tmnp-slider__dot:hover,
+.tmnp-slider__dot:focus-visible {
+	transform: scale(1.3);
+}
+
+.tmnp-slider__dot:focus-visible {
+	outline: 2px solid var(--services-dot-active, #046AB5);
+	outline-offset: 2px;
+}
+
+.tmnp-slider__dot.is-active {
+	background-color: var(--services-dot-active, #046AB5);
+}
+
+/* ==================== ARROWS (tuỳ chọn, slider.js sinh DOM khi bật) ==================== */
+.tmnp-slider__arrow {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	z-index: 2;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+	border: none;
+	border-radius: 50%;
+	background-color: rgb(255 255 255 / 0.92);
+	color: var(--services-dot-active, #046AB5);
+	box-shadow: 0 4px 14px rgb(0 0 0 / 0.15);
+	cursor: pointer;
+	transition: background-color 0.2s ease;
+}
+
+.tmnp-slider__arrow:hover,
+.tmnp-slider__arrow:focus-visible {
+	background-color: #ffffff;
+}
+
+.tmnp-slider__arrow--prev {
+	left: -8px;
+}
+
+.tmnp-slider__arrow--next {
+	right: -8px;
+}
+
+/* ==================== SERVICE CARD ==================== */
+/* Card = ảnh phủ kín + gradient overlay + nội dung đè lên đáy ảnh (đúng Figma). */
+.service-card {
+	position: relative;
+	border-radius: var(--services-card-radius, 16px);
+	overflow: hidden;
+	box-shadow: 0 10px 28px rgb(6 24 44 / 0.12);
+}
+
+.service-card__link {
+	display: block;
+	position: relative;
+	color: inherit;
+}
+
+.service-card__link:focus-visible {
+	outline: 3px solid var(--services-dot-active, #046AB5);
+	outline-offset: 2px;
+}
+
+.service-card__media {
+	position: relative;
+	aspect-ratio: var(--services-card-ratio, 510 / 453);
+	background-color: #10202f; /* nền chờ khi Service chưa có Featured Image */
+}
+
+.service-card__image {
+	width: 100%;
+	height: 100%;
+	object-fit: cover; /* giữ đúng ratio khung, không méo (yêu cầu Card) */
+	transition: transform var(--services-hover-duration, 300ms) ease;
+}
+
+.service-card:hover .service-card__image,
+.service-card__link:focus-visible .service-card__image {
+	transform: scale(var(--services-hover-zoom, 1.06));
+}
+
+/* Gradient overlay — đậm dần về đáy để Title/Description trắng luôn đọc được trên mọi ảnh. */
+.service-card__overlay {
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(180deg, rgb(0 0 0 / 0) 35%, var(--services-overlay, rgb(10 20 32 / 0.55)) 100%);
+	transition: opacity var(--services-hover-duration, 300ms) ease;
+}
+
+.service-card:hover .service-card__overlay {
+	background: linear-gradient(180deg, rgb(0 0 0 / 0.08) 25%, var(--services-overlay-hover, rgb(10 20 32 / 0.7)) 100%);
+}
+
+.service-card__body {
+	position: absolute;
+	inset-inline: 0;
+	bottom: 0;
+	padding: var(--services-content-padding, 24px);
+	padding-right: calc(var(--services-content-padding, 24px) + 36px); /* chừa chỗ Arrow góc phải */
+}
+
+.service-card__title {
+	margin: 0 0 6px;
+	color: var(--services-title-color, #ffffff);
+	font-size: var(--services-title-size, 24px);
+	font-weight: 800;
+	line-height: 1.25;
+	transition: color var(--services-hover-duration, 300ms) ease;
+}
+
+.service-card:hover .service-card__title,
+.service-card__link:focus-visible .service-card__title {
+	color: var(--services-title-hover, #8fc7ff);
+}
+
+.service-card__excerpt {
+	margin: 0;
+	color: var(--services-excerpt-color, #e6ecf2);
+	font-size: var(--services-excerpt-size, 13px);
+	line-height: 1.5;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 3;
+	overflow: hidden;
+}
+
+.service-card__arrow {
+	position: absolute;
+	right: var(--services-content-padding, 24px);
+	bottom: var(--services-content-padding, 24px);
+	color: var(--services-arrow-color, #E31F2B);
+	transition: transform var(--services-hover-duration, 300ms) ease;
+}
+
+.service-card:hover .service-card__arrow,
+.service-card__link:focus-visible .service-card__arrow {
+	transform: translateX(6px);
+}
+
+/* ==================== CTA ==================== */
+.services-home__cta-wrap {
+	margin-top: var(--services-cta-margin-top, 40px);
+	text-align: center;
+}
+
+.services-home__cta {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: var(--services-cta-padding, 12px 28px);
+	border-radius: var(--services-cta-radius, 999px);
+	background-color: var(--services-cta-bg, #046AB5);
+	color: var(--services-cta-text, #ffffff);
+	font-size: var(--services-cta-size, 14px);
+	font-weight: 600;
+	transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.services-home__cta:hover,
+.services-home__cta:focus-visible {
+	background-color: var(--services-cta-hover-bg, #03518a);
+	color: var(--services-cta-text, #ffffff);
+	transform: translateY(-2px);
+}
+
+.services-home__cta:focus-visible {
+	outline: 3px solid var(--services-dot-active, #046AB5);
+	outline-offset: 3px;
+}
+
+/* ==================== REDUCED MOTION ==================== */
+@media (prefers-reduced-motion: reduce) {
+	.tmnp-slider.is-enhanced .tmnp-slider__track,
+	.service-card__image,
+	.service-card__overlay,
+	.service-card__title,
+	.service-card__arrow,
+	.tmnp-slider__dot,
+	.services-home__cta {
+		transition: none;
+	}
+
+	.service-card:hover .service-card__image {
+		transform: none;
+	}
+}

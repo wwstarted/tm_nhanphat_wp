@@ -292,11 +292,15 @@ function tmnhanphat_render_header_css_vars() {
  */
 function tmnhanphat_footer_defaults() {
 	return array(
-		'tmnhanphat_footer_bg'               => '#f2f2f2',
-		'tmnhanphat_footer_text'             => '#4a4a4a',
-		'tmnhanphat_footer_link'             => '#4a4a4a',
-		'tmnhanphat_footer_link_hover'       => '#cc322d',
-		'tmnhanphat_footer_bottom_bg'        => '#cc322d',
+		// Palette Design mới: nền Footer xanh, chữ/heading trắng, gạch trắng mờ, copyright đỏ.
+		// Chỉ đổi GIÁ TRỊ MẶC ĐỊNH (không đổi cấu trúc Customizer) — admin vẫn chỉnh được.
+		// Menu/contact/divider để màu TRẮNG, độ mờ (opacity) xử lý ở footer.css để giữ hex
+		// hợp lệ cho sanitize_hex_color mà vẫn ra rgba(255,255,255,.85) như Design.
+		'tmnhanphat_footer_bg'               => '#0A4F9E',
+		'tmnhanphat_footer_text'             => '#ffffff',
+		'tmnhanphat_footer_link'             => '#ffffff',
+		'tmnhanphat_footer_link_hover'       => '#ffffff',
+		'tmnhanphat_footer_bottom_bg'        => '#E31F2B',
 		'tmnhanphat_footer_bottom_text'      => '#ffffff',
 		/* translators: %s: năm hiện tại */
 		'tmnhanphat_footer_copyright'        => sprintf( __( '© Copyright %s thangmaynhanphat.com All rights reserved.', 'tmnhanphat' ), gmdate( 'Y' ) ),
@@ -320,8 +324,8 @@ function tmnhanphat_footer_defaults() {
 		'tmnhanphat_footer_social_enable'    => true,
 		'tmnhanphat_footer_padding'          => 64,
 		'tmnhanphat_footer_container_width'  => 1200,
-		'tmnhanphat_footer_heading_color'    => '#1a1a1a',
-		'tmnhanphat_footer_divider_color'    => '#e0e0e0',
+		'tmnhanphat_footer_heading_color'    => '#ffffff',
+		'tmnhanphat_footer_divider_color'    => '#ffffff',
 		'tmnhanphat_footer_logo_spacing'     => 24,
 		'tmnhanphat_footer_column_gap'       => 40,
 	);
@@ -477,25 +481,25 @@ function tmnhanphat_hero_defaults() {
 		// Overlay
 		'tmnhanphat_hero_overlay_enable'       => true,
 		'tmnhanphat_hero_overlay_color'        => '#000000',
-		'tmnhanphat_hero_overlay_opacity'      => 45,
+		'tmnhanphat_hero_overlay_opacity'      => 55,
 		'tmnhanphat_hero_overlay_blend'        => 'normal',
 
-		// Subtitle
+		// Subtitle — Design: nhỏ hơn (15px), letter-spacing lớn hơn (ở CSS), vàng nhạt hơn.
 		'tmnhanphat_hero_subtitle_enable'      => true,
 		'tmnhanphat_hero_subtitle_text'        => 'Lắp đặt • Sửa chữa • Bảo trì',
 		'tmnhanphat_hero_subtitle_color'       => '#ffffff',
-		'tmnhanphat_hero_subtitle_font_size'   => 18,
+		'tmnhanphat_hero_subtitle_font_size'   => 15,
 		'tmnhanphat_hero_subtitle_font_weight' => '500',
 
-		// Heading
+		// Heading — Design: to hơn (56px) + giới hạn width (~850px, ở Layout) để xuống 2 dòng.
 		'tmnhanphat_hero_heading_text'         => 'Giải pháp thang máy toàn diện cho mọi công trình',
 		'tmnhanphat_hero_heading_color'        => '#ffffff',
-		'tmnhanphat_hero_heading_font_size'    => 48,
+		'tmnhanphat_hero_heading_font_size'    => 56,
 		'tmnhanphat_hero_heading_font_weight'  => '800',
 
 		// Description
 		'tmnhanphat_hero_description_text'         => 'Thang Máy Nhân Phát mang đến giải pháp thang máy gia đình an toàn, hiện đại và phù hợp với từng không gian sống. Chúng tôi đồng hành từ tư vấn, thiết kế, lắp đặt đến bảo trì, giúp mỗi công trình có hệ thống thang máy bền đẹp, vận hành ổn định và tối ưu chi phí.',
-		'tmnhanphat_hero_description_color'        => '#e5e5e5',
+		'tmnhanphat_hero_description_color'        => '#d1d1d1',
 		'tmnhanphat_hero_description_font_size'    => 16,
 		'tmnhanphat_hero_description_max_lines'    => 3,
 		'tmnhanphat_hero_description_clamp_enable' => true,
@@ -509,18 +513,20 @@ function tmnhanphat_hero_defaults() {
 		'tmnhanphat_hero_btn_secondary_text'   => 'Liên hệ chúng tôi',
 		'tmnhanphat_hero_btn_secondary_url'    => '#',
 		'tmnhanphat_hero_btn_secondary_new_tab' => false,
-		'tmnhanphat_hero_btn_primary_bg'         => '#cc322d',
+		// Design mới: nút chính XANH (bỏ gold), chữ trắng, hover sáng nhẹ.
+		'tmnhanphat_hero_btn_primary_bg'         => '#046AB5',
 		'tmnhanphat_hero_btn_primary_text_color' => '#ffffff',
-		'tmnhanphat_hero_btn_primary_hover_bg'   => '#a8281f',
-		'tmnhanphat_hero_btn_secondary_bg'         => '#0d6efd',
+		'tmnhanphat_hero_btn_primary_hover_bg'   => '#0579CC',
+		'tmnhanphat_hero_btn_secondary_bg'         => 'transparent',
 		'tmnhanphat_hero_btn_secondary_text_color' => '#ffffff',
-		'tmnhanphat_hero_btn_secondary_hover_bg'   => '#0b5ed7',
+		'tmnhanphat_hero_btn_secondary_hover_bg'   => 'rgba(255,255,255,.08)',
+		'tmnhanphat_hero_btn_secondary_border_color' => '#ffffff',
 		'tmnhanphat_hero_btn_border_radius'    => 6,
 		'tmnhanphat_hero_btn_padding_x'        => 28,
 		'tmnhanphat_hero_btn_padding_y'        => 14,
 
-		// Layout
-		'tmnhanphat_hero_content_max_width'        => 720,
+		// Layout — Design: Title ~850px (xuống 2 dòng giống Design, không kéo quá sang phải).
+		'tmnhanphat_hero_content_max_width'        => 850,
 		'tmnhanphat_hero_content_max_width_tablet' => 600,
 		'tmnhanphat_hero_content_max_width_mobile' => 600,
 		'tmnhanphat_hero_content_align'            => 'center',
@@ -531,18 +537,22 @@ function tmnhanphat_hero_defaults() {
 		// Hero Stats Card
 		'tmnhanphat_hero_stats_card_enable'       => true,
 		'tmnhanphat_hero_stats_card_bg'           => '#ffffff',
-		'tmnhanphat_hero_stats_card_opacity'      => 78,
+		'tmnhanphat_hero_stats_card_opacity'      => 6,
 		'tmnhanphat_hero_stats_card_radius'       => 24,
 		'tmnhanphat_hero_stats_card_border_color' => '#ffffff',
 		'tmnhanphat_hero_stats_card_border_width' => 1,
 		'tmnhanphat_hero_stats_card_blur'         => 18,
 		'tmnhanphat_hero_stats_card_shadow'       => 'soft',
+		// Design mới: số liệu TRẮNG (bỏ gold), badge nền xám nhạt + chữ đậm.
+		'tmnhanphat_hero_stats_number_color'      => '#ffffff',
+		'tmnhanphat_hero_stats_badge_bg'          => '#E5E7EB',
+		'tmnhanphat_hero_stats_badge_text_color'  => '#1F2937',
 
 		// Hero Spacing (desktop)
 		'tmnhanphat_hero_padding_top'              => 100,
 		'tmnhanphat_hero_padding_bottom'           => 40,
-		'tmnhanphat_hero_heading_margin_bottom'    => 16,
-		'tmnhanphat_hero_description_margin_bottom' => 20,
+		'tmnhanphat_hero_heading_margin_bottom'    => 24,
+		'tmnhanphat_hero_description_margin_bottom' => 28,
 		'tmnhanphat_hero_cta_margin_bottom'        => 24,
 		'tmnhanphat_hero_stats_margin_top'         => 32,
 
@@ -761,6 +771,7 @@ function tmnhanphat_render_hero_css_vars() {
 	$btn_secondary_bg        = tmnhanphat_get_hero_mod( 'tmnhanphat_hero_btn_secondary_bg' );
 	$btn_secondary_text      = tmnhanphat_get_hero_mod( 'tmnhanphat_hero_btn_secondary_text_color' );
 	$btn_secondary_hover_bg  = tmnhanphat_get_hero_mod( 'tmnhanphat_hero_btn_secondary_hover_bg' );
+	$btn_secondary_border    = tmnhanphat_get_hero_mod( 'tmnhanphat_hero_btn_secondary_border_color' );
 	$btn_radius              = absint( tmnhanphat_get_hero_mod( 'tmnhanphat_hero_btn_border_radius' ) );
 	$btn_padding_x           = absint( tmnhanphat_get_hero_mod( 'tmnhanphat_hero_btn_padding_x' ) );
 	$btn_padding_y           = absint( tmnhanphat_get_hero_mod( 'tmnhanphat_hero_btn_padding_y' ) );
@@ -790,6 +801,10 @@ function tmnhanphat_render_hero_css_vars() {
 	$card_blur         = absint( tmnhanphat_get_hero_mod( 'tmnhanphat_hero_stats_card_blur' ) );
 	$card_shadow       = tmnhanphat_get_hero_stats_card_shadow_value( tmnhanphat_get_hero_mod( 'tmnhanphat_hero_stats_card_shadow' ) );
 
+	$stats_number_color     = tmnhanphat_get_hero_mod( 'tmnhanphat_hero_stats_number_color' );
+	$stats_badge_bg         = tmnhanphat_get_hero_mod( 'tmnhanphat_hero_stats_badge_bg' );
+	$stats_badge_text_color = tmnhanphat_get_hero_mod( 'tmnhanphat_hero_stats_badge_text_color' );
+
 	$anim_duration = absint( tmnhanphat_get_hero_mod( 'tmnhanphat_hero_animation_duration' ) );
 	$anim_delay    = absint( tmnhanphat_get_hero_mod( 'tmnhanphat_hero_animation_delay' ) );
 
@@ -813,6 +828,7 @@ function tmnhanphat_render_hero_css_vars() {
 	$css .= '--hero-btn-secondary-bg:' . $btn_secondary_bg . ';';
 	$css .= '--hero-btn-secondary-text:' . $btn_secondary_text . ';';
 	$css .= '--hero-btn-secondary-hover-bg:' . $btn_secondary_hover_bg . ';';
+	$css .= '--hero-btn-secondary-border:1px solid ' . tmnhanphat_hex_to_rgba( $btn_secondary_border, 40 ) . ';';
 	$css .= '--hero-btn-radius:' . $btn_radius . 'px;';
 	$css .= '--hero-btn-padding-x:' . $btn_padding_x . 'px;';
 	$css .= '--hero-btn-padding-y:' . $btn_padding_y . 'px;';
@@ -827,16 +843,16 @@ function tmnhanphat_render_hero_css_vars() {
 	$css .= '--hero-stats-margin-top:' . $stats_margin_top . 'px;';
 	$css .= '--hero-stats-card-bg:' . ( $card_enable ? tmnhanphat_hex_to_rgba( $card_bg, $card_opacity ) : 'transparent' ) . ';';
 	$css .= '--hero-stats-card-radius:' . ( $card_enable ? $card_radius : 0 ) . 'px;';
-	$css .= '--hero-stats-card-border:' . ( $card_enable ? $card_border_width . 'px solid ' . $card_border_color : 'none' ) . ';';
+	$css .= '--hero-stats-card-border:' . ( $card_enable ? $card_border_width . 'px solid ' . tmnhanphat_hex_to_rgba( $card_border_color, 12 ) : 'none' ) . ';';
 	$css .= '--hero-stats-card-blur:' . ( $card_enable ? $card_blur : 0 ) . 'px;';
 	$css .= '--hero-stats-card-shadow:' . ( $card_enable ? $card_shadow : 'none' ) . ';';
-	// Card sáng (mặc định) cần chữ tối để đọc được; khi tắt Card, Stats nổi trực tiếp trên
-	// ảnh nền tối như trước nên cần đổi lại về chữ trắng — không thể "if" trong CSS thuần
-	// nên tính sẵn giá trị cuối cùng ở PHP theo trạng thái Enable Background Card.
-	$css .= '--hero-stats-number-color:' . ( $card_enable ? '#1a1a1a' : '#ffffff' ) . ';';
-	$css .= '--hero-stats-desc-color:' . ( $card_enable ? '#5c5c5c' : 'rgb(255 255 255 / 0.75)' ) . ';';
-	$css .= '--hero-stats-badge-bg:' . ( $card_enable ? $btn_secondary_bg : 'rgb(255 255 255 / 0.15)' ) . ';';
-	$css .= '--hero-stats-badge-text:' . ( $card_enable ? $btn_secondary_text : '#ffffff' ) . ';';
+	// Number/Badge/Description luôn đọc trực tiếp từ setting riêng (không còn phụ thuộc
+	// Enable Background Card) — card giờ chỉ là lớp kính mờ (glass), không đổi từ sáng
+	// sang tối như bản thiết kế cũ, nên chữ giữ nguyên 1 bộ màu bất kể Card bật/tắt.
+	$css .= '--hero-stats-number-color:' . $stats_number_color . ';';
+	$css .= '--hero-stats-desc-color:rgba(255,255,255,.75);';
+	$css .= '--hero-stats-badge-bg:' . $stats_badge_bg . ';';
+	$css .= '--hero-stats-badge-text:' . $stats_badge_text_color . ';';
 	$css .= '--hero-animation-duration:' . $anim_duration . 'ms;';
 	$css .= '--hero-animation-delay:' . $anim_delay . 'ms;';
 	$css .= '}';
@@ -1197,8 +1213,8 @@ function tmnhanphat_about_defaults() {
 		'tmnhanphat_about_label'                 => __( 'Về chúng tôi', 'tmnhanphat' ),
 		'tmnhanphat_about_heading'                => __( 'Thang Máy Nhân Phát', 'tmnhanphat' ),
 		'tmnhanphat_about_description'             => __( 'Ra đời với sứ mệnh nâng tầm chất lượng sống, Thang Máy Nhân Phát chuyên cung cấp các dòng thang máy hiện đại, an toàn, phù hợp với mọi loại công trình. Chúng tôi tự hào sở hữu đội ngũ kỹ thuật viên chuyên môn cao, dịch vụ hậu mãi tận tâm và quy trình lắp đặt - bảo trì đạt chuẩn quốc tế, tạo dựng niềm tin vững chắc với khách hàng trong suốt nhiều năm qua.', 'tmnhanphat' ),
-		'tmnhanphat_about_text_width'              => 42,
-		'tmnhanphat_about_description_max_width'   => 420,
+		'tmnhanphat_about_text_width'              => 57,
+		'tmnhanphat_about_description_max_width'   => 660,
 		'tmnhanphat_about_vertical_align'          => 'center',
 
 		// Background Shape — Upload Shape Image (Rectangle 19.png) làm background-image cho
@@ -1216,11 +1232,14 @@ function tmnhanphat_about_defaults() {
 		// (--about-home-height trong about.css), KHÔNG phải % chiều rộng cột — vì ảnh dùng
 		// object-fit:contain co theo chiều cao (giữ nguyên tỉ lệ, không méo/crop) — xem
 		// ghi chú kỹ thuật trong tmnhanphat_render_about_css_vars().
+		// Elevator Size (%) — từ audit lần 2 (hệ toạ độ Figma trong about.css): là hệ số so với
+		// kích thước THIẾT KẾ GỐC 873×873 của asset (100 = đúng thiết kế), không còn là % chiều
+		// cao section. Responsive co giãn tự động qua --about-fpx nên cả 3 breakpoint đều 100.
 		'tmnhanphat_about_image'               => '',
-		'tmnhanphat_about_image_width_desktop' => 86,
-		'tmnhanphat_about_image_width_tablet'  => 75,
-		'tmnhanphat_about_image_width_mobile'  => 60,
-		'tmnhanphat_about_image_offset_x'      => -20,
+		'tmnhanphat_about_image_width_desktop' => 100,
+		'tmnhanphat_about_image_width_tablet'  => 100,
+		'tmnhanphat_about_image_width_mobile'  => 100,
+		'tmnhanphat_about_image_offset_x'      => 0,
 		'tmnhanphat_about_image_offset_y'      => 0,
 		'tmnhanphat_about_elevator_zindex'     => 3,
 
@@ -1432,6 +1451,3982 @@ function tmnhanphat_render_about_css_vars() {
 
 	$css .= '@media (max-width:991px){:root{--about-elevator-ratio:' . $elevator_ratio_tablet . ';}}';
 	$css .= '@media (max-width:599px){:root{--about-elevator-ratio:' . $elevator_ratio_mobile . ';}}';
+
+	return $css;
+}
+
+/* ==========================================================================
+ * SERVICES SECTION (trang chủ) — helper riêng, dữ liệu từ CPT tmnp_service
+ * (inc/post-types.php), không đụng Header/Footer/Hero/Partner/About.
+ * ========================================================================== */
+
+/**
+ * Giá trị mặc định cho toàn bộ setting Services Home Section Customizer.
+ *
+ * @return array<string, mixed>
+ */
+function tmnhanphat_services_defaults() {
+	return array(
+		// General
+		'tmnhanphat_services_enable'          => true,
+		'tmnhanphat_services_section_id'      => 'services',
+		'tmnhanphat_services_bg_color'        => '#ffffff',
+		// 0 = dùng chung Container Width của Global Settings (mục 27).
+		'tmnhanphat_services_container_width' => 0,
+		'tmnhanphat_services_padding_desktop' => 80,
+		'tmnhanphat_services_padding_tablet'  => 56,
+		'tmnhanphat_services_padding_mobile'  => 40,
+
+		// Heading — 2 phần text 2 màu trên cùng 1 dòng (đỏ + xanh), tách riêng để đổi độc lập.
+		'tmnhanphat_services_heading_red_text'      => 'Dịch vụ tại',
+		'tmnhanphat_services_heading_blue_text'     => 'Thang Máy Nhân Phát',
+		'tmnhanphat_services_heading_red_color'     => '#E31F2B',
+		'tmnhanphat_services_heading_blue_color'    => '#046AB5',
+		'tmnhanphat_services_heading_font_size'     => 40,
+		'tmnhanphat_services_heading_font_weight'   => '800',
+		'tmnhanphat_services_heading_align'         => 'center',
+		'tmnhanphat_services_heading_margin_bottom' => 12,
+
+		// Description
+		'tmnhanphat_services_description_text'          => 'Cung cấp đầy đủ các dịch vụ từ tư vấn thiết kế, lắp đặt, bảo trì đến sửa chữa và cung cấp linh kiện thay thế. Với đội ngũ kỹ thuật giàu kinh nghiệm cùng quy trình làm việc chuyên nghiệp, chúng tôi cam kết mang đến giải pháp thang máy an toàn, bền bỉ và tối ưu chi phí cho mọi công trình.',
+		'tmnhanphat_services_description_color'         => '#6b7280',
+		'tmnhanphat_services_description_font_size'     => 15,
+		'tmnhanphat_services_description_max_width'     => 780,
+		'tmnhanphat_services_description_margin_bottom' => 48,
+
+		// Query
+		'tmnhanphat_services_count'       => 6,
+		'tmnhanphat_services_orderby'     => 'menu_order',
+		'tmnhanphat_services_order'       => 'ASC',
+		'tmnhanphat_services_offset'      => 0,
+		'tmnhanphat_services_exclude_ids' => '',
+		'tmnhanphat_services_include_ids' => '',
+
+		// Slider
+		'tmnhanphat_services_autoplay_enable'    => true,
+		'tmnhanphat_services_autoplay_speed'     => 4000,
+		'tmnhanphat_services_transition_speed'   => 600,
+		'tmnhanphat_services_pause_hover'        => true,
+		'tmnhanphat_services_infinite'           => true,
+		'tmnhanphat_services_show_arrows'        => false,
+		'tmnhanphat_services_show_dots'          => true,
+		'tmnhanphat_services_drag_enable'        => true,
+		'tmnhanphat_services_gap'                => 24,
+		'tmnhanphat_services_cards_desktop'      => '3',
+		'tmnhanphat_services_cards_tablet'       => '2',
+		'tmnhanphat_services_cards_mobile'       => '1',
+		'tmnhanphat_services_dot_active_color'   => '#046AB5',
+		'tmnhanphat_services_dot_inactive_color' => '#D9D9D9',
+
+		// Card
+		'tmnhanphat_services_card_radius'        => 16,
+		'tmnhanphat_services_card_ratio'         => '510-453',
+		'tmnhanphat_services_overlay_color'      => '#0a1420',
+		'tmnhanphat_services_overlay_opacity'    => 55,
+		'tmnhanphat_services_title_color'        => '#ffffff',
+		'tmnhanphat_services_title_hover_color'  => '#8fc7ff',
+		'tmnhanphat_services_title_font_size'    => 24,
+		'tmnhanphat_services_excerpt_color'      => '#e6ecf2',
+		'tmnhanphat_services_excerpt_font_size'  => 13,
+		'tmnhanphat_services_content_padding'    => 24,
+		'tmnhanphat_services_arrow_color'        => '#E31F2B',
+		'tmnhanphat_services_hover_zoom_enable'  => true,
+		'tmnhanphat_services_hover_duration'     => 300,
+
+		// CTA
+		'tmnhanphat_services_cta_enable'      => true,
+		'tmnhanphat_services_cta_text'        => 'Tìm hiểu tất cả dịch vụ',
+		// '' = tự dẫn tới Archive của CPT Service (get_post_type_archive_link) — không hardcode URL.
+		'tmnhanphat_services_cta_url'         => '',
+		'tmnhanphat_services_cta_bg'          => '#046AB5',
+		'tmnhanphat_services_cta_text_color'  => '#ffffff',
+		'tmnhanphat_services_cta_hover_bg'    => '#03518a',
+		'tmnhanphat_services_cta_radius'      => 999,
+		'tmnhanphat_services_cta_padding_x'   => 28,
+		'tmnhanphat_services_cta_padding_y'   => 12,
+		'tmnhanphat_services_cta_font_size'   => 14,
+		'tmnhanphat_services_cta_margin_top'  => 40,
+	);
+}
+
+/**
+ * Đọc 1 theme_mod của Services kèm fallback lấy từ tmnhanphat_services_defaults().
+ *
+ * @param string $key Tên setting (khớp key trong tmnhanphat_services_defaults()).
+ * @return mixed
+ */
+function tmnhanphat_get_services_mod( $key ) {
+	$defaults = tmnhanphat_services_defaults();
+	$default  = isset( $defaults[ $key ] ) ? $defaults[ $key ] : '';
+
+	return get_theme_mod( $key, $default );
+}
+
+/**
+ * Danh sách lựa chọn "Order By" cho Query Services.
+ *
+ * @return array<string, string>
+ */
+function tmnhanphat_get_services_orderby_choices() {
+	return array(
+		'menu_order' => __( 'Thứ tự tuỳ chỉnh (Order)', 'tmnhanphat' ),
+		'date'       => __( 'Ngày đăng', 'tmnhanphat' ),
+		'title'      => __( 'Tiêu đề', 'tmnhanphat' ),
+		'rand'       => __( 'Ngẫu nhiên', 'tmnhanphat' ),
+	);
+}
+
+/**
+ * Whitelist "Order By".
+ *
+ * @param string $value Giá trị gửi lên từ Customizer.
+ * @return string
+ */
+function tmnhanphat_sanitize_services_orderby( $value ) {
+	$choices = array_keys( tmnhanphat_get_services_orderby_choices() );
+
+	return in_array( $value, $choices, true ) ? $value : 'menu_order';
+}
+
+/**
+ * Danh sách lựa chọn "Order" (chiều sắp xếp).
+ *
+ * @return array<string, string>
+ */
+function tmnhanphat_get_services_order_choices() {
+	return array(
+		'ASC'  => __( 'Tăng dần (ASC)', 'tmnhanphat' ),
+		'DESC' => __( 'Giảm dần (DESC)', 'tmnhanphat' ),
+	);
+}
+
+/**
+ * Whitelist "Order".
+ *
+ * @param string $value Giá trị gửi lên từ Customizer.
+ * @return string
+ */
+function tmnhanphat_sanitize_services_order( $value ) {
+	$choices = array_keys( tmnhanphat_get_services_order_choices() );
+
+	return in_array( $value, $choices, true ) ? $value : 'ASC';
+}
+
+/**
+ * Danh sách lựa chọn "Heading Alignment".
+ *
+ * @return array<string, string>
+ */
+function tmnhanphat_get_services_align_choices() {
+	return array(
+		'center' => __( 'Giữa', 'tmnhanphat' ),
+		'left'   => __( 'Trái', 'tmnhanphat' ),
+		'right'  => __( 'Phải', 'tmnhanphat' ),
+	);
+}
+
+/**
+ * Whitelist "Heading Alignment".
+ *
+ * @param string $value Giá trị gửi lên từ Customizer.
+ * @return string
+ */
+function tmnhanphat_sanitize_services_align( $value ) {
+	$choices = array_keys( tmnhanphat_get_services_align_choices() );
+
+	return in_array( $value, $choices, true ) ? $value : 'center';
+}
+
+/**
+ * Danh sách lựa chọn "Image Ratio" của Card (key "W-H" → aspect-ratio CSS "W / H").
+ *
+ * @return array<string, string>
+ */
+function tmnhanphat_get_services_ratio_choices() {
+	return array(
+		'510-453' => __( 'Chuẩn thiết kế (510×453)', 'tmnhanphat' ),
+		'4-3'     => __( '4:3', 'tmnhanphat' ),
+		'3-2'     => __( '3:2', 'tmnhanphat' ),
+		'16-9'    => __( '16:9', 'tmnhanphat' ),
+		'1-1'     => __( 'Vuông (1:1)', 'tmnhanphat' ),
+	);
+}
+
+/**
+ * Whitelist "Image Ratio".
+ *
+ * @param string $value Giá trị gửi lên từ Customizer.
+ * @return string
+ */
+function tmnhanphat_sanitize_services_ratio( $value ) {
+	$choices = array_keys( tmnhanphat_get_services_ratio_choices() );
+
+	return in_array( $value, $choices, true ) ? $value : '510-453';
+}
+
+/**
+ * Danh sách lựa chọn số card hiển thị đồng thời theo breakpoint.
+ *
+ * @param string $breakpoint 'desktop' | 'tablet' | 'mobile'.
+ * @return array<string, string>
+ */
+function tmnhanphat_get_services_cards_choices( $breakpoint ) {
+	$map = array(
+		'desktop' => array( '2', '3', '4' ),
+		'tablet'  => array( '1', '2', '3' ),
+		'mobile'  => array( '1', '2' ),
+	);
+	$values  = isset( $map[ $breakpoint ] ) ? $map[ $breakpoint ] : $map['desktop'];
+	$choices = array();
+
+	foreach ( $values as $value ) {
+		$choices[ $value ] = $value;
+	}
+
+	return $choices;
+}
+
+/**
+ * Whitelist số card Desktop.
+ *
+ * @param string $value Giá trị gửi lên từ Customizer.
+ * @return string
+ */
+function tmnhanphat_sanitize_services_cards_desktop( $value ) {
+	$choices = array_keys( tmnhanphat_get_services_cards_choices( 'desktop' ) );
+
+	return in_array( (string) $value, $choices, true ) ? (string) $value : '3';
+}
+
+/**
+ * Whitelist số card Tablet.
+ *
+ * @param string $value Giá trị gửi lên từ Customizer.
+ * @return string
+ */
+function tmnhanphat_sanitize_services_cards_tablet( $value ) {
+	$choices = array_keys( tmnhanphat_get_services_cards_choices( 'tablet' ) );
+
+	return in_array( (string) $value, $choices, true ) ? (string) $value : '2';
+}
+
+/**
+ * Whitelist số card Mobile.
+ *
+ * @param string $value Giá trị gửi lên từ Customizer.
+ * @return string
+ */
+function tmnhanphat_sanitize_services_cards_mobile( $value ) {
+	$choices = array_keys( tmnhanphat_get_services_cards_choices( 'mobile' ) );
+
+	return in_array( (string) $value, $choices, true ) ? (string) $value : '1';
+}
+
+/**
+ * Sanitize danh sách ID dạng CSV ("12, 34,56" → "12,34,56") cho Include/Exclude IDs.
+ *
+ * @param string $value Giá trị gửi lên từ Customizer.
+ * @return string
+ */
+function tmnhanphat_sanitize_id_list( $value ) {
+	$ids = array_filter( array_map( 'absint', explode( ',', (string) $value ) ) );
+
+	return implode( ',', $ids );
+}
+
+/**
+ * Chuyển chuỗi CSV ID đã sanitize thành mảng int (dùng cho WP_Query).
+ *
+ * @param string $value Chuỗi CSV.
+ * @return int[]
+ */
+function tmnhanphat_parse_id_list( $value ) {
+	return array_filter( array_map( 'absint', explode( ',', (string) $value ) ) );
+}
+
+/**
+ * Query danh sách Service cho Homepage theo đúng setting Customizer — chỉ lấy đúng số lượng
+ * cần render (no_found_rows, không phân trang), KHÔNG query toàn bộ (PROJECT_RULES.md mục 15).
+ *
+ * @return WP_Query
+ */
+function tmnhanphat_get_services_query() {
+	$args = array(
+		'post_type'           => 'tmnp_service',
+		'post_status'         => 'publish',
+		'posts_per_page'      => max( 1, absint( tmnhanphat_get_services_mod( 'tmnhanphat_services_count' ) ) ),
+		'orderby'             => tmnhanphat_get_services_mod( 'tmnhanphat_services_orderby' ),
+		'order'               => tmnhanphat_get_services_mod( 'tmnhanphat_services_order' ),
+		'no_found_rows'       => true,
+		'ignore_sticky_posts' => true,
+	);
+
+	$offset = absint( tmnhanphat_get_services_mod( 'tmnhanphat_services_offset' ) );
+	if ( $offset > 0 ) {
+		$args['offset'] = $offset;
+	}
+
+	$exclude = tmnhanphat_parse_id_list( tmnhanphat_get_services_mod( 'tmnhanphat_services_exclude_ids' ) );
+	if ( $exclude ) {
+		$args['post__not_in'] = $exclude;
+	}
+
+	$include = tmnhanphat_parse_id_list( tmnhanphat_get_services_mod( 'tmnhanphat_services_include_ids' ) );
+	if ( $include ) {
+		$args['post__in'] = $include;
+		// post__in cần orderby riêng nếu muốn giữ đúng thứ tự nhập — chỉ áp khi đang sort mặc định.
+		if ( 'menu_order' === $args['orderby'] ) {
+			$args['orderby'] = 'post__in';
+		}
+	}
+
+	return new WP_Query( $args );
+}
+
+/**
+ * URL đích của 1 Service card: meta Landing Page URL override (nếu có) hoặc permalink.
+ *
+ * @param int $post_id ID của Service.
+ * @return string
+ */
+function tmnhanphat_get_service_link( $post_id ) {
+	$override = get_post_meta( $post_id, '_tmnp_service_landing_url', true );
+
+	return $override ? $override : get_permalink( $post_id );
+}
+
+/**
+ * URL của CTA "Tìm hiểu tất cả dịch vụ": setting override hoặc Archive CPT Service.
+ *
+ * @return string
+ */
+function tmnhanphat_get_services_cta_url() {
+	$override = tmnhanphat_get_services_mod( 'tmnhanphat_services_cta_url' );
+
+	if ( $override ) {
+		return $override;
+	}
+
+	$archive = get_post_type_archive_link( 'tmnp_service' );
+
+	return $archive ? $archive : home_url( '/' );
+}
+
+/**
+ * Sinh chuỗi CSS custom properties cho Services Home Section, gắn qua wp_add_inline_style()
+ * trong inc/enqueue.php — cùng quy ước Header/Footer/Hero/Partner/About (mục 22).
+ *
+ * @return string
+ */
+function tmnhanphat_render_services_css_vars() {
+	$bg_color        = tmnhanphat_get_services_mod( 'tmnhanphat_services_bg_color' );
+	$container_width = absint( tmnhanphat_get_services_mod( 'tmnhanphat_services_container_width' ) );
+	$padding_desktop = absint( tmnhanphat_get_services_mod( 'tmnhanphat_services_padding_desktop' ) );
+	$padding_tablet  = absint( tmnhanphat_get_services_mod( 'tmnhanphat_services_padding_tablet' ) );
+	$padding_mobile  = absint( tmnhanphat_get_services_mod( 'tmnhanphat_services_padding_mobile' ) );
+
+	$heading_red_color  = tmnhanphat_get_services_mod( 'tmnhanphat_services_heading_red_color' );
+	$heading_blue_color = tmnhanphat_get_services_mod( 'tmnhanphat_services_heading_blue_color' );
+	$heading_size       = absint( tmnhanphat_get_services_mod( 'tmnhanphat_services_heading_font_size' ) );
+	$heading_weight     = absint( tmnhanphat_get_services_mod( 'tmnhanphat_services_heading_font_weight' ) );
+	$heading_align      = tmnhanphat_get_services_mod( 'tmnhanphat_services_heading_align' );
+	$heading_margin     = absint( tmnhanphat_get_services_mod( 'tmnhanphat_services_heading_margin_bottom' ) );
+
+	$desc_color  = tmnhanphat_get_services_mod( 'tmnhanphat_services_description_color' );
+	$desc_size   = absint( tmnhanphat_get_services_mod( 'tmnhanphat_services_description_font_size' ) );
+	$desc_width  = absint( tmnhanphat_get_services_mod( 'tmnhanphat_services_description_max_width' ) );
+	$desc_margin = absint( tmnhanphat_get_services_mod( 'tmnhanphat_services_description_margin_bottom' ) );
+
+	$gap           = absint( tmnhanphat_get_services_mod( 'tmnhanphat_services_gap' ) );
+	$cards_desktop = absint( tmnhanphat_get_services_mod( 'tmnhanphat_services_cards_desktop' ) );
+	$cards_tablet  = absint( tmnhanphat_get_services_mod( 'tmnhanphat_services_cards_tablet' ) );
+	$cards_mobile  = absint( tmnhanphat_get_services_mod( 'tmnhanphat_services_cards_mobile' ) );
+	$dot_active    = tmnhanphat_get_services_mod( 'tmnhanphat_services_dot_active_color' );
+	$dot_inactive  = tmnhanphat_get_services_mod( 'tmnhanphat_services_dot_inactive_color' );
+	$transition    = absint( tmnhanphat_get_services_mod( 'tmnhanphat_services_transition_speed' ) );
+
+	$card_radius     = absint( tmnhanphat_get_services_mod( 'tmnhanphat_services_card_radius' ) );
+	$card_ratio      = str_replace( '-', ' / ', tmnhanphat_get_services_mod( 'tmnhanphat_services_card_ratio' ) );
+	$overlay_color   = tmnhanphat_get_services_mod( 'tmnhanphat_services_overlay_color' );
+	$overlay_opacity = absint( tmnhanphat_get_services_mod( 'tmnhanphat_services_overlay_opacity' ) );
+	$title_color     = tmnhanphat_get_services_mod( 'tmnhanphat_services_title_color' );
+	$title_hover     = tmnhanphat_get_services_mod( 'tmnhanphat_services_title_hover_color' );
+	$title_size      = absint( tmnhanphat_get_services_mod( 'tmnhanphat_services_title_font_size' ) );
+	$excerpt_color   = tmnhanphat_get_services_mod( 'tmnhanphat_services_excerpt_color' );
+	$excerpt_size    = absint( tmnhanphat_get_services_mod( 'tmnhanphat_services_excerpt_font_size' ) );
+	$content_padding = absint( tmnhanphat_get_services_mod( 'tmnhanphat_services_content_padding' ) );
+	$arrow_color     = tmnhanphat_get_services_mod( 'tmnhanphat_services_arrow_color' );
+	$hover_zoom      = tmnhanphat_get_services_mod( 'tmnhanphat_services_hover_zoom_enable' );
+	$hover_duration  = absint( tmnhanphat_get_services_mod( 'tmnhanphat_services_hover_duration' ) );
+
+	$cta_bg         = tmnhanphat_get_services_mod( 'tmnhanphat_services_cta_bg' );
+	$cta_text_color = tmnhanphat_get_services_mod( 'tmnhanphat_services_cta_text_color' );
+	$cta_hover_bg   = tmnhanphat_get_services_mod( 'tmnhanphat_services_cta_hover_bg' );
+	$cta_radius     = absint( tmnhanphat_get_services_mod( 'tmnhanphat_services_cta_radius' ) );
+	$cta_padding_x  = absint( tmnhanphat_get_services_mod( 'tmnhanphat_services_cta_padding_x' ) );
+	$cta_padding_y  = absint( tmnhanphat_get_services_mod( 'tmnhanphat_services_cta_padding_y' ) );
+	$cta_font_size  = absint( tmnhanphat_get_services_mod( 'tmnhanphat_services_cta_font_size' ) );
+	$cta_margin_top = absint( tmnhanphat_get_services_mod( 'tmnhanphat_services_cta_margin_top' ) );
+
+	$css  = ':root{';
+	$css .= '--services-bg:' . $bg_color . ';';
+	$css .= '--services-container-width:' . ( $container_width > 0 ? $container_width . 'px' : 'var(--container-max-width)' ) . ';';
+	$css .= '--services-padding:' . $padding_desktop . 'px;';
+	$css .= '--services-heading-red:' . $heading_red_color . ';';
+	$css .= '--services-heading-blue:' . $heading_blue_color . ';';
+	$css .= '--services-heading-size:' . $heading_size . 'px;';
+	$css .= '--services-heading-weight:' . $heading_weight . ';';
+	$css .= '--services-heading-align:' . $heading_align . ';';
+	$css .= '--services-heading-margin:' . $heading_margin . 'px;';
+	$css .= '--services-desc-color:' . $desc_color . ';';
+	$css .= '--services-desc-size:' . $desc_size . 'px;';
+	$css .= '--services-desc-max-width:' . $desc_width . 'px;';
+	$css .= '--services-desc-margin:' . $desc_margin . 'px;';
+	$css .= '--services-gap:' . $gap . 'px;';
+	$css .= '--services-cols:' . max( 1, $cards_desktop ) . ';';
+	$css .= '--services-dot-active:' . $dot_active . ';';
+	$css .= '--services-dot-inactive:' . $dot_inactive . ';';
+	$css .= '--services-transition:' . $transition . 'ms;';
+	$css .= '--services-card-radius:' . $card_radius . 'px;';
+	$css .= '--services-card-ratio:' . $card_ratio . ';';
+	$css .= '--services-overlay:' . tmnhanphat_hex_to_rgba( $overlay_color, $overlay_opacity ) . ';';
+	$css .= '--services-overlay-hover:' . tmnhanphat_hex_to_rgba( $overlay_color, min( 100, $overlay_opacity + 15 ) ) . ';';
+	$css .= '--services-title-color:' . $title_color . ';';
+	$css .= '--services-title-hover:' . $title_hover . ';';
+	$css .= '--services-title-size:' . $title_size . 'px;';
+	$css .= '--services-excerpt-color:' . $excerpt_color . ';';
+	$css .= '--services-excerpt-size:' . $excerpt_size . 'px;';
+	$css .= '--services-content-padding:' . $content_padding . 'px;';
+	$css .= '--services-arrow-color:' . $arrow_color . ';';
+	$css .= '--services-hover-zoom:' . ( $hover_zoom ? '1.06' : '1' ) . ';';
+	$css .= '--services-hover-duration:' . $hover_duration . 'ms;';
+	$css .= '--services-cta-bg:' . $cta_bg . ';';
+	$css .= '--services-cta-text:' . $cta_text_color . ';';
+	$css .= '--services-cta-hover-bg:' . $cta_hover_bg . ';';
+	$css .= '--services-cta-radius:' . $cta_radius . 'px;';
+	$css .= '--services-cta-padding:' . $cta_padding_y . 'px ' . $cta_padding_x . 'px;';
+	$css .= '--services-cta-size:' . $cta_font_size . 'px;';
+	$css .= '--services-cta-margin-top:' . $cta_margin_top . 'px;';
+	$css .= '}';
+
+	$css .= '@media (max-width:991px){:root{';
+	$css .= '--services-padding:' . $padding_tablet . 'px;';
+	$css .= '--services-cols:' . max( 1, $cards_tablet ) . ';';
+	$css .= '}}';
+
+	$css .= '@media (max-width:599px){:root{';
+	$css .= '--services-padding:' . $padding_mobile . 'px;';
+	$css .= '--services-cols:' . max( 1, $cards_mobile ) . ';';
+	$css .= '}}';
+
+	return $css;
+}
+
+/* ==========================================================================
+ * PRODUCTS SECTION (trang chủ) — helper riêng, không đụng các module khác.
+ *
+ * Dữ liệu là POST THƯỜNG thuộc Category cha "Sản phẩm" (mặc định slug 'san-pham'),
+ * KHÔNG phải CPT — Category Navigation hiển thị các Sub Category của cha, click tab
+ * đổi danh sách qua AJAX (inc/ajax.php::tmnhanphat_ajax_filter_products), fallback
+ * không JS = link thẳng tới trang archive của category đó.
+ *
+ * Thương hiệu/Tiêu chuẩn của từng sản phẩm đọc từ post meta — meta key CẤU HÌNH ĐƯỢC
+ * qua Customizer (mặc định _tmnp_product_brand/_tmnp_product_standard, nhập qua meta
+ * box "Thông tin sản phẩm" trong inc/post-types.php; nếu sau này dùng ACF chỉ cần đổi
+ * meta key trong Customizer, không sửa code). Field rỗng → ẩn dòng đó (không render
+ * nhãn suông).
+ * ========================================================================== */
+
+/**
+ * Giá trị mặc định cho toàn bộ setting Products Home Section Customizer.
+ *
+ * @return array<string, mixed>
+ */
+function tmnhanphat_products_defaults() {
+	$parent = get_category_by_slug( 'san-pham' );
+
+	return array(
+		// General
+		'tmnhanphat_products_enable'            => true,
+		'tmnhanphat_products_section_id'        => 'products',
+		// 0 = dùng chung Container Width của Global Settings (mục 27).
+		'tmnhanphat_products_container_width'   => 0,
+		'tmnhanphat_products_margin_top'        => 0,
+		'tmnhanphat_products_margin_bottom'     => 0,
+		'tmnhanphat_products_padding_desktop'   => 80,
+		'tmnhanphat_products_padding_tablet'    => 56,
+		'tmnhanphat_products_padding_mobile'    => 40,
+		'tmnhanphat_products_bg_color'          => '#ffffff',
+		'tmnhanphat_products_bg_image'          => '',
+		'tmnhanphat_products_decoration_image'  => '',
+		'tmnhanphat_products_decoration_enable' => true,
+
+		// Heading — 2 phần text 2 màu (đỏ + xanh) như Services Home.
+		'tmnhanphat_products_heading_red_text'        => 'Sản phẩm của',
+		'tmnhanphat_products_heading_blue_text'       => 'Thang Máy Nhân Phát',
+		'tmnhanphat_products_heading_red_color'       => '#E31F2B',
+		'tmnhanphat_products_heading_blue_color'      => '#046AB5',
+		'tmnhanphat_products_heading_size_desktop'    => 40,
+		'tmnhanphat_products_heading_size_tablet'     => 32,
+		'tmnhanphat_products_heading_size_mobile'     => 26,
+		'tmnhanphat_products_heading_font_weight'     => '800',
+		'tmnhanphat_products_heading_line_height'     => 1.2,
+		'tmnhanphat_products_heading_letter_spacing'  => 0,
+		'tmnhanphat_products_heading_align'           => 'center',
+
+		// Description
+		'tmnhanphat_products_description_text'         => 'Với danh mục sản phẩm đa dạng và phong phú, Thang Máy Nhân Phát tự tin đáp ứng mọi yêu cầu của khách hàng, từ thang máy gia đình nhỏ gọn đến thang máy tải khách, tải hàng công suất lớn.',
+		'tmnhanphat_products_description_color'        => '#6b7280',
+		'tmnhanphat_products_description_size_desktop' => 15,
+		'tmnhanphat_products_description_size_tablet'  => 14,
+		'tmnhanphat_products_description_size_mobile'  => 13,
+		'tmnhanphat_products_description_max_width'    => 680,
+		'tmnhanphat_products_description_line_clamp'   => 0,
+		'tmnhanphat_products_header_bottom_spacing'    => 36,
+
+		// Category Navigation
+		'tmnhanphat_products_parent_cat'          => $parent ? (int) $parent->term_id : 0,
+		'tmnhanphat_products_show_empty_cats'     => false,
+		'tmnhanphat_products_cats_align'          => 'left',
+		'tmnhanphat_products_cats_gap'            => 12,
+		'tmnhanphat_products_cats_padding_x'      => 18,
+		'tmnhanphat_products_cats_padding_y'      => 9,
+		'tmnhanphat_products_cats_radius'         => 4,
+		'tmnhanphat_products_cats_font_size'      => 14,
+		'tmnhanphat_products_cats_active_bg'      => '#046AB5',
+		'tmnhanphat_products_cats_active_color'   => '#ffffff',
+		'tmnhanphat_products_cats_inactive_bg'    => '#ffffff',
+		'tmnhanphat_products_cats_inactive_color' => '#6b7280',
+		'tmnhanphat_products_cats_border'         => '#e5e7eb',
+		'tmnhanphat_products_cats_hover_bg'       => '#eaf3fb',
+		'tmnhanphat_products_cats_hover_color'    => '#046AB5',
+		'tmnhanphat_products_cats_bottom_spacing' => 32,
+
+		// Query — Cols × Rows quyết định số bài / slide (Desktop 3×2=6, Tablet 2×2=4, Mobile 1×1=1).
+		'tmnhanphat_products_post_type'    => 'post',
+		'tmnhanphat_products_total'        => 12,
+		'tmnhanphat_products_cols_desktop' => 3,
+		'tmnhanphat_products_cols_tablet'  => 2,
+		'tmnhanphat_products_cols_mobile'  => 1,
+		'tmnhanphat_products_rows_desktop' => 2,
+		'tmnhanphat_products_rows_tablet'  => 2,
+		'tmnhanphat_products_rows_mobile'  => 1,
+		'tmnhanphat_products_orderby'      => 'date',
+		'tmnhanphat_products_order'        => 'DESC',
+		'tmnhanphat_products_exclude_cats' => '',
+
+		// Card
+		'tmnhanphat_products_card_radius'        => 8,
+		'tmnhanphat_products_card_shadow'        => 'soft',
+		'tmnhanphat_products_card_padding'       => 16,
+		'tmnhanphat_products_card_gap'           => 24,
+		'tmnhanphat_products_image_ratio'        => '438-403',
+		'tmnhanphat_products_image_radius'       => 0,
+		'tmnhanphat_products_hover_zoom_enable'  => true,
+		'tmnhanphat_products_title_size_desktop' => 17,
+		'tmnhanphat_products_title_size_tablet'  => 16,
+		'tmnhanphat_products_title_size_mobile'  => 16,
+		'tmnhanphat_products_title_line_clamp'   => 2,
+		'tmnhanphat_products_title_align'        => 'left',
+		'tmnhanphat_products_meta_font_size'     => 13,
+		'tmnhanphat_products_meta_color'         => '#6b7280',
+		'tmnhanphat_products_brand_enable'       => true,
+		'tmnhanphat_products_brand_label'        => __( 'Thương hiệu', 'tmnhanphat' ),
+		'tmnhanphat_products_brand_meta_key'     => '_tmnp_product_brand',
+		'tmnhanphat_products_standard_enable'    => true,
+		'tmnhanphat_products_standard_label'     => __( 'Tiêu chuẩn', 'tmnhanphat' ),
+		'tmnhanphat_products_standard_meta_key'  => '_tmnp_product_standard',
+		'tmnhanphat_products_price_label'        => __( 'Giá:', 'tmnhanphat' ),
+		'tmnhanphat_products_contact_text'       => __( 'Liên hệ', 'tmnhanphat' ),
+		'tmnhanphat_products_contact_color'      => '#E31F2B',
+		// '' = chưa có trang liên hệ, render '#' — sau này trỏ tới Contact Page/Form.
+		'tmnhanphat_products_contact_url'        => '',
+		'tmnhanphat_products_button_text'        => __( 'Chi tiết', 'tmnhanphat' ),
+		'tmnhanphat_products_button_radius'      => 999,
+		'tmnhanphat_products_button_bg'          => '#046AB5',
+		'tmnhanphat_products_button_hover_bg'    => '#03518a',
+		'tmnhanphat_products_button_color'       => '#ffffff',
+
+		// Slider
+		'tmnhanphat_products_autoplay_enable'  => true,
+		'tmnhanphat_products_autoplay_delay'   => 4000,
+		'tmnhanphat_products_transition_speed' => 600,
+		'tmnhanphat_products_infinite'         => true,
+		'tmnhanphat_products_pause_hover'      => true,
+		'tmnhanphat_products_drag_enable'      => true,
+		'tmnhanphat_products_dots_enable'      => true,
+		'tmnhanphat_products_dot_color'        => '#D9D9D9',
+		'tmnhanphat_products_dot_active_color' => '#046AB5',
+		'tmnhanphat_products_dot_size'         => 10,
+		'tmnhanphat_products_dot_gap'          => 10,
+	);
+}
+
+/**
+ * Đọc 1 theme_mod của Products kèm fallback lấy từ tmnhanphat_products_defaults().
+ *
+ * @param string $key Tên setting (khớp key trong tmnhanphat_products_defaults()).
+ * @return mixed
+ */
+function tmnhanphat_get_products_mod( $key ) {
+	$defaults = tmnhanphat_products_defaults();
+	$default  = isset( $defaults[ $key ] ) ? $defaults[ $key ] : '';
+
+	return get_theme_mod( $key, $default );
+}
+
+/**
+ * Whitelist Alignment (mặc định left) — dùng cho Category Navigation/Card Title,
+ * chung danh sách choices với tmnhanphat_get_services_align_choices().
+ *
+ * @param string $value Giá trị gửi lên từ Customizer.
+ * @return string
+ */
+function tmnhanphat_sanitize_products_align_left( $value ) {
+	$choices = array_keys( tmnhanphat_get_services_align_choices() );
+
+	return in_array( $value, $choices, true ) ? $value : 'left';
+}
+
+/**
+ * Line Height cho phép số thập phân (1.2, 1.35...) — absint() làm mất phần lẻ nên
+ * cần sanitize float riêng, tự giới hạn khoảng hợp lệ.
+ *
+ * @param mixed $value Giá trị gửi lên từ Customizer.
+ * @return float
+ */
+function tmnhanphat_sanitize_products_line_height( $value ) {
+	return max( 0.8, min( 3, (float) $value ) );
+}
+
+/**
+ * Letter Spacing cho phép số ÂM (px) — absint() làm mất dấu nên cần sanitize riêng.
+ *
+ * @param mixed $value Giá trị gửi lên từ Customizer.
+ * @return int
+ */
+function tmnhanphat_sanitize_products_letter_spacing( $value ) {
+	return max( -5, min( 10, (int) $value ) );
+}
+
+/**
+ * Danh sách lựa chọn "Order By" cho Query Products (post thường — không có menu_order).
+ *
+ * @return array<string, string>
+ */
+function tmnhanphat_get_products_orderby_choices() {
+	return array(
+		'date'  => __( 'Ngày đăng', 'tmnhanphat' ),
+		'title' => __( 'Tiêu đề', 'tmnhanphat' ),
+		'rand'  => __( 'Ngẫu nhiên', 'tmnhanphat' ),
+	);
+}
+
+/**
+ * Whitelist "Order By" của Products.
+ *
+ * @param string $value Giá trị gửi lên từ Customizer.
+ * @return string
+ */
+function tmnhanphat_sanitize_products_orderby( $value ) {
+	$choices = array_keys( tmnhanphat_get_products_orderby_choices() );
+
+	return in_array( $value, $choices, true ) ? $value : 'date';
+}
+
+/**
+ * Whitelist "Order" của Products (mặc định DESC — bài mới nhất trước).
+ *
+ * @param string $value Giá trị gửi lên từ Customizer.
+ * @return string
+ */
+function tmnhanphat_sanitize_products_order( $value ) {
+	return in_array( $value, array( 'ASC', 'DESC' ), true ) ? $value : 'DESC';
+}
+
+/**
+ * Whitelist "Post Type" — chỉ chấp nhận post type public đang tồn tại.
+ *
+ * @param string $value Giá trị gửi lên từ Customizer.
+ * @return string
+ */
+function tmnhanphat_sanitize_products_post_type( $value ) {
+	$value = sanitize_key( $value );
+
+	if ( $value && post_type_exists( $value ) && is_post_type_viewable( $value ) ) {
+		return $value;
+	}
+
+	return 'post';
+}
+
+/**
+ * Danh sách lựa chọn "Image Ratio" của Product Card (key "W-H" → aspect-ratio CSS "W / H").
+ *
+ * @return array<string, string>
+ */
+function tmnhanphat_get_products_ratio_choices() {
+	return array(
+		'438-403' => __( 'Chuẩn thiết kế (438×403)', 'tmnhanphat' ),
+		'4-3'     => __( '4:3', 'tmnhanphat' ),
+		'3-2'     => __( '3:2', 'tmnhanphat' ),
+		'16-9'    => __( '16:9', 'tmnhanphat' ),
+		'1-1'     => __( 'Vuông (1:1)', 'tmnhanphat' ),
+	);
+}
+
+/**
+ * Whitelist "Image Ratio" của Products.
+ *
+ * @param string $value Giá trị gửi lên từ Customizer.
+ * @return string
+ */
+function tmnhanphat_sanitize_products_ratio( $value ) {
+	$choices = array_keys( tmnhanphat_get_products_ratio_choices() );
+
+	return in_array( $value, $choices, true ) ? $value : '438-403';
+}
+
+/**
+ * Danh sách mức bóng đổ Product Card cho phép chọn ở Customizer.
+ *
+ * @return array<string, string>
+ */
+function tmnhanphat_get_products_card_shadow_choices() {
+	return array(
+		'none'   => __( 'Không có', 'tmnhanphat' ),
+		'soft'   => __( 'Nhẹ', 'tmnhanphat' ),
+		'medium' => __( 'Vừa', 'tmnhanphat' ),
+	);
+}
+
+/**
+ * Quy đổi key bóng đổ Card sang cặp giá trị box-shadow (mặc định / khi hover lift).
+ *
+ * @param string $key Key trong tmnhanphat_get_products_card_shadow_choices().
+ * @return array{base: string, hover: string}
+ */
+function tmnhanphat_get_products_card_shadow_value( $key ) {
+	$shadows = array(
+		'none'   => array(
+			'base'  => 'none',
+			'hover' => '0 8px 20px rgb(6 24 44 / 0.10)',
+		),
+		'soft'   => array(
+			'base'  => '0 2px 10px rgb(6 24 44 / 0.07)',
+			'hover' => '0 12px 28px rgb(6 24 44 / 0.14)',
+		),
+		'medium' => array(
+			'base'  => '0 6px 18px rgb(6 24 44 / 0.12)',
+			'hover' => '0 16px 36px rgb(6 24 44 / 0.20)',
+		),
+	);
+
+	return isset( $shadows[ $key ] ) ? $shadows[ $key ] : $shadows['soft'];
+}
+
+/**
+ * Whitelist "Card Shadow" của Products.
+ *
+ * @param string $value Giá trị gửi lên từ Customizer.
+ * @return string
+ */
+function tmnhanphat_sanitize_products_card_shadow( $value ) {
+	$choices = array_keys( tmnhanphat_get_products_card_shadow_choices() );
+
+	return in_array( $value, $choices, true ) ? $value : 'soft';
+}
+
+/**
+ * ID Category cha "Sản phẩm" đang cấu hình (đã xác thực term tồn tại).
+ *
+ * @return int 0 nếu chưa cấu hình hoặc term không còn tồn tại.
+ */
+function tmnhanphat_get_products_parent_id() {
+	$parent_id = absint( tmnhanphat_get_products_mod( 'tmnhanphat_products_parent_cat' ) );
+
+	if ( ! $parent_id || ! term_exists( $parent_id, 'category' ) ) {
+		return 0;
+	}
+
+	return $parent_id;
+}
+
+/**
+ * Danh sách Sub Category của Category cha "Sản phẩm" cho Category Navigation —
+ * lọc theo Show Empty + Exclude Category, thứ tự theo term_id (thứ tự tạo).
+ *
+ * @return WP_Term[]
+ */
+function tmnhanphat_get_product_categories() {
+	$parent_id = tmnhanphat_get_products_parent_id();
+
+	if ( ! $parent_id ) {
+		return array();
+	}
+
+	$exclude = tmnhanphat_parse_id_list( tmnhanphat_get_products_mod( 'tmnhanphat_products_exclude_cats' ) );
+
+	$terms = get_terms( array(
+		'taxonomy'   => 'category',
+		'parent'     => $parent_id,
+		'hide_empty' => ! tmnhanphat_get_products_mod( 'tmnhanphat_products_show_empty_cats' ),
+		'exclude'    => $exclude,
+		'orderby'    => 'term_id',
+		'order'      => 'ASC',
+	) );
+
+	return is_wp_error( $terms ) ? array() : $terms;
+}
+
+/**
+ * Term ID có hợp lệ cho Products Section không: phải là chính Category cha hoặc
+ * hậu duệ của nó — dùng để xác thực input AJAX (không cho query category tuỳ ý).
+ *
+ * @param int $term_id Term ID cần kiểm tra.
+ * @return bool
+ */
+function tmnhanphat_is_valid_products_term( $term_id ) {
+	$parent_id = tmnhanphat_get_products_parent_id();
+
+	if ( ! $parent_id || ! $term_id ) {
+		return false;
+	}
+
+	if ( $term_id === $parent_id ) {
+		return true;
+	}
+
+	return cat_is_ancestor_of( $parent_id, $term_id );
+}
+
+/**
+ * Query danh sách sản phẩm của 1 category cho Products Section — chỉ lấy đúng số lượng
+ * cần render (no_found_rows, không phân trang — PROJECT_RULES.md mục 15). Dùng chung cho
+ * cả render lần đầu (template-parts/home/products.php) lẫn AJAX (inc/ajax.php).
+ *
+ * @param int $term_id Category ID (đã xác thực bằng tmnhanphat_is_valid_products_term()).
+ * @return WP_Query
+ */
+function tmnhanphat_get_products_query( $term_id ) {
+	return new WP_Query( array(
+		'post_type'           => tmnhanphat_sanitize_products_post_type( tmnhanphat_get_products_mod( 'tmnhanphat_products_post_type' ) ),
+		'post_status'         => 'publish',
+		'cat'                 => absint( $term_id ),
+		'posts_per_page'      => max( 1, absint( tmnhanphat_get_products_mod( 'tmnhanphat_products_total' ) ) ),
+		'orderby'             => tmnhanphat_get_products_mod( 'tmnhanphat_products_orderby' ),
+		'order'               => tmnhanphat_get_products_mod( 'tmnhanphat_products_order' ),
+		'no_found_rows'       => true,
+		'ignore_sticky_posts' => true,
+	) );
+}
+
+/**
+ * Đọc giá trị Thương hiệu/Tiêu chuẩn của 1 sản phẩm theo meta key cấu hình trong
+ * Customizer — trả chuỗi thuần (strip tag) để card không vỡ layout nếu meta chứa HTML.
+ *
+ * Nếu Admin đã nhập Meta Box thì luôn ưu tiên hiển thị dữ liệu thật. Nếu meta rỗng
+ * (chưa nhập), trả về một giá trị fallback hiển thị — chỉ ở tầng hiển thị, KHÔNG
+ * ghi lại vào post meta / không update_post_meta ở đây.
+ *
+ * @param int    $post_id ID bài sản phẩm.
+ * @param string $field   'brand' | 'standard'.
+ * @return string Dữ liệu thật, hoặc fallback nếu meta chưa nhập.
+ */
+function tmnhanphat_get_product_meta_value( $post_id, $field ) {
+	$key_setting = 'standard' === $field ? 'tmnhanphat_products_standard_meta_key' : 'tmnhanphat_products_brand_meta_key';
+	$meta_key    = sanitize_text_field( tmnhanphat_get_products_mod( $key_setting ) );
+
+	$value = '';
+
+	if ( $meta_key ) {
+		$raw   = get_post_meta( $post_id, $meta_key, true );
+		$value = is_string( $raw ) ? trim( wp_strip_all_tags( $raw ) ) : '';
+	}
+
+	if ( '' !== $value ) {
+		return $value;
+	}
+
+	return 'standard' === $field
+		? __( 'Đạt tiêu chuẩn chất lượng', 'tmnhanphat' )
+		: __( 'Nhân Phát Elevator', 'tmnhanphat' );
+}
+
+/**
+ * URL của "Liên hệ" trên card: setting override hoặc '#' (chưa có Contact Page).
+ *
+ * @return string
+ */
+function tmnhanphat_get_products_contact_url() {
+	$url = tmnhanphat_get_products_mod( 'tmnhanphat_products_contact_url' );
+
+	return $url ? $url : '#';
+}
+
+/**
+ * Sinh chuỗi CSS custom properties cho Products Home Section, gắn qua wp_add_inline_style()
+ * trong inc/enqueue.php — cùng quy ước Header/Footer/Hero/Partner/About/Services (mục 22).
+ *
+ * @return string
+ */
+function tmnhanphat_render_products_css_vars() {
+	$container_width = absint( tmnhanphat_get_products_mod( 'tmnhanphat_products_container_width' ) );
+	$margin_top      = absint( tmnhanphat_get_products_mod( 'tmnhanphat_products_margin_top' ) );
+	$margin_bottom   = absint( tmnhanphat_get_products_mod( 'tmnhanphat_products_margin_bottom' ) );
+	$padding_desktop = absint( tmnhanphat_get_products_mod( 'tmnhanphat_products_padding_desktop' ) );
+	$padding_tablet  = absint( tmnhanphat_get_products_mod( 'tmnhanphat_products_padding_tablet' ) );
+	$padding_mobile  = absint( tmnhanphat_get_products_mod( 'tmnhanphat_products_padding_mobile' ) );
+	$bg_color        = tmnhanphat_get_products_mod( 'tmnhanphat_products_bg_color' );
+	$bg_image        = tmnhanphat_get_products_mod( 'tmnhanphat_products_bg_image' );
+
+	$heading_red     = tmnhanphat_get_products_mod( 'tmnhanphat_products_heading_red_color' );
+	$heading_blue    = tmnhanphat_get_products_mod( 'tmnhanphat_products_heading_blue_color' );
+	$heading_desktop = absint( tmnhanphat_get_products_mod( 'tmnhanphat_products_heading_size_desktop' ) );
+	$heading_tablet  = absint( tmnhanphat_get_products_mod( 'tmnhanphat_products_heading_size_tablet' ) );
+	$heading_mobile  = absint( tmnhanphat_get_products_mod( 'tmnhanphat_products_heading_size_mobile' ) );
+	$heading_weight  = absint( tmnhanphat_get_products_mod( 'tmnhanphat_products_heading_font_weight' ) );
+	$heading_lh      = (float) tmnhanphat_get_products_mod( 'tmnhanphat_products_heading_line_height' );
+	$heading_ls      = (int) tmnhanphat_get_products_mod( 'tmnhanphat_products_heading_letter_spacing' );
+	$heading_align   = tmnhanphat_get_products_mod( 'tmnhanphat_products_heading_align' );
+
+	$desc_color   = tmnhanphat_get_products_mod( 'tmnhanphat_products_description_color' );
+	$desc_desktop = absint( tmnhanphat_get_products_mod( 'tmnhanphat_products_description_size_desktop' ) );
+	$desc_tablet  = absint( tmnhanphat_get_products_mod( 'tmnhanphat_products_description_size_tablet' ) );
+	$desc_mobile  = absint( tmnhanphat_get_products_mod( 'tmnhanphat_products_description_size_mobile' ) );
+	$desc_width   = absint( tmnhanphat_get_products_mod( 'tmnhanphat_products_description_max_width' ) );
+	$desc_clamp   = absint( tmnhanphat_get_products_mod( 'tmnhanphat_products_description_line_clamp' ) );
+	$header_gap   = absint( tmnhanphat_get_products_mod( 'tmnhanphat_products_header_bottom_spacing' ) );
+
+	$cats_align       = tmnhanphat_get_products_mod( 'tmnhanphat_products_cats_align' );
+	$cats_gap         = absint( tmnhanphat_get_products_mod( 'tmnhanphat_products_cats_gap' ) );
+	$cats_padding_x   = absint( tmnhanphat_get_products_mod( 'tmnhanphat_products_cats_padding_x' ) );
+	$cats_padding_y   = absint( tmnhanphat_get_products_mod( 'tmnhanphat_products_cats_padding_y' ) );
+	$cats_radius      = absint( tmnhanphat_get_products_mod( 'tmnhanphat_products_cats_radius' ) );
+	$cats_font_size   = absint( tmnhanphat_get_products_mod( 'tmnhanphat_products_cats_font_size' ) );
+	$cats_active_bg   = tmnhanphat_get_products_mod( 'tmnhanphat_products_cats_active_bg' );
+	$cats_active_col  = tmnhanphat_get_products_mod( 'tmnhanphat_products_cats_active_color' );
+	$cats_inact_bg    = tmnhanphat_get_products_mod( 'tmnhanphat_products_cats_inactive_bg' );
+	$cats_inact_col   = tmnhanphat_get_products_mod( 'tmnhanphat_products_cats_inactive_color' );
+	$cats_border      = tmnhanphat_get_products_mod( 'tmnhanphat_products_cats_border' );
+	$cats_hover_bg    = tmnhanphat_get_products_mod( 'tmnhanphat_products_cats_hover_bg' );
+	$cats_hover_col   = tmnhanphat_get_products_mod( 'tmnhanphat_products_cats_hover_color' );
+	$cats_bottom      = absint( tmnhanphat_get_products_mod( 'tmnhanphat_products_cats_bottom_spacing' ) );
+
+	// Cols/Rows: clamp tại tầng render (number input + absint — theo tiền lệ Partners Display Limit).
+	$cols_desktop = max( 1, min( 4, absint( tmnhanphat_get_products_mod( 'tmnhanphat_products_cols_desktop' ) ) ) );
+	$cols_tablet  = max( 1, min( 3, absint( tmnhanphat_get_products_mod( 'tmnhanphat_products_cols_tablet' ) ) ) );
+	$cols_mobile  = max( 1, min( 2, absint( tmnhanphat_get_products_mod( 'tmnhanphat_products_cols_mobile' ) ) ) );
+
+	$card_radius  = absint( tmnhanphat_get_products_mod( 'tmnhanphat_products_card_radius' ) );
+	$card_shadow  = tmnhanphat_get_products_card_shadow_value( tmnhanphat_get_products_mod( 'tmnhanphat_products_card_shadow' ) );
+	$card_padding = absint( tmnhanphat_get_products_mod( 'tmnhanphat_products_card_padding' ) );
+	$card_gap     = absint( tmnhanphat_get_products_mod( 'tmnhanphat_products_card_gap' ) );
+	$image_ratio  = str_replace( '-', ' / ', tmnhanphat_get_products_mod( 'tmnhanphat_products_image_ratio' ) );
+	$image_radius = absint( tmnhanphat_get_products_mod( 'tmnhanphat_products_image_radius' ) );
+	$hover_zoom   = tmnhanphat_get_products_mod( 'tmnhanphat_products_hover_zoom_enable' );
+
+	$title_desktop = absint( tmnhanphat_get_products_mod( 'tmnhanphat_products_title_size_desktop' ) );
+	$title_tablet  = absint( tmnhanphat_get_products_mod( 'tmnhanphat_products_title_size_tablet' ) );
+	$title_mobile  = absint( tmnhanphat_get_products_mod( 'tmnhanphat_products_title_size_mobile' ) );
+	$title_clamp   = max( 1, min( 4, absint( tmnhanphat_get_products_mod( 'tmnhanphat_products_title_line_clamp' ) ) ) );
+	$title_align   = tmnhanphat_get_products_mod( 'tmnhanphat_products_title_align' );
+
+	$meta_size  = absint( tmnhanphat_get_products_mod( 'tmnhanphat_products_meta_font_size' ) );
+	$meta_color = tmnhanphat_get_products_mod( 'tmnhanphat_products_meta_color' );
+
+	$contact_color   = tmnhanphat_get_products_mod( 'tmnhanphat_products_contact_color' );
+	$button_radius   = absint( tmnhanphat_get_products_mod( 'tmnhanphat_products_button_radius' ) );
+	$button_bg       = tmnhanphat_get_products_mod( 'tmnhanphat_products_button_bg' );
+	$button_hover_bg = tmnhanphat_get_products_mod( 'tmnhanphat_products_button_hover_bg' );
+	$button_color    = tmnhanphat_get_products_mod( 'tmnhanphat_products_button_color' );
+
+	$transition = absint( tmnhanphat_get_products_mod( 'tmnhanphat_products_transition_speed' ) );
+	$dot_color  = tmnhanphat_get_products_mod( 'tmnhanphat_products_dot_color' );
+	$dot_active = tmnhanphat_get_products_mod( 'tmnhanphat_products_dot_active_color' );
+	$dot_size   = absint( tmnhanphat_get_products_mod( 'tmnhanphat_products_dot_size' ) );
+	$dot_gap    = absint( tmnhanphat_get_products_mod( 'tmnhanphat_products_dot_gap' ) );
+
+	$css  = ':root{';
+	$css .= '--products-container-width:' . ( $container_width > 0 ? $container_width . 'px' : 'var(--container-max-width)' ) . ';';
+	$css .= '--products-margin-top:' . $margin_top . 'px;';
+	$css .= '--products-margin-bottom:' . $margin_bottom . 'px;';
+	$css .= '--products-padding:' . $padding_desktop . 'px;';
+	$css .= '--products-bg:' . $bg_color . ';';
+	$css .= '--products-bg-image:' . ( $bg_image ? "url('" . esc_url( $bg_image ) . "')" : 'none' ) . ';';
+	$css .= '--products-heading-red:' . $heading_red . ';';
+	$css .= '--products-heading-blue:' . $heading_blue . ';';
+	$css .= '--products-heading-size:' . $heading_desktop . 'px;';
+	$css .= '--products-heading-weight:' . $heading_weight . ';';
+	$css .= '--products-heading-lh:' . $heading_lh . ';';
+	$css .= '--products-heading-ls:' . $heading_ls . 'px;';
+	$css .= '--products-heading-align:' . $heading_align . ';';
+	$css .= '--products-desc-color:' . $desc_color . ';';
+	$css .= '--products-desc-size:' . $desc_desktop . 'px;';
+	$css .= '--products-desc-max-width:' . $desc_width . 'px;';
+	$css .= '--products-header-gap:' . $header_gap . 'px;';
+	$css .= '--products-cats-justify:' . ( 'center' === $cats_align ? 'center' : ( 'right' === $cats_align ? 'flex-end' : 'flex-start' ) ) . ';';
+	$css .= '--products-cats-gap:' . $cats_gap . 'px;';
+	$css .= '--products-cats-padding:' . $cats_padding_y . 'px ' . $cats_padding_x . 'px;';
+	$css .= '--products-cats-radius:' . $cats_radius . 'px;';
+	$css .= '--products-cats-size:' . $cats_font_size . 'px;';
+	$css .= '--products-cats-active-bg:' . $cats_active_bg . ';';
+	$css .= '--products-cats-active-color:' . $cats_active_col . ';';
+	$css .= '--products-cats-bg:' . $cats_inact_bg . ';';
+	$css .= '--products-cats-color:' . $cats_inact_col . ';';
+	$css .= '--products-cats-border:' . $cats_border . ';';
+	$css .= '--products-cats-hover-bg:' . $cats_hover_bg . ';';
+	$css .= '--products-cats-hover-color:' . $cats_hover_col . ';';
+	$css .= '--products-cats-bottom:' . $cats_bottom . 'px;';
+	$css .= '--products-cols:' . $cols_desktop . ';';
+	$css .= '--products-card-radius:' . $card_radius . 'px;';
+	$css .= '--products-card-shadow:' . $card_shadow['base'] . ';';
+	$css .= '--products-card-shadow-hover:' . $card_shadow['hover'] . ';';
+	$css .= '--products-card-padding:' . $card_padding . 'px;';
+	$css .= '--products-gap:' . $card_gap . 'px;';
+	$css .= '--products-image-ratio:' . $image_ratio . ';';
+	$css .= '--products-image-radius:' . $image_radius . 'px;';
+	$css .= '--products-hover-zoom:' . ( $hover_zoom ? '1.05' : '1' ) . ';';
+	$css .= '--products-title-size:' . $title_desktop . 'px;';
+	$css .= '--products-title-clamp:' . $title_clamp . ';';
+	$css .= '--products-title-align:' . $title_align . ';';
+	$css .= '--products-meta-size:' . $meta_size . 'px;';
+	$css .= '--products-meta-color:' . $meta_color . ';';
+	$css .= '--products-contact-color:' . $contact_color . ';';
+	$css .= '--products-button-radius:' . $button_radius . 'px;';
+	$css .= '--products-button-bg:' . $button_bg . ';';
+	$css .= '--products-button-hover-bg:' . $button_hover_bg . ';';
+	$css .= '--products-button-color:' . $button_color . ';';
+	$css .= '--products-transition:' . $transition . 'ms;';
+	$css .= '--products-dot-color:' . $dot_color . ';';
+	$css .= '--products-dot-active:' . $dot_active . ';';
+	$css .= '--products-dot-size:' . $dot_size . 'px;';
+	$css .= '--products-dot-gap:' . $dot_gap . 'px;';
+	$css .= '}';
+
+	// Description Line Clamp: 0 = tắt — render rule tĩnh thay vì biến, tránh -webkit-line-clamp:0 ẩn hết chữ.
+	if ( $desc_clamp > 0 ) {
+		$css .= '.products-home__description{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:' . $desc_clamp . ';overflow:hidden;}';
+	}
+
+	$css .= '@media (max-width:991px){:root{';
+	$css .= '--products-padding:' . $padding_tablet . 'px;';
+	$css .= '--products-cols:' . $cols_tablet . ';';
+	$css .= '--products-heading-size:' . $heading_tablet . 'px;';
+	$css .= '--products-desc-size:' . $desc_tablet . 'px;';
+	$css .= '--products-title-size:' . $title_tablet . 'px;';
+	$css .= '}}';
+
+	$css .= '@media (max-width:599px){:root{';
+	$css .= '--products-padding:' . $padding_mobile . 'px;';
+	$css .= '--products-cols:' . $cols_mobile . ';';
+	$css .= '--products-heading-size:' . $heading_mobile . 'px;';
+	$css .= '--products-desc-size:' . $desc_mobile . 'px;';
+	$css .= '--products-title-size:' . $title_mobile . 'px;';
+	$css .= '}}';
+
+	return $css;
+}
+
+/* ==========================================================================
+ * WHY CHOOSE SECTION (trang chủ) — helper riêng, không đụng các module khác.
+ *
+ * "Tại sao nên chọn Thang Máy Nhân Phát": toàn bộ nội dung (Title/Description/
+ * Icon/Image/Button từng Feature Item) quản lý 100% trong Customizer panel
+ * "Why Choose Home" — KHÔNG dùng WP_Query/ACF/Meta Box (khác Services/Products).
+ * Feature Item dùng pattern Fixed-slot Repeater (PROJECT_RULES.md mục 24) như
+ * Partners: N slot cố định + Enable từng slot, sort theo Order.
+ *
+ * Slider tái sử dụng markup .tmnp-slider + assets/js/components/slider.js của
+ * Services (file đó generic sẵn — chỉ cần đúng markup + data-attribute). Section
+ * này KHÔNG có Dots/Arrows: chỉ autoplay tự trượt + drag/swipe trái phải.
+ * ========================================================================== */
+
+/**
+ * Số lượng "slot" Feature Item tối đa hỗ trợ trong Customizer (xem lý do fixed-slot
+ * tại tmnhanphat_get_partners_slot_count() — Core Customizer không có Repeater control).
+ *
+ * @return int
+ */
+function tmnhanphat_get_why_choose_slot_count() {
+	return 8;
+}
+
+/**
+ * Default value tập trung cho toàn bộ setting của Why Choose Section (mục 22).
+ *
+ * @return array<string, mixed>
+ */
+function tmnhanphat_why_choose_defaults() {
+	$defaults = array(
+		// ----- General -----
+		'tmnhanphat_why_choose_enable'          => true,
+		'tmnhanphat_why_choose_section_id'      => 'why-choose',
+		'tmnhanphat_why_choose_container_width' => 0,
+		'tmnhanphat_why_choose_bg_color'        => '#ffffff',
+		'tmnhanphat_why_choose_bg_image'        => '',
+		'tmnhanphat_why_choose_overlay_enable'  => false,
+		'tmnhanphat_why_choose_overlay_color'   => '#ffffff',
+		'tmnhanphat_why_choose_overlay_opacity' => 80,
+		'tmnhanphat_why_choose_padding_desktop' => 120, // Figma: section 1291 cao, khoảng trắng trên/dưới rộng.
+		'tmnhanphat_why_choose_padding_tablet'  => 72,
+		'tmnhanphat_why_choose_padding_mobile'  => 48,
+		'tmnhanphat_why_choose_margin_desktop'  => 0,
+		'tmnhanphat_why_choose_margin_tablet'   => 0,
+		'tmnhanphat_why_choose_margin_mobile'   => 0,
+
+		// ----- Decoration (tam giác xanh góc trái — thiết kế 828.5 × 857.5) -----
+		'tmnhanphat_why_choose_deco_enable'      => true,
+		'tmnhanphat_why_choose_deco_image'       => '',
+		'tmnhanphat_why_choose_deco_width'       => 828,
+		'tmnhanphat_why_choose_deco_height'      => 0,
+		'tmnhanphat_why_choose_deco_offset_x'    => -2, // Figma: Rectangle X = -2 (tràn nhẹ mép trái).
+		'tmnhanphat_why_choose_deco_offset_y'    => 0,
+		'tmnhanphat_why_choose_deco_hide_mobile' => true,
+
+		// ----- Heading (2 dòng 2 màu: xanh trên, đỏ dưới — đúng design) -----
+		'tmnhanphat_why_choose_heading_blue_text'      => 'Tại sao nên chọn',
+		'tmnhanphat_why_choose_heading_red_text'       => 'Thang Máy Nhân Phát',
+		'tmnhanphat_why_choose_heading_blue_color'     => '#046AB5',
+		'tmnhanphat_why_choose_heading_red_color'      => '#E31F2B',
+		'tmnhanphat_why_choose_heading_size'           => 40,
+		'tmnhanphat_why_choose_heading_size_tablet'    => 32,
+		'tmnhanphat_why_choose_heading_size_mobile'    => 26,
+		'tmnhanphat_why_choose_heading_weight'         => '800',
+		'tmnhanphat_why_choose_heading_line_height'    => 1.2,
+		'tmnhanphat_why_choose_heading_letter_spacing' => 0,
+		'tmnhanphat_why_choose_heading_align'          => 'left',
+		'tmnhanphat_why_choose_heading_margin_bottom'  => 8, // Figma: Description nằm sát ngay dưới Title.
+
+		// ----- Description -----
+		'tmnhanphat_why_choose_desc_text'          => 'Sản phẩm chính hãng, đội ngũ kỹ thuật chuyên nghiệp cùng chế độ bảo hành - bảo trì tận tâm là lý do hàng nghìn khách hàng tin chọn Nhân Phát.',
+		'tmnhanphat_why_choose_desc_color'         => '#5c5c5c',
+		'tmnhanphat_why_choose_desc_size'          => 15,
+		'tmnhanphat_why_choose_desc_size_tablet'   => 14,
+		'tmnhanphat_why_choose_desc_size_mobile'   => 14,
+		'tmnhanphat_why_choose_desc_max_width'     => 640,
+		'tmnhanphat_why_choose_desc_clamp'         => 0,
+		'tmnhanphat_why_choose_desc_margin_bottom' => 48,
+
+		// ----- Slider (KHÔNG có dots — autoplay + drag/swipe) -----
+		'tmnhanphat_why_choose_cards_desktop'    => '4',
+		'tmnhanphat_why_choose_cards_tablet'     => '2',
+		'tmnhanphat_why_choose_cards_mobile'     => '1',
+		'tmnhanphat_why_choose_gap_desktop'      => 24,
+		'tmnhanphat_why_choose_gap_tablet'       => 20,
+		'tmnhanphat_why_choose_gap_mobile'       => 16,
+		'tmnhanphat_why_choose_autoplay_enable'  => true,
+		'tmnhanphat_why_choose_autoplay_speed'   => 4000,
+		'tmnhanphat_why_choose_transition_speed' => 600,
+		'tmnhanphat_why_choose_pause_hover'      => true,
+		'tmnhanphat_why_choose_infinite'         => true,
+		'tmnhanphat_why_choose_drag_enable'      => true,
+
+		// ----- Card (Figma: 453 × 459, radius 39, ảnh 423 × 290 inset 15) -----
+		'tmnhanphat_why_choose_card_height'          => 459,
+		'tmnhanphat_why_choose_card_radius'          => 39,
+		'tmnhanphat_why_choose_card_border_width'    => 1,
+		'tmnhanphat_why_choose_card_border_color'    => '#E5E7EB',
+		'tmnhanphat_why_choose_card_bg'              => '#ffffff',
+		'tmnhanphat_why_choose_card_shadow'          => 'soft',
+		'tmnhanphat_why_choose_card_hover_shadow'    => 'medium',
+		'tmnhanphat_why_choose_card_hover_translate' => 6,
+		'tmnhanphat_why_choose_card_padding'         => 30,
+		'tmnhanphat_why_choose_card_content_align'   => 'flex-start',
+		'tmnhanphat_why_choose_icon_enable'          => false,
+
+		'tmnhanphat_why_choose_card_title_size'          => 18,
+		'tmnhanphat_why_choose_card_title_size_tablet'   => 17,
+		'tmnhanphat_why_choose_card_title_size_mobile'   => 16,
+		'tmnhanphat_why_choose_card_title_weight'        => '700',
+		'tmnhanphat_why_choose_card_title_color'         => '#1a1a1a',
+		'tmnhanphat_why_choose_card_title_clamp'         => 2,
+		'tmnhanphat_why_choose_card_title_margin_bottom' => 10,
+
+		'tmnhanphat_why_choose_card_desc_size'          => 14,
+		'tmnhanphat_why_choose_card_desc_size_tablet'   => 14,
+		'tmnhanphat_why_choose_card_desc_size_mobile'   => 13,
+		'tmnhanphat_why_choose_card_desc_color'         => '#5c5c5c',
+		'tmnhanphat_why_choose_card_desc_clamp'         => 4,
+		'tmnhanphat_why_choose_card_desc_margin_bottom' => 12, // Figma: Description → Image gần nhau hơn.
+
+		'tmnhanphat_why_choose_card_image_height'     => 290,
+		'tmnhanphat_why_choose_card_image_radius'     => 0, // Figma: Rayon d'angle ảnh = 0.
+		'tmnhanphat_why_choose_card_image_fit'        => 'contain',
+		'tmnhanphat_why_choose_card_image_zoom'       => true,
+		'tmnhanphat_why_choose_card_image_margin_top' => 8,
+		// Figma: ảnh 423 rộng hơn vùng text — inset mép card chỉ 15px ((453-423)/2), nhỏ hơn
+		// Card Padding (30). CSS dùng margin âm (inset - padding) để ảnh "bung" khỏi padding.
+		'tmnhanphat_why_choose_card_image_inset'      => 15,
+	);
+
+	// Nội dung mẫu theo design cho 4 slot đầu — slot 5-8 tắt sẵn, admin bật khi cần.
+	$sample_items = array(
+		1 => array(
+			'title'       => 'Kinh nghiệm lâu năm',
+			'description' => 'Hơn 10 năm kinh nghiệm trong lĩnh vực thang máy, thấu hiểu nhu cầu khách hàng.',
+		),
+		2 => array(
+			'title'       => 'Sản phẩm chính hãng',
+			'description' => 'Cam kết cung cấp thang máy và linh kiện đạt chuẩn, nguồn gốc rõ ràng, bảo hành minh bạch cho từng công trình.',
+		),
+		3 => array(
+			'title'       => 'Chi phí minh bạch',
+			'description' => 'Báo giá rõ ràng theo từng hạng mục, giúp khách hàng dễ dàng kiểm soát ngân sách và lựa chọn giải pháp phù hợp.',
+		),
+		4 => array(
+			'title'       => 'Dịch vụ tận tâm',
+			'description' => 'Đội ngũ kỹ thuật chuyên nghiệp, hỗ trợ nhanh chóng và bảo trì định kỳ trong suốt quá trình sử dụng.',
+		),
+	);
+
+	for ( $i = 1; $i <= tmnhanphat_get_why_choose_slot_count(); $i++ ) {
+		$sample = isset( $sample_items[ $i ] ) ? $sample_items[ $i ] : array(
+			'title'       => '',
+			'description' => '',
+		);
+
+		$defaults[ "tmnhanphat_why_choose_item{$i}_enable" ]      = isset( $sample_items[ $i ] );
+		$defaults[ "tmnhanphat_why_choose_item{$i}_icon" ]        = '';
+		$defaults[ "tmnhanphat_why_choose_item{$i}_title" ]       = $sample['title'];
+		$defaults[ "tmnhanphat_why_choose_item{$i}_description" ] = $sample['description'];
+		$defaults[ "tmnhanphat_why_choose_item{$i}_image" ]       = '';
+		$defaults[ "tmnhanphat_why_choose_item{$i}_btn_enable" ]  = false;
+		$defaults[ "tmnhanphat_why_choose_item{$i}_btn_text" ]    = '';
+		$defaults[ "tmnhanphat_why_choose_item{$i}_btn_url" ]     = '';
+		$defaults[ "tmnhanphat_why_choose_item{$i}_btn_new_tab" ] = false;
+		$defaults[ "tmnhanphat_why_choose_item{$i}_order" ]       = $i;
+	}
+
+	return $defaults;
+}
+
+/**
+ * Đọc 1 theme_mod của Why Choose với default tập trung — template KHÔNG gọi
+ * get_theme_mod() trực tiếp (mục 22).
+ *
+ * @param string $key Setting id.
+ * @return mixed
+ */
+function tmnhanphat_get_why_choose_mod( $key ) {
+	$defaults = tmnhanphat_why_choose_defaults();
+	$default  = isset( $defaults[ $key ] ) ? $defaults[ $key ] : '';
+
+	return get_theme_mod( $key, $default );
+}
+
+/**
+ * Xây danh sách Feature Item từ các slot: chỉ lấy slot Enable + có Title, sort theo
+ * Order tăng dần — template không bao giờ loop slot thô (mục 24).
+ *
+ * @return array<int, array<string, mixed>>
+ */
+function tmnhanphat_get_why_choose_items() {
+	$items = array();
+
+	for ( $i = 1; $i <= tmnhanphat_get_why_choose_slot_count(); $i++ ) {
+		$enabled = tmnhanphat_get_why_choose_mod( "tmnhanphat_why_choose_item{$i}_enable" );
+		$title   = tmnhanphat_get_why_choose_mod( "tmnhanphat_why_choose_item{$i}_title" );
+
+		if ( ! $enabled || ! $title ) {
+			continue;
+		}
+
+		$items[] = array(
+			'icon'        => tmnhanphat_get_why_choose_mod( "tmnhanphat_why_choose_item{$i}_icon" ),
+			'title'       => $title,
+			'description' => tmnhanphat_get_why_choose_mod( "tmnhanphat_why_choose_item{$i}_description" ),
+			'image'       => tmnhanphat_get_why_choose_mod( "tmnhanphat_why_choose_item{$i}_image" ),
+			'btn_enable'  => (bool) tmnhanphat_get_why_choose_mod( "tmnhanphat_why_choose_item{$i}_btn_enable" ),
+			'btn_text'    => tmnhanphat_get_why_choose_mod( "tmnhanphat_why_choose_item{$i}_btn_text" ),
+			'btn_url'     => tmnhanphat_get_why_choose_mod( "tmnhanphat_why_choose_item{$i}_btn_url" ),
+			'btn_new_tab' => (bool) tmnhanphat_get_why_choose_mod( "tmnhanphat_why_choose_item{$i}_btn_new_tab" ),
+			'order'       => absint( tmnhanphat_get_why_choose_mod( "tmnhanphat_why_choose_item{$i}_order" ) ),
+		);
+	}
+
+	usort(
+		$items,
+		static function ( $a, $b ) {
+			return $a['order'] <=> $b['order'];
+		}
+	);
+
+	return $items;
+}
+
+/**
+ * Danh sách lựa chọn căn dọc nội dung trong Card.
+ *
+ * @return array<string, string>
+ */
+function tmnhanphat_get_why_choose_content_align_choices() {
+	return array(
+		'flex-start' => __( 'Đầu (Top)', 'tmnhanphat' ),
+		'center'     => __( 'Giữa (Center)', 'tmnhanphat' ),
+		'flex-end'   => __( 'Cuối (Bottom)', 'tmnhanphat' ),
+	);
+}
+
+/**
+ * Whitelist "Content Alignment".
+ *
+ * @param string $value Giá trị gửi lên từ Customizer.
+ * @return string
+ */
+function tmnhanphat_sanitize_why_choose_content_align( $value ) {
+	$choices = array_keys( tmnhanphat_get_why_choose_content_align_choices() );
+
+	return in_array( $value, $choices, true ) ? $value : 'flex-start';
+}
+
+/**
+ * Danh sách lựa chọn "Object Fit" cho ảnh trong Card.
+ *
+ * @return array<string, string>
+ */
+function tmnhanphat_get_why_choose_image_fit_choices() {
+	return array(
+		'contain' => __( 'Contain (trọn ảnh, không cắt)', 'tmnhanphat' ),
+		'cover'   => __( 'Cover (phủ kín khung, crop center)', 'tmnhanphat' ),
+	);
+}
+
+/**
+ * Whitelist "Object Fit".
+ *
+ * @param string $value Giá trị gửi lên từ Customizer.
+ * @return string
+ */
+function tmnhanphat_sanitize_why_choose_image_fit( $value ) {
+	$choices = array_keys( tmnhanphat_get_why_choose_image_fit_choices() );
+
+	return in_array( $value, $choices, true ) ? $value : 'contain';
+}
+
+/**
+ * Danh sách lựa chọn bóng đổ Card (dùng cho cả Box Shadow lẫn Hover Shadow).
+ *
+ * @return array<string, string>
+ */
+function tmnhanphat_get_why_choose_shadow_choices() {
+	return array(
+		'none'   => __( 'Không có', 'tmnhanphat' ),
+		'soft'   => __( 'Nhẹ', 'tmnhanphat' ),
+		'medium' => __( 'Vừa', 'tmnhanphat' ),
+	);
+}
+
+/**
+ * Whitelist Shadow.
+ *
+ * @param string $value Giá trị gửi lên từ Customizer.
+ * @return string
+ */
+function tmnhanphat_sanitize_why_choose_shadow( $value ) {
+	$choices = array_keys( tmnhanphat_get_why_choose_shadow_choices() );
+
+	return in_array( $value, $choices, true ) ? $value : 'soft';
+}
+
+/**
+ * Quy đổi key bóng đổ sang giá trị box-shadow CSS thực tế.
+ *
+ * @param string $key Key trong tmnhanphat_get_why_choose_shadow_choices().
+ * @return string
+ */
+function tmnhanphat_get_why_choose_shadow_value( $key ) {
+	$shadows = array(
+		'none'   => 'none',
+		'soft'   => '0 6px 20px rgb(6 24 44 / 0.06)',
+		'medium' => '0 14px 34px rgb(6 24 44 / 0.14)',
+	);
+
+	return isset( $shadows[ $key ] ) ? $shadows[ $key ] : $shadows['soft'];
+}
+
+/**
+ * Line Height heading cho phép số thập phân — absint() làm mất phần lẻ (cùng lý do
+ * tmnhanphat_sanitize_products_line_height, mỗi module giữ sanitizer riêng).
+ *
+ * @param mixed $value Giá trị gửi lên từ Customizer.
+ * @return float
+ */
+function tmnhanphat_sanitize_why_choose_line_height( $value ) {
+	return max( 0.8, min( 3, (float) $value ) );
+}
+
+/**
+ * Letter Spacing cho phép số ÂM (px).
+ *
+ * @param mixed $value Giá trị gửi lên từ Customizer.
+ * @return int
+ */
+function tmnhanphat_sanitize_why_choose_letter_spacing( $value ) {
+	return max( -5, min( 10, (int) $value ) );
+}
+
+/**
+ * Offset Decoration cho phép số ÂM (px) — decoration lớn (828px) nên khoảng cho phép rộng.
+ *
+ * @param mixed $value Giá trị gửi lên từ Customizer.
+ * @return int
+ */
+function tmnhanphat_sanitize_why_choose_deco_offset( $value ) {
+	return max( -800, min( 800, (int) $value ) );
+}
+
+/**
+ * Render 1 ảnh của Why Choose đúng chuẩn WordPress (mục 13): quy URL Customizer về
+ * attachment ID để dùng wp_get_attachment_image() (có srcset + lazy load qua filter
+ * tmnhanphat_image_attributes) — fallback <img> thường nếu không resolve được ID.
+ *
+ * @param string $url   URL ảnh lấy từ theme_mod.
+ * @param string $alt   Alt text ('' cho ảnh trang trí).
+ * @param string $size  Image size đăng ký trong inc/images.php (hoặc 'full').
+ * @param string $class Class gắn lên <img>.
+ * @return string HTML đã escape, sẵn sàng echo.
+ */
+function tmnhanphat_get_why_choose_image_html( $url, $alt, $size, $class ) {
+	$attachment_id = attachment_url_to_postid( $url );
+
+	if ( $attachment_id ) {
+		return wp_get_attachment_image( $attachment_id, $size, false, array(
+			'class' => $class,
+			'alt'   => $alt,
+		) );
+	}
+
+	return sprintf(
+		'<img class="%s" src="%s" alt="%s" loading="lazy" decoding="async" />',
+		esc_attr( $class ),
+		esc_url( $url ),
+		esc_attr( $alt )
+	);
+}
+
+/**
+ * Sinh chuỗi CSS custom properties cho Why Choose Section, gắn vào stylesheet qua
+ * wp_add_inline_style() trong inc/enqueue.php — cùng quy ước mọi module (mục 22).
+ *
+ * @return string
+ */
+function tmnhanphat_render_why_choose_css_vars() {
+	$bg_color        = tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_bg_color' );
+	$container_width = absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_container_width' ) );
+	$overlay_enable  = tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_overlay_enable' );
+	$overlay_color   = tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_overlay_color' );
+	$overlay_opacity = absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_overlay_opacity' ) );
+
+	$padding_desktop = absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_padding_desktop' ) );
+	$padding_tablet  = absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_padding_tablet' ) );
+	$padding_mobile  = absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_padding_mobile' ) );
+	$margin_desktop  = absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_margin_desktop' ) );
+	$margin_tablet   = absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_margin_tablet' ) );
+	$margin_mobile   = absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_margin_mobile' ) );
+
+	$deco_width       = absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_deco_width' ) );
+	$deco_height      = absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_deco_height' ) );
+	$deco_offset_x    = (int) tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_deco_offset_x' );
+	$deco_offset_y    = (int) tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_deco_offset_y' );
+	$deco_hide_mobile = tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_deco_hide_mobile' );
+
+	$heading_blue_color = tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_heading_blue_color' );
+	$heading_red_color  = tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_heading_red_color' );
+	$heading_size       = absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_heading_size' ) );
+	$heading_tablet     = absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_heading_size_tablet' ) );
+	$heading_mobile     = absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_heading_size_mobile' ) );
+	$heading_weight     = absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_heading_weight' ) );
+	$heading_lh         = (float) tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_heading_line_height' );
+	$heading_ls         = (int) tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_heading_letter_spacing' );
+	$heading_align      = tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_heading_align' );
+	$heading_margin     = absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_heading_margin_bottom' ) );
+
+	$desc_color  = tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_desc_color' );
+	$desc_size   = absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_desc_size' ) );
+	$desc_tablet = absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_desc_size_tablet' ) );
+	$desc_mobile = absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_desc_size_mobile' ) );
+	$desc_width  = absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_desc_max_width' ) );
+	$desc_clamp  = absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_desc_clamp' ) );
+	$desc_margin = absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_desc_margin_bottom' ) );
+
+	$cols_desktop = max( 1, absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_cards_desktop' ) ) );
+	$cols_tablet  = max( 1, absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_cards_tablet' ) ) );
+	$cols_mobile  = max( 1, absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_cards_mobile' ) ) );
+	$gap_desktop  = absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_gap_desktop' ) );
+	$gap_tablet   = absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_gap_tablet' ) );
+	$gap_mobile   = absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_gap_mobile' ) );
+	$transition   = absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_transition_speed' ) );
+
+	$card_height       = absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_card_height' ) );
+	$card_radius       = absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_card_radius' ) );
+	$card_border_width = absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_card_border_width' ) );
+	$card_border_color = tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_card_border_color' );
+	$card_bg           = tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_card_bg' );
+	$card_shadow       = tmnhanphat_get_why_choose_shadow_value( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_card_shadow' ) );
+	$card_hover_shadow = tmnhanphat_get_why_choose_shadow_value( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_card_hover_shadow' ) );
+	$hover_translate   = absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_card_hover_translate' ) );
+	$card_padding      = absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_card_padding' ) );
+	$content_align     = tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_card_content_align' );
+
+	$title_size   = absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_card_title_size' ) );
+	$title_tablet = absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_card_title_size_tablet' ) );
+	$title_mobile = absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_card_title_size_mobile' ) );
+	$title_weight = absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_card_title_weight' ) );
+	$title_color  = tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_card_title_color' );
+	$title_clamp  = absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_card_title_clamp' ) );
+	$title_margin = absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_card_title_margin_bottom' ) );
+
+	$cdesc_size   = absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_card_desc_size' ) );
+	$cdesc_tablet = absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_card_desc_size_tablet' ) );
+	$cdesc_mobile = absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_card_desc_size_mobile' ) );
+	$cdesc_color  = tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_card_desc_color' );
+	$cdesc_clamp  = absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_card_desc_clamp' ) );
+	$cdesc_margin = absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_card_desc_margin_bottom' ) );
+
+	$image_height     = absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_card_image_height' ) );
+	$image_radius     = absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_card_image_radius' ) );
+	$image_fit        = tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_card_image_fit' );
+	$image_zoom       = tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_card_image_zoom' );
+	$image_margin_top = absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_card_image_margin_top' ) );
+	$image_inset      = absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_card_image_inset' ) );
+
+	$css  = ':root{';
+	$css .= '--why-choose-bg:' . $bg_color . ';';
+	$css .= '--why-choose-container-width:' . ( $container_width > 0 ? $container_width . 'px' : 'var(--container-max-width)' ) . ';';
+	$css .= '--why-choose-overlay:' . ( $overlay_enable ? tmnhanphat_hex_to_rgba( $overlay_color, $overlay_opacity ) : 'transparent' ) . ';';
+	$css .= '--why-choose-padding:' . $padding_desktop . 'px;';
+	$css .= '--why-choose-margin:' . $margin_desktop . 'px;';
+	$css .= '--why-choose-deco-width:' . $deco_width . 'px;';
+	$css .= '--why-choose-deco-height:' . ( $deco_height > 0 ? $deco_height . 'px' : 'auto' ) . ';';
+	$css .= '--why-choose-deco-top:' . $deco_offset_y . 'px;';
+	$css .= '--why-choose-deco-left:' . $deco_offset_x . 'px;';
+	$css .= '--why-choose-heading-blue:' . $heading_blue_color . ';';
+	$css .= '--why-choose-heading-red:' . $heading_red_color . ';';
+	$css .= '--why-choose-heading-size:' . $heading_size . 'px;';
+	$css .= '--why-choose-heading-weight:' . $heading_weight . ';';
+	$css .= '--why-choose-heading-lh:' . $heading_lh . ';';
+	$css .= '--why-choose-heading-ls:' . $heading_ls . 'px;';
+	$css .= '--why-choose-heading-align:' . $heading_align . ';';
+	$css .= '--why-choose-heading-margin:' . $heading_margin . 'px;';
+	$css .= '--why-choose-desc-color:' . $desc_color . ';';
+	$css .= '--why-choose-desc-size:' . $desc_size . 'px;';
+	$css .= '--why-choose-desc-max-width:' . $desc_width . 'px;';
+	$css .= '--why-choose-desc-margin:' . $desc_margin . 'px;';
+	// Description căn theo Heading Alignment: center → hộp max-width tự căn giữa.
+	$css .= '--why-choose-desc-margin-x:' . ( 'center' === $heading_align ? 'auto' : '0' ) . ';';
+	$css .= '--why-choose-cols:' . $cols_desktop . ';';
+	$css .= '--why-choose-gap:' . $gap_desktop . 'px;';
+	$css .= '--why-choose-transition:' . $transition . 'ms;';
+	$css .= '--why-choose-card-height:' . ( $card_height > 0 ? $card_height . 'px' : 'auto' ) . ';';
+	$css .= '--why-choose-card-radius:' . $card_radius . 'px;';
+	$css .= '--why-choose-card-border:' . ( $card_border_width > 0 ? $card_border_width . 'px solid ' . $card_border_color : 'none' ) . ';';
+	$css .= '--why-choose-card-bg:' . $card_bg . ';';
+	$css .= '--why-choose-card-shadow:' . $card_shadow . ';';
+	$css .= '--why-choose-card-hover-shadow:' . $card_hover_shadow . ';';
+	$css .= '--why-choose-card-hover-translate:-' . $hover_translate . 'px;';
+	$css .= '--why-choose-card-padding:' . $card_padding . 'px;';
+	$css .= '--why-choose-card-align:' . $content_align . ';';
+	$css .= '--why-choose-title-size:' . $title_size . 'px;';
+	$css .= '--why-choose-title-weight:' . $title_weight . ';';
+	$css .= '--why-choose-title-color:' . $title_color . ';';
+	$css .= '--why-choose-title-margin:' . $title_margin . 'px;';
+	$css .= '--why-choose-card-desc-size:' . $cdesc_size . 'px;';
+	$css .= '--why-choose-card-desc-color:' . $cdesc_color . ';';
+	$css .= '--why-choose-card-desc-margin:' . $cdesc_margin . 'px;';
+	$css .= '--why-choose-image-height:' . $image_height . 'px;';
+	$css .= '--why-choose-image-radius:' . $image_radius . 'px;';
+	$css .= '--why-choose-image-fit:' . $image_fit . ';';
+	$css .= '--why-choose-image-zoom:' . ( $image_zoom ? '1.05' : '1' ) . ';';
+	$css .= '--why-choose-image-margin-top:' . $image_margin_top . 'px;';
+	$css .= '--why-choose-image-inset:' . $image_inset . 'px;';
+	$css .= '}';
+
+	// Line Clamp = 0 nghĩa là tắt — render rule tĩnh, tránh -webkit-line-clamp:0 ẩn hết chữ
+	// (cùng pattern Products).
+	if ( $desc_clamp > 0 ) {
+		$css .= '.why-choose-home__description{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:' . $desc_clamp . ';overflow:hidden;}';
+	}
+
+	if ( $title_clamp > 0 ) {
+		$css .= '.feature-card__title{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:' . $title_clamp . ';overflow:hidden;}';
+	}
+
+	if ( $cdesc_clamp > 0 ) {
+		$css .= '.feature-card__description{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:' . $cdesc_clamp . ';overflow:hidden;}';
+	}
+
+	$css .= '@media (max-width:991px){:root{';
+	$css .= '--why-choose-padding:' . $padding_tablet . 'px;';
+	$css .= '--why-choose-margin:' . $margin_tablet . 'px;';
+	$css .= '--why-choose-cols:' . $cols_tablet . ';';
+	$css .= '--why-choose-gap:' . $gap_tablet . 'px;';
+	$css .= '--why-choose-heading-size:' . $heading_tablet . 'px;';
+	$css .= '--why-choose-desc-size:' . $desc_tablet . 'px;';
+	$css .= '--why-choose-title-size:' . $title_tablet . 'px;';
+	$css .= '--why-choose-card-desc-size:' . $cdesc_tablet . 'px;';
+	$css .= '}}';
+
+	$css .= '@media (max-width:599px){:root{';
+	$css .= '--why-choose-padding:' . $padding_mobile . 'px;';
+	$css .= '--why-choose-margin:' . $margin_mobile . 'px;';
+	$css .= '--why-choose-cols:' . $cols_mobile . ';';
+	$css .= '--why-choose-gap:' . $gap_mobile . 'px;';
+	$css .= '--why-choose-heading-size:' . $heading_mobile . 'px;';
+	$css .= '--why-choose-desc-size:' . $desc_mobile . 'px;';
+	$css .= '--why-choose-title-size:' . $title_mobile . 'px;';
+	$css .= '--why-choose-card-desc-size:' . $cdesc_mobile . 'px;';
+	$css .= '}';
+
+	if ( $deco_hide_mobile ) {
+		$css .= '.why-choose-home__decoration{display:none;}';
+	}
+
+	$css .= '}';
+
+	return $css;
+}
+
+/* ==========================================================================
+ * PROCESS SECTION ("Quy trình hợp tác", trang chủ) — helper riêng.
+ *
+ * Layout 2 cột: trái = Timeline Steps (đường dọc + circle số thứ tự, auto-active
+ * xoay vòng bằng assets/js/components/process.js), phải = Image (đồng bộ theo
+ * Step active nếu Step có ảnh riêng — fallback ảnh mặc định của section).
+ * Toàn bộ nội dung từ Customizer panel "Process Home" — KHÔNG WP_Query/ACF.
+ * Steps dùng pattern Fixed-slot Repeater (PROJECT_RULES.md mục 24) như Partners/
+ * Why Choose: N slot cố định + Enable từng slot, sort theo Order.
+ *
+ * Progressive enhancement: PHP render sẵn Step 1 active — không có JS thì timeline
+ * đứng yên ở Step 1, nội dung vẫn đọc đủ (không gắn class ready từ PHP).
+ * ========================================================================== */
+
+/**
+ * Số lượng "slot" Step tối đa hỗ trợ trong Customizer (xem lý do fixed-slot tại
+ * tmnhanphat_get_partners_slot_count()).
+ *
+ * @return int
+ */
+function tmnhanphat_get_process_slot_count() {
+	return 6;
+}
+
+/**
+ * Default value tập trung cho toàn bộ setting của Process Section (mục 22).
+ *
+ * @return array<string, mixed>
+ */
+function tmnhanphat_process_defaults() {
+	$defaults = array(
+		// ----- General -----
+		'tmnhanphat_process_enable'          => true,
+		'tmnhanphat_process_section_id'      => 'quy-trinh',
+		'tmnhanphat_process_container_width' => 0,
+		'tmnhanphat_process_bg_color'        => '#ffffff',
+		'tmnhanphat_process_bg_image'        => '',
+		'tmnhanphat_process_padding_desktop' => 96,
+		'tmnhanphat_process_padding_tablet'  => 64,
+		'tmnhanphat_process_padding_mobile'  => 48,
+		'tmnhanphat_process_margin_desktop'  => 0,
+		'tmnhanphat_process_margin_tablet'   => 0,
+		'tmnhanphat_process_margin_mobile'   => 0,
+
+		// ----- Heading (2 màu trên cùng 1 dòng: "Quy trình" xanh + "hợp tác" đỏ) -----
+		'tmnhanphat_process_heading_blue_text'      => 'Quy trình',
+		'tmnhanphat_process_heading_red_text'       => 'hợp tác',
+		'tmnhanphat_process_heading_blue_color'     => '#046AB5',
+		'tmnhanphat_process_heading_red_color'      => '#E31F2B',
+		'tmnhanphat_process_heading_size'           => 40,
+		'tmnhanphat_process_heading_size_tablet'    => 32,
+		'tmnhanphat_process_heading_size_mobile'    => 26,
+		'tmnhanphat_process_heading_weight'         => '800',
+		'tmnhanphat_process_heading_line_height'    => 1.2,
+		'tmnhanphat_process_heading_letter_spacing' => 0,
+		'tmnhanphat_process_heading_align'          => 'left',
+		'tmnhanphat_process_heading_margin_bottom'  => 12,
+
+		// ----- Description -----
+		'tmnhanphat_process_desc_text'          => 'Sản phẩm chính hãng, đội ngũ kỹ thuật chuyên nghiệp cùng chế độ bảo hành - bảo trì tận tâm là lý do hàng nghìn khách hàng tin chọn Nhân Phát.',
+		'tmnhanphat_process_desc_color'         => '#5c5c5c',
+		'tmnhanphat_process_desc_size'          => 15,
+		'tmnhanphat_process_desc_size_tablet'   => 14,
+		'tmnhanphat_process_desc_size_mobile'   => 14,
+		'tmnhanphat_process_desc_max_width'     => 640,
+		'tmnhanphat_process_desc_clamp'         => 0,
+		'tmnhanphat_process_desc_margin_bottom' => 48,
+
+		// ----- Timeline (trái) -----
+		'tmnhanphat_process_timeline_width'         => 46, // % bề rộng content row (Desktop).
+		'tmnhanphat_process_line_color'             => '#E5E7EB',
+		'tmnhanphat_process_line_width'             => 2,
+		'tmnhanphat_process_step_gap'               => 40,
+		'tmnhanphat_process_circle_size'            => 44,
+		'tmnhanphat_process_circle_border_width'    => 1,
+		'tmnhanphat_process_circle_border_color'    => '#D9D9D9',
+		'tmnhanphat_process_circle_active_bg'       => '#E31F2B',
+		'tmnhanphat_process_circle_inactive_bg'     => '#ffffff',
+		'tmnhanphat_process_active_text_color'      => '#1a1a1a',
+		'tmnhanphat_process_inactive_text_color'    => '#C4C9D0',
+		'tmnhanphat_process_active_desc_opacity'    => 100,
+		'tmnhanphat_process_inactive_desc_opacity'  => 45,
+		'tmnhanphat_process_step_padding'           => 0,
+		'tmnhanphat_process_step_radius'            => 0,
+
+		// ----- Animation (auto-active xoay vòng) -----
+		'tmnhanphat_process_animation_enable'   => true,
+		'tmnhanphat_process_auto_active_enable' => true,
+		'tmnhanphat_process_interval'           => 3000,
+		'tmnhanphat_process_transition_speed'   => 400,
+		'tmnhanphat_process_pause_hover'        => true,
+		'tmnhanphat_process_loop'               => true,
+
+		// ----- Right Image -----
+		'tmnhanphat_process_image'        => '',
+		'tmnhanphat_process_image_width'  => 0, // 0 = auto theo cột.
+		'tmnhanphat_process_image_height' => 0, // 0 = khung landscape 4:3 cố định (CSS aspect-ratio).
+		'tmnhanphat_process_image_fit'    => 'cover', // Lấp đầy khung 4:3, crop center — ảnh dọc không kéo giãn section.
+		'tmnhanphat_process_image_align'  => 'center',
+		'tmnhanphat_process_image_radius' => 12,
+		'tmnhanphat_process_image_lazy'   => true,
+	);
+
+	// Nội dung mẫu theo design cho 3 slot đầu — slot 4-6 tắt sẵn, admin bật khi cần.
+	$sample_steps = array(
+		1 => array(
+			'title'       => 'Tiếp nhận yêu cầu',
+			'description' => 'Nhận yêu cầu về loại công trình, số tầng, tải trọng mong muốn và ngân sách dự kiến của khách hàng.',
+		),
+		2 => array(
+			'title'       => 'Khảo sát thực tế',
+			'description' => 'Đội ngũ kỹ thuật đến trực tiếp công trình để đo đạc, kiểm tra mặt bằng và đánh giá điều kiện lắp đặt.',
+		),
+		3 => array(
+			'title'       => 'Tư vấn giải pháp & báo giá',
+			'description' => 'Dựa trên khảo sát, Nhân Phát đề xuất phương án thang máy phù hợp, kèm báo giá chi tiết và minh bạch.',
+		),
+	);
+
+	for ( $i = 1; $i <= tmnhanphat_get_process_slot_count(); $i++ ) {
+		$sample = isset( $sample_steps[ $i ] ) ? $sample_steps[ $i ] : array(
+			'title'       => '',
+			'description' => '',
+		);
+
+		$defaults[ "tmnhanphat_process_step{$i}_enable" ]      = isset( $sample_steps[ $i ] );
+		$defaults[ "tmnhanphat_process_step{$i}_number" ]      = ''; // Rỗng = tự đánh số theo thứ tự hiển thị.
+		$defaults[ "tmnhanphat_process_step{$i}_title" ]       = $sample['title'];
+		$defaults[ "tmnhanphat_process_step{$i}_description" ] = $sample['description'];
+		$defaults[ "tmnhanphat_process_step{$i}_icon" ]        = '';
+		$defaults[ "tmnhanphat_process_step{$i}_image" ]       = ''; // Ảnh riêng cho Step (Sync Image) — rỗng = dùng ảnh mặc định.
+		$defaults[ "tmnhanphat_process_step{$i}_order" ]       = $i;
+	}
+
+	return $defaults;
+}
+
+/**
+ * Đọc 1 theme_mod của Process với default tập trung — template KHÔNG gọi
+ * get_theme_mod() trực tiếp (mục 22).
+ *
+ * @param string $key Setting id.
+ * @return mixed
+ */
+function tmnhanphat_get_process_mod( $key ) {
+	$defaults = tmnhanphat_process_defaults();
+	$default  = isset( $defaults[ $key ] ) ? $defaults[ $key ] : '';
+
+	return get_theme_mod( $key, $default );
+}
+
+/**
+ * Xây danh sách Step từ các slot: chỉ lấy slot Enable + có Title, sort theo Order
+ * tăng dần; Step Number rỗng được tự đánh số 1..N theo thứ tự SAU KHI sort (mục 24).
+ *
+ * @return array<int, array<string, mixed>>
+ */
+function tmnhanphat_get_process_steps() {
+	$steps = array();
+
+	for ( $i = 1; $i <= tmnhanphat_get_process_slot_count(); $i++ ) {
+		$enabled = tmnhanphat_get_process_mod( "tmnhanphat_process_step{$i}_enable" );
+		$title   = tmnhanphat_get_process_mod( "tmnhanphat_process_step{$i}_title" );
+
+		if ( ! $enabled || ! $title ) {
+			continue;
+		}
+
+		$steps[] = array(
+			'number'      => tmnhanphat_get_process_mod( "tmnhanphat_process_step{$i}_number" ),
+			'title'       => $title,
+			'description' => tmnhanphat_get_process_mod( "tmnhanphat_process_step{$i}_description" ),
+			'icon'        => tmnhanphat_get_process_mod( "tmnhanphat_process_step{$i}_icon" ),
+			'image'       => tmnhanphat_get_process_mod( "tmnhanphat_process_step{$i}_image" ),
+			'order'       => absint( tmnhanphat_get_process_mod( "tmnhanphat_process_step{$i}_order" ) ),
+		);
+	}
+
+	usort(
+		$steps,
+		static function ( $a, $b ) {
+			return $a['order'] <=> $b['order'];
+		}
+	);
+
+	foreach ( $steps as $index => $step ) {
+		if ( '' === trim( (string) $step['number'] ) ) {
+			$steps[ $index ]['number'] = (string) ( $index + 1 );
+		}
+	}
+
+	return $steps;
+}
+
+/**
+ * Whitelist Line Height heading (thập phân) — cùng lý do các module trước.
+ *
+ * @param mixed $value Giá trị gửi lên từ Customizer.
+ * @return float
+ */
+function tmnhanphat_sanitize_process_line_height( $value ) {
+	return max( 0.8, min( 3, (float) $value ) );
+}
+
+/**
+ * Letter Spacing cho phép số ÂM (px).
+ *
+ * @param mixed $value Giá trị gửi lên từ Customizer.
+ * @return int
+ */
+function tmnhanphat_sanitize_process_letter_spacing( $value ) {
+	return max( -5, min( 10, (int) $value ) );
+}
+
+/**
+ * Sinh chuỗi CSS custom properties cho Process Section — cùng quy ước mọi module (mục 22).
+ *
+ * @return string
+ */
+function tmnhanphat_render_process_css_vars() {
+	$bg_color        = tmnhanphat_get_process_mod( 'tmnhanphat_process_bg_color' );
+	$container_width = absint( tmnhanphat_get_process_mod( 'tmnhanphat_process_container_width' ) );
+
+	$padding_desktop = absint( tmnhanphat_get_process_mod( 'tmnhanphat_process_padding_desktop' ) );
+	$padding_tablet  = absint( tmnhanphat_get_process_mod( 'tmnhanphat_process_padding_tablet' ) );
+	$padding_mobile  = absint( tmnhanphat_get_process_mod( 'tmnhanphat_process_padding_mobile' ) );
+	$margin_desktop  = absint( tmnhanphat_get_process_mod( 'tmnhanphat_process_margin_desktop' ) );
+	$margin_tablet   = absint( tmnhanphat_get_process_mod( 'tmnhanphat_process_margin_tablet' ) );
+	$margin_mobile   = absint( tmnhanphat_get_process_mod( 'tmnhanphat_process_margin_mobile' ) );
+
+	$heading_blue   = tmnhanphat_get_process_mod( 'tmnhanphat_process_heading_blue_color' );
+	$heading_red    = tmnhanphat_get_process_mod( 'tmnhanphat_process_heading_red_color' );
+	$heading_size   = absint( tmnhanphat_get_process_mod( 'tmnhanphat_process_heading_size' ) );
+	$heading_tablet = absint( tmnhanphat_get_process_mod( 'tmnhanphat_process_heading_size_tablet' ) );
+	$heading_mobile = absint( tmnhanphat_get_process_mod( 'tmnhanphat_process_heading_size_mobile' ) );
+	$heading_weight = absint( tmnhanphat_get_process_mod( 'tmnhanphat_process_heading_weight' ) );
+	$heading_lh     = (float) tmnhanphat_get_process_mod( 'tmnhanphat_process_heading_line_height' );
+	$heading_ls     = (int) tmnhanphat_get_process_mod( 'tmnhanphat_process_heading_letter_spacing' );
+	$heading_align  = tmnhanphat_get_process_mod( 'tmnhanphat_process_heading_align' );
+	$heading_margin = absint( tmnhanphat_get_process_mod( 'tmnhanphat_process_heading_margin_bottom' ) );
+
+	$desc_color  = tmnhanphat_get_process_mod( 'tmnhanphat_process_desc_color' );
+	$desc_size   = absint( tmnhanphat_get_process_mod( 'tmnhanphat_process_desc_size' ) );
+	$desc_tablet = absint( tmnhanphat_get_process_mod( 'tmnhanphat_process_desc_size_tablet' ) );
+	$desc_mobile = absint( tmnhanphat_get_process_mod( 'tmnhanphat_process_desc_size_mobile' ) );
+	$desc_width  = absint( tmnhanphat_get_process_mod( 'tmnhanphat_process_desc_max_width' ) );
+	$desc_clamp  = absint( tmnhanphat_get_process_mod( 'tmnhanphat_process_desc_clamp' ) );
+	$desc_margin = absint( tmnhanphat_get_process_mod( 'tmnhanphat_process_desc_margin_bottom' ) );
+
+	$timeline_width        = absint( tmnhanphat_get_process_mod( 'tmnhanphat_process_timeline_width' ) );
+	$line_color            = tmnhanphat_get_process_mod( 'tmnhanphat_process_line_color' );
+	$line_width            = absint( tmnhanphat_get_process_mod( 'tmnhanphat_process_line_width' ) );
+	$step_gap              = absint( tmnhanphat_get_process_mod( 'tmnhanphat_process_step_gap' ) );
+	$circle_size           = absint( tmnhanphat_get_process_mod( 'tmnhanphat_process_circle_size' ) );
+	$circle_border_width   = absint( tmnhanphat_get_process_mod( 'tmnhanphat_process_circle_border_width' ) );
+	$circle_border_color   = tmnhanphat_get_process_mod( 'tmnhanphat_process_circle_border_color' );
+	$circle_active_bg      = tmnhanphat_get_process_mod( 'tmnhanphat_process_circle_active_bg' );
+	$circle_inactive_bg    = tmnhanphat_get_process_mod( 'tmnhanphat_process_circle_inactive_bg' );
+	$active_text_color     = tmnhanphat_get_process_mod( 'tmnhanphat_process_active_text_color' );
+	$inactive_text_color   = tmnhanphat_get_process_mod( 'tmnhanphat_process_inactive_text_color' );
+	$active_desc_opacity   = absint( tmnhanphat_get_process_mod( 'tmnhanphat_process_active_desc_opacity' ) ) / 100;
+	$inactive_desc_opacity = absint( tmnhanphat_get_process_mod( 'tmnhanphat_process_inactive_desc_opacity' ) ) / 100;
+	$step_padding          = absint( tmnhanphat_get_process_mod( 'tmnhanphat_process_step_padding' ) );
+	$step_radius           = absint( tmnhanphat_get_process_mod( 'tmnhanphat_process_step_radius' ) );
+
+	$transition = absint( tmnhanphat_get_process_mod( 'tmnhanphat_process_transition_speed' ) );
+
+	$image_width  = absint( tmnhanphat_get_process_mod( 'tmnhanphat_process_image_width' ) );
+	$image_height = absint( tmnhanphat_get_process_mod( 'tmnhanphat_process_image_height' ) );
+	$image_fit    = tmnhanphat_get_process_mod( 'tmnhanphat_process_image_fit' );
+	$image_align  = tmnhanphat_get_process_mod( 'tmnhanphat_process_image_align' );
+	$image_radius = absint( tmnhanphat_get_process_mod( 'tmnhanphat_process_image_radius' ) );
+
+	$align_map   = array(
+		'left'   => 'flex-start',
+		'center' => 'center',
+		'right'  => 'flex-end',
+	);
+	$image_align = isset( $align_map[ $image_align ] ) ? $align_map[ $image_align ] : 'center';
+
+	$css  = ':root{';
+	$css .= '--process-bg:' . $bg_color . ';';
+	$css .= '--process-container-width:' . ( $container_width > 0 ? $container_width . 'px' : 'var(--container-max-width)' ) . ';';
+	$css .= '--process-padding:' . $padding_desktop . 'px;';
+	$css .= '--process-margin:' . $margin_desktop . 'px;';
+	$css .= '--process-heading-blue:' . $heading_blue . ';';
+	$css .= '--process-heading-red:' . $heading_red . ';';
+	$css .= '--process-heading-size:' . $heading_size . 'px;';
+	$css .= '--process-heading-weight:' . $heading_weight . ';';
+	$css .= '--process-heading-lh:' . $heading_lh . ';';
+	$css .= '--process-heading-ls:' . $heading_ls . 'px;';
+	$css .= '--process-heading-align:' . $heading_align . ';';
+	$css .= '--process-heading-margin:' . $heading_margin . 'px;';
+	$css .= '--process-desc-color:' . $desc_color . ';';
+	$css .= '--process-desc-size:' . $desc_size . 'px;';
+	$css .= '--process-desc-max-width:' . $desc_width . 'px;';
+	$css .= '--process-desc-margin:' . $desc_margin . 'px;';
+	$css .= '--process-desc-margin-x:' . ( 'center' === $heading_align ? 'auto' : '0' ) . ';';
+	$css .= '--process-timeline-width:' . max( 20, min( 80, $timeline_width ) ) . '%;';
+	$css .= '--process-line-color:' . $line_color . ';';
+	$css .= '--process-line-width:' . $line_width . 'px;';
+	$css .= '--process-step-gap:' . $step_gap . 'px;';
+	$css .= '--process-circle-size:' . $circle_size . 'px;';
+	$css .= '--process-circle-border:' . $circle_border_width . 'px solid ' . $circle_border_color . ';';
+	$css .= '--process-circle-active-bg:' . $circle_active_bg . ';';
+	// Quầng sáng (ring) quanh circle active = màu active pha 15% opacity.
+	$css .= '--process-circle-ring:' . tmnhanphat_hex_to_rgba( $circle_active_bg, 15 ) . ';';
+	$css .= '--process-circle-inactive-bg:' . $circle_inactive_bg . ';';
+	$css .= '--process-active-text:' . $active_text_color . ';';
+	$css .= '--process-inactive-text:' . $inactive_text_color . ';';
+	$css .= '--process-active-desc-opacity:' . $active_desc_opacity . ';';
+	$css .= '--process-inactive-desc-opacity:' . $inactive_desc_opacity . ';';
+	$css .= '--process-step-padding:' . $step_padding . 'px;';
+	$css .= '--process-step-radius:' . $step_radius . 'px;';
+	$css .= '--process-transition:' . $transition . 'ms;';
+	$css .= '--process-image-width:' . ( $image_width > 0 ? $image_width . 'px' : '100%' ) . ';';
+	$css .= '--process-image-height:' . ( $image_height > 0 ? $image_height . 'px' : 'auto' ) . ';';
+	$css .= '--process-image-fit:' . $image_fit . ';';
+	$css .= '--process-image-align:' . $image_align . ';';
+	$css .= '--process-image-radius:' . $image_radius . 'px;';
+	$css .= '}';
+
+	// Line Clamp = 0 nghĩa là tắt — render rule tĩnh (cùng pattern Products/Why Choose).
+	if ( $desc_clamp > 0 ) {
+		$css .= '.process-home__description{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:' . $desc_clamp . ';overflow:hidden;}';
+	}
+
+	$css .= '@media (max-width:991px){:root{';
+	$css .= '--process-padding:' . $padding_tablet . 'px;';
+	$css .= '--process-margin:' . $margin_tablet . 'px;';
+	$css .= '--process-heading-size:' . $heading_tablet . 'px;';
+	$css .= '--process-desc-size:' . $desc_tablet . 'px;';
+	$css .= '}}';
+
+	$css .= '@media (max-width:599px){:root{';
+	$css .= '--process-padding:' . $padding_mobile . 'px;';
+	$css .= '--process-margin:' . $margin_mobile . 'px;';
+	$css .= '--process-heading-size:' . $heading_mobile . 'px;';
+	$css .= '--process-desc-size:' . $desc_mobile . 'px;';
+	$css .= '}}';
+
+	return $css;
+}
+
+/* ==========================================================================
+ * FEATURED PROJECTS SECTION ("Dự án tiêu biểu", trang chủ) — helper riêng.
+ *
+ * Dữ liệu là POST THƯỜNG thuộc Category "Dự án" chọn trong Customizer (WP_Query,
+ * KHÔNG CPT/Taxonomy mới, không hardcode ID category — giống mô hình Products).
+ * Meta Loại hình/Tải trọng/Bàn giao đọc từ post meta với meta key CẤU HÌNH ĐƯỢC
+ * (mặc định _tmnp_project_type/_load/_year, nhập qua meta box "Thông tin dự án"
+ * trong inc/post-types.php — đổi được sang key ACF sau này). Meta rỗng có FALLBACK
+ * ở tầng hiển thị, KHÔNG ghi vào database.
+ *
+ * Slider 1 slide/khung nhìn + dots, tái sử dụng .tmnp-slider + slider.js của
+ * Services (data-cards 1/1/1, data-dots true).
+ * ========================================================================== */
+
+/**
+ * Số lượng Meta hiển thị trên mỗi Project Card (Loại hình/Tải trọng/Bàn giao —
+ * cố định 3 theo design).
+ *
+ * @return int
+ */
+function tmnhanphat_get_projects_meta_count() {
+	return 3;
+}
+
+/**
+ * Default value tập trung cho toàn bộ setting của Projects Section (mục 22).
+ *
+ * @return array<string, mixed>
+ */
+function tmnhanphat_projects_defaults() {
+	$defaults = array(
+		// ----- General -----
+		'tmnhanphat_projects_enable'          => true,
+		'tmnhanphat_projects_section_id'      => 'du-an',
+		'tmnhanphat_projects_container_width' => 0,
+		'tmnhanphat_projects_padding_desktop' => 96,
+		'tmnhanphat_projects_padding_tablet'  => 64,
+		'tmnhanphat_projects_padding_mobile'  => 48,
+		'tmnhanphat_projects_margin_desktop'  => 0,
+		'tmnhanphat_projects_margin_tablet'   => 0,
+		'tmnhanphat_projects_margin_mobile'   => 0,
+		'tmnhanphat_projects_bg_color'        => '#046AB5',
+		'tmnhanphat_projects_deco_enable'     => true,
+		'tmnhanphat_projects_deco_image'      => '',
+		'tmnhanphat_projects_deco_opacity'    => 100,
+		'tmnhanphat_projects_deco_position'   => 'center',
+		'tmnhanphat_projects_deco_size'       => 'cover',
+
+		// ----- Header (1 màu trắng trên nền xanh — khác các section 2 màu) -----
+		'tmnhanphat_projects_title'                => 'Dự án tiêu biểu',
+		'tmnhanphat_projects_title_color'          => '#ffffff',
+		'tmnhanphat_projects_title_size'           => 40,
+		'tmnhanphat_projects_title_size_tablet'    => 32,
+		'tmnhanphat_projects_title_size_mobile'    => 26,
+		'tmnhanphat_projects_title_weight'         => '800',
+		'tmnhanphat_projects_title_align'          => 'center',
+		'tmnhanphat_projects_desc_text'            => 'Đây là những công trình Thang Máy Nhân Phát đã tư vấn, lắp đặt và bàn giao. Mỗi dự án thể hiện sự chuyên nghiệp, an toàn và tính thẩm mỹ trong từng giải pháp thang máy.',
+		'tmnhanphat_projects_desc_color'           => '#D8E6F3',
+		'tmnhanphat_projects_desc_size'            => 14,
+		'tmnhanphat_projects_desc_size_tablet'     => 14,
+		'tmnhanphat_projects_desc_size_mobile'     => 13,
+		'tmnhanphat_projects_desc_max_width'       => 560,
+		'tmnhanphat_projects_desc_clamp'           => 0,
+		'tmnhanphat_projects_desc_align'           => 'center',
+		'tmnhanphat_projects_header_margin_bottom' => 48,
+
+		// ----- Query -----
+		'tmnhanphat_projects_category'    => 0, // Admin BẮT BUỘC chọn — 0 = chưa cấu hình, không render.
+		'tmnhanphat_projects_count'       => 6,
+		'tmnhanphat_projects_orderby'     => 'date',
+		'tmnhanphat_projects_order'       => 'DESC',
+		'tmnhanphat_projects_exclude_ids' => '',
+
+		// ----- Content Layout (card lớn chứa 2 cột 65/35 — đúng design) -----
+		'tmnhanphat_projects_left_width'   => 65,
+		'tmnhanphat_projects_content_gap'  => 48,
+		'tmnhanphat_projects_valign'       => 'center',
+		'tmnhanphat_projects_card_bg'      => '#ffffff',
+		'tmnhanphat_projects_card_opacity' => 14,
+		'tmnhanphat_projects_card_radius'  => 24,
+		'tmnhanphat_projects_card_padding' => 40,
+
+		// ----- Project Title -----
+		'tmnhanphat_projects_ptitle_size'          => 30,
+		'tmnhanphat_projects_ptitle_size_tablet'   => 26,
+		'tmnhanphat_projects_ptitle_size_mobile'   => 22,
+		'tmnhanphat_projects_ptitle_weight'        => '800',
+		'tmnhanphat_projects_ptitle_color'         => '#ffffff',
+		'tmnhanphat_projects_ptitle_clamp'         => 2,
+		'tmnhanphat_projects_ptitle_margin_bottom' => 16,
+
+		// ----- Project Description (excerpt) -----
+		'tmnhanphat_projects_pdesc_size'          => 14,
+		'tmnhanphat_projects_pdesc_size_tablet'   => 14,
+		'tmnhanphat_projects_pdesc_size_mobile'   => 13,
+		'tmnhanphat_projects_pdesc_color'         => '#DCE9F5',
+		'tmnhanphat_projects_pdesc_clamp'         => 3,
+		'tmnhanphat_projects_pdesc_margin_bottom' => 28,
+
+		// ----- Meta -----
+		'tmnhanphat_projects_meta_enable'          => true,
+		'tmnhanphat_projects_divider_enable'       => true,
+		'tmnhanphat_projects_divider_color'        => '#7FB3DD',
+		'tmnhanphat_projects_divider_width'        => 1,
+		'tmnhanphat_projects_meta_label_color'     => '#BCD7EE',
+		'tmnhanphat_projects_meta_value_color'     => '#ffffff',
+		'tmnhanphat_projects_meta_label_size'      => 13,
+		'tmnhanphat_projects_meta_value_size'      => 18,
+		'tmnhanphat_projects_meta_gap'             => 18,
+		'tmnhanphat_projects_meta_fallback_enable' => true,
+
+		// ----- Thumbnail -----
+		'tmnhanphat_projects_thumb_width'  => 0, // 0 = auto theo cột phải.
+		'tmnhanphat_projects_thumb_height' => 525, // 420 × 1.25 — ảnh cao hơn, cân đối hơn với cột trái.
+		'tmnhanphat_projects_thumb_radius' => 16,
+		'tmnhanphat_projects_thumb_fit'    => 'cover',
+		'tmnhanphat_projects_thumb_shadow' => 'soft',
+		'tmnhanphat_projects_thumb_zoom'   => true,
+
+		// ----- Slider -----
+		'tmnhanphat_projects_autoplay_enable'  => true,
+		'tmnhanphat_projects_autoplay_speed'   => 5000,
+		'tmnhanphat_projects_transition_speed' => 600,
+		'tmnhanphat_projects_infinite'         => true,
+		'tmnhanphat_projects_pause_hover'      => true,
+		'tmnhanphat_projects_drag_enable'      => true,
+		'tmnhanphat_projects_show_dots'        => true,
+		'tmnhanphat_projects_dot_size'         => 10,
+		'tmnhanphat_projects_dot_gap'          => 10,
+		'tmnhanphat_projects_dot_color'        => '#9CC3E8',
+		'tmnhanphat_projects_dot_active_color' => '#ffffff',
+	);
+
+	// 3 nhóm Meta theo design: Label + Meta Key (đổi được sang ACF) + Fallback hiển thị.
+	$meta_samples = array(
+		1 => array(
+			'label'    => 'Loại hình',
+			'key'      => '_tmnp_project_type',
+			'fallback' => 'Thang máy gia đình',
+		),
+		2 => array(
+			'label'    => 'Tải trọng',
+			'key'      => '_tmnp_project_load',
+			'fallback' => '350kg',
+		),
+		3 => array(
+			'label'    => 'Bàn giao',
+			'key'      => '_tmnp_project_year',
+			'fallback' => gmdate( 'Y' ),
+		),
+	);
+
+	foreach ( $meta_samples as $i => $meta ) {
+		$defaults[ "tmnhanphat_projects_meta{$i}_label" ]    = $meta['label'];
+		$defaults[ "tmnhanphat_projects_meta{$i}_key" ]      = $meta['key'];
+		$defaults[ "tmnhanphat_projects_meta{$i}_fallback" ] = $meta['fallback'];
+	}
+
+	return $defaults;
+}
+
+/**
+ * Đọc 1 theme_mod của Projects với default tập trung (mục 22).
+ *
+ * @param string $key Setting id.
+ * @return mixed
+ */
+function tmnhanphat_get_projects_mod( $key ) {
+	$defaults = tmnhanphat_projects_defaults();
+	$default  = isset( $defaults[ $key ] ) ? $defaults[ $key ] : '';
+
+	return get_theme_mod( $key, $default );
+}
+
+/**
+ * Category "Dự án" đã chọn trong Customizer — 0 nếu chưa cấu hình/không tồn tại.
+ *
+ * @return int
+ */
+function tmnhanphat_get_projects_category_id() {
+	$cat_id = absint( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_category' ) );
+
+	if ( ! $cat_id || ! term_exists( $cat_id, 'category' ) ) {
+		return 0;
+	}
+
+	return $cat_id;
+}
+
+/**
+ * Query danh sách Dự án theo setting Customizer — 'cat' tự bao gồm category con,
+ * chỉ lấy đúng số lượng cần render (no_found_rows — mục 15).
+ *
+ * @return WP_Query
+ */
+function tmnhanphat_get_projects_query() {
+	return new WP_Query( array(
+		'post_type'           => 'post',
+		'post_status'         => 'publish',
+		'cat'                 => tmnhanphat_get_projects_category_id(),
+		'posts_per_page'      => max( 1, absint( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_count' ) ) ),
+		'orderby'             => tmnhanphat_get_projects_mod( 'tmnhanphat_projects_orderby' ),
+		'order'               => tmnhanphat_get_projects_mod( 'tmnhanphat_projects_order' ),
+		'post__not_in'        => tmnhanphat_parse_id_list( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_exclude_ids' ) ),
+		'no_found_rows'       => true,
+		'ignore_sticky_posts' => true,
+	) );
+}
+
+/**
+ * Whitelist "Order By" của Projects (dùng chung danh sách với Products — post thường).
+ *
+ * @param string $value Giá trị gửi lên từ Customizer.
+ * @return string
+ */
+function tmnhanphat_sanitize_projects_orderby( $value ) {
+	$choices = array_keys( tmnhanphat_get_products_orderby_choices() );
+
+	return in_array( $value, $choices, true ) ? $value : 'date';
+}
+
+/**
+ * Whitelist "Order".
+ *
+ * @param string $value Giá trị gửi lên từ Customizer.
+ * @return string
+ */
+function tmnhanphat_sanitize_projects_order( $value ) {
+	return in_array( $value, array( 'ASC', 'DESC' ), true ) ? $value : 'DESC';
+}
+
+/**
+ * Whitelist "Vertical Alignment" (căn dọc 2 cột trong card).
+ *
+ * @param string $value Giá trị gửi lên từ Customizer.
+ * @return string
+ */
+function tmnhanphat_sanitize_projects_valign( $value ) {
+	$choices = array( 'flex-start', 'center', 'flex-end' );
+
+	return in_array( $value, $choices, true ) ? $value : 'center';
+}
+
+/**
+ * Xây 3 mục Meta (Loại hình/Tải trọng/Bàn giao) của 1 Dự án: đọc post meta theo key
+ * cấu hình; meta RỖNG → dùng Fallback CHỈ Ở TẦNG HIỂN THỊ (không update_post_meta,
+ * không ghi database). Fallback tắt → mục meta rỗng bị ẩn (Hide Empty Meta).
+ *
+ * @param int $post_id ID bài dự án.
+ * @return array<int, array{label: string, value: string}>
+ */
+function tmnhanphat_get_project_meta_items( $post_id ) {
+	$items           = array();
+	$fallback_enable = tmnhanphat_get_projects_mod( 'tmnhanphat_projects_meta_fallback_enable' );
+
+	for ( $i = 1; $i <= tmnhanphat_get_projects_meta_count(); $i++ ) {
+		$label    = tmnhanphat_get_projects_mod( "tmnhanphat_projects_meta{$i}_label" );
+		$meta_key = sanitize_text_field( tmnhanphat_get_projects_mod( "tmnhanphat_projects_meta{$i}_key" ) );
+
+		if ( ! $label ) {
+			continue;
+		}
+
+		$value = '';
+
+		if ( $meta_key ) {
+			$raw   = get_post_meta( $post_id, $meta_key, true );
+			$value = is_string( $raw ) ? trim( wp_strip_all_tags( $raw ) ) : '';
+		}
+
+		if ( '' === $value && $fallback_enable ) {
+			$value = tmnhanphat_get_projects_mod( "tmnhanphat_projects_meta{$i}_fallback" );
+		}
+
+		if ( '' === $value ) {
+			continue; // Không hiển thị Empty/Null/N/A.
+		}
+
+		$items[] = array(
+			'label' => $label,
+			'value' => $value,
+		);
+	}
+
+	return $items;
+}
+
+/**
+ * Sinh chuỗi CSS custom properties cho Projects Section (mục 22).
+ *
+ * @return string
+ */
+function tmnhanphat_render_projects_css_vars() {
+	$bg_color        = tmnhanphat_get_projects_mod( 'tmnhanphat_projects_bg_color' );
+	$container_width = absint( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_container_width' ) );
+
+	$padding_desktop = absint( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_padding_desktop' ) );
+	$padding_tablet  = absint( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_padding_tablet' ) );
+	$padding_mobile  = absint( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_padding_mobile' ) );
+	$margin_desktop  = absint( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_margin_desktop' ) );
+	$margin_tablet   = absint( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_margin_tablet' ) );
+	$margin_mobile   = absint( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_margin_mobile' ) );
+
+	$deco_image   = tmnhanphat_get_projects_mod( 'tmnhanphat_projects_deco_image' );
+	$deco_opacity = absint( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_deco_opacity' ) ) / 100;
+	$deco_pos     = tmnhanphat_get_projects_mod( 'tmnhanphat_projects_deco_position' );
+	$deco_size    = tmnhanphat_get_projects_mod( 'tmnhanphat_projects_deco_size' );
+
+	$title_color  = tmnhanphat_get_projects_mod( 'tmnhanphat_projects_title_color' );
+	$title_size   = absint( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_title_size' ) );
+	$title_tablet = absint( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_title_size_tablet' ) );
+	$title_mobile = absint( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_title_size_mobile' ) );
+	$title_weight = absint( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_title_weight' ) );
+	$title_align  = tmnhanphat_get_projects_mod( 'tmnhanphat_projects_title_align' );
+
+	$desc_color   = tmnhanphat_get_projects_mod( 'tmnhanphat_projects_desc_color' );
+	$desc_size    = absint( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_desc_size' ) );
+	$desc_tablet  = absint( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_desc_size_tablet' ) );
+	$desc_mobile  = absint( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_desc_size_mobile' ) );
+	$desc_width   = absint( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_desc_max_width' ) );
+	$desc_clamp   = absint( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_desc_clamp' ) );
+	$desc_align   = tmnhanphat_get_projects_mod( 'tmnhanphat_projects_desc_align' );
+	$header_margin = absint( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_header_margin_bottom' ) );
+
+	$left_width   = max( 40, min( 80, absint( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_left_width' ) ) ) );
+	$content_gap  = absint( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_content_gap' ) );
+	$valign       = tmnhanphat_get_projects_mod( 'tmnhanphat_projects_valign' );
+	$card_bg      = tmnhanphat_get_projects_mod( 'tmnhanphat_projects_card_bg' );
+	$card_opacity = absint( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_card_opacity' ) );
+	$card_radius  = absint( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_card_radius' ) );
+	$card_padding = absint( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_card_padding' ) );
+
+	$ptitle_size   = absint( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_ptitle_size' ) );
+	$ptitle_tablet = absint( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_ptitle_size_tablet' ) );
+	$ptitle_mobile = absint( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_ptitle_size_mobile' ) );
+	$ptitle_weight = absint( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_ptitle_weight' ) );
+	$ptitle_color  = tmnhanphat_get_projects_mod( 'tmnhanphat_projects_ptitle_color' );
+	$ptitle_clamp  = absint( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_ptitle_clamp' ) );
+	$ptitle_margin = absint( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_ptitle_margin_bottom' ) );
+
+	$pdesc_size   = absint( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_pdesc_size' ) );
+	$pdesc_tablet = absint( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_pdesc_size_tablet' ) );
+	$pdesc_mobile = absint( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_pdesc_size_mobile' ) );
+	$pdesc_color  = tmnhanphat_get_projects_mod( 'tmnhanphat_projects_pdesc_color' );
+	$pdesc_clamp  = absint( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_pdesc_clamp' ) );
+	$pdesc_margin = absint( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_pdesc_margin_bottom' ) );
+
+	$divider_enable = tmnhanphat_get_projects_mod( 'tmnhanphat_projects_divider_enable' );
+	$divider_color  = tmnhanphat_get_projects_mod( 'tmnhanphat_projects_divider_color' );
+	$divider_width  = absint( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_divider_width' ) );
+	$label_color    = tmnhanphat_get_projects_mod( 'tmnhanphat_projects_meta_label_color' );
+	$value_color    = tmnhanphat_get_projects_mod( 'tmnhanphat_projects_meta_value_color' );
+	$label_size     = absint( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_meta_label_size' ) );
+	$value_size     = absint( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_meta_value_size' ) );
+	$meta_gap       = absint( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_meta_gap' ) );
+
+	$thumb_width  = absint( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_thumb_width' ) );
+	$thumb_height = absint( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_thumb_height' ) );
+	$thumb_radius = absint( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_thumb_radius' ) );
+	$thumb_fit    = tmnhanphat_get_projects_mod( 'tmnhanphat_projects_thumb_fit' );
+	$thumb_shadow = tmnhanphat_get_why_choose_shadow_value( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_thumb_shadow' ) );
+	$thumb_zoom   = tmnhanphat_get_projects_mod( 'tmnhanphat_projects_thumb_zoom' );
+
+	$transition = absint( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_transition_speed' ) );
+	$dot_size   = absint( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_dot_size' ) );
+	$dot_gap    = absint( tmnhanphat_get_projects_mod( 'tmnhanphat_projects_dot_gap' ) );
+	$dot_color  = tmnhanphat_get_projects_mod( 'tmnhanphat_projects_dot_color' );
+	$dot_active = tmnhanphat_get_projects_mod( 'tmnhanphat_projects_dot_active_color' );
+
+	$css  = ':root{';
+	$css .= '--projects-bg:' . $bg_color . ';';
+	$css .= '--projects-container-width:' . ( $container_width > 0 ? $container_width . 'px' : 'var(--container-max-width)' ) . ';';
+	$css .= '--projects-padding:' . $padding_desktop . 'px;';
+	$css .= '--projects-margin:' . $margin_desktop . 'px;';
+	$css .= '--projects-deco-image:' . ( $deco_image ? 'url("' . esc_url( $deco_image ) . '")' : 'none' ) . ';';
+	$css .= '--projects-deco-opacity:' . $deco_opacity . ';';
+	$css .= '--projects-deco-pos:' . $deco_pos . ';';
+	$css .= '--projects-deco-size:' . $deco_size . ';';
+	$css .= '--projects-title-color:' . $title_color . ';';
+	$css .= '--projects-title-size:' . $title_size . 'px;';
+	$css .= '--projects-title-weight:' . $title_weight . ';';
+	$css .= '--projects-title-align:' . $title_align . ';';
+	$css .= '--projects-desc-color:' . $desc_color . ';';
+	$css .= '--projects-desc-size:' . $desc_size . 'px;';
+	$css .= '--projects-desc-max-width:' . $desc_width . 'px;';
+	$css .= '--projects-desc-align:' . $desc_align . ';';
+	$css .= '--projects-desc-margin-x:' . ( 'center' === $desc_align ? 'auto' : '0' ) . ';';
+	$css .= '--projects-header-margin:' . $header_margin . 'px;';
+	$css .= '--projects-left-width:' . $left_width . '%;';
+	$css .= '--projects-content-gap:' . $content_gap . 'px;';
+	$css .= '--projects-valign:' . $valign . ';';
+	$css .= '--projects-card-bg:' . tmnhanphat_hex_to_rgba( $card_bg, $card_opacity ) . ';';
+	$css .= '--projects-card-radius:' . $card_radius . 'px;';
+	$css .= '--projects-card-padding:' . $card_padding . 'px;';
+	$css .= '--projects-ptitle-size:' . $ptitle_size . 'px;';
+	$css .= '--projects-ptitle-weight:' . $ptitle_weight . ';';
+	$css .= '--projects-ptitle-color:' . $ptitle_color . ';';
+	$css .= '--projects-ptitle-margin:' . $ptitle_margin . 'px;';
+	$css .= '--projects-pdesc-size:' . $pdesc_size . 'px;';
+	$css .= '--projects-pdesc-color:' . $pdesc_color . ';';
+	$css .= '--projects-pdesc-margin:' . $pdesc_margin . 'px;';
+	$css .= '--projects-divider:' . ( $divider_enable ? $divider_width . 'px solid ' . $divider_color : 'none' ) . ';';
+	$css .= '--projects-meta-label-color:' . $label_color . ';';
+	$css .= '--projects-meta-value-color:' . $value_color . ';';
+	$css .= '--projects-meta-label-size:' . $label_size . 'px;';
+	$css .= '--projects-meta-value-size:' . $value_size . 'px;';
+	$css .= '--projects-meta-gap:' . $meta_gap . 'px;';
+	$css .= '--projects-thumb-width:' . ( $thumb_width > 0 ? $thumb_width . 'px' : '100%' ) . ';';
+	$css .= '--projects-thumb-height:' . ( $thumb_height > 0 ? $thumb_height . 'px' : 'auto' ) . ';';
+	$css .= '--projects-thumb-radius:' . $thumb_radius . 'px;';
+	$css .= '--projects-thumb-fit:' . $thumb_fit . ';';
+	$css .= '--projects-thumb-shadow:' . $thumb_shadow . ';';
+	$css .= '--projects-thumb-zoom:' . ( $thumb_zoom ? '1.05' : '1' ) . ';';
+	$css .= '--projects-transition:' . $transition . 'ms;';
+	$css .= '--projects-dot-size:' . $dot_size . 'px;';
+	$css .= '--projects-dot-gap:' . $dot_gap . 'px;';
+	$css .= '--projects-dot-color:' . $dot_color . ';';
+	$css .= '--projects-dot-active:' . $dot_active . ';';
+	$css .= '}';
+
+	// Line Clamp = 0 nghĩa là tắt — rule tĩnh (cùng pattern các module trước).
+	if ( $desc_clamp > 0 ) {
+		$css .= '.projects-home__description{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:' . $desc_clamp . ';overflow:hidden;}';
+	}
+
+	if ( $ptitle_clamp > 0 ) {
+		$css .= '.project-card__title{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:' . $ptitle_clamp . ';overflow:hidden;}';
+	}
+
+	if ( $pdesc_clamp > 0 ) {
+		$css .= '.project-card__description{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:' . $pdesc_clamp . ';overflow:hidden;}';
+	}
+
+	$css .= '@media (max-width:991px){:root{';
+	$css .= '--projects-padding:' . $padding_tablet . 'px;';
+	$css .= '--projects-margin:' . $margin_tablet . 'px;';
+	$css .= '--projects-title-size:' . $title_tablet . 'px;';
+	$css .= '--projects-desc-size:' . $desc_tablet . 'px;';
+	$css .= '--projects-ptitle-size:' . $ptitle_tablet . 'px;';
+	$css .= '--projects-pdesc-size:' . $pdesc_tablet . 'px;';
+	// Tablet: 60/40 giữ ảnh rõ hơn (spec Responsive).
+	$css .= '--projects-left-width:60%;';
+	$css .= '}}';
+
+	$css .= '@media (max-width:599px){:root{';
+	$css .= '--projects-padding:' . $padding_mobile . 'px;';
+	$css .= '--projects-margin:' . $margin_mobile . 'px;';
+	$css .= '--projects-title-size:' . $title_mobile . 'px;';
+	$css .= '--projects-desc-size:' . $desc_mobile . 'px;';
+	$css .= '--projects-ptitle-size:' . $ptitle_mobile . 'px;';
+	$css .= '--projects-pdesc-size:' . $pdesc_mobile . 'px;';
+	$css .= '}}';
+
+	return $css;
+}
+
+/* ==========================================================================
+ * CUSTOMER REVIEW SECTION ("Đánh giá thực tế của khách hàng", trang chủ) — helper
+ * riêng. Dữ liệu 100% từ CPT customer_review (inc/post-types.php) qua WP_Query —
+ * KHÔNG wp_posts thường, KHÔNG category Blog, KHÔNG Page. Customizer panel
+ * "Customer Review Home" chỉ điều khiển CÁCH hiển thị (query/layout/animation),
+ * không chứa nội dung review.
+ *
+ * Marquee dọc vô hạn (KHÔNG slider/Swiper): 3 cột cố định (Column 1/3 chạy Bottom→
+ * Top, Column 2 chạy Top→Bottom theo default — mỗi cột đổi hướng riêng được), mỗi
+ * cột render danh sách CLONE GẤP ĐÔI ở tầng hiển thị rồi CSS animation translateY
+ * 0 → -50% loop vô hạn — 2 nửa giống nhau tuyệt đối nên điểm nối vô hình, không cần
+ * đo chiều cao bằng JS. Responsive chỉ ẩn/hiện cột 2-3 bằng CSS, không truy vấn lại.
+ * ========================================================================== */
+
+/**
+ * Số cột cố định của Marquee (kiến trúc luôn dựng đủ 3 cột trong DOM; setting
+ * Columns Desktop/Tablet/Mobile chỉ quyết định ẨN/HIỆN bao nhiêu cột ở từng
+ * breakpoint — xem tmnhanphat_render_customer_review_css_vars()).
+ *
+ * @return int
+ */
+function tmnhanphat_get_customer_review_column_count() {
+	return 3;
+}
+
+/**
+ * Default value tập trung cho toàn bộ setting của Customer Review Section (mục 22).
+ *
+ * @return array<string, mixed>
+ */
+function tmnhanphat_customer_review_defaults() {
+	return array(
+		// ----- General -----
+		'tmnhanphat_review_enable'          => true,
+		'tmnhanphat_review_section_id'      => 'danh-gia',
+		'tmnhanphat_review_container_width' => 0,
+		'tmnhanphat_review_bg_color'        => '#ffffff',
+		'tmnhanphat_review_bg_image'        => '',
+		'tmnhanphat_review_padding_desktop' => 96,
+		'tmnhanphat_review_padding_tablet'  => 64,
+		'tmnhanphat_review_padding_mobile'  => 48,
+		'tmnhanphat_review_margin_desktop'  => 0,
+		'tmnhanphat_review_margin_tablet'   => 0,
+		'tmnhanphat_review_margin_mobile'   => 0,
+
+		// ----- Header (Figma 2 màu 1 dòng: phần đầu đỏ + 2 từ cuối "khách hàng" xanh —
+		// template tự tách 2 từ cuối thành span accent xanh, Title Color chỉnh phần đỏ) -----
+		'tmnhanphat_review_title'                => 'Đánh giá thực tế của khách hàng',
+		'tmnhanphat_review_title_color'          => '#E31F2B',
+		'tmnhanphat_review_title_size'           => 40,
+		'tmnhanphat_review_title_size_tablet'    => 32,
+		'tmnhanphat_review_title_size_mobile'    => 24,
+		'tmnhanphat_review_title_align'          => 'center',
+		'tmnhanphat_review_desc_text'            => 'Những chia sẻ chân thực từ khách hàng đã và đang sử dụng dịch vụ tại Thang Máy Nhân Phát, là minh chứng rõ nét nhất cho chất lượng sản phẩm và sự tận tâm trong từng công trình mà chúng tôi mang lại.',
+		'tmnhanphat_review_desc_color'           => '#5c5c5c',
+		'tmnhanphat_review_desc_size'            => 15,
+		'tmnhanphat_review_desc_size_tablet'     => 14,
+		'tmnhanphat_review_desc_size_mobile'     => 14,
+		'tmnhanphat_review_desc_max_width'       => 720,
+		'tmnhanphat_review_header_margin_bottom' => 48,
+
+		// ----- Query -----
+		'tmnhanphat_review_posts_per_column' => 4,
+		'tmnhanphat_review_order'            => 'ASC',
+		'tmnhanphat_review_orderby'          => 'sort_order',
+		'tmnhanphat_review_hide_draft'       => true,
+		'tmnhanphat_review_hide_empty'       => true,
+
+		// ----- Layout -----
+		'tmnhanphat_review_cols_desktop'      => 3,
+		'tmnhanphat_review_cols_tablet'       => 2,
+		'tmnhanphat_review_cols_mobile'       => 1,
+		'tmnhanphat_review_card_gap'          => 24, // Figma: gap dọc = gap ngang giữa các Column.
+		'tmnhanphat_review_column_gap'        => 24,
+		'tmnhanphat_review_card_radius'       => 12,
+		'tmnhanphat_review_card_border_width' => 1,
+		'tmnhanphat_review_card_border_color' => '#EAEAEA',
+		'tmnhanphat_review_card_bg'           => '#ffffff',
+		'tmnhanphat_review_card_shadow'       => 'soft',
+		'tmnhanphat_review_card_hover_shadow' => 'medium',
+		'tmnhanphat_review_card_padding'      => 20,
+
+		// ----- Avatar -----
+		'tmnhanphat_review_avatar_size'          => 44,
+		'tmnhanphat_review_avatar_size_tablet'   => 40,
+		'tmnhanphat_review_avatar_size_mobile'   => 36,
+		'tmnhanphat_review_avatar_radius'        => 100,
+		'tmnhanphat_review_avatar_fit'           => 'cover',
+
+		// ----- Name / Role / Comment -----
+		'tmnhanphat_review_name_size'     => 14,
+		'tmnhanphat_review_name_weight'   => '700',
+		'tmnhanphat_review_name_color'    => '#1a1a1a',
+		'tmnhanphat_review_role_size'     => 12,
+		'tmnhanphat_review_role_color'    => '#9CA3AF',
+		'tmnhanphat_review_comment_size'         => 13,
+		'tmnhanphat_review_comment_color'        => '#4B5563',
+		'tmnhanphat_review_comment_clamp'        => 4,
+		'tmnhanphat_review_comment_clamp_mobile' => 3,
+
+		// ----- Animation -----
+		'tmnhanphat_review_animation_enable' => true,
+		'tmnhanphat_review_speed'            => 40, // giây / 1 vòng lặp (tốc độ cuộn — số nhỏ = nhanh hơn).
+		'tmnhanphat_review_speed_mobile'     => 60, // Mobile chậm hơn Desktop theo spec Responsive.
+		'tmnhanphat_review_pause_hover'      => true,
+		'tmnhanphat_review_loop'             => true,
+		'tmnhanphat_review_col1_direction'   => 'up',
+		'tmnhanphat_review_col2_direction'   => 'down',
+		'tmnhanphat_review_col3_direction'   => 'up',
+		'tmnhanphat_review_mask_enable'      => true,
+		'tmnhanphat_review_mask_fade_top'    => true,
+		'tmnhanphat_review_mask_fade_bottom' => true,
+		'tmnhanphat_review_mask_height'      => 80,
+	);
+}
+
+/**
+ * Đọc 1 theme_mod của Customer Review với default tập trung (mục 22).
+ *
+ * @param string $key Setting id.
+ * @return mixed
+ */
+function tmnhanphat_get_customer_review_mod( $key ) {
+	$defaults = tmnhanphat_customer_review_defaults();
+	$default  = isset( $defaults[ $key ] ) ? $defaults[ $key ] : '';
+
+	return get_theme_mod( $key, $default );
+}
+
+/**
+ * Danh sách lựa chọn "Order By".
+ *
+ * @return array<string, string>
+ */
+function tmnhanphat_get_customer_review_orderby_choices() {
+	return array(
+		'sort_order' => __( 'Sort Order (Meta Box)', 'tmnhanphat' ),
+		'date'       => __( 'Ngày đăng', 'tmnhanphat' ),
+		'title'      => __( 'Tên khách hàng', 'tmnhanphat' ),
+		'rand'       => __( 'Ngẫu nhiên', 'tmnhanphat' ),
+	);
+}
+
+/**
+ * Whitelist "Order By".
+ *
+ * @param string $value Giá trị gửi lên từ Customizer.
+ * @return string
+ */
+function tmnhanphat_sanitize_customer_review_orderby( $value ) {
+	$choices = array_keys( tmnhanphat_get_customer_review_orderby_choices() );
+
+	return in_array( $value, $choices, true ) ? $value : 'sort_order';
+}
+
+/**
+ * Whitelist "Order".
+ *
+ * @param string $value Giá trị gửi lên từ Customizer.
+ * @return string
+ */
+function tmnhanphat_sanitize_customer_review_order( $value ) {
+	return in_array( $value, array( 'ASC', 'DESC' ), true ) ? $value : 'ASC';
+}
+
+/**
+ * Danh sách lựa chọn hướng chạy Marquee cho từng cột.
+ *
+ * @return array<string, string>
+ */
+function tmnhanphat_get_customer_review_direction_choices() {
+	return array(
+		'up'   => __( 'Up (Bottom → Top)', 'tmnhanphat' ),
+		'down' => __( 'Down (Top → Bottom)', 'tmnhanphat' ),
+	);
+}
+
+/**
+ * Whitelist hướng chạy Marquee.
+ *
+ * @param string $value Giá trị gửi lên từ Customizer.
+ * @return string
+ */
+function tmnhanphat_sanitize_customer_review_direction( $value ) {
+	$choices = array_keys( tmnhanphat_get_customer_review_direction_choices() );
+
+	return in_array( $value, $choices, true ) ? $value : 'up';
+}
+
+/**
+ * Query danh sách Review theo setting Customizer — lấy đủ 3 cột × Posts Per Column
+ * (cố định 3 cột vật lý trong DOM, bất kể Columns hiển thị bao nhiêu ở breakpoint
+ * hiện tại — xem tmnhanphat_get_customer_review_column_count()), chỉ lấy đúng số
+ * lượng cần render (no_found_rows — mục 15).
+ *
+ * @return WP_Query
+ */
+function tmnhanphat_get_customer_review_query() {
+	$per_column = max( 1, absint( tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_posts_per_column' ) ) );
+	$orderby    = tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_orderby' );
+	$order      = tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_order' );
+	$hide_draft = tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_hide_draft' );
+
+	$args = array(
+		'post_type'           => 'customer_review',
+		'post_status'         => $hide_draft ? 'publish' : array( 'publish', 'draft' ),
+		'posts_per_page'      => $per_column * tmnhanphat_get_customer_review_column_count(),
+		'order'               => $order,
+		'no_found_rows'       => true,
+		'ignore_sticky_posts' => true,
+		// "Hide Review" tắt riêng từng bài (mục 3/4) — độc lập với trạng thái Draft/Publish.
+		'meta_query'          => array(
+			'relation' => 'OR',
+			array(
+				'key'     => '_tmnp_review_hide',
+				'value'   => '1',
+				'compare' => '!=',
+			),
+			array(
+				'key'     => '_tmnp_review_hide',
+				'compare' => 'NOT EXISTS',
+			),
+		),
+	);
+
+	if ( 'sort_order' === $orderby ) {
+		$args['orderby']  = 'meta_value_num';
+		$args['meta_key'] = '_tmnp_review_order'; // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- danh sách Review nhỏ, orderby theo Sort Order là tính năng chính của Meta Box.
+	} else {
+		$args['orderby'] = $orderby;
+	}
+
+	return new WP_Query( $args );
+}
+
+/**
+ * Fallback Comment mặc định (mục 4) — hiển thị khi Editor rỗng, KHÔNG ghi Database.
+ *
+ * @return string
+ */
+function tmnhanphat_get_customer_review_default_comment() {
+	return __( 'Chúng tôi rất hài lòng về chất lượng sản phẩm, quá trình thi công và dịch vụ hỗ trợ sau bán hàng.', 'tmnhanphat' );
+}
+
+/**
+ * SVG Avatar mặc định — dùng khi Review chưa có Featured Image (mục 4), cùng tinh
+ * thần fallback icon mặc định của Why Choose Section (không cần asset ảnh riêng).
+ *
+ * @return string HTML đã an toàn (SVG tĩnh, không chứa dữ liệu động).
+ */
+function tmnhanphat_get_customer_review_default_avatar_svg() {
+	return '<svg class="review-card__avatar-fallback" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">'
+		. '<circle cx="12" cy="8" r="4" fill="currentColor" />'
+		. '<path d="M4 20c0-4.4 3.6-7 8-7s8 2.6 8 7" fill="currentColor" />'
+		. '</svg>';
+}
+
+/**
+ * Đọc + xử lý fallback đầy đủ 1 Review từ CPT customer_review (mục 4 — fallback
+ * CHỈ ở tầng hiển thị, không update_post_meta/DB nào ở đây).
+ *
+ * @param int $post_id ID bài customer_review.
+ * @return array<string, mixed>
+ */
+function tmnhanphat_get_customer_review_item( $post_id ) {
+	$name    = get_the_title( $post_id );
+	$role    = get_post_meta( $post_id, '_tmnp_review_role', true );
+	$comment = tmnhanphat_get_excerpt( $post_id, 40 );
+
+	return array(
+		'name'          => '' !== trim( (string) $name ) ? $name : __( 'Khách hàng', 'tmnhanphat' ),
+		'role'          => '' !== trim( (string) $role ) ? $role : __( 'Khách hàng đã xác minh', 'tmnhanphat' ),
+		'comment'       => '' !== trim( wp_strip_all_tags( (string) $comment ) ) ? $comment : esc_html( tmnhanphat_get_customer_review_default_comment() ),
+		'has_avatar'    => has_post_thumbnail( $post_id ),
+		'avatar_id'     => get_post_thumbnail_id( $post_id ),
+		'is_raw_empty'  => ( '' === trim( (string) $name ) && '' === trim( wp_strip_all_tags( (string) $comment ) ) ),
+	);
+}
+
+/**
+ * Danh sách Review DEMO (mục 9 audit) — hiển thị khi CPT customer_review CHƯA có
+ * bài nào, để section không bao giờ trống/lỗi. CHỈ tồn tại ở tầng hiển thị:
+ * không tạo Post tự động, không ghi Database, không CPT Demo. Nhập Review thật
+ * đầu tiên là demo tự biến mất.
+ *
+ * @return array<int, array<string, mixed>> Item cùng shape với tmnhanphat_get_customer_review_item().
+ */
+function tmnhanphat_get_customer_review_demo_items() {
+	$demos = array(
+		array( 'Nguyễn Văn An', 'Khách hàng đã xác minh', 'Chúng tôi rất hài lòng về chất lượng sản phẩm, quy trình lắp đặt chuyên nghiệp và dịch vụ hỗ trợ tận tình của Thang Máy Nhân Phát.' ),
+		array( 'Trần Thị Bích', 'Chủ đầu tư', 'Thang máy vận hành êm ái, đội ngũ kỹ thuật tư vấn rõ ràng từ khâu khảo sát đến bàn giao. Rất đáng tin cậy.' ),
+		array( 'Lê Minh Cường', 'Quản lý dự án', 'Tiến độ thi công đúng cam kết, báo giá minh bạch không phát sinh. Sẽ tiếp tục hợp tác ở các công trình sau.' ),
+		array( 'Phạm Hoàng Dũng', 'Khách hàng cá nhân', 'Lắp thang máy gia đình 350kg, hoàn thiện gọn gàng trong 2 tuần. Bảo trì định kỳ rất chu đáo.' ),
+		array( 'Võ Thu Hà', 'CEO', 'Dịch vụ hậu mãi nhanh chóng, gọi là có mặt. Chất lượng xứng đáng với chi phí đầu tư.' ),
+		array( 'Đặng Quốc Huy', 'Kỹ sư xây dựng', 'Thiết bị chính hãng, hồ sơ kiểm định đầy đủ. Đối tác chuyên nghiệp hiếm có trong lĩnh vực thang máy.' ),
+	);
+
+	$items = array();
+
+	foreach ( $demos as $demo ) {
+		$items[] = array(
+			'name'         => $demo[0],
+			'role'         => $demo[1],
+			'comment'      => esc_html( $demo[2] ),
+			'has_avatar'   => false, // Demo dùng Avatar mặc định của theme (SVG fallback).
+			'avatar_id'    => 0,
+			'is_raw_empty' => false,
+		);
+	}
+
+	return $items;
+}
+
+/**
+ * Xây 3 cột dữ liệu Review đã xử lý fallback, chia ROUND-ROBIN theo thứ tự Query —
+ * mỗi cột là 1 danh sách item độc lập cho Marquee (mục 7/8). CPT chưa có bài nào
+ * → tự đổ dữ liệu Demo (tầng hiển thị, mục 9 audit) để section luôn đầy đủ.
+ *
+ * @return array<int, array<int, array<string, mixed>>> Luôn có đúng 3 phần tử (có thể rỗng).
+ */
+function tmnhanphat_get_customer_review_columns() {
+	$column_count = tmnhanphat_get_customer_review_column_count();
+	$columns      = array_fill( 0, $column_count, array() );
+	$hide_empty   = tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_hide_empty' );
+
+	$query = tmnhanphat_get_customer_review_query();
+	$index = 0;
+
+	while ( $query->have_posts() ) {
+		$query->the_post();
+
+		$item = tmnhanphat_get_customer_review_item( get_the_ID() );
+
+		if ( $hide_empty && $item['is_raw_empty'] ) {
+			continue; // Review hoàn toàn trống (không Title, không Comment) — bỏ qua, không tính vào round-robin.
+		}
+
+		$columns[ $index % $column_count ][] = $item;
+		++$index;
+	}
+
+	wp_reset_postdata();
+
+	// CPT trống hoàn toàn → đổ Demo round-robin (không render section trống — mục 9 audit).
+	if ( 0 === $index ) {
+		foreach ( tmnhanphat_get_customer_review_demo_items() as $demo_index => $demo_item ) {
+			$columns[ $demo_index % $column_count ][] = $demo_item;
+		}
+	}
+
+	return $columns;
+}
+
+/**
+ * Sinh chuỗi CSS custom properties + rule tĩnh cho Customer Review Section (mục 22).
+ *
+ * @return string
+ */
+function tmnhanphat_render_customer_review_css_vars() {
+	$bg_color        = tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_bg_color' );
+	$bg_image        = tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_bg_image' );
+	$container_width = absint( tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_container_width' ) );
+
+	$padding_desktop = absint( tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_padding_desktop' ) );
+	$padding_tablet  = absint( tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_padding_tablet' ) );
+	$padding_mobile  = absint( tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_padding_mobile' ) );
+	$margin_desktop  = absint( tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_margin_desktop' ) );
+	$margin_tablet   = absint( tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_margin_tablet' ) );
+	$margin_mobile   = absint( tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_margin_mobile' ) );
+
+	$title_color  = tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_title_color' );
+	$title_size   = absint( tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_title_size' ) );
+	$title_tablet = absint( tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_title_size_tablet' ) );
+	$title_mobile = absint( tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_title_size_mobile' ) );
+	$title_align  = tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_title_align' );
+
+	$desc_color  = tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_desc_color' );
+	$desc_size   = absint( tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_desc_size' ) );
+	$desc_tablet = absint( tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_desc_size_tablet' ) );
+	$desc_mobile = absint( tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_desc_size_mobile' ) );
+	$desc_width  = absint( tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_desc_max_width' ) );
+	$header_margin = absint( tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_header_margin_bottom' ) );
+
+	$cols_desktop = max( 1, min( 3, absint( tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_cols_desktop' ) ) ) );
+	$cols_tablet  = max( 1, min( 3, absint( tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_cols_tablet' ) ) ) );
+	$cols_mobile  = max( 1, min( 3, absint( tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_cols_mobile' ) ) ) );
+
+	$card_gap          = absint( tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_card_gap' ) );
+	$column_gap        = absint( tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_column_gap' ) );
+	$card_radius       = absint( tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_card_radius' ) );
+	$card_border_width = absint( tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_card_border_width' ) );
+	$card_border_color = tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_card_border_color' );
+	$card_bg           = tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_card_bg' );
+	$card_shadow       = tmnhanphat_get_why_choose_shadow_value( tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_card_shadow' ) );
+	$card_hover_shadow = tmnhanphat_get_why_choose_shadow_value( tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_card_hover_shadow' ) );
+	$card_padding      = absint( tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_card_padding' ) );
+
+	$avatar_size        = absint( tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_avatar_size' ) );
+	$avatar_size_tablet = absint( tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_avatar_size_tablet' ) );
+	$avatar_size_mobile = absint( tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_avatar_size_mobile' ) );
+	$avatar_radius      = absint( tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_avatar_radius' ) );
+	$avatar_fit         = tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_avatar_fit' );
+
+	$name_size    = absint( tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_name_size' ) );
+	$name_weight  = absint( tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_name_weight' ) );
+	$name_color   = tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_name_color' );
+	$role_size    = absint( tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_role_size' ) );
+	$role_color   = tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_role_color' );
+	$comment_size = absint( tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_comment_size' ) );
+	$comment_color = tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_comment_color' );
+	$comment_clamp = absint( tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_comment_clamp' ) );
+	$comment_clamp_mobile = absint( tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_comment_clamp_mobile' ) );
+
+	$animation_enable = tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_animation_enable' );
+	$speed            = max( 5, absint( tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_speed' ) ) );
+	$speed_mobile     = max( 5, absint( tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_speed_mobile' ) ) );
+	$loop             = tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_loop' );
+	$mask_enable      = tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_mask_enable' );
+	$mask_top         = tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_mask_fade_top' );
+	$mask_bottom      = tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_mask_fade_bottom' );
+	$mask_height      = absint( tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_mask_height' ) );
+
+	$direction_map = array( 'up' => 'normal', 'down' => 'reverse' );
+	$col1_dir      = isset( $direction_map[ tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_col1_direction' ) ] ) ? $direction_map[ tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_col1_direction' ) ] : 'normal';
+	$col2_dir      = isset( $direction_map[ tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_col2_direction' ) ] ) ? $direction_map[ tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_col2_direction' ) ] : 'reverse';
+	$col3_dir      = isset( $direction_map[ tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_col3_direction' ) ] ) ? $direction_map[ tmnhanphat_get_customer_review_mod( 'tmnhanphat_review_col3_direction' ) ] : 'normal';
+
+	$css  = ':root{';
+	$css .= '--review-bg:' . $bg_color . ';';
+	$css .= '--review-bg-image:' . ( $bg_image ? 'url("' . esc_url( $bg_image ) . '")' : 'none' ) . ';';
+	$css .= '--review-container-width:' . ( $container_width > 0 ? $container_width . 'px' : 'var(--container-max-width)' ) . ';';
+	$css .= '--review-padding:' . $padding_desktop . 'px;';
+	$css .= '--review-margin:' . $margin_desktop . 'px;';
+	$css .= '--review-title-color:' . $title_color . ';';
+	$css .= '--review-title-size:' . $title_size . 'px;';
+	$css .= '--review-title-align:' . $title_align . ';';
+	$css .= '--review-desc-color:' . $desc_color . ';';
+	$css .= '--review-desc-size:' . $desc_size . 'px;';
+	$css .= '--review-desc-max-width:' . $desc_width . 'px;';
+	$css .= '--review-desc-margin-x:' . ( 'center' === $title_align ? 'auto' : '0' ) . ';';
+	$css .= '--review-header-margin:' . $header_margin . 'px;';
+	$css .= '--review-card-gap:' . $card_gap . 'px;';
+	$css .= '--review-column-gap:' . $column_gap . 'px;';
+	$css .= '--review-card-radius:' . $card_radius . 'px;';
+	$css .= '--review-card-border:' . ( $card_border_width > 0 ? $card_border_width . 'px solid ' . $card_border_color : 'none' ) . ';';
+	$css .= '--review-card-bg:' . $card_bg . ';';
+	$css .= '--review-card-shadow:' . $card_shadow . ';';
+	$css .= '--review-card-hover-shadow:' . $card_hover_shadow . ';';
+	$css .= '--review-card-padding:' . $card_padding . 'px;';
+	$css .= '--review-avatar-size:' . $avatar_size . 'px;';
+	$css .= '--review-avatar-radius:' . $avatar_radius . '%;';
+	$css .= '--review-avatar-fit:' . $avatar_fit . ';';
+	$css .= '--review-name-size:' . $name_size . 'px;';
+	$css .= '--review-name-weight:' . $name_weight . ';';
+	$css .= '--review-name-color:' . $name_color . ';';
+	$css .= '--review-role-size:' . $role_size . 'px;';
+	$css .= '--review-role-color:' . $role_color . ';';
+	$css .= '--review-comment-size:' . $comment_size . 'px;';
+	$css .= '--review-comment-color:' . $comment_color . ';';
+	$css .= '--review-comment-clamp:' . $comment_clamp . ';';
+	$css .= '--review-speed:' . $speed . 's;';
+	$css .= '--review-col1-direction:' . $col1_dir . ';';
+	$css .= '--review-col2-direction:' . $col2_dir . ';';
+	$css .= '--review-col3-direction:' . $col3_dir . ';';
+	$css .= '--review-mask-height:' . $mask_height . 'px;';
+	$css .= '--review-mask-color:' . $bg_color . ';';
+	$css .= '}';
+
+	// Animation tắt hoàn toàn (setting, KHÔNG phải prefers-reduced-motion — file JS xử lý
+	// riêng phần đó) — track đứng yên, hiển thị danh sách tĩnh (mục 15: Enable Animation).
+	if ( ! $animation_enable ) {
+		$css .= '.review-marquee__track{animation:none !important;}';
+	} elseif ( ! $loop ) {
+		// Loop tắt: chạy đúng 1 vòng rồi dừng (mặc định luôn lặp vô hạn theo mục 8).
+		$css .= '.review-marquee__track{animation-iteration-count:1;}';
+	}
+
+	if ( ! $mask_enable || ! $mask_top ) {
+		$css .= '.review-marquee::before{display:none;}';
+	}
+
+	if ( ! $mask_enable || ! $mask_bottom ) {
+		$css .= '.review-marquee::after{display:none;}';
+	}
+
+	// Ẩn/hiện cột theo breakpoint (kiến trúc 3 cột cố định trong DOM — mục 16 Responsive).
+	$css .= tmnhanphat_get_customer_review_column_visibility_css( $cols_desktop );
+
+	$css .= '@media (max-width:991px){:root{';
+	$css .= '--review-padding:' . $padding_tablet . 'px;';
+	$css .= '--review-margin:' . $margin_tablet . 'px;';
+	$css .= '--review-title-size:' . $title_tablet . 'px;';
+	$css .= '--review-desc-size:' . $desc_tablet . 'px;';
+	$css .= '--review-avatar-size:' . $avatar_size_tablet . 'px;';
+	$css .= '}' . tmnhanphat_get_customer_review_column_visibility_css( $cols_tablet ) . '}';
+
+	$css .= '@media (max-width:599px){:root{';
+	$css .= '--review-padding:' . $padding_mobile . 'px;';
+	$css .= '--review-margin:' . $margin_mobile . 'px;';
+	$css .= '--review-title-size:' . $title_mobile . 'px;';
+	$css .= '--review-desc-size:' . $desc_mobile . 'px;';
+	$css .= '--review-avatar-size:' . $avatar_size_mobile . 'px;';
+	$css .= '--review-comment-clamp:' . $comment_clamp_mobile . ';';
+	$css .= '--review-speed:' . $speed_mobile . 's;'; // Mobile chậm hơn Desktop theo spec.
+	$css .= '}' . tmnhanphat_get_customer_review_column_visibility_css( $cols_mobile ) . '}';
+
+	return $css;
+}
+
+/**
+ * Sinh rule ẨN cột thứ (N+1)..3 khi số cột hiển thị < 3 (kiến trúc 3 cột cố định
+ * trong DOM — mục 16). Không cần rule gì khi hiển thị đủ 3 cột.
+ *
+ * @param int $visible_count Số cột hiển thị (1-3).
+ * @return string
+ */
+function tmnhanphat_get_customer_review_column_visibility_css( $visible_count ) {
+	$css = '';
+
+	for ( $i = $visible_count + 1; $i <= tmnhanphat_get_customer_review_column_count(); $i++ ) {
+		$css .= '.review-marquee__column:nth-child(' . $i . '){display:none;}';
+	}
+
+	return $css;
+}
+
+/* ==========================================================================
+ * FEATURED NEWS SECTION ("Tin tức nổi bật", trang chủ) — helper riêng.
+ *
+ * Dữ liệu là POST THƯỜNG (wp_posts) theo Category chọn trong Customizer (0 = mọi
+ * bài viết mới nhất) — KHÔNG CPT/Taxonomy mới, không hardcode ID, WP_Query chỉ lấy
+ * đúng số bài cần render. Chưa có bài nào → tự đổ Demo Data ở tầng hiển thị
+ * (không ghi Database) để section không bao giờ trống.
+ *
+ * Header TÁI SỬ DỤNG style review-home__heading (gạch đôi đỏ/xanh dưới title) —
+ * template gắn thêm class đó khi "Reuse Heading Style" bật, News chỉ override
+ * size/màu qua biến --news-* trong scope .news-home (không nhân bản CSS).
+ *
+ * Slider tái sử dụng .tmnp-slider + slider.js (3/2/1 card mỗi khung nhìn, dots +
+ * arrows sinh DOM động). Lưu ý: dots của slider.js là 1 dot/BÀI (trượt từng card),
+ * không phải 1 dot/trang-3-bài — chấp nhận để không đụng logic slider dùng chung.
+ * ========================================================================== */
+
+/**
+ * Default value tập trung cho toàn bộ setting của News Section (mục 22).
+ *
+ * @return array<string, mixed>
+ */
+function tmnhanphat_news_defaults() {
+	return array(
+		// ----- General -----
+		'tmnhanphat_news_enable'          => true,
+		'tmnhanphat_news_section_id'      => 'tin-tuc',
+		// Dùng Global Container (0) để padding 2 bên KHỚP các section khác — 3 card tự co
+		// theo container (~384px mỗi card ở 1200), không giữ width cố định 513 gây tràn.
+		'tmnhanphat_news_container_width' => 0,
+		'tmnhanphat_news_padding_desktop' => 96,
+		'tmnhanphat_news_padding_tablet'  => 64,
+		'tmnhanphat_news_padding_mobile'  => 48,
+		'tmnhanphat_news_margin_desktop'  => 0,
+		'tmnhanphat_news_margin_tablet'   => 0,
+		'tmnhanphat_news_margin_mobile'   => 0,
+		'tmnhanphat_news_bg_color'        => '#ffffff',
+		'tmnhanphat_news_bg_image'        => '',
+		'tmnhanphat_news_bg_opacity'      => 100,
+		'tmnhanphat_news_bg_position'     => 'center',
+		'tmnhanphat_news_bg_size'         => 'cover',
+		// Decoration tam giác xanh góc trên phải (Figma 381 × 464).
+		'tmnhanphat_news_deco_enable'     => true,
+		'tmnhanphat_news_deco_image'      => '',
+		'tmnhanphat_news_deco_width'      => 381,
+		'tmnhanphat_news_deco_height'     => 464,
+
+		// ----- Header (reuse style review-home__heading) -----
+		'tmnhanphat_news_small_title'          => 'KIẾN THỨC & XU HƯỚNG',
+		'tmnhanphat_news_small_size'           => 13,
+		'tmnhanphat_news_heading_blue_text'    => 'Tin tức',
+		'tmnhanphat_news_heading_red_text'     => 'nổi bật',
+		'tmnhanphat_news_heading_blue_color'   => '#046AB5',
+		'tmnhanphat_news_heading_red_color'    => '#E31F2B',
+		'tmnhanphat_news_title_size'           => 40,
+		'tmnhanphat_news_title_size_tablet'    => 32,
+		'tmnhanphat_news_title_size_mobile'    => 24,
+		'tmnhanphat_news_desc_text'            => 'Tổng hợp thông tin hữu ích, kiến thức chuyên ngành và những cập nhật mới nhất từ Nhân Phát, giúp khách hàng nắm bắt xu hướng thị trường.',
+		'tmnhanphat_news_desc_color'           => '#5c5c5c',
+		'tmnhanphat_news_desc_size'            => 14,
+		'tmnhanphat_news_desc_max_width'       => 720,
+		'tmnhanphat_news_header_align'         => 'center',
+		'tmnhanphat_news_header_margin_bottom' => 56,
+		'tmnhanphat_news_reuse_heading'        => true,
+
+		// ----- Query -----
+		'tmnhanphat_news_category'     => 0, // 0 = mọi bài viết (mặc định hoạt động ngay, admin chọn Category Tin tức sau).
+		'tmnhanphat_news_count'        => 9,
+		'tmnhanphat_news_orderby'      => 'date',
+		'tmnhanphat_news_order'        => 'DESC',
+		'tmnhanphat_news_exclude_cats' => '',
+		'tmnhanphat_news_hide_sticky'  => true,
+
+		// ----- Card (Figma 513×561 ở khung rộng — co theo container, chiều cao AUTO cân
+		// theo nội dung, flex-track tự đồng đều chiều cao các card cùng hàng) -----
+		'tmnhanphat_news_card_width'        => 420,
+		'tmnhanphat_news_card_height'       => 0, // 0 = auto (giảm chiều cao box, không ép 561).
+		'tmnhanphat_news_card_radius'       => 16,
+		'tmnhanphat_news_card_shadow'       => 'soft',
+		'tmnhanphat_news_card_hover_shadow' => 'medium',
+		'tmnhanphat_news_card_padding'      => 20,
+		'tmnhanphat_news_gap'               => 28,
+
+		// ----- Thumbnail (ảnh khớp SÁT viền card, bo góc trên theo Card Radius — không
+		// có khoảng thừa quanh ảnh; radius để 0 vì card overflow:hidden tự bo góc trên) -----
+		'tmnhanphat_news_thumb_height' => 240,
+		'tmnhanphat_news_thumb_radius' => 0,
+		'tmnhanphat_news_thumb_fit'    => 'cover',
+		'tmnhanphat_news_thumb_zoom'   => true,
+
+		// ----- Meta -----
+		'tmnhanphat_news_show_date'   => true,
+		'tmnhanphat_news_show_author' => true,
+		'tmnhanphat_news_date_format' => 'd/m/Y',
+		'tmnhanphat_news_meta_size'   => 12,
+		'tmnhanphat_news_meta_color'  => '#9CA3AF',
+
+		// ----- Card Title -----
+		'tmnhanphat_news_ptitle_size'        => 20,
+		'tmnhanphat_news_ptitle_size_tablet' => 18,
+		'tmnhanphat_news_ptitle_size_mobile' => 16,
+		'tmnhanphat_news_ptitle_weight'      => '700',
+		'tmnhanphat_news_ptitle_clamp'       => 2,
+		'tmnhanphat_news_ptitle_color'       => '#1a1a1a',
+
+		// ----- Card Description -----
+		'tmnhanphat_news_pdesc_size'         => 13,
+		'tmnhanphat_news_pdesc_clamp'        => 2,
+		'tmnhanphat_news_pdesc_clamp_mobile' => 2,
+		'tmnhanphat_news_pdesc_color'        => '#6B7280',
+
+		// ----- Read More -----
+		'tmnhanphat_news_readmore_text'        => 'Xem thêm',
+		'tmnhanphat_news_readmore_color'       => '#E9A13B',
+		'tmnhanphat_news_readmore_hover_color' => '#C77F1B',
+
+		// ----- Slider -----
+		'tmnhanphat_news_autoplay_enable'  => true,
+		'tmnhanphat_news_autoplay_speed'   => 5000,
+		'tmnhanphat_news_transition_speed' => 600,
+		'tmnhanphat_news_infinite'         => true,
+		'tmnhanphat_news_pause_hover'      => true,
+		'tmnhanphat_news_drag_enable'      => true,
+		'tmnhanphat_news_show_arrows'      => false, // Design không có nút Prev/Next — chỉ dots + swipe/drag.
+		'tmnhanphat_news_show_dots'        => true,
+		'tmnhanphat_news_dot_size'         => 8,
+		'tmnhanphat_news_dot_gap'          => 8,
+		'tmnhanphat_news_dot_active'       => '#046AB5',
+		'tmnhanphat_news_dot_inactive'     => '#D9D9D9',
+		'tmnhanphat_news_arrow_size'       => 40,
+		'tmnhanphat_news_arrow_bg'         => '#046AB5',
+		'tmnhanphat_news_arrow_color'      => '#ffffff',
+		'tmnhanphat_news_arrow_radius'     => 100,
+	);
+}
+
+/**
+ * Đọc 1 theme_mod của News với default tập trung (mục 22).
+ *
+ * @param string $key Setting id.
+ * @return mixed
+ */
+function tmnhanphat_get_news_mod( $key ) {
+	$defaults = tmnhanphat_news_defaults();
+	$default  = isset( $defaults[ $key ] ) ? $defaults[ $key ] : '';
+
+	return get_theme_mod( $key, $default );
+}
+
+/**
+ * Query danh sách Tin tức theo setting Customizer — Category 0 = mọi bài, chỉ lấy
+ * đúng số bài cần render (no_found_rows — mục 15).
+ *
+ * @return WP_Query
+ */
+function tmnhanphat_get_news_query() {
+	$args = array(
+		'post_type'           => 'post',
+		'post_status'         => 'publish',
+		'posts_per_page'      => max( 1, absint( tmnhanphat_get_news_mod( 'tmnhanphat_news_count' ) ) ),
+		'orderby'             => tmnhanphat_get_news_mod( 'tmnhanphat_news_orderby' ),
+		'order'               => tmnhanphat_get_news_mod( 'tmnhanphat_news_order' ),
+		'no_found_rows'       => true,
+		'ignore_sticky_posts' => tmnhanphat_get_news_mod( 'tmnhanphat_news_hide_sticky' ),
+	);
+
+	$category = absint( tmnhanphat_get_news_mod( 'tmnhanphat_news_category' ) );
+	if ( $category && term_exists( $category, 'category' ) ) {
+		$args['cat'] = $category;
+	}
+
+	$exclude_cats = tmnhanphat_parse_id_list( tmnhanphat_get_news_mod( 'tmnhanphat_news_exclude_cats' ) );
+	if ( ! empty( $exclude_cats ) ) {
+		$args['category__not_in'] = $exclude_cats;
+	}
+
+	return new WP_Query( $args );
+}
+
+/**
+ * Xây danh sách item Tin tức đã xử lý fallback: Excerpt rỗng → đầu Content
+ * (tmnhanphat_get_excerpt), Author rỗng → "Admin", Date = Publish Date theo
+ * Date Format. Chưa có bài nào → Demo Data (tầng hiển thị, không ghi DB — mục 13).
+ *
+ * @return array<int, array<string, mixed>>
+ */
+function tmnhanphat_get_news_items() {
+	$items       = array();
+	$date_format = tmnhanphat_get_news_mod( 'tmnhanphat_news_date_format' );
+	$query       = tmnhanphat_get_news_query();
+
+	while ( $query->have_posts() ) {
+		$query->the_post();
+
+		$author = get_the_author();
+
+		$items[] = array(
+			'title'     => get_the_title(),
+			'excerpt'   => tmnhanphat_get_excerpt( get_the_ID(), 22 ),
+			'date'      => esc_html( get_the_date( $date_format ) ),
+			'author'    => '' !== trim( (string) $author ) ? $author : __( 'Admin', 'tmnhanphat' ),
+			'permalink' => get_permalink(),
+			'has_thumb' => has_post_thumbnail(),
+			'thumb_id'  => get_post_thumbnail_id(),
+		);
+	}
+
+	wp_reset_postdata();
+
+	// Chưa có bài viết nào → Demo Data ×3 (đúng nội dung design) để section không trống.
+	if ( empty( $items ) ) {
+		for ( $i = 0; $i < 3; $i++ ) {
+			$items[] = array(
+				'title'     => __( 'Top các hãng thang máy gia đình uy tín trên thị trường', 'tmnhanphat' ),
+				'excerpt'   => esc_html__( 'Khám phá các hãng thang máy gia đình được nhiều khách hàng tin chọn cùng kinh nghiệm lựa chọn phù hợp.', 'tmnhanphat' ),
+				'date'      => esc_html( date_i18n( $date_format ) ),
+				'author'    => __( 'Admin', 'tmnhanphat' ),
+				'permalink' => '',
+				'has_thumb' => false,
+				'thumb_id'  => 0,
+			);
+		}
+	}
+
+	return $items;
+}
+
+/**
+ * Sinh chuỗi CSS custom properties cho News Section (mục 22).
+ *
+ * @return string
+ */
+function tmnhanphat_render_news_css_vars() {
+	$m = 'tmnhanphat_get_news_mod';
+
+	$container_width = absint( $m( 'tmnhanphat_news_container_width' ) );
+	$bg_image        = $m( 'tmnhanphat_news_bg_image' );
+
+	$css  = ':root{';
+	$css .= '--news-bg:' . $m( 'tmnhanphat_news_bg_color' ) . ';';
+	$css .= '--news-bg-image:' . ( $bg_image ? 'url("' . esc_url( $bg_image ) . '")' : 'none' ) . ';';
+	$css .= '--news-bg-opacity:' . ( absint( $m( 'tmnhanphat_news_bg_opacity' ) ) / 100 ) . ';';
+	$css .= '--news-bg-position:' . $m( 'tmnhanphat_news_bg_position' ) . ';';
+	$css .= '--news-bg-size:' . $m( 'tmnhanphat_news_bg_size' ) . ';';
+	$css .= '--news-container-width:' . ( $container_width > 0 ? $container_width . 'px' : 'var(--container-max-width)' ) . ';';
+	$css .= '--news-padding:' . absint( $m( 'tmnhanphat_news_padding_desktop' ) ) . 'px;';
+	$css .= '--news-margin:' . absint( $m( 'tmnhanphat_news_margin_desktop' ) ) . 'px;';
+	$css .= '--news-deco-width:' . absint( $m( 'tmnhanphat_news_deco_width' ) ) . 'px;';
+	$css .= '--news-deco-height:' . absint( $m( 'tmnhanphat_news_deco_height' ) ) . 'px;';
+	$css .= '--news-small-size:' . absint( $m( 'tmnhanphat_news_small_size' ) ) . 'px;';
+	$css .= '--news-heading-blue:' . $m( 'tmnhanphat_news_heading_blue_color' ) . ';';
+	$css .= '--news-heading-red:' . $m( 'tmnhanphat_news_heading_red_color' ) . ';';
+	$css .= '--news-title-size:' . absint( $m( 'tmnhanphat_news_title_size' ) ) . 'px;';
+	$css .= '--news-desc-color:' . $m( 'tmnhanphat_news_desc_color' ) . ';';
+	$css .= '--news-desc-size:' . absint( $m( 'tmnhanphat_news_desc_size' ) ) . 'px;';
+	$css .= '--news-desc-max-width:' . absint( $m( 'tmnhanphat_news_desc_max_width' ) ) . 'px;';
+	$css .= '--news-header-align:' . $m( 'tmnhanphat_news_header_align' ) . ';';
+	$css .= '--news-header-margin-x:' . ( 'center' === $m( 'tmnhanphat_news_header_align' ) ? 'auto' : '0' ) . ';';
+	$css .= '--news-header-margin:' . absint( $m( 'tmnhanphat_news_header_margin_bottom' ) ) . 'px;';
+	$news_card_h = absint( $m( 'tmnhanphat_news_card_height' ) );
+	$css .= '--news-card-width:' . absint( $m( 'tmnhanphat_news_card_width' ) ) . 'px;';
+	$css .= '--news-card-height:' . ( $news_card_h > 0 ? $news_card_h . 'px' : 'auto' ) . ';';
+	$css .= '--news-card-radius:' . absint( $m( 'tmnhanphat_news_card_radius' ) ) . 'px;';
+	$css .= '--news-card-shadow:' . tmnhanphat_get_why_choose_shadow_value( $m( 'tmnhanphat_news_card_shadow' ) ) . ';';
+	$css .= '--news-card-hover-shadow:' . tmnhanphat_get_why_choose_shadow_value( $m( 'tmnhanphat_news_card_hover_shadow' ) ) . ';';
+	$css .= '--news-card-padding:' . absint( $m( 'tmnhanphat_news_card_padding' ) ) . 'px;';
+	$css .= '--news-gap:' . absint( $m( 'tmnhanphat_news_gap' ) ) . 'px;';
+	$css .= '--news-thumb-height:' . absint( $m( 'tmnhanphat_news_thumb_height' ) ) . 'px;';
+	$css .= '--news-thumb-radius:' . absint( $m( 'tmnhanphat_news_thumb_radius' ) ) . 'px;';
+	$css .= '--news-thumb-fit:' . $m( 'tmnhanphat_news_thumb_fit' ) . ';';
+	$css .= '--news-thumb-zoom:' . ( $m( 'tmnhanphat_news_thumb_zoom' ) ? '1.05' : '1' ) . ';';
+	$css .= '--news-meta-size:' . absint( $m( 'tmnhanphat_news_meta_size' ) ) . 'px;';
+	$css .= '--news-meta-color:' . $m( 'tmnhanphat_news_meta_color' ) . ';';
+	$css .= '--news-ptitle-size:' . absint( $m( 'tmnhanphat_news_ptitle_size' ) ) . 'px;';
+	$css .= '--news-ptitle-weight:' . absint( $m( 'tmnhanphat_news_ptitle_weight' ) ) . ';';
+	$css .= '--news-ptitle-color:' . $m( 'tmnhanphat_news_ptitle_color' ) . ';';
+	$css .= '--news-pdesc-size:' . absint( $m( 'tmnhanphat_news_pdesc_size' ) ) . 'px;';
+	$css .= '--news-pdesc-color:' . $m( 'tmnhanphat_news_pdesc_color' ) . ';';
+	$css .= '--news-readmore-color:' . $m( 'tmnhanphat_news_readmore_color' ) . ';';
+	$css .= '--news-readmore-hover:' . $m( 'tmnhanphat_news_readmore_hover_color' ) . ';';
+	$css .= '--news-transition:' . absint( $m( 'tmnhanphat_news_transition_speed' ) ) . 'ms;';
+	$css .= '--news-dot-size:' . absint( $m( 'tmnhanphat_news_dot_size' ) ) . 'px;';
+	$css .= '--news-dot-gap:' . absint( $m( 'tmnhanphat_news_dot_gap' ) ) . 'px;';
+	$css .= '--news-dot-active:' . $m( 'tmnhanphat_news_dot_active' ) . ';';
+	$css .= '--news-dot-inactive:' . $m( 'tmnhanphat_news_dot_inactive' ) . ';';
+	$css .= '--news-arrow-size:' . absint( $m( 'tmnhanphat_news_arrow_size' ) ) . 'px;';
+	$css .= '--news-arrow-bg:' . $m( 'tmnhanphat_news_arrow_bg' ) . ';';
+	$css .= '--news-arrow-color:' . $m( 'tmnhanphat_news_arrow_color' ) . ';';
+	$css .= '--news-arrow-radius:' . absint( $m( 'tmnhanphat_news_arrow_radius' ) ) . '%;';
+	$css .= '}';
+
+	// Line Clamp rule tĩnh (0 = tắt — cùng pattern các module trước).
+	$ptitle_clamp = absint( $m( 'tmnhanphat_news_ptitle_clamp' ) );
+	$pdesc_clamp  = absint( $m( 'tmnhanphat_news_pdesc_clamp' ) );
+	$pdesc_mobile = absint( $m( 'tmnhanphat_news_pdesc_clamp_mobile' ) );
+
+	if ( $ptitle_clamp > 0 ) {
+		$css .= '.news-card__title{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:' . $ptitle_clamp . ';overflow:hidden;}';
+	}
+
+	if ( $pdesc_clamp > 0 ) {
+		$css .= '.news-card__excerpt{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:' . $pdesc_clamp . ';overflow:hidden;}';
+	}
+
+	$css .= '@media (max-width:991px){:root{';
+	$css .= '--news-padding:' . absint( $m( 'tmnhanphat_news_padding_tablet' ) ) . 'px;';
+	$css .= '--news-margin:' . absint( $m( 'tmnhanphat_news_margin_tablet' ) ) . 'px;';
+	$css .= '--news-title-size:' . absint( $m( 'tmnhanphat_news_title_size_tablet' ) ) . 'px;';
+	$css .= '--news-ptitle-size:' . absint( $m( 'tmnhanphat_news_ptitle_size_tablet' ) ) . 'px;';
+	$css .= '}}';
+
+	$css .= '@media (max-width:599px){:root{';
+	$css .= '--news-padding:' . absint( $m( 'tmnhanphat_news_padding_mobile' ) ) . 'px;';
+	$css .= '--news-margin:' . absint( $m( 'tmnhanphat_news_margin_mobile' ) ) . 'px;';
+	$css .= '--news-title-size:' . absint( $m( 'tmnhanphat_news_title_size_mobile' ) ) . 'px;';
+	$css .= '--news-ptitle-size:' . absint( $m( 'tmnhanphat_news_ptitle_size_mobile' ) ) . 'px;';
+	$css .= '}';
+
+	if ( $pdesc_mobile > 0 ) {
+		$css .= '.news-card__excerpt{-webkit-line-clamp:' . $pdesc_mobile . ';}';
+	}
+
+	$css .= '}';
+
+	return $css;
+}
+
+/* ==========================================================================
+ * QUOTE CONTACT SECTION ("Liên hệ báo giá", trang chủ) — helper riêng.
+ *
+ * Layout 50/50: trái = Quote Form Card (nền xanh đậm), phải = Company Information.
+ * Giá trị Email/Phone/Address TÁI SỬ DỤNG mod của Footer (tmnhanphat_footer_*) —
+ * công ty nhập MỘT LẦN ở panel Footer, cả Footer lẫn Quote Section cùng hiển thị
+ * (không duplicate dữ liệu — PROJECT_RULES.md mục 5/19). Quote panel chỉ điều khiển
+ * hiển thị + form + heading, không chứa lại email/phone/address.
+ *
+ * Form ở bước này chỉ HTML + validation Frontend (assets/js/components/quote.js) —
+ * chưa gửi mail (backend sau). Heading phải reuse review-home__heading (mục 11).
+ * ========================================================================== */
+
+/**
+ * Default value tập trung cho toàn bộ setting của Quote Section (mục 22).
+ *
+ * @return array<string, mixed>
+ */
+function tmnhanphat_quote_defaults() {
+	return array(
+		// ----- General -----
+		'tmnhanphat_quote_enable'          => true,
+		'tmnhanphat_quote_section_id'      => 'lien-he-bao-gia',
+		'tmnhanphat_quote_container_width' => 0,
+		'tmnhanphat_quote_padding_desktop' => 96,
+		'tmnhanphat_quote_padding_tablet'  => 64,
+		'tmnhanphat_quote_padding_mobile'  => 48,
+		'tmnhanphat_quote_margin_desktop'  => 0,
+		'tmnhanphat_quote_margin_tablet'   => 0,
+		'tmnhanphat_quote_margin_mobile'   => 0,
+		'tmnhanphat_quote_bg_color'        => '#ffffff',
+		'tmnhanphat_quote_bg_image'        => '',
+		'tmnhanphat_quote_gap'             => 64,
+
+		// ----- Left Card -----
+		'tmnhanphat_quote_card_enable'  => true,
+		'tmnhanphat_quote_card_radius'  => 28,
+		'tmnhanphat_quote_card_shadow'  => 'medium',
+		'tmnhanphat_quote_card_bg'      => '#0B2A5B',
+		'tmnhanphat_quote_card_padding' => 40,
+
+		// ----- Form Header -----
+		'tmnhanphat_quote_header_title'          => 'Thông tin khách hàng',
+		'tmnhanphat_quote_header_title_color'    => '#ffffff',
+		'tmnhanphat_quote_underline_color'       => '#E31F2B',
+		'tmnhanphat_quote_header_size'           => 22,
+		'tmnhanphat_quote_header_size_tablet'    => 20,
+		'tmnhanphat_quote_header_size_mobile'    => 18,
+
+		// ----- Form Fields (toggle + required) -----
+		'tmnhanphat_quote_show_name'    => true,
+		'tmnhanphat_quote_show_phone'   => true,
+		'tmnhanphat_quote_show_email'   => true,
+		'tmnhanphat_quote_show_service' => true,
+		'tmnhanphat_quote_show_message' => true,
+		'tmnhanphat_quote_required'     => true,
+
+		// ----- Form Input Style -----
+		'tmnhanphat_quote_input_height'      => 50,
+		'tmnhanphat_quote_input_radius'      => 10,
+		'tmnhanphat_quote_input_font_size'   => 14,
+		'tmnhanphat_quote_placeholder_color' => '#9CA3AF',
+		'tmnhanphat_quote_border_color'      => '#E5E7EB',
+		'tmnhanphat_quote_focus_color'       => '#046AB5',
+		'tmnhanphat_quote_input_gap'         => 14,
+		// Danh sách loại dịch vụ — mỗi dòng 1 lựa chọn (admin sửa tự do, không hardcode/CPT).
+		'tmnhanphat_quote_service_options'   => "Thang máy gia đình\nThang máy tải khách\nThang máy tải hàng\nBảo trì\nSửa chữa",
+
+		// ----- Submit Button -----
+		'tmnhanphat_quote_btn_text'       => 'Yêu cầu tư vấn',
+		'tmnhanphat_quote_btn_bg'         => '#E31F2B',
+		'tmnhanphat_quote_btn_hover_bg'   => '#C01823',
+		'tmnhanphat_quote_btn_text_color' => '#ffffff',
+		'tmnhanphat_quote_btn_radius'     => 10,
+		'tmnhanphat_quote_btn_height'     => 52,
+		'tmnhanphat_quote_btn_icon'       => true,
+
+		// ----- Verify -----
+		'tmnhanphat_quote_verify_enable' => true,
+		'tmnhanphat_quote_verify_text'   => 'Thông tin của bạn được bảo mật tuyệt đối',
+		'tmnhanphat_quote_verify_color'  => '#B9C4D6',
+		'tmnhanphat_quote_verify_size'   => 12,
+
+		// ----- Right Content -----
+		'tmnhanphat_quote_show_logo'          => true,
+		'tmnhanphat_quote_logo'               => '', // Bỏ trống = dùng Logo Footer (tmnhanphat_footer_logo).
+		'tmnhanphat_quote_logo_width'         => 120,
+		'tmnhanphat_quote_heading_blue_text'  => 'Liên hệ',
+		'tmnhanphat_quote_heading_red_text'   => 'báo giá',
+		'tmnhanphat_quote_heading_blue_color' => '#046AB5',
+		'tmnhanphat_quote_heading_red_color'  => '#E31F2B',
+		'tmnhanphat_quote_heading_size'       => 40,
+		'tmnhanphat_quote_desc_text'          => 'Sản phẩm chính hãng, đội ngũ kỹ thuật chuyên nghiệp cùng chế độ bảo hành - bảo trì tận tâm là lý do hàng nghìn khách hàng tin chọn Nhân Phát.',
+		'tmnhanphat_quote_desc_color'         => '#5c5c5c',
+		'tmnhanphat_quote_desc_size'          => 14,
+		'tmnhanphat_quote_right_align'        => 'left',
+		'tmnhanphat_quote_right_max_width'    => 460,
+
+		// ----- Contact Information (display; VALUE reuse footer mods) -----
+		'tmnhanphat_quote_show_contact_email'   => true,
+		'tmnhanphat_quote_show_contact_phone'   => true,
+		'tmnhanphat_quote_show_contact_address' => true,
+		'tmnhanphat_quote_icon_bg'              => '#ffffff',
+		'tmnhanphat_quote_icon_color'           => '#046AB5',
+		'tmnhanphat_quote_icon_shadow'          => 'soft',
+		'tmnhanphat_quote_label_size'           => 13,
+		'tmnhanphat_quote_value_size'           => 15,
+		'tmnhanphat_quote_divider_color'        => '#E5E7EB',
+		'tmnhanphat_quote_contact_gap'          => 20,
+	);
+}
+
+/**
+ * Đọc 1 theme_mod của Quote với default tập trung (mục 22).
+ *
+ * @param string $key Setting id.
+ * @return mixed
+ */
+function tmnhanphat_get_quote_mod( $key ) {
+	$defaults = tmnhanphat_quote_defaults();
+	$default  = isset( $defaults[ $key ] ) ? $defaults[ $key ] : '';
+
+	return get_theme_mod( $key, $default );
+}
+
+/**
+ * Phân tích danh sách "Loại dịch vụ" (mỗi dòng 1 option) → mảng chuỗi đã sanitize.
+ *
+ * @return string[]
+ */
+function tmnhanphat_get_quote_service_options() {
+	$raw   = (string) tmnhanphat_get_quote_mod( 'tmnhanphat_quote_service_options' );
+	$lines = preg_split( '/\r\n|\r|\n/', $raw );
+	$out   = array();
+
+	foreach ( $lines as $line ) {
+		$line = trim( wp_strip_all_tags( $line ) );
+		if ( '' !== $line ) {
+			$out[] = $line;
+		}
+	}
+
+	return $out;
+}
+
+/**
+ * Xây danh sách Contact Item hiển thị bên phải — VALUE lấy từ mod Footer (nhập 1 lần
+ * ở panel Footer), toggle hiển thị theo setting Quote. Item thiếu giá trị/bị tắt sẽ
+ * bỏ qua (không hiện dòng rỗng).
+ *
+ * @return array<int, array{type: string, label: string, value: string, href: string}>
+ */
+function tmnhanphat_get_quote_contact_items() {
+	$items = array();
+
+	// Email.
+	if ( tmnhanphat_get_quote_mod( 'tmnhanphat_quote_show_contact_email' ) && tmnhanphat_get_footer_mod( 'tmnhanphat_footer_email_enable' ) ) {
+		$email = trim( (string) tmnhanphat_get_footer_mod( 'tmnhanphat_footer_email' ) );
+		if ( '' !== $email ) {
+			$items[] = array(
+				'type'  => 'email',
+				'label' => tmnhanphat_get_footer_mod( 'tmnhanphat_footer_email_label' ),
+				'value' => $email,
+				'href'  => 'mailto:' . $email,
+			);
+		}
+	}
+
+	// Phone.
+	if ( tmnhanphat_get_quote_mod( 'tmnhanphat_quote_show_contact_phone' ) && tmnhanphat_get_footer_mod( 'tmnhanphat_footer_phone_enable' ) ) {
+		$phone = trim( (string) tmnhanphat_get_footer_mod( 'tmnhanphat_footer_phone' ) );
+		if ( '' !== $phone ) {
+			$items[] = array(
+				'type'  => 'phone',
+				'label' => tmnhanphat_get_footer_mod( 'tmnhanphat_footer_phone_label' ),
+				'value' => $phone,
+				'href'  => 'tel:' . preg_replace( '/[^0-9+]/', '', $phone ),
+			);
+		}
+	}
+
+	// Address (text thường, không link).
+	if ( tmnhanphat_get_quote_mod( 'tmnhanphat_quote_show_contact_address' ) && tmnhanphat_get_footer_mod( 'tmnhanphat_footer_address_enable' ) ) {
+		$address = trim( (string) tmnhanphat_get_footer_mod( 'tmnhanphat_footer_address' ) );
+		if ( '' !== $address ) {
+			$items[] = array(
+				'type'  => 'address',
+				'label' => tmnhanphat_get_footer_mod( 'tmnhanphat_footer_address_label' ),
+				'value' => $address,
+				'href'  => '',
+			);
+		}
+	}
+
+	return $items;
+}
+
+/**
+ * URL Logo bên phải Quote: setting riêng → fallback Logo Footer → '' (template ẩn).
+ *
+ * @return string
+ */
+function tmnhanphat_get_quote_logo_url() {
+	$logo = tmnhanphat_get_quote_mod( 'tmnhanphat_quote_logo' );
+
+	if ( ! $logo ) {
+		$logo = tmnhanphat_get_footer_mod( 'tmnhanphat_footer_logo' );
+	}
+
+	return (string) $logo;
+}
+
+/**
+ * SVG icon dùng cho Form field / Contact item / Verify (icon tĩnh của theme — không
+ * phụ thuộc thư viện ngoài, mục 21). Trả HTML SVG an toàn (không chứa dữ liệu động).
+ *
+ * @param string $name Tên icon.
+ * @return string
+ */
+function tmnhanphat_get_quote_icon_svg( $name ) {
+	$icons = array(
+		'user'    => '<path d="M12 12a4 4 0 100-8 4 4 0 000 8zm0 2c-4 0-7 2.2-7 5v1h14v-1c0-2.8-3-5-7-5z" fill="currentColor"/>',
+		'phone'   => '<path d="M6.6 3H4a1 1 0 00-1 1c0 9.4 7.6 17 17 17a1 1 0 001-1v-2.6a1 1 0 00-.8-1l-3.3-.7a1 1 0 00-1 .3l-1.2 1.5a14.5 14.5 0 01-6-6l1.5-1.2a1 1 0 00.3-1l-.7-3.3a1 1 0 00-1-.8z" fill="currentColor"/>',
+		'email'   => '<path d="M4 5h16a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V6a1 1 0 011-1zm8 7l8-5H4l8 5zm0 2L4 9v8h16V9l-8 5z" fill="currentColor"/>',
+		'service' => '<path d="M4 5h16v3H4V5zm0 5.5h16v3H4v-3zM4 16h16v3H4v-3z" fill="currentColor"/>',
+		'message' => '<path d="M4 4h16a1 1 0 011 1v11a1 1 0 01-1 1H8l-4 4V5a1 1 0 011-1z" fill="currentColor"/>',
+		'address' => '<path d="M12 2a7 7 0 00-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 00-7-7zm0 9.5A2.5 2.5 0 1112 6.5a2.5 2.5 0 010 5z" fill="currentColor"/>',
+		'send'    => '<path d="M3 11l18-8-8 18-2-7-8-3z" fill="currentColor"/>',
+		'verify'  => '<path d="M12 2l2.4 1.8 3 .3 1 2.8 2.2 2-1 2.8.4 3-2.6 1.5-1.5 2.6-3-.4-2.9 1L9.6 21 7.4 18.4l-3-.3-1-2.8L1.2 13l1-2.8L1.8 7l2.6-1.5L5.9 3l3 .4L12 2z" fill="currentColor"/><path d="M9 12l2 2 4-4" stroke="#fff" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>',
+	);
+
+	$path = isset( $icons[ $name ] ) ? $icons[ $name ] : '';
+
+	return '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">' . $path . '</svg>';
+}
+
+/**
+ * Sinh chuỗi CSS custom properties cho Quote Section (mục 22).
+ *
+ * @return string
+ */
+function tmnhanphat_render_quote_css_vars() {
+	$m = 'tmnhanphat_get_quote_mod';
+
+	$container_width = absint( $m( 'tmnhanphat_quote_container_width' ) );
+	$bg_image        = $m( 'tmnhanphat_quote_bg_image' );
+	$card_height     = 0; // Card cao tự nhiên theo form.
+
+	$css  = ':root{';
+	$css .= '--quote-bg:' . $m( 'tmnhanphat_quote_bg_color' ) . ';';
+	$css .= '--quote-bg-image:' . ( $bg_image ? 'url("' . esc_url( $bg_image ) . '")' : 'none' ) . ';';
+	$css .= '--quote-container-width:' . ( $container_width > 0 ? $container_width . 'px' : 'var(--container-max-width)' ) . ';';
+	$css .= '--quote-padding:' . absint( $m( 'tmnhanphat_quote_padding_desktop' ) ) . 'px;';
+	$css .= '--quote-margin:' . absint( $m( 'tmnhanphat_quote_margin_desktop' ) ) . 'px;';
+	$css .= '--quote-gap:' . absint( $m( 'tmnhanphat_quote_gap' ) ) . 'px;';
+	$css .= '--quote-card-radius:' . absint( $m( 'tmnhanphat_quote_card_radius' ) ) . 'px;';
+	$css .= '--quote-card-shadow:' . tmnhanphat_get_why_choose_shadow_value( $m( 'tmnhanphat_quote_card_shadow' ) ) . ';';
+	$css .= '--quote-card-bg:' . $m( 'tmnhanphat_quote_card_bg' ) . ';';
+	$css .= '--quote-card-padding:' . absint( $m( 'tmnhanphat_quote_card_padding' ) ) . 'px;';
+	$css .= '--quote-header-color:' . $m( 'tmnhanphat_quote_header_title_color' ) . ';';
+	$css .= '--quote-underline:' . $m( 'tmnhanphat_quote_underline_color' ) . ';';
+	$css .= '--quote-header-size:' . absint( $m( 'tmnhanphat_quote_header_size' ) ) . 'px;';
+	$css .= '--quote-input-height:' . absint( $m( 'tmnhanphat_quote_input_height' ) ) . 'px;';
+	$css .= '--quote-input-radius:' . absint( $m( 'tmnhanphat_quote_input_radius' ) ) . 'px;';
+	$css .= '--quote-input-size:' . absint( $m( 'tmnhanphat_quote_input_font_size' ) ) . 'px;';
+	$css .= '--quote-placeholder:' . $m( 'tmnhanphat_quote_placeholder_color' ) . ';';
+	$css .= '--quote-border:' . $m( 'tmnhanphat_quote_border_color' ) . ';';
+	$css .= '--quote-focus:' . $m( 'tmnhanphat_quote_focus_color' ) . ';';
+	$css .= '--quote-input-gap:' . absint( $m( 'tmnhanphat_quote_input_gap' ) ) . 'px;';
+	$css .= '--quote-btn-bg:' . $m( 'tmnhanphat_quote_btn_bg' ) . ';';
+	$css .= '--quote-btn-hover-bg:' . $m( 'tmnhanphat_quote_btn_hover_bg' ) . ';';
+	$css .= '--quote-btn-text:' . $m( 'tmnhanphat_quote_btn_text_color' ) . ';';
+	$css .= '--quote-btn-radius:' . absint( $m( 'tmnhanphat_quote_btn_radius' ) ) . 'px;';
+	$css .= '--quote-btn-height:' . absint( $m( 'tmnhanphat_quote_btn_height' ) ) . 'px;';
+	$css .= '--quote-verify-color:' . $m( 'tmnhanphat_quote_verify_color' ) . ';';
+	$css .= '--quote-verify-size:' . absint( $m( 'tmnhanphat_quote_verify_size' ) ) . 'px;';
+	$css .= '--quote-logo-width:' . absint( $m( 'tmnhanphat_quote_logo_width' ) ) . 'px;';
+	$css .= '--quote-heading-blue:' . $m( 'tmnhanphat_quote_heading_blue_color' ) . ';';
+	$css .= '--quote-heading-red:' . $m( 'tmnhanphat_quote_heading_red_color' ) . ';';
+	$css .= '--quote-heading-size:' . absint( $m( 'tmnhanphat_quote_heading_size' ) ) . 'px;';
+	$css .= '--quote-desc-color:' . $m( 'tmnhanphat_quote_desc_color' ) . ';';
+	$css .= '--quote-desc-size:' . absint( $m( 'tmnhanphat_quote_desc_size' ) ) . 'px;';
+	$css .= '--quote-right-align:' . $m( 'tmnhanphat_quote_right_align' ) . ';';
+	$css .= '--quote-right-margin-x:' . ( 'center' === $m( 'tmnhanphat_quote_right_align' ) ? 'auto' : '0' ) . ';';
+	$css .= '--quote-right-max-width:' . absint( $m( 'tmnhanphat_quote_right_max_width' ) ) . 'px;';
+	$css .= '--quote-icon-bg:' . $m( 'tmnhanphat_quote_icon_bg' ) . ';';
+	$css .= '--quote-icon-color:' . $m( 'tmnhanphat_quote_icon_color' ) . ';';
+	$css .= '--quote-icon-shadow:' . tmnhanphat_get_why_choose_shadow_value( $m( 'tmnhanphat_quote_icon_shadow' ) ) . ';';
+	$css .= '--quote-label-size:' . absint( $m( 'tmnhanphat_quote_label_size' ) ) . 'px;';
+	$css .= '--quote-value-size:' . absint( $m( 'tmnhanphat_quote_value_size' ) ) . 'px;';
+	$css .= '--quote-divider:' . $m( 'tmnhanphat_quote_divider_color' ) . ';';
+	$css .= '--quote-contact-gap:' . absint( $m( 'tmnhanphat_quote_contact_gap' ) ) . 'px;';
+	$css .= '}';
+
+	$css .= '@media (max-width:991px){:root{';
+	$css .= '--quote-padding:' . absint( $m( 'tmnhanphat_quote_padding_tablet' ) ) . 'px;';
+	$css .= '--quote-margin:' . absint( $m( 'tmnhanphat_quote_margin_tablet' ) ) . 'px;';
+	$css .= '--quote-header-size:' . absint( $m( 'tmnhanphat_quote_header_size_tablet' ) ) . 'px;';
+	$css .= '}}';
+
+	$css .= '@media (max-width:599px){:root{';
+	$css .= '--quote-padding:' . absint( $m( 'tmnhanphat_quote_padding_mobile' ) ) . 'px;';
+	$css .= '--quote-margin:' . absint( $m( 'tmnhanphat_quote_margin_mobile' ) ) . 'px;';
+	$css .= '--quote-header-size:' . absint( $m( 'tmnhanphat_quote_header_size_mobile' ) ) . 'px;';
+	$css .= '}}';
+
+	return $css;
+}
+
+/* ==========================================================================
+ * FAQ SECTION ("Câu hỏi thường gặp", trang chủ) — helper riêng. Dữ liệu 100% từ
+ * CPT faq (inc/post-types.php) qua WP_Query — KHÔNG wp_posts thường/category Blog.
+ * Customizer panel "FAQ Home" chỉ điều khiển hiển thị/accordion, không chứa nội dung.
+ *
+ * Grid 2 cột × 3 hàng = 6 FAQ (không accordion 1 cột toàn màn hình, không masonry).
+ * Accordion: chỉ 1 FAQ mở cùng lúc (assets/js/components/faq.js — slide down/up),
+ * FAQ có "Expand Default" đầu tiên (theo Sort Order) mở sẵn khi tải trang.
+ * Chưa có FAQ nào → Demo Data (tầng hiển thị, không ghi DB — mục 3).
+ * ========================================================================== */
+
+/**
+ * Default value tập trung cho toàn bộ setting của FAQ Section (mục 22).
+ *
+ * @return array<string, mixed>
+ */
+function tmnhanphat_faq_defaults() {
+	return array(
+		// ----- General -----
+		'tmnhanphat_faq_enable'          => true,
+		'tmnhanphat_faq_section_id'      => 'faq',
+		'tmnhanphat_faq_container_width' => 0,
+		'tmnhanphat_faq_padding_desktop' => 96,
+		'tmnhanphat_faq_padding_tablet'  => 64,
+		'tmnhanphat_faq_padding_mobile'  => 48,
+		'tmnhanphat_faq_margin_desktop'  => 0,
+		'tmnhanphat_faq_margin_tablet'   => 0,
+		'tmnhanphat_faq_margin_mobile'   => 0,
+		'tmnhanphat_faq_bg_color'        => '#ffffff',
+		'tmnhanphat_faq_bg_image'        => '',
+
+		// ----- Header (reuse review-home__heading) -----
+		'tmnhanphat_faq_reuse_heading'        => true,
+		'tmnhanphat_faq_small_title'          => 'HỖ TRỢ KHÁCH HÀNG',
+		'tmnhanphat_faq_small_size'           => 13,
+		'tmnhanphat_faq_heading_blue_text'    => 'Câu hỏi',
+		'tmnhanphat_faq_heading_red_text'     => 'thường gặp',
+		'tmnhanphat_faq_heading_blue_color'   => '#046AB5',
+		'tmnhanphat_faq_heading_red_color'    => '#E31F2B',
+		'tmnhanphat_faq_title_size'           => 40,
+		'tmnhanphat_faq_title_size_tablet'    => 32,
+		'tmnhanphat_faq_title_size_mobile'    => 26,
+		'tmnhanphat_faq_desc_text'            => 'Giải đáp những thắc mắc phổ biến về sản phẩm, chi phí, quy trình lắp đặt, bảo hành và sửa chữa thang máy tại Nhân Phát.',
+		'tmnhanphat_faq_desc_color'           => '#5c5c5c',
+		'tmnhanphat_faq_desc_size'            => 14,
+		'tmnhanphat_faq_desc_max_width'       => 640,
+		'tmnhanphat_faq_header_align'         => 'center',
+		'tmnhanphat_faq_header_margin_bottom' => 48,
+
+		// ----- Query -----
+		'tmnhanphat_faq_count'      => 6,
+		'tmnhanphat_faq_orderby'    => 'sort_order',
+		'tmnhanphat_faq_order'      => 'ASC',
+		'tmnhanphat_faq_hide_draft' => true,
+		'tmnhanphat_faq_hide_empty' => true,
+
+		// ----- FAQ Card -----
+		'tmnhanphat_faq_cols_desktop'         => 2,
+		'tmnhanphat_faq_cols_tablet'          => 2,
+		'tmnhanphat_faq_cols_mobile'          => 1,
+		'tmnhanphat_faq_gap'                  => 20,
+		'tmnhanphat_faq_card_radius'          => 12,
+		'tmnhanphat_faq_card_padding'         => 20,
+		'tmnhanphat_faq_border_width'         => 1,
+		'tmnhanphat_faq_border_color'         => '#EAEEF3',
+		'tmnhanphat_faq_active_border_color'  => '#046AB5',
+		'tmnhanphat_faq_card_shadow'          => 'none',
+		'tmnhanphat_faq_card_hover_shadow'    => 'soft',
+
+		// ----- Number Badge -----
+		'tmnhanphat_faq_badge_enable'   => true,
+		'tmnhanphat_faq_badge_size'     => 34,
+		'tmnhanphat_faq_badge_radius'   => 8,
+		'tmnhanphat_faq_badge_bg'       => '#EAF2FB',
+		'tmnhanphat_faq_badge_color'    => '#046AB5',
+		'tmnhanphat_faq_badge_active_bg'    => '#E31F2B',
+		'tmnhanphat_faq_badge_active_color' => '#ffffff',
+
+		// ----- Question -----
+		'tmnhanphat_faq_q_size'        => 16,
+		'tmnhanphat_faq_q_size_tablet' => 15,
+		'tmnhanphat_faq_q_size_mobile' => 14,
+		'tmnhanphat_faq_q_weight'      => '700',
+		'tmnhanphat_faq_q_color'       => '#1a1a1a',
+		'tmnhanphat_faq_q_hover_color' => '#046AB5',
+
+		// ----- Answer -----
+		'tmnhanphat_faq_a_size'           => 14,
+		'tmnhanphat_faq_a_color'          => '#6B7280',
+		'tmnhanphat_faq_a_line_height'    => 1.7,
+		'tmnhanphat_faq_a_padding_top'    => 12,
+		'tmnhanphat_faq_a_padding_bottom' => 4,
+
+		// ----- Icon -----
+		'tmnhanphat_faq_icon_enable'      => true,
+		'tmnhanphat_faq_icon_size'        => 16,
+		'tmnhanphat_faq_circle_size'      => 30,
+		'tmnhanphat_faq_circle_bg'        => '#EAF2FB',
+		'tmnhanphat_faq_circle_active_bg' => '#046AB5',
+
+		// ----- Accordion -----
+		'tmnhanphat_faq_allow_multiple'    => false,
+		'tmnhanphat_faq_expand_duration'   => 300,
+		'tmnhanphat_faq_collapse_duration' => 300,
+	);
+}
+
+/**
+ * Đọc 1 theme_mod của FAQ với default tập trung (mục 22).
+ *
+ * @param string $key Setting id.
+ * @return mixed
+ */
+function tmnhanphat_get_faq_mod( $key ) {
+	$defaults = tmnhanphat_faq_defaults();
+	$default  = isset( $defaults[ $key ] ) ? $defaults[ $key ] : '';
+
+	return get_theme_mod( $key, $default );
+}
+
+/**
+ * Danh sách lựa chọn "Order By".
+ *
+ * @return array<string, string>
+ */
+function tmnhanphat_get_faq_orderby_choices() {
+	return array(
+		'sort_order' => __( 'Sort Order (Meta Box)', 'tmnhanphat' ),
+		'date'       => __( 'Ngày đăng', 'tmnhanphat' ),
+		'title'      => __( 'Câu hỏi (A-Z)', 'tmnhanphat' ),
+	);
+}
+
+/**
+ * Whitelist "Order By".
+ *
+ * @param string $value Giá trị gửi lên từ Customizer.
+ * @return string
+ */
+function tmnhanphat_sanitize_faq_orderby( $value ) {
+	$choices = array_keys( tmnhanphat_get_faq_orderby_choices() );
+
+	return in_array( $value, $choices, true ) ? $value : 'sort_order';
+}
+
+/**
+ * Whitelist "Order".
+ *
+ * @param string $value Giá trị gửi lên từ Customizer.
+ * @return string
+ */
+function tmnhanphat_sanitize_faq_order( $value ) {
+	return in_array( $value, array( 'ASC', 'DESC' ), true ) ? $value : 'ASC';
+}
+
+/**
+ * Whitelist Line Height Answer (thập phân).
+ *
+ * @param mixed $value Giá trị gửi lên từ Customizer.
+ * @return float
+ */
+function tmnhanphat_sanitize_faq_line_height( $value ) {
+	return max( 1, min( 3, (float) $value ) );
+}
+
+/**
+ * Query danh sách FAQ theo setting Customizer — chỉ lấy đúng số cần render (mục 15).
+ * "Hide FAQ" (_tmnp_faq_hide=1) bị loại qua meta_query.
+ *
+ * @return WP_Query
+ */
+function tmnhanphat_get_faq_query() {
+	$orderby    = tmnhanphat_get_faq_mod( 'tmnhanphat_faq_orderby' );
+	$hide_draft = tmnhanphat_get_faq_mod( 'tmnhanphat_faq_hide_draft' );
+
+	$args = array(
+		'post_type'           => 'faq',
+		'post_status'         => $hide_draft ? 'publish' : array( 'publish', 'draft' ),
+		'posts_per_page'      => max( 1, absint( tmnhanphat_get_faq_mod( 'tmnhanphat_faq_count' ) ) ),
+		'order'               => tmnhanphat_get_faq_mod( 'tmnhanphat_faq_order' ),
+		'no_found_rows'       => true,
+		'ignore_sticky_posts' => true,
+		'meta_query'          => array(
+			'relation' => 'OR',
+			array(
+				'key'     => '_tmnp_faq_hide',
+				'value'   => '1',
+				'compare' => '!=',
+			),
+			array(
+				'key'     => '_tmnp_faq_hide',
+				'compare' => 'NOT EXISTS',
+			),
+		),
+	);
+
+	if ( 'sort_order' === $orderby ) {
+		$args['orderby']  = 'meta_value_num';
+		$args['meta_key'] = '_tmnp_faq_order'; // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- danh sách FAQ nhỏ, orderby theo Sort Order là tính năng chính của Meta Box.
+	} else {
+		$args['orderby'] = $orderby;
+	}
+
+	return new WP_Query( $args );
+}
+
+/**
+ * Danh sách FAQ Demo (mục 3) — hiển thị khi CPT chưa có bài, KHÔNG ghi DB.
+ *
+ * @return array<int, array<string, mixed>>
+ */
+function tmnhanphat_get_faq_demo_items() {
+	$demos = array(
+		array(
+			'Thời gian lắp đặt một chiếc thang máy mất bao lâu?',
+			'Tùy theo từng loại thang máy và điều kiện công trình, thời gian lắp đặt thường dao động từ 15 đến 30 ngày. Đội ngũ kỹ thuật sẽ khảo sát và tư vấn chi tiết trước khi thi công.',
+		),
+		array(
+			'Chi phí lắp đặt thang máy được tính như thế nào?',
+			'Chi phí phụ thuộc vào loại thang máy, tải trọng, số điểm dừng và vật liệu hoàn thiện. Nhân Phát báo giá minh bạch, chi tiết từng hạng mục sau khi khảo sát thực tế.',
+		),
+		array(
+			'Chế độ bảo trì thang máy ra sao?',
+			'Chúng tôi cung cấp gói bảo trì định kỳ hàng tháng hoặc theo quý, kiểm tra toàn bộ hệ thống để đảm bảo thang máy vận hành an toàn và ổn định.',
+		),
+		array(
+			'Thời gian bảo hành thang máy là bao lâu?',
+			'Thang máy được bảo hành chính hãng từ 24 đến 36 tháng tùy dòng sản phẩm, kèm hỗ trợ kỹ thuật nhanh chóng trong suốt quá trình sử dụng.',
+		),
+		array(
+			'Thang máy gia đình có những mức tải trọng nào?',
+			'Thang máy gia đình phổ biến ở các mức tải 250kg, 320kg, 350kg và 450kg, phù hợp với nhiều diện tích và nhu cầu sử dụng khác nhau.',
+		),
+		array(
+			'Quy trình lắp đặt thang máy gồm những bước nào?',
+			'Quy trình gồm: tiếp nhận yêu cầu, khảo sát thực tế, tư vấn giải pháp và báo giá, thi công lắp đặt, kiểm định và bàn giao, cuối cùng là bảo trì định kỳ.',
+		),
+	);
+
+	$items = array();
+
+	foreach ( $demos as $index => $demo ) {
+		$items[] = array(
+			'number'   => $index + 1,
+			'question' => $demo[0],
+			'answer'   => wpautop( esc_html( $demo[1] ) ),
+			'expand'   => 0 === $index, // FAQ đầu mở sẵn (giống design).
+		);
+	}
+
+	return $items;
+}
+
+/**
+ * Xây danh sách FAQ đã xử lý (số thứ tự tự đánh theo thứ tự hiển thị, Answer render
+ * an toàn qua wp_kses_post). CPT trống → Demo Data (mục 3). Chỉ 1 FAQ Expand Default
+ * được mở (FAQ đầu tiên theo thứ tự có _tmnp_faq_expand=1).
+ *
+ * @return array<int, array<string, mixed>>
+ */
+function tmnhanphat_get_faq_items() {
+	$items      = array();
+	$hide_empty = tmnhanphat_get_faq_mod( 'tmnhanphat_faq_hide_empty' );
+	$query      = tmnhanphat_get_faq_query();
+	$number     = 0;
+
+	while ( $query->have_posts() ) {
+		$query->the_post();
+
+		$question = get_the_title();
+		$answer   = get_the_content();
+
+		if ( $hide_empty && '' === trim( (string) $question ) && '' === trim( wp_strip_all_tags( (string) $answer ) ) ) {
+			continue; // FAQ trống hoàn toàn — bỏ qua.
+		}
+
+		++$number;
+
+		$items[] = array(
+			'number'   => $number,
+			'question' => '' !== trim( (string) $question ) ? $question : __( 'Câu hỏi', 'tmnhanphat' ),
+			'answer'   => wp_kses_post( wpautop( $answer ) ),
+			'expand'   => '1' === get_post_meta( get_the_ID(), '_tmnp_faq_expand', true ),
+		);
+	}
+
+	wp_reset_postdata();
+
+	if ( empty( $items ) ) {
+		$items = tmnhanphat_get_faq_demo_items();
+	}
+
+	// Chỉ 1 FAQ mở sẵn: giữ Expand Default ĐẦU TIÊN, tắt các cái sau (mục 2).
+	$found_expanded = false;
+	foreach ( $items as $index => $item ) {
+		if ( $item['expand'] && ! $found_expanded ) {
+			$found_expanded = true;
+			continue;
+		}
+		$items[ $index ]['expand'] = false;
+	}
+
+	return $items;
+}
+
+/**
+ * Sinh chuỗi CSS custom properties cho FAQ Section (mục 22).
+ *
+ * @return string
+ */
+function tmnhanphat_render_faq_css_vars() {
+	$m = 'tmnhanphat_get_faq_mod';
+
+	$container_width = absint( $m( 'tmnhanphat_faq_container_width' ) );
+	$bg_image        = $m( 'tmnhanphat_faq_bg_image' );
+
+	$css  = ':root{';
+	$css .= '--faq-bg:' . $m( 'tmnhanphat_faq_bg_color' ) . ';';
+	$css .= '--faq-bg-image:' . ( $bg_image ? 'url("' . esc_url( $bg_image ) . '")' : 'none' ) . ';';
+	$css .= '--faq-container-width:' . ( $container_width > 0 ? $container_width . 'px' : 'var(--container-max-width)' ) . ';';
+	$css .= '--faq-padding:' . absint( $m( 'tmnhanphat_faq_padding_desktop' ) ) . 'px;';
+	$css .= '--faq-margin:' . absint( $m( 'tmnhanphat_faq_margin_desktop' ) ) . 'px;';
+	$css .= '--faq-small-size:' . absint( $m( 'tmnhanphat_faq_small_size' ) ) . 'px;';
+	$css .= '--faq-heading-blue:' . $m( 'tmnhanphat_faq_heading_blue_color' ) . ';';
+	$css .= '--faq-heading-red:' . $m( 'tmnhanphat_faq_heading_red_color' ) . ';';
+	$css .= '--faq-title-size:' . absint( $m( 'tmnhanphat_faq_title_size' ) ) . 'px;';
+	$css .= '--faq-desc-color:' . $m( 'tmnhanphat_faq_desc_color' ) . ';';
+	$css .= '--faq-desc-size:' . absint( $m( 'tmnhanphat_faq_desc_size' ) ) . 'px;';
+	$css .= '--faq-desc-max-width:' . absint( $m( 'tmnhanphat_faq_desc_max_width' ) ) . 'px;';
+	$css .= '--faq-header-align:' . $m( 'tmnhanphat_faq_header_align' ) . ';';
+	$css .= '--faq-header-margin-x:' . ( 'center' === $m( 'tmnhanphat_faq_header_align' ) ? 'auto' : '0' ) . ';';
+	$css .= '--faq-header-margin:' . absint( $m( 'tmnhanphat_faq_header_margin_bottom' ) ) . 'px;';
+	$css .= '--faq-cols:' . max( 1, absint( $m( 'tmnhanphat_faq_cols_desktop' ) ) ) . ';';
+	$css .= '--faq-gap:' . absint( $m( 'tmnhanphat_faq_gap' ) ) . 'px;';
+	$css .= '--faq-card-radius:' . absint( $m( 'tmnhanphat_faq_card_radius' ) ) . 'px;';
+	$css .= '--faq-card-padding:' . absint( $m( 'tmnhanphat_faq_card_padding' ) ) . 'px;';
+	$css .= '--faq-border-width:' . absint( $m( 'tmnhanphat_faq_border_width' ) ) . 'px;';
+	$css .= '--faq-border-color:' . $m( 'tmnhanphat_faq_border_color' ) . ';';
+	$css .= '--faq-active-border:' . $m( 'tmnhanphat_faq_active_border_color' ) . ';';
+	$css .= '--faq-card-shadow:' . tmnhanphat_get_why_choose_shadow_value( $m( 'tmnhanphat_faq_card_shadow' ) ) . ';';
+	$css .= '--faq-card-hover-shadow:' . tmnhanphat_get_why_choose_shadow_value( $m( 'tmnhanphat_faq_card_hover_shadow' ) ) . ';';
+	$css .= '--faq-badge-size:' . absint( $m( 'tmnhanphat_faq_badge_size' ) ) . 'px;';
+	$css .= '--faq-badge-radius:' . absint( $m( 'tmnhanphat_faq_badge_radius' ) ) . 'px;';
+	$css .= '--faq-badge-bg:' . $m( 'tmnhanphat_faq_badge_bg' ) . ';';
+	$css .= '--faq-badge-color:' . $m( 'tmnhanphat_faq_badge_color' ) . ';';
+	$css .= '--faq-badge-active-bg:' . $m( 'tmnhanphat_faq_badge_active_bg' ) . ';';
+	$css .= '--faq-badge-active-color:' . $m( 'tmnhanphat_faq_badge_active_color' ) . ';';
+	$css .= '--faq-q-size:' . absint( $m( 'tmnhanphat_faq_q_size' ) ) . 'px;';
+	$css .= '--faq-q-weight:' . absint( $m( 'tmnhanphat_faq_q_weight' ) ) . ';';
+	$css .= '--faq-q-color:' . $m( 'tmnhanphat_faq_q_color' ) . ';';
+	$css .= '--faq-q-hover-color:' . $m( 'tmnhanphat_faq_q_hover_color' ) . ';';
+	$css .= '--faq-a-size:' . absint( $m( 'tmnhanphat_faq_a_size' ) ) . 'px;';
+	$css .= '--faq-a-color:' . $m( 'tmnhanphat_faq_a_color' ) . ';';
+	$css .= '--faq-a-lh:' . (float) $m( 'tmnhanphat_faq_a_line_height' ) . ';';
+	$css .= '--faq-a-pt:' . absint( $m( 'tmnhanphat_faq_a_padding_top' ) ) . 'px;';
+	$css .= '--faq-a-pb:' . absint( $m( 'tmnhanphat_faq_a_padding_bottom' ) ) . 'px;';
+	$css .= '--faq-icon-size:' . absint( $m( 'tmnhanphat_faq_icon_size' ) ) . 'px;';
+	$css .= '--faq-circle-size:' . absint( $m( 'tmnhanphat_faq_circle_size' ) ) . 'px;';
+	$css .= '--faq-circle-bg:' . $m( 'tmnhanphat_faq_circle_bg' ) . ';';
+	$css .= '--faq-circle-active-bg:' . $m( 'tmnhanphat_faq_circle_active_bg' ) . ';';
+	$css .= '--faq-expand-duration:' . absint( $m( 'tmnhanphat_faq_expand_duration' ) ) . 'ms;';
+	$css .= '}';
+
+	$css .= '@media (max-width:991px){:root{';
+	$css .= '--faq-padding:' . absint( $m( 'tmnhanphat_faq_padding_tablet' ) ) . 'px;';
+	$css .= '--faq-margin:' . absint( $m( 'tmnhanphat_faq_margin_tablet' ) ) . 'px;';
+	$css .= '--faq-title-size:' . absint( $m( 'tmnhanphat_faq_title_size_tablet' ) ) . 'px;';
+	$css .= '--faq-q-size:' . absint( $m( 'tmnhanphat_faq_q_size_tablet' ) ) . 'px;';
+	$css .= '--faq-cols:' . max( 1, absint( $m( 'tmnhanphat_faq_cols_tablet' ) ) ) . ';';
+	$css .= '}}';
+
+	$css .= '@media (max-width:599px){:root{';
+	$css .= '--faq-padding:' . absint( $m( 'tmnhanphat_faq_padding_mobile' ) ) . 'px;';
+	$css .= '--faq-margin:' . absint( $m( 'tmnhanphat_faq_margin_mobile' ) ) . 'px;';
+	$css .= '--faq-title-size:' . absint( $m( 'tmnhanphat_faq_title_size_mobile' ) ) . 'px;';
+	$css .= '--faq-q-size:' . absint( $m( 'tmnhanphat_faq_q_size_mobile' ) ) . 'px;';
+	$css .= '--faq-cols:' . max( 1, absint( $m( 'tmnhanphat_faq_cols_mobile' ) ) ) . ';';
+	$css .= '}}';
 
 	return $css;
 }

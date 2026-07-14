@@ -22,6 +22,24 @@ function tmnhanphat_image_sizes() {
 	// Ảnh thang máy About Section: KHÔNG crop (false) — chỉ resize vừa khung tối đa, giữ
 	// nguyên tỉ lệ gốc, không méo/kéo giãn (PROJECT_RULES.md — About Company Section).
 	add_image_size( 'tmnhanphat-about-image', 800, 900, false );
+	// Card dịch vụ (Services Home Section): crop đúng khung 510×453 theo Figma — card dùng
+	// object-fit:cover nên crop từ server giúp tải đúng kích thước cần, không tải ảnh gốc thừa.
+	add_image_size( 'tmnhanphat-service-card', 510, 453, true );
+	// Card sản phẩm (Products Home Section): crop center đúng khung 438×403 theo Figma —
+	// không méo ảnh, tải đúng kích thước cần (PROJECT_RULES.md mục 13 & 15).
+	add_image_size( 'tmnhanphat-product-card', 438, 403, true );
+	// Ảnh Feature Item (Why Choose Section): KHÔNG crop (false) — khung 423×290 theo Figma
+	// nhưng card dùng object-fit:contain (ảnh minh hoạ nền trong suốt), giữ nguyên tỉ lệ gốc.
+	add_image_size( 'tmnhanphat-why-choose', 423, 290, false );
+	// Thumbnail Dự án (Featured Projects Section): crop center 600×440 — khung cố định
+	// dùng object-fit:cover, tải đúng kích thước cần (mục 13 & 15).
+	add_image_size( 'tmnhanphat-project-card', 600, 440, true );
+	// Avatar Customer Review (CPT customer_review): crop center vuông nhỏ, đủ cho khung
+	// tròn 24-80px trong Customizer — không cần tải ảnh gốc lớn cho 1 icon nhỏ.
+	add_image_size( 'tmnhanphat-review-avatar', 120, 120, true );
+	// Thumbnail Tin tức (Featured News Section): crop center ~513×340 theo Figma card
+	// 513px, dùng object-fit:cover — tải đúng kích thước, không méo (mục 13 & 15).
+	add_image_size( 'tmnhanphat-news-card', 520, 340, true );
 }
 add_action( 'after_setup_theme', 'tmnhanphat_image_sizes' );
 

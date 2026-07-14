@@ -1,0 +1,369 @@
+/**
+ * Products Section (trang chủ) + grid slider riêng (.tmnp-products-slider). Toàn bộ giá trị
+ * --products-* là CSS custom property do tmnhanphat_render_products_css_vars() sinh ra, gắn
+ * bằng wp_add_inline_style() trong inc/enqueue.php (PROJECT_RULES.md mục 22) — file này KHÔNG
+ * hardcode giá trị người dùng đổi được trong Customizer.
+ *
+ * Slider dạng LƯỚI (khác .tmnp-slider của Services — trượt từng card đơn): mỗi slide =
+ * Cols × Rows card. Progressive enhancement: KHÔNG có JS, .tmnp-products-slider__track là
+ * CSS Grid hiển thị đủ toàn bộ card nhiều hàng; assets/js/components/products.js (nếu chạy)
+ * gắn .is-enhanced rồi tự gom card thành từng trang trượt ngang + dots.
+ */
+
+.products-home {
+	position: relative;
+	overflow: hidden; /* decoration góc phải không tạo scroll ngang */
+	margin-top: var(--products-margin-top, 0);
+	margin-bottom: var(--products-margin-bottom, 0);
+	padding-block: var(--products-padding, 80px);
+	background-color: var(--products-bg, #ffffff);
+	background-image: var(--products-bg-image, none);
+	background-size: cover;
+	background-position: center;
+}
+
+/* Decoration (tam giác xanh) — thuần trang trí, neo góc trên phải, không bắt sự kiện chuột. */
+.products-home__decoration {
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 0;
+	width: clamp(110px, 16vw, 240px);
+	height: auto;
+	pointer-events: none;
+}
+
+.products-home__container {
+	position: relative;
+	z-index: 1;
+	max-width: var(--products-container-width, var(--container-max-width));
+}
+
+/* ==================== HEADER ==================== */
+.products-home__header {
+	margin-bottom: var(--products-header-gap, 36px);
+	text-align: var(--products-heading-align, center);
+}
+
+.products-home__heading {
+	margin: 0 0 10px;
+	font-size: var(--products-heading-size, 40px);
+	font-weight: var(--products-heading-weight, 800);
+	line-height: var(--products-heading-lh, 1.2);
+	letter-spacing: var(--products-heading-ls, 0);
+}
+
+.products-home__heading-red {
+	color: var(--products-heading-red, #E31F2B);
+}
+
+.products-home__heading-blue {
+	color: var(--products-heading-blue, #046AB5);
+}
+
+.products-home__description {
+	margin: 0 auto;
+	max-width: var(--products-desc-max-width, 680px);
+	color: var(--products-desc-color, #6b7280);
+	font-size: var(--products-desc-size, 15px);
+	line-height: 1.7;
+}
+
+/* ==================== CATEGORY NAVIGATION ==================== */
+/* Yêu cầu responsive: KHÔNG xuống nhiều dòng — thiếu chỗ thì cuộn ngang (overflow-x). */
+.products-home__cats {
+	margin-bottom: var(--products-cats-bottom, 32px);
+}
+
+.products-home__cat-list {
+	display: flex;
+	justify-content: var(--products-cats-justify, flex-start);
+	gap: var(--products-cats-gap, 12px);
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+	scrollbar-width: none; /* Firefox — thanh cuộn ẩn, vẫn kéo/swipe được */
+	padding-bottom: 4px;   /* chừa chỗ focus outline không bị cắt bởi overflow */
+}
+
+.products-home__cat-list::-webkit-scrollbar {
+	display: none;
+}
+
+.products-home__cat-item {
+	flex-shrink: 0;
+}
+
+.products-home__cat-link {
+	display: inline-flex;
+	align-items: center;
+	white-space: nowrap;
+	padding: var(--products-cats-padding, 9px 18px);
+	border: 1px solid var(--products-cats-border, #e5e7eb);
+	border-radius: var(--products-cats-radius, 4px);
+	background-color: var(--products-cats-bg, #ffffff);
+	color: var(--products-cats-color, #6b7280);
+	font-size: var(--products-cats-size, 14px);
+	font-weight: 600;
+	transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.products-home__cat-link:hover,
+.products-home__cat-link:focus-visible {
+	background-color: var(--products-cats-hover-bg, #eaf3fb);
+	color: var(--products-cats-hover-color, #046AB5);
+	border-color: var(--products-cats-hover-bg, #eaf3fb);
+}
+
+.products-home__cat-link.is-active {
+	background-color: var(--products-cats-active-bg, #046AB5);
+	color: var(--products-cats-active-color, #ffffff);
+	border-color: var(--products-cats-active-bg, #046AB5);
+}
+
+.products-home__cat-link:focus-visible {
+	outline: 2px solid var(--products-cats-active-bg, #046AB5);
+	outline-offset: 2px;
+}
+
+/* ==================== SLIDER (grid slider riêng) ==================== */
+.tmnp-products-slider {
+	position: relative;
+}
+
+/* Đang tải AJAX: mờ nhẹ danh sách cũ, chặn click đúp. */
+.tmnp-products-slider.is-loading {
+	opacity: 0.5;
+	pointer-events: none;
+	transition: opacity 0.2s ease;
+}
+
+.tmnp-products-slider__viewport {
+	overflow: hidden;
+}
+
+.tmnp-products-slider__viewport:focus-visible {
+	outline: 2px solid var(--products-cats-active-bg, #046AB5);
+	outline-offset: 4px;
+}
+
+/* No-JS fallback: track là CSS Grid hiển thị TOÀN BỘ card (nhiều hàng), không mất nội dung. */
+.tmnp-products-slider__track {
+	display: grid;
+	grid-template-columns: repeat(var(--products-cols, 3), 1fr);
+	gap: var(--products-gap, 24px);
+}
+
+/* JS đã nâng cấp: track thành dải flex các "trang", trượt bằng transform. */
+.tmnp-products-slider.is-enhanced .tmnp-products-slider__track {
+	display: flex;
+	gap: 0;
+	will-change: transform;
+	transition: transform var(--products-transition, 600ms) ease;
+}
+
+.tmnp-products-slider.is-enhanced .tmnp-products-slider__track.is-dragging {
+	transition: none;
+	cursor: grabbing;
+	user-select: none;
+}
+
+/* 1 trang = lưới Cols × Rows (products.js gom card vào đây theo breakpoint). */
+.tmnp-products-slider__page {
+	flex: 0 0 100%;
+	max-width: 100%;
+	display: grid;
+	grid-template-columns: repeat(var(--products-cols, 3), 1fr);
+	gap: var(--products-gap, 24px);
+	align-content: start;
+}
+
+.products-home__empty {
+	margin: 0;
+	padding: var(--space-lg) 0;
+	text-align: center;
+	color: var(--products-meta-color, #6b7280);
+}
+
+/* ==================== DOTS (products.js sinh DOM khi bật) ==================== */
+.tmnp-products-slider__dots {
+	display: flex;
+	justify-content: center;
+	gap: var(--products-dot-gap, 10px);
+	margin-top: 28px;
+}
+
+.tmnp-products-slider__dot {
+	width: var(--products-dot-size, 10px);
+	height: var(--products-dot-size, 10px);
+	padding: 0;
+	border: none;
+	border-radius: 50%;
+	background-color: var(--products-dot-color, #D9D9D9);
+	cursor: pointer;
+	transition: background-color 0.25s ease, transform 0.25s ease;
+}
+
+.tmnp-products-slider__dot:hover,
+.tmnp-products-slider__dot:focus-visible {
+	transform: scale(1.3);
+}
+
+.tmnp-products-slider__dot:focus-visible {
+	outline: 2px solid var(--products-dot-active, #046AB5);
+	outline-offset: 2px;
+}
+
+.tmnp-products-slider__dot.is-active {
+	background-color: var(--products-dot-active, #046AB5);
+}
+
+/* ==================== PRODUCT CARD ==================== */
+.product-card {
+	display: flex;
+	flex-direction: column;
+	background-color: #ffffff;
+	border-radius: var(--products-card-radius, 8px);
+	box-shadow: var(--products-card-shadow, 0 2px 10px rgb(6 24 44 / 0.07));
+	overflow: hidden;
+	transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Hover Card: nâng nhẹ translateY(-5px) + shadow đậm hơn (yêu cầu Animation). */
+.product-card:hover,
+.product-card:focus-within {
+	transform: translateY(-5px);
+	box-shadow: var(--products-card-shadow-hover, 0 12px 28px rgb(6 24 44 / 0.14));
+}
+
+.product-card__media {
+	display: block;
+	position: relative;
+	aspect-ratio: var(--products-image-ratio, 438 / 403);
+	border-radius: var(--products-image-radius, 0);
+	overflow: hidden;
+	background-color: var(--color-bg-alt, #f5f5f5); /* nền chờ khi bài chưa có Featured Image */
+}
+
+.product-card__image {
+	width: 100%;
+	height: 100%;
+	object-fit: cover; /* crop center theo khung 438×403, không méo ảnh (yêu cầu Card) */
+	transition: transform 0.35s ease;
+}
+
+.product-card:hover .product-card__image {
+	transform: scale(var(--products-hover-zoom, 1.05));
+}
+
+.product-card__body {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1; /* footer luôn dính đáy card, các card trong hàng cao bằng nhau */
+	gap: 6px;
+	padding: var(--products-card-padding, 16px);
+}
+
+.product-card__title {
+	margin: 0;
+	font-size: var(--products-title-size, 17px);
+	font-weight: 700;
+	line-height: 1.35;
+	text-align: var(--products-title-align, left);
+	/* Giới hạn số dòng — dài hơn hiện "..." (yêu cầu Card). */
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: var(--products-title-clamp, 2);
+	overflow: hidden;
+}
+
+.product-card__title a {
+	color: var(--color-text, #1a1a1a);
+	transition: color 0.2s ease;
+}
+
+.product-card__title a:hover,
+.product-card__title a:focus-visible {
+	color: var(--products-heading-blue, #046AB5);
+}
+
+.product-card__meta {
+	margin: 0;
+	color: var(--products-meta-color, #6b7280);
+	font-size: var(--products-meta-size, 13px);
+	line-height: 1.5;
+}
+
+.product-card__footer {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-xs);
+	margin-top: auto; /* đẩy xuống đáy card */
+	padding-top: 10px;
+}
+
+.product-card__price {
+	margin: 0;
+	font-size: var(--products-meta-size, 13px);
+	color: var(--color-text, #1a1a1a);
+}
+
+.product-card__contact {
+	color: var(--products-contact-color, #E31F2B);
+	font-weight: 600;
+	transition: opacity 0.2s ease;
+}
+
+.product-card__contact:hover,
+.product-card__contact:focus-visible {
+	color: var(--products-contact-color, #E31F2B);
+	opacity: 0.8;
+	text-decoration: underline;
+}
+
+/* Hover Button: đổi màu nền (yêu cầu Animation). */
+.product-card__button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	padding: 7px 20px;
+	border-radius: var(--products-button-radius, 999px);
+	background-color: var(--products-button-bg, #046AB5);
+	color: var(--products-button-color, #ffffff);
+	font-size: var(--products-meta-size, 13px);
+	font-weight: 600;
+	white-space: nowrap;
+	transition: background-color 0.2s ease;
+}
+
+.product-card__button:hover,
+.product-card__button:focus-visible {
+	background-color: var(--products-button-hover-bg, #03518a);
+	color: var(--products-button-color, #ffffff);
+}
+
+.product-card__button:focus-visible {
+	outline: 2px solid var(--products-button-bg, #046AB5);
+	outline-offset: 2px;
+}
+
+/* ==================== REDUCED MOTION ==================== */
+@media (prefers-reduced-motion: reduce) {
+	.tmnp-products-slider.is-enhanced .tmnp-products-slider__track,
+	.product-card,
+	.product-card__image,
+	.tmnp-products-slider__dot,
+	.products-home__cat-link,
+	.product-card__button {
+		transition: none;
+	}
+
+	.product-card:hover {
+		transform: none;
+	}
+
+	.product-card:hover .product-card__image {
+		transform: none;
+	}
+}

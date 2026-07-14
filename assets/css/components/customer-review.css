@@ -1,0 +1,252 @@
+/**
+ * Customer Review Section ("Đánh giá thực tế của khách hàng", trang chủ). Toàn bộ
+ * giá trị --review-* là CSS custom property do tmnhanphat_render_customer_review_css_vars()
+ * sinh ra, gắn bằng wp_add_inline_style() trong inc/enqueue.php (PROJECT_RULES.md mục
+ * 22) — file này KHÔNG hardcode giá trị người dùng đổi được trong Customizer.
+ *
+ * Marquee dọc vô hạn THUẦN CSS (KHÔNG slider/Swiper, KHÔNG JS đo chiều cao): mỗi
+ * .review-marquee__track chứa 2 bản danh sách giống nhau (PHP render 2 lần khi
+ * Animation bật) rồi @keyframes translateY 0 → -50% loop vô hạn — vì 2 nửa giống
+ * nhau tuyệt đối, khi đi hết nửa đầu thì nửa sau đã ở đúng vị trí visual ban đầu,
+ * điểm nối vô hình mà không cần JS tính toán. Column hướng "down" chỉ đảo
+ * animation-direction (không cần keyframe riêng).
+ */
+
+.review-home {
+	position: relative;
+	margin-block: var(--review-margin, 0);
+	padding-block: var(--review-padding, 96px);
+	background-color: var(--review-bg, #ffffff);
+	background-image: var(--review-bg-image, none);
+	background-size: cover;
+	background-position: center;
+}
+
+.review-home__container {
+	max-width: var(--review-container-width, var(--container-max-width));
+}
+
+/* ==================== HEADER ==================== */
+.review-home__header {
+	text-align: var(--review-title-align, center);
+}
+
+.review-home__heading {
+	margin: 0 0 12px;
+	color: var(--review-title-color, #E31F2B);
+	font-size: var(--review-title-size, 40px);
+	font-weight: 800;
+	line-height: 1.2;
+}
+
+/* Figma: 2 từ cuối title màu xanh brand — hằng thiết kế (template tự tách span). */
+.review-home__heading-accent {
+	color: #046AB5;
+}
+
+/* Figma: 2 gạch ngang nhỏ đỏ + xanh ngay dưới title (căn theo Alignment của header). */
+.review-home__heading::after {
+	content: "";
+	display: block;
+	width: 56px;
+	height: 4px;
+	margin: 10px var(--review-desc-margin-x, auto) 0;
+	border-radius: 2px;
+	background: linear-gradient(90deg, #E31F2B 0 45%, transparent 45% 55%, #046AB5 55% 100%);
+}
+
+.review-home__description {
+	margin: 0 var(--review-desc-margin-x, auto) var(--review-header-margin, 48px);
+	max-width: var(--review-desc-max-width, 720px);
+	color: var(--review-desc-color, #5c5c5c);
+	font-size: var(--review-desc-size, 15px);
+	line-height: 1.7;
+}
+
+/* ==================== MARQUEE ==================== */
+.review-marquee {
+	position: relative;
+	display: flex;
+	align-items: flex-start;
+	gap: var(--review-column-gap, 24px);
+	/* Chiều cao khung nhìn cố định — vùng cuộn bên trong, không kéo giãn section theo
+	   tổng số Review (dù Posts Per Column lớn). Figma: frame marquee 1414×893, giữ
+	   tỉ lệ tương đối ~720px cho container 1200. */
+	height: 720px;
+	overflow: hidden;
+}
+
+/* Gradient Mask trên/dưới — che mép cuộn cho card "xuất hiện/biến mất" mượt, đúng design. */
+.review-marquee::before,
+.review-marquee::after {
+	content: "";
+	position: absolute;
+	inset-inline: 0;
+	z-index: 2;
+	height: var(--review-mask-height, 80px);
+	pointer-events: none;
+}
+
+.review-marquee::before {
+	top: 0;
+	background: linear-gradient(180deg, var(--review-mask-color, #ffffff) 0%, transparent 100%);
+}
+
+.review-marquee::after {
+	bottom: 0;
+	background: linear-gradient(0deg, var(--review-mask-color, #ffffff) 0%, transparent 100%);
+}
+
+.review-marquee__column {
+	flex: 1;
+	min-width: 0;
+	height: 100%;
+	overflow: hidden;
+}
+
+.review-marquee__track {
+	display: flex;
+	flex-direction: column;
+	gap: var(--review-card-gap, 24px);
+	will-change: transform;
+	/* Chống flicker trên một số GPU khi transform chạy dài (compositing layer ổn định). */
+	backface-visibility: hidden;
+	/* LINEAR bắt buộc (mục 7 audit) — tốc độ đều tuyệt đối, không ease/tăng giảm tốc. */
+	animation: tmnp-review-scroll var(--review-speed, 40s) linear infinite;
+}
+
+.review-marquee__column[data-column="1"] .review-marquee__track {
+	animation-direction: var(--review-col1-direction, normal);
+}
+
+.review-marquee__column[data-column="2"] .review-marquee__track {
+	animation-direction: var(--review-col2-direction, reverse);
+}
+
+.review-marquee__column[data-column="3"] .review-marquee__track {
+	animation-direction: var(--review-col3-direction, normal);
+}
+
+@keyframes tmnp-review-scroll {
+	from {
+		transform: translateY(0);
+	}
+
+	to {
+		/* -50% = đúng 1 lần chiều cao danh sách GỐC (track chứa 2 bản giống nhau) —
+		   không phụ thuộc Card Gap/chiều cao Card cụ thể, luôn khớp mọi cấu hình. */
+		transform: translateY(-50%);
+	}
+}
+
+/* Pause on Hover — thuần CSS, chỉ áp dụng khi setting bật (class do PHP gắn có điều kiện). */
+.review-marquee--pause-hover:hover .review-marquee__track,
+.review-marquee--pause-hover:focus-within .review-marquee__track {
+	animation-play-state: paused;
+}
+
+/* JS gắn khi tab ẩn / prefers-reduced-motion — dừng animation tiết kiệm CPU. */
+.review-marquee.is-paused .review-marquee__track {
+	animation-play-state: paused;
+}
+
+/* ==================== REVIEW CARD ==================== */
+.review-card {
+	flex-shrink: 0;
+	padding: var(--review-card-padding, 20px);
+	border: var(--review-card-border, 1px solid #EAEAEA);
+	border-radius: var(--review-card-radius, 12px);
+	background-color: var(--review-card-bg, #ffffff);
+	box-shadow: var(--review-card-shadow, 0 6px 20px rgb(6 24 44 / 0.06));
+	transition: box-shadow 0.25s ease;
+}
+
+.review-card:hover {
+	box-shadow: var(--review-card-hover-shadow, 0 14px 34px rgb(6 24 44 / 0.14));
+}
+
+.review-card__head {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin-bottom: 12px;
+}
+
+.review-card__avatar {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex: 0 0 var(--review-avatar-size, 44px);
+	width: var(--review-avatar-size, 44px);
+	height: var(--review-avatar-size, 44px);
+	border-radius: var(--review-avatar-radius, 100%);
+	overflow: hidden;
+	background-color: #F1F3F5;
+	color: #C4C9D0;
+}
+
+.review-card__avatar-image {
+	width: 100%;
+	height: 100%;
+	object-fit: var(--review-avatar-fit, cover);
+	object-position: center;
+}
+
+.review-card__avatar-fallback {
+	width: 55%;
+	height: 55%;
+}
+
+.review-card__identity {
+	display: flex;
+	flex-direction: column;
+	min-width: 0;
+}
+
+.review-card__name {
+	color: var(--review-name-color, #1a1a1a);
+	font-size: var(--review-name-size, 14px);
+	font-weight: var(--review-name-weight, 700);
+	line-height: 1.3;
+}
+
+.review-card__role {
+	color: var(--review-role-color, #9CA3AF);
+	font-size: var(--review-role-size, 12px);
+	line-height: 1.3;
+}
+
+.review-card__comment {
+	margin: 0;
+	color: var(--review-comment-color, #4B5563);
+	font-size: var(--review-comment-size, 13px);
+	line-height: 1.6;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: var(--review-comment-clamp, 4);
+	overflow: hidden;
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 991px) {
+	.review-marquee {
+		height: 560px;
+	}
+}
+
+@media (max-width: 599px) {
+	.review-marquee {
+		height: 480px;
+	}
+
+	.review-card {
+		padding: calc(var(--review-card-padding, 20px) * 0.85);
+	}
+}
+
+/* ==================== REDUCED MOTION ==================== */
+@media (prefers-reduced-motion: reduce) {
+	.review-marquee__track {
+		animation: none;
+	}
+}

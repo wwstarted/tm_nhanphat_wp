@@ -329,6 +329,13 @@ function tmnhanphat_get_hero_customizer_fields() {
 			'default'           => $defaults['tmnhanphat_hero_btn_secondary_hover_bg'],
 			'sanitize_callback' => 'sanitize_hex_color',
 		),
+		'tmnhanphat_hero_btn_secondary_border_color' => array(
+			'label'             => __( 'Secondary: Border Color', 'tmnhanphat' ),
+			'section'           => 'buttons',
+			'type'              => 'color',
+			'default'           => $defaults['tmnhanphat_hero_btn_secondary_border_color'],
+			'sanitize_callback' => 'sanitize_hex_color',
+		),
 		'tmnhanphat_hero_btn_border_radius'       => array(
 			'label'             => __( 'Border Radius (px, áp dụng cả 2 nút)', 'tmnhanphat' ),
 			'section'           => 'buttons',
@@ -447,6 +454,27 @@ function tmnhanphat_get_hero_customizer_fields() {
 			'choices'           => tmnhanphat_get_hero_stats_card_shadow_choices(),
 			'default'           => $defaults['tmnhanphat_hero_stats_card_shadow'],
 			'sanitize_callback' => 'tmnhanphat_sanitize_hero_stats_card_shadow',
+		),
+		'tmnhanphat_hero_stats_number_color'      => array(
+			'label'             => __( 'Stat Number Color', 'tmnhanphat' ),
+			'section'           => 'statistics_style',
+			'type'              => 'color',
+			'default'           => $defaults['tmnhanphat_hero_stats_number_color'],
+			'sanitize_callback' => 'sanitize_hex_color',
+		),
+		'tmnhanphat_hero_stats_badge_bg'          => array(
+			'label'             => __( 'Stat Badge Background', 'tmnhanphat' ),
+			'section'           => 'statistics_style',
+			'type'              => 'color',
+			'default'           => $defaults['tmnhanphat_hero_stats_badge_bg'],
+			'sanitize_callback' => 'sanitize_hex_color',
+		),
+		'tmnhanphat_hero_stats_badge_text_color'  => array(
+			'label'             => __( 'Stat Badge Text Color', 'tmnhanphat' ),
+			'section'           => 'statistics_style',
+			'type'              => 'color',
+			'default'           => $defaults['tmnhanphat_hero_stats_badge_text_color'],
+			'sanitize_callback' => 'sanitize_hex_color',
 		),
 
 		// ----- Hero Spacing (Desktop) -----

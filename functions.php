@@ -24,6 +24,7 @@ $tmnhanphat_modules = array(
 	'inc/helpers.php',
 	'inc/template-functions.php',
 	'inc/setup.php',
+	'inc/post-types.php',
 	'inc/enqueue.php',
 	'inc/menus.php',
 	'inc/widgets.php',

@@ -5,8 +5,9 @@
  * KHÔNG hardcode giá trị người dùng có thể đổi trong Customizer.
  */
 
+/* Design mới: Footer nằm liền sau nội dung (không chừa khoảng trắng phía trên). */
 .site-footer {
-	margin-top: var(--space-xl);
+	margin-top: 0;
 }
 
 /* ==================== TOP FOOTER ==================== */
@@ -35,34 +36,52 @@
 	min-width: 0;
 }
 
+/* Heading: gạch dưới NGẮN (không full-width) màu trắng mờ đúng Design — dùng ::after
+   để kiểm soát chiều dài, opacity trên pseudo nên vẫn tôn trọng Divider Color mod (hex). */
 .footer-column__heading {
+	position: relative;
 	font-size: 1.0625rem;
 	font-weight: 700;
-	color: var(--footer-heading-color, #1a1a1a);
-	padding-bottom: var(--space-xs);
-	margin-bottom: var(--space-sm);
-	border-bottom: 2px solid var(--footer-divider-color, #e0e0e0);
+	color: var(--footer-heading-color, #ffffff);
+	padding-bottom: var(--space-sm);
+	margin-bottom: var(--space-md);
+}
+
+.footer-column__heading::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 48px;
+	height: 2px;
+	background-color: var(--footer-divider-color, #ffffff);
+	opacity: 0.35;
 }
 
 .footer-menu {
 	display: flex;
 	flex-direction: column;
-	gap: var(--space-xs);
+	gap: var(--space-sm);
 }
 
+/* Menu: trắng 85% (opacity trên link giữ màu hex trong mod), hover → trắng đặc. */
 .footer-menu a {
-	color: var(--footer-link, #4a4a4a);
-	transition: color 0.2s ease;
+	color: var(--footer-link, #ffffff);
+	opacity: 0.85;
+	transition: opacity 0.2s ease, color 0.2s ease;
 }
 
 .footer-menu a:hover,
 .footer-menu a:focus-visible {
-	color: var(--footer-hover, #cc322d);
+	color: var(--footer-hover, #ffffff);
+	opacity: 1;
 }
 
+/* Divider giữa "Sản phẩm" và "Dịch vụ": trắng mờ, giữ full-width cột (đúng Design). */
 .footer-column--products-services .footer-column__divider {
 	border: none;
-	border-top: 1px solid var(--footer-divider-color, #e0e0e0);
+	border-top: 1px solid var(--footer-divider-color, #ffffff);
+	opacity: 0.18;
 	margin-block: var(--space-md);
 }
 
@@ -82,7 +101,7 @@
 .footer-branding__site-title {
 	font-size: 1.25rem;
 	font-weight: 700;
-	color: var(--footer-heading-color, #1a1a1a);
+	color: var(--footer-heading-color, #ffffff);
 	margin-bottom: var(--footer-logo-spacing, 24px);
 }
 
@@ -90,12 +109,14 @@
 	font-style: normal;
 	display: flex;
 	flex-direction: column;
-	gap: var(--space-xs);
-	margin-bottom: var(--space-sm);
-	color: var(--footer-text, #4a4a4a);
+	gap: var(--space-sm);
+	margin-bottom: var(--space-md);
+	color: var(--footer-text, #ffffff);
+	opacity: 0.85; /* Trắng 85% như Design; link hover nâng lên trắng đặc riêng bên dưới. */
 	/* Email dài (không có khoảng trắng) vẫn phải xuống dòng thay vì tràn ra ngoài cột
 	   ở tablet/mobile — không được cắt chữ (mục 6 "Không text bị cắt"). */
 	overflow-wrap: anywhere;
+	line-height: 1.6;
 }
 
 .footer-contact__item {
@@ -103,73 +124,80 @@
 }
 
 .footer-contact a {
-	color: var(--footer-link, #4a4a4a);
-	transition: color 0.2s ease;
+	color: var(--footer-link, #ffffff);
+	transition: color 0.2s ease, opacity 0.2s ease;
 }
 
 .footer-contact a:hover,
 .footer-contact a:focus-visible {
-	color: var(--footer-hover, #cc322d);
+	color: var(--footer-hover, #ffffff);
+	opacity: 1;
 }
 
 .footer-social {
 	display: flex;
-	gap: var(--space-xs);
+	gap: var(--space-sm);
 }
 
+/* Social: ô vuông bo góc nền trắng mờ (đúng Design — không dùng nền đỏ như bản cũ),
+   hover sáng nhẹ. Nền/hover hardcode translucent trắng (tối ưu UI, không phải mod). */
 .footer-social__link {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
 	flex-shrink: 0;
-	width: 32px;
-	height: 32px;
-	border-radius: 6px;
-	background-color: var(--footer-hover, #cc322d);
+	width: 36px;
+	height: 36px;
+	border-radius: 8px;
+	background-color: rgb(255 255 255 / 0.14);
 	color: #ffffff;
-	transition: opacity 0.2s ease, transform 0.2s ease;
+	transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 .footer-social__link:hover,
 .footer-social__link:focus-visible {
-	opacity: 0.85;
+	background-color: rgb(255 255 255 / 0.28);
 	transform: translateY(-2px);
 }
 
 /* ==================== BOTTOM FOOTER ==================== */
 .footer-bottom {
-	background-color: var(--footer-bottom-bg, #cc322d);
+	background-color: var(--footer-bottom-bg, #E31F2B);
 	color: var(--footer-bottom-text, #ffffff);
-	min-height: 44px;
+	min-height: 48px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	text-align: center;
+	padding-block: 12px;
 	padding-inline: var(--container-padding);
 }
 
 .footer-bottom__copyright {
 	margin: 0;
 	font-size: 0.8125rem;
+	line-height: 1.5;
 }
 
 /* ==================== RESPONSIVE ==================== */
-/* Tablet: 4 cột → lưới 2 cột đều nhau; Column 1 (nhiều nội dung nhất: logo/liên hệ/social)
-   chiếm trọn 1 hàng riêng để vẫn "ưu tiên rộng hơn" thay vì bị ép chung 1 nửa với cột khác,
-   3 cột menu còn lại (company/policy/product+service) xếp 2 cột bên dưới. */
+/* Tablet: lưới 2×2 đúng Design — Logo+Contact | Company / Policy | Product+Service.
+   Không cho Column 1 chiếm trọn hàng (bản cũ) để 4 cột lấp đều 2×2, khoảng cách đều. */
 @media (max-width: 991px) {
 	.footer-top__inner {
 		grid-template-columns: repeat(2, 1fr);
-	}
-
-	.footer-column--branding {
-		grid-column: 1 / -1;
+		gap: var(--space-lg);
 	}
 }
 
-/* Mobile: 1 cột, xếp dọc đúng thứ tự DOM sẵn có (Logo/Liên hệ → cột 2 → 3 → 4), không vỡ layout */
+/* Mobile: 1 cột full-width, canh trái, xếp dọc đúng thứ tự DOM (Logo/Liên hệ → Company →
+   Policy → Product+Service). Khoảng cách giữa các block giảm, divider heading ngắn hơn. */
 @media (max-width: 599px) {
 	.footer-top__inner {
 		grid-template-columns: 1fr;
+		gap: var(--space-md);
+	}
+
+	.footer-column__heading::after {
+		width: 40px;
 	}
 }
