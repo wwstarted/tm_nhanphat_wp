@@ -478,29 +478,30 @@ function tmnhanphat_hero_defaults() {
 		'tmnhanphat_hero_bg_image'             => '',
 		'tmnhanphat_hero_fallback_bg_color'    => '#1a1a1a',
 
-		// Overlay
-		'tmnhanphat_hero_overlay_enable'       => true,
+		// Overlay — Figma KHÔNG có lớp overlay trên ảnh Hero (ảnh gốc đã tối) → mặc định
+		// TẮT. Color/opacity giữ làm giá trị khởi điểm khi admin bật lại cho ảnh sáng.
+		'tmnhanphat_hero_overlay_enable'       => false,
 		'tmnhanphat_hero_overlay_color'        => '#000000',
 		'tmnhanphat_hero_overlay_opacity'      => 55,
 		'tmnhanphat_hero_overlay_blend'        => 'normal',
 
-		// Subtitle — Design: nhỏ hơn (15px), letter-spacing lớn hơn (ở CSS), vàng nhạt hơn.
+		// Subtitle — Figma: Inter 32px / weight 400, chữ thường (không uppercase), trắng.
 		'tmnhanphat_hero_subtitle_enable'      => true,
 		'tmnhanphat_hero_subtitle_text'        => 'Lắp đặt • Sửa chữa • Bảo trì',
 		'tmnhanphat_hero_subtitle_color'       => '#ffffff',
-		'tmnhanphat_hero_subtitle_font_size'   => 15,
-		'tmnhanphat_hero_subtitle_font_weight' => '500',
+		'tmnhanphat_hero_subtitle_font_size'   => 32,
+		'tmnhanphat_hero_subtitle_font_weight' => '400',
 
-		// Heading — Design: to hơn (56px) + giới hạn width (~850px, ở Layout) để xuống 2 dòng.
+		// Heading — Figma: 96px / weight 900, rộng ~1524px (xuống 2 dòng trên canvas 1920).
 		'tmnhanphat_hero_heading_text'         => 'Giải pháp thang máy toàn diện cho mọi công trình',
 		'tmnhanphat_hero_heading_color'        => '#ffffff',
-		'tmnhanphat_hero_heading_font_size'    => 56,
-		'tmnhanphat_hero_heading_font_weight'  => '800',
+		'tmnhanphat_hero_heading_font_size'    => 96,
+		'tmnhanphat_hero_heading_font_weight'  => '900',
 
 		// Description
 		'tmnhanphat_hero_description_text'         => 'Thang Máy Nhân Phát mang đến giải pháp thang máy gia đình an toàn, hiện đại và phù hợp với từng không gian sống. Chúng tôi đồng hành từ tư vấn, thiết kế, lắp đặt đến bảo trì, giúp mỗi công trình có hệ thống thang máy bền đẹp, vận hành ổn định và tối ưu chi phí.',
-		'tmnhanphat_hero_description_color'        => '#d1d1d1',
-		'tmnhanphat_hero_description_font_size'    => 16,
+		'tmnhanphat_hero_description_color'        => '#ffffff', // Figma: text trắng đặc.
+		'tmnhanphat_hero_description_font_size'    => 20,       // Figma: Inter 20px.
 		'tmnhanphat_hero_description_max_lines'    => 3,
 		'tmnhanphat_hero_description_clamp_enable' => true,
 
@@ -521,12 +522,14 @@ function tmnhanphat_hero_defaults() {
 		'tmnhanphat_hero_btn_secondary_text_color' => '#ffffff',
 		'tmnhanphat_hero_btn_secondary_hover_bg'   => 'rgba(255,255,255,.08)',
 		'tmnhanphat_hero_btn_secondary_border_color' => '#ffffff',
-		'tmnhanphat_hero_btn_border_radius'    => 6,
-		'tmnhanphat_hero_btn_padding_x'        => 28,
-		'tmnhanphat_hero_btn_padding_y'        => 14,
+		// Figma: nút pill (248×55, radius 50), text 24px canh giữa → padding 12/20.
+		'tmnhanphat_hero_btn_border_radius'    => 50,
+		'tmnhanphat_hero_btn_padding_x'        => 20,
+		'tmnhanphat_hero_btn_padding_y'        => 12,
 
-		// Layout — Design: Title ~850px (xuống 2 dòng giống Design, không kéo quá sang phải).
-		'tmnhanphat_hero_content_max_width'        => 850,
+		// Layout — Figma: Heading box 1524px trên canvas 1920 → content không tự bó hẹp
+		// dưới container; 1560 để heading luôn fill hết bề rộng container chung.
+		'tmnhanphat_hero_content_max_width'        => 1560,
 		'tmnhanphat_hero_content_max_width_tablet' => 600,
 		'tmnhanphat_hero_content_max_width_mobile' => 600,
 		'tmnhanphat_hero_content_align'            => 'center',
@@ -534,27 +537,33 @@ function tmnhanphat_hero_defaults() {
 		'tmnhanphat_hero_padding_tablet'           => 100,
 		'tmnhanphat_hero_padding_mobile'           => 90,
 
-		// Hero Stats Card
+		// Hero Stats Card — Figma Rectangle 14: 1732×260, radius 40, fill #22262E @20%
+		// + effect GLASS (kính: backdrop blur + viền sáng mảnh). CSS mô phỏng glass bằng
+		// blur 18 + border 1px trắng mờ (độ mờ viền đặt trong render, 35%). Không shadow.
 		'tmnhanphat_hero_stats_card_enable'       => true,
-		'tmnhanphat_hero_stats_card_bg'           => '#ffffff',
-		'tmnhanphat_hero_stats_card_opacity'      => 6,
-		'tmnhanphat_hero_stats_card_radius'       => 24,
+		'tmnhanphat_hero_stats_card_bg'           => '#22262E',
+		'tmnhanphat_hero_stats_card_opacity'      => 20,
+		'tmnhanphat_hero_stats_card_radius'       => 40,
 		'tmnhanphat_hero_stats_card_border_color' => '#ffffff',
 		'tmnhanphat_hero_stats_card_border_width' => 1,
 		'tmnhanphat_hero_stats_card_blur'         => 18,
-		'tmnhanphat_hero_stats_card_shadow'       => 'soft',
-		// Design mới: số liệu TRẮNG (bỏ gold), badge nền xám nhạt + chữ đậm.
+		'tmnhanphat_hero_stats_card_shadow'       => 'none',
+		// Figma: số trắng; badge pill nền #A8AEB8, chữ tối #22262E.
 		'tmnhanphat_hero_stats_number_color'      => '#ffffff',
-		'tmnhanphat_hero_stats_badge_bg'          => '#E5E7EB',
-		'tmnhanphat_hero_stats_badge_text_color'  => '#1F2937',
+		'tmnhanphat_hero_stats_badge_bg'          => '#A8AEB8',
+		'tmnhanphat_hero_stats_badge_text_color'  => '#22262E',
 
-		// Hero Spacing (desktop)
-		'tmnhanphat_hero_padding_top'              => 100,
-		'tmnhanphat_hero_padding_bottom'           => 40,
-		'tmnhanphat_hero_heading_margin_bottom'    => 24,
-		'tmnhanphat_hero_description_margin_bottom' => 28,
+		// Hero Spacing (desktop) — Figma: đỉnh Hero→Subtitle 176, đáy Card→đáy Hero 77.
+		'tmnhanphat_hero_padding_top'              => 176,
+		'tmnhanphat_hero_padding_bottom'           => 77,
+		// Figma spacing (canvas 1184px @1920, Hero cao theo NỘI DUNG — không còn 100vh):
+		// đỉnh Hero→Subtitle 176 (header float đè lên trong khoảng này), Subtitle→Heading
+		// 24 (space-md ở CSS), Heading→Desc 37≈36, Desc→Buttons 46, Buttons→Stats 166
+		// (CSS co theo 8.65vw ở màn nhỏ), đáy Card→đáy Hero 77.
+		'tmnhanphat_hero_heading_margin_bottom'    => 36,
+		'tmnhanphat_hero_description_margin_bottom' => 46,
 		'tmnhanphat_hero_cta_margin_bottom'        => 24,
-		'tmnhanphat_hero_stats_margin_top'         => 32,
+		'tmnhanphat_hero_stats_margin_top'         => 166,
 
 		// Animation
 		'tmnhanphat_hero_animation_enable'         => true,
@@ -828,7 +837,8 @@ function tmnhanphat_render_hero_css_vars() {
 	$css .= '--hero-btn-secondary-bg:' . $btn_secondary_bg . ';';
 	$css .= '--hero-btn-secondary-text:' . $btn_secondary_text . ';';
 	$css .= '--hero-btn-secondary-hover-bg:' . $btn_secondary_hover_bg . ';';
-	$css .= '--hero-btn-secondary-border:1px solid ' . tmnhanphat_hex_to_rgba( $btn_secondary_border, 40 ) . ';';
+	// Figma: nút phụ viền 2px trắng ĐẶC (không phải 1px 40% như bản thiết kế cũ).
+	$css .= '--hero-btn-secondary-border:2px solid ' . $btn_secondary_border . ';';
 	$css .= '--hero-btn-radius:' . $btn_radius . 'px;';
 	$css .= '--hero-btn-padding-x:' . $btn_padding_x . 'px;';
 	$css .= '--hero-btn-padding-y:' . $btn_padding_y . 'px;';
@@ -843,7 +853,8 @@ function tmnhanphat_render_hero_css_vars() {
 	$css .= '--hero-stats-margin-top:' . $stats_margin_top . 'px;';
 	$css .= '--hero-stats-card-bg:' . ( $card_enable ? tmnhanphat_hex_to_rgba( $card_bg, $card_opacity ) : 'transparent' ) . ';';
 	$css .= '--hero-stats-card-radius:' . ( $card_enable ? $card_radius : 0 ) . 'px;';
-	$css .= '--hero-stats-card-border:' . ( $card_enable ? $card_border_width . 'px solid ' . tmnhanphat_hex_to_rgba( $card_border_color, 12 ) : 'none' ) . ';';
+	// 35%: viền sáng của effect GLASS trong Figma rõ hơn mức 12% cũ (mô phỏng rim kính).
+	$css .= '--hero-stats-card-border:' . ( $card_enable ? $card_border_width . 'px solid ' . tmnhanphat_hex_to_rgba( $card_border_color, 35 ) : 'none' ) . ';';
 	$css .= '--hero-stats-card-blur:' . ( $card_enable ? $card_blur : 0 ) . 'px;';
 	$css .= '--hero-stats-card-shadow:' . ( $card_enable ? $card_shadow : 'none' ) . ';';
 	// Number/Badge/Description luôn đọc trực tiếp từ setting riêng (không còn phụ thuộc
@@ -1133,6 +1144,15 @@ function tmnhanphat_global_defaults() {
 		'tmnhanphat_container_padding_desktop' => 24,
 		'tmnhanphat_container_padding_tablet'  => 20,
 		'tmnhanphat_container_padding_mobile'  => 16,
+		// Global Section Spacing — ÁP DỤNG ĐỒNG LOẠT padding trên/dưới cho MỌI section
+		// trang chủ. Mặc định 0 = KHÔNG override (mỗi section giữ padding riêng như hiện
+		// tại) → không đổi giao diện cho tới khi admin đặt giá trị > 0 (mục XIV).
+		'tmnhanphat_home_section_pt_desktop'   => 0,
+		'tmnhanphat_home_section_pb_desktop'   => 0,
+		'tmnhanphat_home_section_pt_tablet'    => 0,
+		'tmnhanphat_home_section_pb_tablet'    => 0,
+		'tmnhanphat_home_section_pt_mobile'    => 0,
+		'tmnhanphat_home_section_pb_mobile'    => 0,
 	);
 }
 
@@ -1180,6 +1200,53 @@ function tmnhanphat_render_global_css_vars() {
 	$css  = ':root{--container-max-width:' . $container_width . 'px;--container-padding:' . $padding_desktop . 'px;}';
 	$css .= '@media (max-width:991px){:root{--container-padding:' . $padding_tablet . 'px;}}';
 	$css .= '@media (max-width:599px){:root{--container-padding:' . $padding_mobile . 'px;}}';
+
+	$css .= tmnhanphat_render_home_section_spacing_css();
+
+	return $css;
+}
+
+/**
+ * Global Section Spacing (Homepage) — override padding trên/dưới đồng loạt cho MỌI
+ * section trang chủ khi admin bật (giá trị > 0). Selector `.site-main.front-page > section`
+ * có độ đặc hiệu (0,2,1) cao hơn class đơn của từng section (0,1,0) nên thắng mà KHÔNG
+ * cần !important. Mỗi breakpoint/chiều chỉ phát rule khi giá trị > 0 → mặc định 0 =
+ * không có rule = giữ nguyên padding riêng của từng section (mục XIV: default không đổi UI).
+ *
+ * @return string
+ */
+function tmnhanphat_render_home_section_spacing_css() {
+	if ( ! is_front_page() ) {
+		return ''; // Chỉ áp dụng ở Homepage — không ảnh hưởng Archive/Single/Page.
+	}
+
+	$map = array(
+		'desktop' => array( 'pt' => 'tmnhanphat_home_section_pt_desktop', 'pb' => 'tmnhanphat_home_section_pb_desktop', 'mq' => '' ),
+		'tablet'  => array( 'pt' => 'tmnhanphat_home_section_pt_tablet',  'pb' => 'tmnhanphat_home_section_pb_tablet',  'mq' => '@media (max-width:991px)' ),
+		'mobile'  => array( 'pt' => 'tmnhanphat_home_section_pt_mobile',  'pb' => 'tmnhanphat_home_section_pb_mobile',  'mq' => '@media (max-width:599px)' ),
+	);
+
+	$css = '';
+
+	foreach ( $map as $bp ) {
+		$pt = absint( tmnhanphat_get_global_mod( $bp['pt'] ) );
+		$pb = absint( tmnhanphat_get_global_mod( $bp['pb'] ) );
+
+		$decls = '';
+		if ( $pt > 0 ) {
+			$decls .= 'padding-top:' . $pt . 'px;';
+		}
+		if ( $pb > 0 ) {
+			$decls .= 'padding-bottom:' . $pb . 'px;';
+		}
+
+		if ( '' === $decls ) {
+			continue;
+		}
+
+		$rule = '.site-main.front-page > section{' . $decls . '}';
+		$css .= '' === $bp['mq'] ? $rule : $bp['mq'] . '{' . $rule . '}';
+	}
 
 	return $css;
 }
@@ -1473,26 +1540,29 @@ function tmnhanphat_services_defaults() {
 		'tmnhanphat_services_bg_color'        => '#ffffff',
 		// 0 = dùng chung Container Width của Global Settings (mục 27).
 		'tmnhanphat_services_container_width' => 0,
-		'tmnhanphat_services_padding_desktop' => 80,
+		// Figma: khoảng cách đáy Hero→Heading = 137 (padding-top; đáy section 47 cố định ở CSS).
+		'tmnhanphat_services_padding_desktop' => 137,
 		'tmnhanphat_services_padding_tablet'  => 56,
 		'tmnhanphat_services_padding_mobile'  => 40,
 
 		// Heading — 2 phần text 2 màu trên cùng 1 dòng (đỏ + xanh), tách riêng để đổi độc lập.
+		// Figma: Inter 85 / weight 900; Heading → Description cách 37px.
 		'tmnhanphat_services_heading_red_text'      => 'Dịch vụ tại',
 		'tmnhanphat_services_heading_blue_text'     => 'Thang Máy Nhân Phát',
 		'tmnhanphat_services_heading_red_color'     => '#E31F2B',
 		'tmnhanphat_services_heading_blue_color'    => '#046AB5',
-		'tmnhanphat_services_heading_font_size'     => 40,
-		'tmnhanphat_services_heading_font_weight'   => '800',
+		'tmnhanphat_services_heading_font_size'     => 85,
+		'tmnhanphat_services_heading_font_weight'   => '900',
 		'tmnhanphat_services_heading_align'         => 'center',
-		'tmnhanphat_services_heading_margin_bottom' => 12,
+		'tmnhanphat_services_heading_margin_bottom' => 37,
 
 		// Description
 		'tmnhanphat_services_description_text'          => 'Cung cấp đầy đủ các dịch vụ từ tư vấn thiết kế, lắp đặt, bảo trì đến sửa chữa và cung cấp linh kiện thay thế. Với đội ngũ kỹ thuật giàu kinh nghiệm cùng quy trình làm việc chuyên nghiệp, chúng tôi cam kết mang đến giải pháp thang máy an toàn, bền bỉ và tối ưu chi phí cho mọi công trình.',
-		'tmnhanphat_services_description_color'         => '#6b7280',
-		'tmnhanphat_services_description_font_size'     => 15,
-		'tmnhanphat_services_description_max_width'     => 780,
-		'tmnhanphat_services_description_margin_bottom' => 48,
+		// Figma: Inter 20/400 màu #464646, box 1068px; Description → Cards cách 57px.
+		'tmnhanphat_services_description_color'         => '#464646',
+		'tmnhanphat_services_description_font_size'     => 20,
+		'tmnhanphat_services_description_max_width'     => 1068,
+		'tmnhanphat_services_description_margin_bottom' => 57,
 
 		// Query
 		'tmnhanphat_services_count'       => 6,
@@ -1511,24 +1581,25 @@ function tmnhanphat_services_defaults() {
 		'tmnhanphat_services_show_arrows'        => false,
 		'tmnhanphat_services_show_dots'          => true,
 		'tmnhanphat_services_drag_enable'        => true,
-		'tmnhanphat_services_gap'                => 24,
+		'tmnhanphat_services_gap'                => 53, // Figma: khoảng cách giữa các card 53px.
 		'tmnhanphat_services_cards_desktop'      => '3',
 		'tmnhanphat_services_cards_tablet'       => '2',
 		'tmnhanphat_services_cards_mobile'       => '1',
 		'tmnhanphat_services_dot_active_color'   => '#046AB5',
 		'tmnhanphat_services_dot_inactive_color' => '#D9D9D9',
 
-		// Card
-		'tmnhanphat_services_card_radius'        => 16,
+		// Card — Figma: 510×453 r=30, inner-shadow đen 70% (tối dần về đáy), Title 48/900
+		// trắng, Excerpt 20/400 trắng, nội dung cách mép trái card 35px.
+		'tmnhanphat_services_card_radius'        => 30,
 		'tmnhanphat_services_card_ratio'         => '510-453',
-		'tmnhanphat_services_overlay_color'      => '#0a1420',
-		'tmnhanphat_services_overlay_opacity'    => 55,
+		'tmnhanphat_services_overlay_color'      => '#000000',
+		'tmnhanphat_services_overlay_opacity'    => 70,
 		'tmnhanphat_services_title_color'        => '#ffffff',
 		'tmnhanphat_services_title_hover_color'  => '#8fc7ff',
-		'tmnhanphat_services_title_font_size'    => 24,
-		'tmnhanphat_services_excerpt_color'      => '#e6ecf2',
-		'tmnhanphat_services_excerpt_font_size'  => 13,
-		'tmnhanphat_services_content_padding'    => 24,
+		'tmnhanphat_services_title_font_size'    => 48,
+		'tmnhanphat_services_excerpt_color'      => '#ffffff',
+		'tmnhanphat_services_excerpt_font_size'  => 20,
+		'tmnhanphat_services_content_padding'    => 35,
 		'tmnhanphat_services_arrow_color'        => '#E31F2B',
 		'tmnhanphat_services_hover_zoom_enable'  => true,
 		'tmnhanphat_services_hover_duration'     => 300,
@@ -1541,11 +1612,12 @@ function tmnhanphat_services_defaults() {
 		'tmnhanphat_services_cta_bg'          => '#046AB5',
 		'tmnhanphat_services_cta_text_color'  => '#ffffff',
 		'tmnhanphat_services_cta_hover_bg'    => '#03518a',
+		// Figma CTA: pill 346×55, chữ 24/400 → padding 12/27; Dots → CTA cách 57px.
 		'tmnhanphat_services_cta_radius'      => 999,
-		'tmnhanphat_services_cta_padding_x'   => 28,
+		'tmnhanphat_services_cta_padding_x'   => 27,
 		'tmnhanphat_services_cta_padding_y'   => 12,
-		'tmnhanphat_services_cta_font_size'   => 14,
-		'tmnhanphat_services_cta_margin_top'  => 40,
+		'tmnhanphat_services_cta_font_size'   => 24,
+		'tmnhanphat_services_cta_margin_top'  => 57,
 	);
 }
 
@@ -5429,4 +5501,86 @@ function tmnhanphat_render_faq_css_vars() {
 	$css .= '}}';
 
 	return $css;
+}
+
+/* ==========================================================================
+ * HOMEPAGE SECTION MANAGER — bật/tắt + đổi thứ tự các section trang chủ ngay trong
+ * Customizer, KHÔNG cần sửa code (PROJECT_RULES.md mục 4/22). front-page.php render
+ * ĐỘNG theo kết quả tmnhanphat_get_ordered_home_sections(). Mặc định: đủ 12 section,
+ * bật hết, đúng thứ tự hiện tại → không đổi gì nếu admin chưa chỉnh (mục XIV).
+ *
+ * Lưu ý: mỗi section vẫn giữ toggle "Enable Section" riêng trong panel của nó; Section
+ * Manager là lớp gate CẤP CAO HƠN (quyết định có gọi get_template_part hay không +
+ * thứ tự). Tắt ở Manager = không render; bật ở Manager nhưng tắt trong panel section =
+ * section tự return sớm. Hai lớp độc lập, không phá logic cũ.
+ * ========================================================================== */
+
+/**
+ * Registry các section Homepage: slug (dùng cho setting id + template path), nhãn hiển
+ * thị trong Customizer, và thứ tự mặc định (khớp thứ tự front-page.php cũ).
+ *
+ * @return array<int, array{slug: string, template: string, label: string}>
+ */
+function tmnhanphat_get_home_sections() {
+	return array(
+		array( 'slug' => 'hero',            'template' => 'template-parts/home/hero',            'label' => __( 'Hero', 'tmnhanphat' ) ),
+		array( 'slug' => 'partners',        'template' => 'template-parts/home/partners',        'label' => __( 'Logo Partner', 'tmnhanphat' ) ),
+		array( 'slug' => 'about',           'template' => 'template-parts/home/about',           'label' => __( 'About', 'tmnhanphat' ) ),
+		array( 'slug' => 'services',        'template' => 'template-parts/home/services',        'label' => __( 'Dịch vụ (Services)', 'tmnhanphat' ) ),
+		array( 'slug' => 'why-choose',      'template' => 'template-parts/home/why-choose',      'label' => __( 'Why Choose Us', 'tmnhanphat' ) ),
+		array( 'slug' => 'process',         'template' => 'template-parts/home/process',         'label' => __( 'Process', 'tmnhanphat' ) ),
+		array( 'slug' => 'products',        'template' => 'template-parts/home/products',        'label' => __( 'Product', 'tmnhanphat' ) ),
+		array( 'slug' => 'projects',        'template' => 'template-parts/home/projects',        'label' => __( 'Project', 'tmnhanphat' ) ),
+		array( 'slug' => 'customer-review', 'template' => 'template-parts/home/customer-review', 'label' => __( 'Review', 'tmnhanphat' ) ),
+		array( 'slug' => 'news',            'template' => 'template-parts/home/news',            'label' => __( 'News', 'tmnhanphat' ) ),
+		array( 'slug' => 'quote',           'template' => 'template-parts/home/quote',           'label' => __( 'Contact (Quote)', 'tmnhanphat' ) ),
+		array( 'slug' => 'faq',             'template' => 'template-parts/home/faq',             'label' => __( 'FAQ', 'tmnhanphat' ) ),
+	);
+}
+
+/**
+ * Setting id chuẩn hoá cho 1 section trong Section Manager (slug có dấu '-' → '_').
+ *
+ * @param string $slug   Slug section.
+ * @param string $suffix 'enable' | 'order'.
+ * @return string
+ */
+function tmnhanphat_home_section_setting_id( $slug, $suffix ) {
+	return 'tmnhanphat_home_section_' . str_replace( '-', '_', $slug ) . '_' . $suffix;
+}
+
+/**
+ * Danh sách section Homepage ĐÃ lọc (bật) + sắp theo Order — dùng bởi front-page.php.
+ * Order rỗng/trùng: giữ ổn định theo thứ tự registry (usort ổn định trên PHP 8.0+).
+ *
+ * @return array<int, array<string, string>>
+ */
+function tmnhanphat_get_ordered_home_sections() {
+	$sections = tmnhanphat_get_home_sections();
+	$list     = array();
+
+	foreach ( $sections as $index => $section ) {
+		$enable_id = tmnhanphat_home_section_setting_id( $section['slug'], 'enable' );
+		$order_id  = tmnhanphat_home_section_setting_id( $section['slug'], 'order' );
+
+		if ( ! get_theme_mod( $enable_id, true ) ) {
+			continue; // Tắt ở Section Manager → không render.
+		}
+
+		$section['order']    = absint( get_theme_mod( $order_id, $index + 1 ) );
+		$section['_fallback'] = $index; // Giữ thứ tự gốc khi Order trùng nhau.
+		$list[]              = $section;
+	}
+
+	usort(
+		$list,
+		static function ( $a, $b ) {
+			if ( $a['order'] === $b['order'] ) {
+				return $a['_fallback'] <=> $b['_fallback'];
+			}
+			return $a['order'] <=> $b['order'];
+		}
+	);
+
+	return $list;
 }

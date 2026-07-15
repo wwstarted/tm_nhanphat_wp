@@ -13,7 +13,9 @@
 	--color-border: #e0e0e0;
 
 	/* Typography */
-	--font-family-base: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+	/* Figma dùng Inter cho toàn site — nhúng self-host qua @font-face trong typography.css.
+	   Giữ nguyên system-ui... phía sau làm fallback khi font chưa tải/ lỗi. */
+	--font-family-base: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 	--font-size-base: 1rem;
 	--line-height-base: 1.6;
 
