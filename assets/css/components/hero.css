@@ -17,9 +17,12 @@
 	isolation: isolate; /* tạo stacking context riêng cho overlay/background */
 	display: flex;
 	overflow: hidden;
-	height: var(--hero-height-desktop, 100vh);
-	min-height: var(--hero-height-desktop, 100vh);
-	max-height: var(--hero-height-desktop, 100vh);
+	/* KHÔNG khoá 100vh nữa — chiều cao bám NỘI DUNG như Figma (canvas 1184px @1920):
+	   padding-top 176 + content + gap 166 + card 260 + padding-bottom 77 ≈ 1184.
+	   Nhờ type/spacing fluid theo vw (trần tại 1920): màn nhỏ tự co, màn lớn
+	   (2560/3840) content đạt trần nên Hero giữ ~1184px — không còn khoảng trống
+	   thừa như khi ép 100vh. (Setting "Hero Height (vh)" không còn tác dụng.) */
+	height: auto;
 	background-color: var(--hero-fallback-bg, #1a1a1a);
 	color: #ffffff;
 }
@@ -65,8 +68,8 @@
 	max-width: var(--container-max-width);
 	margin-inline: auto;
 	padding-inline: var(--container-padding);
-	padding-top: var(--hero-padding-top, 100px);
-	padding-bottom: var(--hero-padding-bottom, 40px);
+	padding-top: var(--hero-padding-top, 176px);
+	padding-bottom: var(--hero-padding-bottom, 77px);
 	display: flex;
 	flex-direction: column;
 	justify-content: var(--hero-content-align, center);
@@ -79,31 +82,31 @@
 }
 
 .hero__subtitle {
-	/* Design: subtitle → Title cách ~24px; letter-spacing rộng hơn (0.18em). */
+	/* Figma: Inter 32/400, chữ thường, letter-spacing 0, line-height Auto (~1.21);
+	   subtitle → Title cách ~24px. */
 	margin-bottom: var(--space-md);
 	color: var(--hero-subtitle-color, #ffffff);
-	font-size: var(--hero-subtitle-size, 15px);
-	font-weight: var(--hero-subtitle-weight, 500);
-	line-height: 1.3;
-	text-transform: uppercase;
-	letter-spacing: 0.18em;
+	font-size: clamp(1.125rem, 1.67vw, var(--hero-subtitle-size, 32px));
+	font-weight: var(--hero-subtitle-weight, 400);
+	line-height: 1.21;
 }
 
 .hero__heading {
-	margin-bottom: var(--hero-heading-margin-bottom, 24px);
+	margin-bottom: var(--hero-heading-margin-bottom, 36px);
 	color: var(--hero-heading-color, #ffffff);
-	font-size: clamp(2rem, 1.2rem + 2.6vw, var(--hero-heading-size, 56px));
-	font-weight: var(--hero-heading-weight, 800);
-	line-height: 1.15;
+	/* Figma: 96px trên canvas 1920 (= 5vw) — fluid theo bề rộng, chạm đúng 96px ở 1920. */
+	font-size: clamp(2rem, 5vw, var(--hero-heading-size, 96px));
+	font-weight: var(--hero-heading-weight, 900);
+	line-height: 1.21; /* Figma Auto: 116.18/96 */
 }
 
-/* Design: Description hẹp hơn Title (~650px), kết thúc gần giữa Hero, line-height thoáng. */
+/* Figma: Description box 1100px, Inter 20/400, line-height Auto (~1.21), trắng đặc. */
 .hero__description {
-	margin-bottom: var(--hero-description-margin-bottom, 28px);
-	max-width: 650px;
-	color: var(--hero-description-color, rgb(255 255 255 / 0.82));
-	font-size: var(--hero-description-size, 16px);
-	line-height: 1.75;
+	margin-bottom: var(--hero-description-margin-bottom, 46px);
+	max-width: 1100px;
+	color: var(--hero-description-color, #ffffff);
+	font-size: var(--hero-description-size, 20px);
+	line-height: 1.21;
 }
 
 /* Giới hạn số dòng — không để Description kéo Hero cao hơn 100vh (mục 3). */
@@ -118,7 +121,7 @@
 .hero__cta {
 	display: flex;
 	flex-wrap: wrap;
-	gap: var(--space-sm);
+	gap: 40px; /* Figma: khoảng cách giữa 2 nút = 40px (9048 - 9008). */
 	margin-bottom: var(--hero-cta-margin-bottom, 24px);
 }
 
@@ -126,9 +129,11 @@
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	padding: var(--hero-btn-padding-y, 14px) var(--hero-btn-padding-x, 28px);
-	border-radius: var(--hero-btn-radius, 6px);
-	font-weight: 600;
+	padding: var(--hero-btn-padding-y, 12px) var(--hero-btn-padding-x, 20px);
+	border-radius: var(--hero-btn-radius, 50px);
+	/* Figma: chữ nút Inter 24/400 (1.25vw = 24px trên canvas 1920). */
+	font-size: clamp(1rem, 1.25vw, 1.5rem);
+	font-weight: 400;
 	white-space: nowrap;
 	transition: background-color 0.2s ease, transform 0.2s ease;
 }
@@ -166,15 +171,18 @@
 .hero__stats {
 	position: relative;
 	z-index: 1;
-	margin-top: var(--hero-stats-margin-top, 32px);
+	/* Figma: Buttons → Stats 166px trên canvas 1920 (8.65vw) — co theo vw ở màn nhỏ. */
+	margin-top: min(var(--hero-stats-margin-top, 166px), 8.65vw);
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
 	gap: var(--space-lg);
-	padding: var(--space-md) var(--space-lg);
-	background-color: var(--hero-stats-card-bg, rgb(255 255 255 / 0.06));
-	border-radius: var(--hero-stats-card-radius, 24px);
-	border: var(--hero-stats-card-border, 1px solid rgb(255 255 255 / 0.12));
-	box-shadow: var(--hero-stats-card-shadow, 0 10px 30px rgb(0 0 0 / 0.08));
+	/* Figma: card 260 cao — padding trong 32 trên / 84 ngang (co theo vw) / 48 dưới. */
+	padding: 32px clamp(24px, 4.4vw, 84px) 48px;
+	/* Figma effect GLASS: nền tối 20% + blur + viền sáng mảnh (rim kính). */
+	background-color: var(--hero-stats-card-bg, rgb(34 38 46 / 0.2));
+	border-radius: var(--hero-stats-card-radius, 40px);
+	border: var(--hero-stats-card-border, 1px solid rgb(255 255 255 / 0.35));
+	box-shadow: var(--hero-stats-card-shadow, none);
 	backdrop-filter: blur(var(--hero-stats-card-blur, 18px));
 	-webkit-backdrop-filter: blur(var(--hero-stats-card-blur, 18px));
 }
@@ -183,19 +191,19 @@
 	position: relative;
 	display: flex;
 	flex-direction: column;
-	gap: 4px;
+	gap: 8px; /* Figma: số → badge 8px, badge → mô tả ~13px. */
 }
 
-/* Vertical Divider mảnh giữa các item — chỉ Desktop (mục 9), căn giữa theo chiều dọc,
-   cao 60% item, nằm giữa khoảng gap nhờ căn theo nửa gap âm. */
+/* Vertical Divider mảnh giữa các item — chỉ Desktop (mục 9), nằm giữa khoảng gap nhờ
+   căn theo nửa gap âm. Figma: Line 1px #A8AEB8, cao 186/260 (~71%), bắt đầu từ đỉnh số. */
 .hero__stat:not(:last-child)::after {
 	content: "";
 	position: absolute;
-	top: 20%;
-	bottom: 20%;
+	top: 0;
+	bottom: 12%;
 	right: calc(var(--space-lg) / -2);
 	width: 1px;
-	background-color: rgb(255 255 255 / 0.15);
+	background-color: #A8AEB8;
 }
 
 .hero__stat-icon {
@@ -205,29 +213,31 @@
 .hero__stat-number {
 	margin: 0;
 	color: var(--hero-stats-number-color, #ffffff);
-	font-size: clamp(1.75rem, 1.3rem + 1.2vw, 2.5rem);
-	font-weight: 800;
+	/* Figma: 70px / weight 700 trên canvas 1920 (3.65vw = 70px). */
+	font-size: clamp(1.75rem, 3.65vw, 4.375rem);
+	font-weight: 700;
 	line-height: 1;
 }
 
+/* Figma: pill cao 36 (chữ 20/400, padding 6/20), nền #A8AEB8, chữ tối. */
 .hero__stat-badge {
 	display: inline-flex;
 	align-self: flex-start;
-	padding: 0.18em 0.7em;
+	padding: 6px 20px;
 	border-radius: 999px;
-	background-color: var(--hero-stats-badge-bg, #E5E7EB);
-	color: var(--hero-stats-badge-text, #1F2937);
-	font-size: 0.75rem;
-	font-weight: 700;
+	background-color: var(--hero-stats-badge-bg, #A8AEB8);
+	color: var(--hero-stats-badge-text, #22262E);
+	font-size: clamp(0.8125rem, 1.04vw, 1.25rem);
+	font-weight: 400;
 }
 
-/* Design: mô tả stat ngắn gọn, giới hạn width để không tràn/kéo dài sang item bên. */
+/* Figma: mô tả 16/400, line-height Auto (~1.21), box 256px. */
 .hero__stat-description {
 	margin: 0;
-	max-width: 200px;
+	max-width: 256px;
 	color: var(--hero-stats-desc-color, rgb(255 255 255 / 0.75));
-	font-size: 0.75rem;
-	line-height: 1.5;
+	font-size: clamp(0.75rem, 0.83vw, 1rem);
+	line-height: 1.21;
 }
 
 /* ==================== ANIMATION (fade-up + stagger + scale) ==================== */

@@ -57,6 +57,57 @@ function tmnhanphat_get_global_customizer_fields() {
 			'sanitize_callback' => 'absint',
 			'input_attrs'       => array( 'min' => 0, 'max' => 80, 'step' => 1 ),
 		),
+
+		// ----- Homepage Spacing (áp dụng đồng loạt padding trên/dưới cho MỌI section
+		// trang chủ; 0 = không override, giữ padding riêng từng section — mục XIV). -----
+		'tmnhanphat_home_section_pt_desktop' => array(
+			'label'             => __( 'Section Top Padding — Desktop (px, 0 = giữ từng section)', 'tmnhanphat' ),
+			'section'           => 'spacing',
+			'type'              => 'number',
+			'default'           => $defaults['tmnhanphat_home_section_pt_desktop'],
+			'sanitize_callback' => 'absint',
+			'input_attrs'       => array( 'min' => 0, 'max' => 240, 'step' => 2 ),
+		),
+		'tmnhanphat_home_section_pb_desktop' => array(
+			'label'             => __( 'Section Bottom Padding — Desktop (px, 0 = giữ từng section)', 'tmnhanphat' ),
+			'section'           => 'spacing',
+			'type'              => 'number',
+			'default'           => $defaults['tmnhanphat_home_section_pb_desktop'],
+			'sanitize_callback' => 'absint',
+			'input_attrs'       => array( 'min' => 0, 'max' => 240, 'step' => 2 ),
+		),
+		'tmnhanphat_home_section_pt_tablet'  => array(
+			'label'             => __( 'Section Top Padding — Tablet (px, 0 = giữ từng section)', 'tmnhanphat' ),
+			'section'           => 'spacing',
+			'type'              => 'number',
+			'default'           => $defaults['tmnhanphat_home_section_pt_tablet'],
+			'sanitize_callback' => 'absint',
+			'input_attrs'       => array( 'min' => 0, 'max' => 200, 'step' => 2 ),
+		),
+		'tmnhanphat_home_section_pb_tablet'  => array(
+			'label'             => __( 'Section Bottom Padding — Tablet (px, 0 = giữ từng section)', 'tmnhanphat' ),
+			'section'           => 'spacing',
+			'type'              => 'number',
+			'default'           => $defaults['tmnhanphat_home_section_pb_tablet'],
+			'sanitize_callback' => 'absint',
+			'input_attrs'       => array( 'min' => 0, 'max' => 200, 'step' => 2 ),
+		),
+		'tmnhanphat_home_section_pt_mobile'  => array(
+			'label'             => __( 'Section Top Padding — Mobile (px, 0 = giữ từng section)', 'tmnhanphat' ),
+			'section'           => 'spacing',
+			'type'              => 'number',
+			'default'           => $defaults['tmnhanphat_home_section_pt_mobile'],
+			'sanitize_callback' => 'absint',
+			'input_attrs'       => array( 'min' => 0, 'max' => 160, 'step' => 2 ),
+		),
+		'tmnhanphat_home_section_pb_mobile'  => array(
+			'label'             => __( 'Section Bottom Padding — Mobile (px, 0 = giữ từng section)', 'tmnhanphat' ),
+			'section'           => 'spacing',
+			'type'              => 'number',
+			'default'           => $defaults['tmnhanphat_home_section_pb_mobile'],
+			'sanitize_callback' => 'absint',
+			'input_attrs'       => array( 'min' => 0, 'max' => 160, 'step' => 2 ),
+		),
 	);
 }
 
@@ -75,6 +126,12 @@ function tmnhanphat_global_customizer_register( $wp_customize ) {
 	$wp_customize->add_section( 'tmnhanphat_global_section_layout', array(
 		'title' => __( 'Layout', 'tmnhanphat' ),
 		'panel' => 'tmnhanphat_global_panel',
+	) );
+
+	$wp_customize->add_section( 'tmnhanphat_global_section_spacing', array(
+		'title'       => __( 'Homepage Spacing', 'tmnhanphat' ),
+		'description' => __( 'Đặt khoảng đệm trên/dưới đồng loạt cho mọi section trang chủ. Để 0 nếu muốn giữ khoảng cách riêng của từng section.', 'tmnhanphat' ),
+		'panel'       => 'tmnhanphat_global_panel',
 	) );
 
 	foreach ( tmnhanphat_get_global_customizer_fields() as $field_id => $field ) {
