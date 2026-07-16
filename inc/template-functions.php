@@ -275,16 +275,22 @@ function tmnhanphat_render_header_css_vars() {
 	$css .= '.main-navigation__panel{--header-nav-color:var(--color-text);}';
 	// Trong offcanvas: cỡ chữ menu CỐ ĐỊNH dễ đọc — không dùng công thức fluid
 	// min(24 * --fig1px) của desktop (fig co nhỏ trên mobile làm chữ chỉ ~11px).
-	$css .= '.main-navigation__panel .primary-menu{font-size:18px;gap:20px;}';
-	// FIX offcanvas KHÔNG full màn hình: transform/will-change/animation trên
-	// .site-header--transparent tạo CONTAINING BLOCK cho position:fixed → panel bị
-	// "nhốt" trong khung header (cao 130px). Ở vùng hamburger loại bỏ hết transform
-	// để panel fixed bám đúng viewport, cao full màn.
+	$css .= '.main-navigation__panel .primary-menu{font-size:18px;gap:0;}';
+	// Offcanvas: mỗi mục menu 1 dòng full-width có kẻ phân cách, xếp từ TRÊN xuống.
+	$css .= '.main-navigation__panel .primary-menu>li{width:100%;border-bottom:1px solid #F0F2F5;}';
+	$css .= '.main-navigation__panel .primary-menu>li>a{display:block;width:100%;padding:14px 0;}';
+	// FIX offcanvas KHÔNG full màn hình: transform/will-change/animation VÀ CẢ
+	// backdrop-filter trên header tạo CONTAINING BLOCK cho position:fixed → panel bị
+	// "nhốt" trong khung header (cao 130px). Ở vùng hamburger loại bỏ hết các thuộc
+	// tính đó (glass chỉ giữ trên desktop) để panel fixed bám đúng viewport.
 	$css .= '.site-header--transparent{transform:none;will-change:auto;}';
 	$css .= '.site-header--transparent.is-scrolled{animation:none;}';
+	$css .= '.site-header--solid.site-header--fixed,.site-header--transparent.is-scrolled{backdrop-filter:none;-webkit-backdrop-filter:none;background-color:' . tmnhanphat_hex_to_rgba( $sticky_bg, 97 ) . ';}';
 	$css .= '}';
 	$css .= '@media (min-width:' . ( $breakpoint + 1 ) . 'px){';
-	$css .= '.main-navigation__toggle,.main-navigation__overlay,.main-navigation__panel-close{display:none;}';
+	// Desktop: ẩn toàn bộ phần offcanvas-only — hamburger, overlay, head (logo + nút
+	// đóng) và footer (social) của panel; menu inline như bình thường.
+	$css .= '.main-navigation__toggle,.main-navigation__overlay,.main-navigation__panel-head,.main-navigation__panel-footer{display:none;}';
 	$css .= '.main-navigation__panel{position:static;width:auto;height:auto;transform:none;box-shadow:none;background:transparent;padding:0;overflow:visible;}';
 	$css .= '.submenu-toggle{display:none;}';
 	$css .= '}';

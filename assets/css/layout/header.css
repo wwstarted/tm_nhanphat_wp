@@ -346,11 +346,40 @@ body.has-fixed-header {
 	transition: transform 0.3s ease;
 	z-index: 200;
 	overflow-y: auto;
-	padding: var(--space-md);
+	padding: 20px 24px 24px;
+	/* Bố cục dọc: Head (logo + đóng) → Menu xếp từ TRÊN xuống → Social dính ĐÁY. */
+	display: flex;
+	flex-direction: column;
 }
 
 .main-navigation.is-open .main-navigation__panel {
 	transform: translateX(0);
+}
+
+/* Head offcanvas: logo trái + nút đóng phải, kẻ phân cách với menu. */
+.main-navigation__panel-head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding-bottom: 16px;
+	margin-bottom: 8px;
+	border-bottom: 1px solid #ECECEC;
+}
+
+.main-navigation__panel-logo {
+	display: inline-flex;
+	align-items: center;
+}
+
+.main-navigation__panel-logo img {
+	width: 64px;
+	height: auto;
+}
+
+.main-navigation__panel-title {
+	font-size: 1.125rem;
+	font-weight: 700;
+	color: var(--color-text);
 }
 
 .main-navigation__panel-close {
@@ -359,14 +388,20 @@ body.has-fixed-header {
 	justify-content: center;
 	width: 40px;
 	height: 40px;
-	margin-left: auto;
-	margin-bottom: var(--space-sm);
 	background: none;
 	border: 0;
 	cursor: pointer;
-	font-size: 1.5rem;
+	font-size: 1.75rem;
 	line-height: 1;
 	color: inherit;
+}
+
+/* Đáy offcanvas: đẩy xuống sát đáy panel, kẻ phân cách + social (style .footer-social
+   tái sử dụng từ footer.css — load global mọi trang). */
+.main-navigation__panel-footer {
+	margin-top: auto;
+	padding-top: 20px;
+	border-top: 1px solid #ECECEC;
 }
 
 /* Mobile: header gọn lại — logo nhỏ hơn, thấp hơn (130px chiếm quá nhiều màn nhỏ). */
