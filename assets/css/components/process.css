@@ -15,7 +15,9 @@
 	isolation: isolate;
 	overflow: hidden;
 	margin-block: var(--process-margin, 0);
-	padding-block: var(--process-padding, 96px);
+	/* Figma bất đối xứng: trên 53 (setting), dưới 0 — ảnh cột phải chạm thẳng nền xanh
+	   của Projects Section kế tiếp. */
+	padding-block: var(--process-padding, 53px) 0;
 	background-color: var(--process-bg, #ffffff);
 }
 
@@ -44,10 +46,11 @@
 }
 
 .process-home__heading {
-	margin: 0 0 var(--process-heading-margin, 12px);
-	font-size: var(--process-heading-size, 40px);
-	font-weight: var(--process-heading-weight, 800);
-	line-height: var(--process-heading-lh, 1.2);
+	margin: 0 0 var(--process-heading-margin, 24px);
+	/* Figma 96/900 — fluid theo tỉ lệ container, trần = setting theo breakpoint. */
+	font-size: clamp(30px, calc(96 * var(--fig1px)), var(--process-heading-size, 96px));
+	font-weight: var(--process-heading-weight, 900);
+	line-height: var(--process-heading-lh, 1.21);
 	letter-spacing: var(--process-heading-ls, 0);
 }
 
@@ -60,23 +63,23 @@
 }
 
 .process-home__description {
-	margin: 0 var(--process-desc-margin-x, 0) var(--process-desc-margin, 48px);
-	max-width: var(--process-desc-max-width, 640px);
-	color: var(--process-desc-color, #5c5c5c);
-	font-size: var(--process-desc-size, 15px);
-	line-height: 1.7;
+	margin: 0 var(--process-desc-margin-x, 0) var(--process-desc-margin, 85px);
+	max-width: var(--process-desc-max-width, 1080px);
+	color: var(--process-desc-color, #000000);
+	font-size: clamp(13px, calc(20 * var(--fig1px)), var(--process-desc-size, 20px));
+	line-height: 1.21; /* Figma Auto (24.2/20). */
 }
 
 /* ==================== CONTENT 2 CỘT ==================== */
 .process-home__content {
 	display: flex;
 	align-items: flex-start;
-	gap: 48px;
+	gap: calc(40 * var(--fig1px)); /* Figma: timeline → ảnh 40px. */
 }
 
 .process-home__timeline {
-	flex: 0 0 var(--process-timeline-width, 46%);
-	max-width: var(--process-timeline-width, 46%);
+	flex: 0 0 var(--process-timeline-width, 43%);
+	max-width: var(--process-timeline-width, 43%);
 }
 
 /* ==================== TIMELINE ==================== */
@@ -84,29 +87,29 @@
 	position: relative;
 	display: flex;
 	flex-direction: column;
-	gap: var(--process-step-gap, 40px);
+	gap: var(--process-step-gap, 98px);
 	margin: 0;
 	padding: 0;
 	list-style: none;
 }
 
-/* Đường dọc xuyên suốt toàn bộ Timeline — đi qua tâm các circle, chừa nửa circle ở
-   đầu/cuối để đường không thò ra ngoài Step đầu và Step cuối (đúng design). */
+/* Đường dọc xuyên suốt Timeline — đi qua tâm các circle. Figma: line NHÔ LÊN TRÊN
+   circle đầu 52px và dừng cách đáy step cuối 21px (Line 7..10). */
 .process-home__steps::before {
 	content: "";
 	position: absolute;
-	top: calc(var(--process-circle-size, 44px) / 2);
-	bottom: calc(var(--process-circle-size, 44px) / 2);
-	left: calc((var(--process-circle-size, 44px) - var(--process-line-width, 2px)) / 2);
-	width: var(--process-line-width, 2px);
-	background-color: var(--process-line-color, #E5E7EB);
+	top: calc(-52 * var(--fig1px));
+	bottom: calc(21 * var(--fig1px));
+	left: calc((var(--process-circle-size, 76px) - var(--process-line-width, 1px)) / 2);
+	width: var(--process-line-width, 1px);
+	background-color: var(--process-line-color, #ECECEC);
 }
 
 .process-step {
 	position: relative;
 	display: flex;
 	align-items: flex-start;
-	gap: 20px;
+	gap: calc(40 * var(--fig1px)); /* Figma: circle → nội dung 40px. */
 	padding: var(--process-step-padding, 0);
 	border-radius: var(--process-step-radius, 0);
 }
@@ -118,14 +121,16 @@
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	flex: 0 0 var(--process-circle-size, 44px);
-	width: var(--process-circle-size, 44px);
-	height: var(--process-circle-size, 44px);
+	flex: 0 0 var(--process-circle-size, 76px);
+	width: var(--process-circle-size, 76px);
+	height: var(--process-circle-size, 76px);
 	border: var(--process-circle-border, 1px solid #D9D9D9);
 	border-radius: 100%;
 	background-color: var(--process-circle-inactive-bg, #ffffff);
-	color: var(--process-inactive-text, #C4C9D0);
-	font-weight: 700;
+	color: var(--process-inactive-text, #ECECEC);
+	/* Figma: số trong circle Inter 36/400. */
+	font-size: clamp(18px, calc(36 * var(--fig1px)), 36px);
+	font-weight: 400;
 	box-shadow: 0 0 0 0 transparent;
 	transition: background-color var(--process-transition, 400ms) ease,
 		color var(--process-transition, 400ms) ease,
@@ -151,15 +156,16 @@
 
 .process-step__body {
 	/* Bù chiều cao circle để Title thẳng hàng giữa với circle. */
-	padding-top: calc((var(--process-circle-size, 44px) - 1.35em) / 2);
+	padding-top: calc((var(--process-circle-size, 76px) - 1.21em) / 2);
 }
 
 .process-step__title {
-	margin: 0 0 8px;
-	color: var(--process-inactive-text, #C4C9D0);
-	font-size: 20px;
-	font-weight: 800;
-	line-height: 1.35;
+	margin: 0 0 calc(20 * var(--fig1px)); /* Figma: Title → Description 20px. */
+	color: var(--process-inactive-text, #ECECEC);
+	/* Figma: Title step Inter 40/700 — fluid theo container. */
+	font-size: clamp(20px, calc(40 * var(--fig1px)), 40px);
+	font-weight: 700;
+	line-height: 1.21;
 	transition: color var(--process-transition, 400ms) ease;
 }
 
@@ -172,10 +178,12 @@
 .process-step__description {
 	margin: 0;
 	max-width: 94%;
-	color: var(--process-desc-color, #5c5c5c);
-	font-size: 14px;
-	line-height: 1.6;
-	opacity: var(--process-inactive-desc-opacity, 0.45);
+	/* Figma: mô tả step #4A4F57 20/400 (khác Description của section — không có setting
+	   riêng nên hardcode theo design; inactive nhạt đi bằng opacity bên dưới). */
+	color: #4A4F57;
+	font-size: clamp(13px, calc(20 * var(--fig1px)), 20px);
+	line-height: 1.21;
+	opacity: var(--process-inactive-desc-opacity, 0.15);
 	transform: translateY(5px);
 	transition: opacity var(--process-transition, 400ms) ease,
 		transform var(--process-transition, 400ms) ease;
@@ -198,12 +206,12 @@
 	width: var(--process-image-width, 100%);
 	max-width: 100%;
 	height: var(--process-image-height, auto);
-	/* Khung LANDSCAPE cố định 4:3 — ảnh gốc dọc/ngang gì cũng nằm gọn trong khung,
+	/* Figma: khung VUÔNG 856×856 — ảnh gốc dọc/ngang gì cũng nằm gọn trong khung,
 	   không kéo giãn chiều cao section theo ảnh. Image Height trong Customizer (>0)
-	   vẫn được ưu tiên đè lên ratio; max-height chặn trần cho cột quá rộng. */
-	aspect-ratio: 4 / 3;
-	max-height: 460px;
-	border-radius: var(--process-image-radius, 12px);
+	   vẫn được ưu tiên đè lên ratio; max-height co theo tỉ lệ container. */
+	aspect-ratio: 1 / 1;
+	max-height: calc(856 * var(--fig1px));
+	border-radius: var(--process-image-radius, 0px);
 	object-fit: var(--process-image-fit, cover);
 	object-position: center;
 	transition: opacity var(--process-transition, 400ms) ease,
@@ -248,7 +256,7 @@
 	.process-home__steps::before {
 		top: 18px;
 		bottom: 18px;
-		left: calc((36px - var(--process-line-width, 2px)) / 2);
+		left: calc((36px - var(--process-line-width, 1px)) / 2);
 	}
 
 	.process-step__title {

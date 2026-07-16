@@ -14,7 +14,8 @@
 	isolation: isolate;
 	overflow: hidden;
 	margin-block: var(--projects-margin, 0);
-	padding-block: var(--projects-padding, 96px);
+	/* Figma bất đối xứng: trên 161 (setting), dưới 91 (dots → hết nền xanh). */
+	padding-block: var(--projects-padding, 161px) calc(91 * var(--fig1px));
 	background-color: var(--projects-bg, #046AB5);
 }
 
@@ -39,20 +40,21 @@
 
 /* ==================== HEADER ==================== */
 .projects-home__heading {
-	margin: 0 0 12px;
+	margin: 0 0 calc(27 * var(--fig1px)); /* Figma: Heading → Description 27px. */
 	color: var(--projects-title-color, #ffffff);
-	font-size: var(--projects-title-size, 40px);
-	font-weight: var(--projects-title-weight, 800);
-	line-height: 1.2;
+	/* Figma 96/900 — fluid theo tỉ lệ container, trần = setting theo breakpoint. */
+	font-size: clamp(30px, calc(96 * var(--fig1px)), var(--projects-title-size, 96px));
+	font-weight: var(--projects-title-weight, 900);
+	line-height: 1.21;
 	text-align: var(--projects-title-align, center);
 }
 
 .projects-home__description {
-	margin: 0 var(--projects-desc-margin-x, auto) var(--projects-header-margin, 48px);
-	max-width: var(--projects-desc-max-width, 560px);
-	color: var(--projects-desc-color, #D8E6F3);
-	font-size: var(--projects-desc-size, 14px);
-	line-height: 1.7;
+	margin: 0 var(--projects-desc-margin-x, auto) var(--projects-header-margin, 72px);
+	max-width: var(--projects-desc-max-width, 1006px);
+	color: var(--projects-desc-color, #ffffff);
+	font-size: clamp(13px, calc(20 * var(--fig1px)), var(--projects-desc-size, 20px));
+	line-height: 1.21; /* Figma Auto (24.2/20). */
 	text-align: var(--projects-desc-align, center);
 }
 
@@ -78,14 +80,14 @@
 
 /* Dots: đè màu/kích thước theo Customizer của section này. */
 .projects-home .tmnp-slider__dots {
-	gap: var(--projects-dot-gap, 10px);
-	margin-top: 32px;
+	gap: var(--projects-dot-gap, 27px);
+	margin-top: calc(43 * var(--fig1px)); /* Figma: đáy card → dots 43px. */
 }
 
 .projects-home .tmnp-slider__dot {
-	width: var(--projects-dot-size, 10px);
-	height: var(--projects-dot-size, 10px);
-	background-color: var(--projects-dot-color, #9CC3E8);
+	width: var(--projects-dot-size, 19px);
+	height: var(--projects-dot-size, 19px);
+	background-color: var(--projects-dot-color, #A2A2A2);
 }
 
 .projects-home .tmnp-slider__dot.is-active {
@@ -96,18 +98,23 @@
 	outline-color: var(--projects-dot-active, #ffffff);
 }
 
-/* ==================== PROJECT CARD (kính mờ, 2 cột 65/35) ==================== */
+/* ==================== PROJECT CARD (nền đặc #A1ACC1, 2 cột 65/35) ==================== */
 .project-card {
 	display: flex;
 	align-items: var(--projects-valign, center);
-	gap: var(--projects-content-gap, 48px);
-	padding: var(--projects-card-padding, 40px);
-	border-radius: var(--projects-card-radius, 24px);
-	background-color: var(--projects-card-bg, rgb(255 255 255 / 0.14));
+	gap: var(--projects-content-gap, 33px);
+	/* Figma: card 1590×750 (hẹp hơn container 1636, căn giữa), padding 4 phía
+	   67/97/55/90, shadow 0/4/4 25% — co theo tỉ lệ container. */
+	max-width: calc(1590 * var(--fig1px));
+	margin-inline: auto;
+	padding: calc(67 * var(--fig1px)) calc(97 * var(--fig1px)) calc(55 * var(--fig1px)) calc(90 * var(--fig1px));
+	border-radius: var(--projects-card-radius, 40px);
+	background-color: var(--projects-card-bg, #A1ACC1);
+	box-shadow: 0 4px 4px rgb(0 0 0 / 0.25);
 }
 
 .project-card__content {
-	flex: 0 0 calc(var(--projects-left-width, 65%) - var(--projects-content-gap, 48px));
+	flex: 0 0 calc(var(--projects-left-width, 65%) - var(--projects-content-gap, 33px));
 	min-width: 0;
 }
 
@@ -122,9 +129,10 @@
 	   trình duyệt vẽ theo màu của phần tử -webkit-box này, đặt màu ở <a> con không đủ
 	   nên "..." bị mặc định đen. */
 	color: var(--projects-ptitle-color, #ffffff);
-	font-size: var(--projects-ptitle-size, 30px);
-	font-weight: var(--projects-ptitle-weight, 800);
-	line-height: 1.3;
+	/* Figma 55/700 — fluid theo container. */
+	font-size: clamp(24px, calc(55 * var(--fig1px)), var(--projects-ptitle-size, 55px));
+	font-weight: var(--projects-ptitle-weight, 700);
+	line-height: 1.21;
 }
 
 .project-card__title a {
@@ -138,43 +146,44 @@
 }
 
 .project-card__description {
-	margin: 0 0 var(--projects-pdesc-margin, 28px);
-	max-width: 94%;
-	color: var(--projects-pdesc-color, #DCE9F5);
-	font-size: var(--projects-pdesc-size, 14px);
-	line-height: 1.7;
+	margin: 0 0 var(--projects-pdesc-margin, 37px);
+	max-width: calc(625 * var(--fig1px)); /* Figma: box mô tả 625px. */
+	color: var(--projects-pdesc-color, #ffffff);
+	font-size: clamp(13px, calc(20 * var(--fig1px)), var(--projects-pdesc-size, 20px));
+	line-height: 1.21; /* Figma Auto (24.2/20). */
 }
 
 /* ==================== META (3 mục, divider trên mỗi mục — đúng design) ==================== */
 .project-card__meta {
 	display: flex;
 	flex-direction: column;
-	gap: var(--projects-meta-gap, 18px);
+	gap: calc(33 * var(--fig1px)); /* Figma: value → divider mục kế 33px. */
 	margin: 0;
 	padding: 0;
 	list-style: none;
-	/* Divider trong design chỉ chạy ngang phần meta, không kéo hết cột nội dung. */
-	max-width: 320px;
+	/* Divider trong design chỉ chạy ngang phần meta (Figma 376px), không kéo hết cột. */
+	max-width: calc(376 * var(--fig1px));
 }
 
 .project-card__meta-item {
-	padding-top: var(--projects-meta-gap, 18px);
-	border-top: var(--projects-divider, 1px solid #7FB3DD);
+	padding-top: var(--projects-meta-gap, 18px); /* Figma: divider → label 18px. */
+	border-top: var(--projects-divider, 1px solid #ffffff);
 }
 
 .project-card__meta-label {
 	display: block;
-	margin-bottom: 4px;
-	color: var(--projects-meta-label-color, #BCD7EE);
-	font-size: var(--projects-meta-label-size, 13px);
+	margin-bottom: 7px; /* Figma: label → value 7px. */
+	color: var(--projects-meta-label-color, #E7F0FF);
+	font-size: clamp(13px, calc(20 * var(--fig1px)), var(--projects-meta-label-size, 20px));
 }
 
 .project-card__meta-value {
 	display: block;
 	color: var(--projects-meta-value-color, #ffffff);
-	font-size: var(--projects-meta-value-size, 18px);
+	/* Figma 32/700 — fluid theo container. */
+	font-size: clamp(18px, calc(32 * var(--fig1px)), var(--projects-meta-value-size, 32px));
 	font-weight: 700;
-	line-height: 1.35;
+	line-height: 1.21;
 }
 
 /* ==================== THUMBNAIL (khung cố định, cover crop center) ==================== */
@@ -190,7 +199,8 @@
 
 .project-card__image {
 	width: 100%;
-	height: var(--projects-thumb-height, 525px);
+	/* Figma: ảnh cao 628 — co theo tỉ lệ container, trần = setting. */
+	height: min(var(--projects-thumb-height, 628px), calc(628 * var(--fig1px)));
 	object-fit: var(--projects-thumb-fit, cover);
 	object-position: center;
 	transition: transform 0.3s ease;
@@ -202,17 +212,17 @@
 
 /* ==================== RESPONSIVE ==================== */
 @media (max-width: 991px) {
+	/* Padding card KHÔNG cần override — đã co theo --fig1px ở rule desktop. */
 	.project-card {
 		gap: 32px;
-		padding: calc(var(--projects-card-padding, 40px) * 0.75);
 	}
 
 	.project-card__content {
-		flex-basis: calc(var(--projects-left-width, 60%) - 32px);
+		flex-basis: calc(var(--projects-left-width, 65%) - 32px);
 	}
 
 	.project-card__image {
-		height: calc(var(--projects-thumb-height, 525px) * 0.8);
+		height: calc(var(--projects-thumb-height, 628px) * 0.8);
 	}
 }
 
@@ -237,7 +247,7 @@
 	}
 
 	.project-card__image {
-		height: calc(var(--projects-thumb-height, 525px) * 0.65);
+		height: calc(var(--projects-thumb-height, 628px) * 0.65);
 	}
 }
 

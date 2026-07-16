@@ -27,8 +27,8 @@
 
 .services-home__heading {
 	margin: 0 0 var(--services-heading-margin, 37px);
-	/* Figma: 85px trên canvas 1920 (4.43vw) — fluid, chạm đúng 85px ở 1920. */
-	font-size: clamp(2rem, 4.43vw, var(--services-heading-size, 85px));
+	/* Figma: 85px — fluid theo tỉ lệ container (--fig1px). */
+	font-size: clamp(2rem, calc(85 * var(--fig1px)), var(--services-heading-size, 85px));
 	font-weight: var(--services-heading-weight, 900);
 	line-height: 1.21;
 }
@@ -45,7 +45,7 @@
 	margin: 0 auto var(--services-desc-margin, 57px);
 	max-width: var(--services-desc-max-width, 1068px);
 	color: var(--services-desc-color, #464646);
-	font-size: var(--services-desc-size, 20px);
+	font-size: clamp(13px, calc(20 * var(--fig1px)), var(--services-desc-size, 20px));
 	line-height: 1.21; /* Figma Auto (24.2/20). */
 }
 
@@ -222,8 +222,8 @@
 .service-card__title {
 	margin: 0 0 14px; /* Figma: Title → Excerpt 14px. */
 	color: var(--services-title-color, #ffffff);
-	/* Figma: 48/900 trên canvas 1920 (2.5vw) — fluid theo bề rộng. */
-	font-size: clamp(1.5rem, 2.5vw, var(--services-title-size, 48px));
+	/* Figma: 48/900 — fluid theo tỉ lệ container. */
+	font-size: clamp(1.5rem, calc(48 * var(--fig1px)), var(--services-title-size, 48px));
 	font-weight: 900;
 	line-height: 1.21;
 	transition: color var(--services-hover-duration, 300ms) ease;
@@ -237,8 +237,8 @@
 .service-card__excerpt {
 	margin: 0;
 	color: var(--services-excerpt-color, #ffffff);
-	/* Figma: 20/400 trắng, lh Auto (~1.21), tối đa 3 dòng. */
-	font-size: clamp(0.875rem, 1.04vw, var(--services-excerpt-size, 20px));
+	/* Figma: 20/400 trắng, lh Auto (~1.21), tối đa 3 dòng — fluid theo container. */
+	font-size: clamp(0.875rem, calc(20 * var(--fig1px)), var(--services-excerpt-size, 20px));
 	line-height: 1.21;
 	display: -webkit-box;
 	-webkit-box-orient: vertical;
@@ -279,8 +279,8 @@
 	border-radius: var(--services-cta-radius, 999px);
 	background-color: var(--services-cta-bg, #046AB5);
 	color: var(--services-cta-text, #ffffff);
-	/* Figma: chữ CTA Inter 24/400 + shadow 0/4/4 25%. */
-	font-size: var(--services-cta-size, 24px);
+	/* Figma: chữ CTA Inter 24/400 + shadow 0/4/4 25% — fluid theo container. */
+	font-size: clamp(1rem, calc(24 * var(--fig1px)), var(--services-cta-size, 24px));
 	font-weight: 400;
 	box-shadow: 0 4px 4px rgb(0 0 0 / 0.25);
 	transition: background-color 0.2s ease, transform 0.2s ease;

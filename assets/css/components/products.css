@@ -15,20 +15,23 @@
 	overflow: hidden; /* decoration góc phải không tạo scroll ngang */
 	margin-top: var(--products-margin-top, 0);
 	margin-bottom: var(--products-margin-bottom, 0);
-	padding-block: var(--products-padding, 80px);
+	/* Figma bất đối xứng: trên 203 (đáy About→Heading, theo setting Padding), dưới 57 —
+	   co theo tỉ lệ container (--fig1px) để giữ đúng nhịp thiết kế ở màn hẹp. */
+	padding-block: min(var(--products-padding, 203px), calc(203 * var(--fig1px))) calc(57 * var(--fig1px));
 	background-color: var(--products-bg, #ffffff);
 	background-image: var(--products-bg-image, none);
 	background-size: cover;
 	background-position: center;
 }
 
-/* Decoration (tam giác xanh) — thuần trang trí, neo góc trên phải, không bắt sự kiện chuột. */
+/* Decoration (tam giác xanh) — thuần trang trí, neo mép phải, không bắt sự kiện chuột.
+   Figma: 211×290, đỉnh NGANG với Heading (= padding-top của section, không phải top 0). */
 .products-home__decoration {
 	position: absolute;
-	top: 0;
+	top: min(var(--products-padding, 203px), calc(203 * var(--fig1px)));
 	right: 0;
 	z-index: 0;
-	width: clamp(110px, 16vw, 240px);
+	width: clamp(110px, calc(211 * var(--fig1px)), 211px);
 	height: auto;
 	pointer-events: none;
 }
@@ -41,15 +44,16 @@
 
 /* ==================== HEADER ==================== */
 .products-home__header {
-	margin-bottom: var(--products-header-gap, 36px);
+	margin-bottom: min(var(--products-header-gap, 110px), calc(110 * var(--fig1px)));
 	text-align: var(--products-heading-align, center);
 }
 
 .products-home__heading {
-	margin: 0 0 10px;
-	font-size: var(--products-heading-size, 40px);
-	font-weight: var(--products-heading-weight, 800);
-	line-height: var(--products-heading-lh, 1.2);
+	margin: 0 0 calc(23 * var(--fig1px)); /* Figma: Heading → Description 23px. */
+	/* Fluid theo container (--fig1px, 85px tại chuẩn 1684), trần = setting, sàn 30px. */
+	font-size: clamp(30px, calc(85 * var(--fig1px)), var(--products-heading-size, 85px));
+	font-weight: var(--products-heading-weight, 900);
+	line-height: var(--products-heading-lh, 1.21);
 	letter-spacing: var(--products-heading-ls, 0);
 }
 
@@ -63,16 +67,19 @@
 
 .products-home__description {
 	margin: 0 auto;
-	max-width: var(--products-desc-max-width, 680px);
-	color: var(--products-desc-color, #6b7280);
-	font-size: var(--products-desc-size, 15px);
-	line-height: 1.7;
+	max-width: var(--products-desc-max-width, 1068px);
+	color: var(--products-desc-color, #464646);
+	font-size: clamp(13px, calc(20 * var(--fig1px)), var(--products-desc-size, 20px));
+	line-height: 1.21; /* Figma Auto (24.2/20). */
 }
 
 /* ==================== CATEGORY NAVIGATION ==================== */
 /* Yêu cầu responsive: KHÔNG xuống nhiều dòng — thiếu chỗ thì cuộn ngang (overflow-x). */
 .products-home__cats {
-	margin-bottom: var(--products-cats-bottom, 32px);
+	margin-bottom: min(var(--products-cats-bottom, 78px), calc(78 * var(--fig1px)));
+	/* Figma: đường kẻ ngang 1px đen chạy dưới dải tab, cách đáy tab 37px (Line 6). */
+	padding-bottom: calc(37 * var(--fig1px));
+	border-bottom: 1px solid #000000;
 }
 
 .products-home__cat-list {
@@ -97,13 +104,14 @@
 	display: inline-flex;
 	align-items: center;
 	white-space: nowrap;
-	padding: var(--products-cats-padding, 9px 18px);
-	border: 1px solid var(--products-cats-border, #e5e7eb);
-	border-radius: var(--products-cats-radius, 4px);
+	padding: var(--products-cats-padding, 15px 30px);
+	border: 1px solid var(--products-cats-border, #ffffff);
+	border-radius: var(--products-cats-radius, 20px);
 	background-color: var(--products-cats-bg, #ffffff);
-	color: var(--products-cats-color, #6b7280);
-	font-size: var(--products-cats-size, 14px);
-	font-weight: 600;
+	color: var(--products-cats-color, #4A4F57);
+	/* Figma: chữ tab Inter 24/400 — fluid theo container. */
+	font-size: clamp(14px, calc(24 * var(--fig1px)), var(--products-cats-size, 24px));
+	font-weight: 400;
 	transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
@@ -150,7 +158,11 @@
 .tmnp-products-slider__track {
 	display: grid;
 	grid-template-columns: repeat(var(--products-cols, 3), 1fr);
-	gap: var(--products-gap, 24px);
+	/* Figma: gap cột 123 (setting là trần), gap hàng 114 — co theo tỉ lệ container. */
+	gap: calc(114 * var(--fig1px)) min(var(--products-gap, 123px), calc(123 * var(--fig1px)));
+	/* Chừa chỗ cho hover translateY(-5px) + shadow hover — viewport overflow:hidden
+	   sẽ cắt phần card nhô lên nếu không có khoảng đệm này (cùng pattern Services). */
+	padding-block: 6px 16px;
 }
 
 /* JS đã nâng cấp: track thành dải flex các "trang", trượt bằng transform. */
@@ -173,7 +185,8 @@
 	max-width: 100%;
 	display: grid;
 	grid-template-columns: repeat(var(--products-cols, 3), 1fr);
-	gap: var(--products-gap, 24px);
+	/* đồng bộ với track no-JS (fluid theo container). */
+	gap: calc(114 * var(--fig1px)) min(var(--products-gap, 123px), calc(123 * var(--fig1px)));
 	align-content: start;
 }
 
@@ -188,8 +201,9 @@
 .tmnp-products-slider__dots {
 	display: flex;
 	justify-content: center;
-	gap: var(--products-dot-gap, 10px);
-	margin-top: 28px;
+	gap: var(--products-dot-gap, 16px);
+	/* Figma: đáy card cuối → dots 54px (38 + 16 padding-bottom của track ở trên). */
+	margin-top: 38px;
 }
 
 .tmnp-products-slider__dot {
@@ -222,8 +236,10 @@
 	display: flex;
 	flex-direction: column;
 	background-color: #ffffff;
-	border-radius: var(--products-card-radius, 8px);
-	box-shadow: var(--products-card-shadow, 0 2px 10px rgb(6 24 44 / 0.07));
+	/* Figma: card viền 1px #E8E6E1, r=30, KHÔNG shadow. */
+	border: 1px solid #E8E6E1;
+	border-radius: var(--products-card-radius, 30px);
+	box-shadow: var(--products-card-shadow, none);
 	overflow: hidden;
 	transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
@@ -259,15 +275,16 @@
 	display: flex;
 	flex-direction: column;
 	flex-grow: 1; /* footer luôn dính đáy card, các card trong hàng cao bằng nhau */
-	gap: 6px;
-	padding: var(--products-card-padding, 16px);
+	gap: calc(12 * var(--fig1px)); /* Figma: Title→Meta 15, Meta→Meta 12. */
+	padding: min(var(--products-card-padding, 24px), calc(24 * var(--fig1px)));
 }
 
 .product-card__title {
 	margin: 0;
-	font-size: var(--products-title-size, 17px);
+	/* Figma 28px — fluid theo container để giữ đúng tỉ lệ chữ/card (không nhảy dòng). */
+	font-size: clamp(16px, calc(28 * var(--fig1px)), var(--products-title-size, 28px));
 	font-weight: 700;
-	line-height: 1.35;
+	line-height: 1.21; /* Figma Auto (33.9/28). */
 	text-align: var(--products-title-align, left);
 	/* Giới hạn số dòng — dài hơn hiện "..." (yêu cầu Card). */
 	display: -webkit-box;
@@ -288,9 +305,9 @@
 
 .product-card__meta {
 	margin: 0;
-	color: var(--products-meta-color, #6b7280);
-	font-size: var(--products-meta-size, 13px);
-	line-height: 1.5;
+	color: var(--products-meta-color, #4A4F57);
+	font-size: clamp(13px, calc(20 * var(--fig1px)), var(--products-meta-size, 20px));
+	line-height: 1.21; /* Figma Auto. */
 }
 
 .product-card__footer {
@@ -302,15 +319,17 @@
 	padding-top: 10px;
 }
 
+/* Figma: "Giá: Liên hệ" Inter 28/700 ("Giá:" đen + "Liên hệ" đỏ) — fluid theo container. */
 .product-card__price {
 	margin: 0;
-	font-size: var(--products-meta-size, 13px);
+	font-size: clamp(1rem, calc(28 * var(--fig1px)), 1.75rem);
+	font-weight: 700;
 	color: var(--color-text, #1a1a1a);
 }
 
 .product-card__contact {
 	color: var(--products-contact-color, #E31F2B);
-	font-weight: 600;
+	font-weight: 700;
 	transition: opacity 0.2s ease;
 }
 
@@ -321,18 +340,19 @@
 	text-decoration: underline;
 }
 
-/* Hover Button: đổi màu nền (yêu cầu Animation). */
+/* Hover Button: đổi màu nền (yêu cầu Animation).
+   Figma: nút "Chi tiết" 149×39, chữ 24/400 → padding 4/24, fluid theo container. */
 .product-card__button {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
 	flex-shrink: 0;
-	padding: 7px 20px;
+	padding: 4px 24px;
 	border-radius: var(--products-button-radius, 999px);
 	background-color: var(--products-button-bg, #046AB5);
 	color: var(--products-button-color, #ffffff);
-	font-size: var(--products-meta-size, 13px);
-	font-weight: 600;
+	font-size: clamp(0.875rem, calc(24 * var(--fig1px)), 1.5rem);
+	font-weight: 400;
 	white-space: nowrap;
 	transition: background-color 0.2s ease;
 }
@@ -346,6 +366,28 @@
 .product-card__button:focus-visible {
 	outline: 2px solid var(--products-button-bg, #046AB5);
 	outline-offset: 2px;
+}
+
+/* ==================== RESPONSIVE ==================== */
+/* Gap lưới Figma (123/114) chỉ hợp desktop rộng — tablet/mobile thu gọn tương ứng
+   (Figma không có spec tablet/mobile; giá trị chọn theo tỉ lệ card nhỏ lại). */
+@media (max-width: 991px) {
+	.tmnp-products-slider__track,
+	.tmnp-products-slider__page {
+		gap: 48px 24px;
+	}
+
+	.products-home__cats {
+		margin-bottom: 48px;
+		padding-bottom: 20px;
+	}
+}
+
+@media (max-width: 599px) {
+	.tmnp-products-slider__track,
+	.tmnp-products-slider__page {
+		gap: 24px;
+	}
 }
 
 /* ==================== REDUCED MOTION ==================== */

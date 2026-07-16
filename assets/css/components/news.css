@@ -16,7 +16,8 @@
 	isolation: isolate;
 	overflow: hidden; /* decoration góc phải không tạo scroll ngang */
 	margin-block: var(--news-margin, 0);
-	padding-block: var(--news-padding, 96px);
+	/* Figma bất đối xứng: trên 36 (setting), dưới 90 (dots → hết bg). */
+	padding-block: var(--news-padding, 36px) calc(90 * var(--fig1px));
 	background-color: var(--news-bg, #ffffff);
 }
 
@@ -54,33 +55,36 @@
 
 /* ==================== HEADER ==================== */
 .news-home__header {
-	margin-bottom: var(--news-header-margin, 56px);
+	margin-bottom: var(--news-header-margin, 151px);
 	text-align: var(--news-header-align, center);
 }
 
 .news-home__small {
 	display: block;
 	margin-bottom: 10px;
-	color: var(--news-heading-blue, #046AB5);
-	font-size: var(--news-small-size, 13px);
+	color: var(--news-heading-blue, #0C4B9B);
+	font-size: var(--news-small-size, 12px);
 	font-weight: 700;
-	letter-spacing: 0.14em;
+	letter-spacing: 0.14em; /* Figma: ls 1.68/12 = 14%. */
 	text-transform: uppercase;
 }
 
 .news-home__heading {
 	margin: 0 0 12px;
-	font-size: var(--news-title-size, 40px);
-	font-weight: 800;
-	line-height: 1.2;
+	/* Figma: 60/700 MỘT MÀU #0C4B9B, ls -3.3px (-0.055em) — fluid theo container.
+	   Weight/ls đặt ở đây thắng .review-home__heading reuse (news.css load sau). */
+	font-size: clamp(26px, calc(60 * var(--fig1px)), var(--news-title-size, 60px));
+	font-weight: 700;
+	line-height: 1.21;
+	letter-spacing: -0.055em;
 }
 
 .news-home__heading-blue {
-	color: var(--news-heading-blue, #046AB5);
+	color: var(--news-heading-blue, #0C4B9B);
 }
 
 .news-home__heading-red {
-	color: var(--news-heading-red, #E31F2B);
+	color: var(--news-heading-red, #E31F2B); /* Chủ dự án chốt: "nổi bật" màu đỏ. */
 }
 
 /* Divider fallback khi KHÔNG reuse review-home__heading — vẽ gạch đôi đỏ/xanh riêng. */
@@ -101,23 +105,23 @@
 
 .news-home__description {
 	margin: 0 var(--news-header-margin-x, auto) 0;
-	max-width: var(--news-desc-max-width, 720px);
-	color: var(--news-desc-color, #5c5c5c);
+	max-width: var(--news-desc-max-width, 817px);
+	color: var(--news-desc-color, #667180);
 	font-size: var(--news-desc-size, 14px);
-	line-height: 1.7;
+	line-height: 1.75; /* Figma: lh 24.5px (175%). */
 }
 
 /* ==================== SLIDER (override base .tmnp-slider theo scope) ==================== */
 .news-home .tmnp-slider__track {
-	gap: var(--news-gap, 24px);
-	/* Card có shadow — chừa chỗ để overflow:hidden của viewport không cắt shadow. */
+	gap: var(--news-gap, 15px);
+	/* Card có hover translate/shadow — chừa chỗ để overflow:hidden không cắt. */
 	padding-block: 6px 16px;
 }
 
 /* 3/2/1 card mỗi khung nhìn (trần bề rộng = Card Width Figma 513px). */
 .news-home .tmnp-slider__slide {
-	flex: 0 0 calc((100% - 2 * var(--news-gap, 24px)) / 3);
-	max-width: min(var(--news-card-width, 513px), calc((100% - 2 * var(--news-gap, 24px)) / 3));
+	flex: 0 0 calc((100% - 2 * var(--news-gap, 15px)) / 3);
+	max-width: min(var(--news-card-width, 513px), calc((100% - 2 * var(--news-gap, 15px)) / 3));
 }
 
 .news-home .tmnp-slider.is-enhanced .tmnp-slider__track {
@@ -131,18 +135,19 @@
 
 /* Dots — đè màu/kích thước theo Customizer News. */
 .news-home .tmnp-slider__dots {
-	gap: var(--news-dot-gap, 8px);
-	margin-top: 32px;
+	gap: var(--news-dot-gap, 16px);
+	/* Figma: đáy card → dots 56px (40 + 16 padding-bottom của track). */
+	margin-top: calc(40 * var(--fig1px));
 }
 
 .news-home .tmnp-slider__dot {
-	width: var(--news-dot-size, 8px);
-	height: var(--news-dot-size, 8px);
+	width: var(--news-dot-size, 15px);
+	height: var(--news-dot-size, 15px);
 	background-color: var(--news-dot-inactive, #D9D9D9);
 }
 
 .news-home .tmnp-slider__dot.is-active {
-	background-color: var(--news-dot-active, #046AB5);
+	background-color: var(--news-dot-active, #0D5EA3);
 }
 
 /* Arrows — tròn nền xanh giống design. */
@@ -160,12 +165,14 @@
 	filter: brightness(1.1);
 }
 
+/* Figma: arrows nằm NGOÀI hàng card (cách container ~110px) — max() kẹp lại để không
+   thò ra ngoài viewport (bị overflow:hidden của section cắt) trên màn hẹp. */
 .news-home .tmnp-slider__arrow--prev {
-	left: -20px;
+	left: max(calc(-110 * var(--fig1px)), calc((100% - 100vw) / 2 + 8px));
 }
 
 .news-home .tmnp-slider__arrow--next {
-	right: -20px;
+	right: max(calc(-110 * var(--fig1px)), calc((100% - 100vw) / 2 + 8px));
 }
 
 /* ==================== NEWS CARD (Figma 513×561) ==================== */
@@ -175,10 +182,10 @@
 	display: flex;
 	flex-direction: column;
 	min-height: var(--news-card-height, auto);
-	border: 1px solid var(--news-card-border-color, #ECECEC);
-	border-radius: var(--news-card-radius, 16px);
+	border: 1px solid var(--news-card-border-color, #E8E6E1); /* Figma: viền #E8E6E1. */
+	border-radius: var(--news-card-radius, 20px);
 	background-color: #ffffff;
-	box-shadow: var(--news-card-shadow, 0 6px 20px rgb(6 24 44 / 0.06));
+	box-shadow: var(--news-card-shadow, none);
 	overflow: hidden;
 	transition: box-shadow 0.25s ease, transform 0.25s ease;
 }
@@ -202,7 +209,7 @@
 .news-card__image {
 	display: block;
 	width: 100%;
-	height: var(--news-thumb-height, 240px);
+	height: min(var(--news-thumb-height, 286px), calc(286 * var(--fig1px)));
 	object-fit: var(--news-thumb-fit, cover);
 	object-position: center;
 	transition: transform 0.35s ease;
@@ -216,12 +223,12 @@
 	transform: scale(var(--news-thumb-zoom, 1.05));
 }
 
-/* Padding trên/dưới gọn để box thấp hơn — nội dung khít, không khoảng trắng thừa. */
+/* Figma: ảnh → meta 20, padding ngang 28, đáy 24. */
 .news-card__body {
 	display: flex;
 	flex-direction: column;
 	flex: 1;
-	padding: 16px var(--news-card-padding, 20px) var(--news-card-padding, 20px);
+	padding: calc(20 * var(--fig1px)) var(--news-card-padding, 28px) 24px;
 }
 
 /* Meta: Date bên TRÁI — Author bên PHẢI (space-between, đúng design). */
@@ -231,17 +238,18 @@
 	align-items: center;
 	justify-content: space-between;
 	gap: 4px 14px;
-	margin-bottom: 10px;
-	color: var(--news-meta-color, #9CA3AF);
-	font-size: var(--news-meta-size, 12px);
+	margin-bottom: calc(18 * var(--fig1px)); /* Figma: meta → title 18px. */
+	color: var(--news-meta-color, #A8AEB8);
+	font-size: clamp(12px, calc(20 * var(--fig1px)), var(--news-meta-size, 20px));
 }
 
 .news-card__title {
-	margin: 0 0 8px;
-	font-size: var(--news-ptitle-size, 20px);
+	margin: 0 0 calc(17 * var(--fig1px)); /* Figma: title → excerpt 17px. */
+	/* Figma 30/700 — fluid theo container. */
+	font-size: clamp(18px, calc(30 * var(--fig1px)), var(--news-ptitle-size, 30px));
 	font-weight: var(--news-ptitle-weight, 700);
-	line-height: 1.4;
-	color: var(--news-ptitle-color, #1a1a1a);
+	line-height: 1.21;
+	color: var(--news-ptitle-color, #000000);
 }
 
 .news-card__title a {
@@ -255,25 +263,26 @@
 }
 
 .news-card__excerpt {
-	margin: 0 0 12px;
-	color: var(--news-pdesc-color, #6B7280);
-	font-size: var(--news-pdesc-size, 13px);
-	line-height: 1.6;
+	margin: 0 0 calc(13 * var(--fig1px)); /* Figma: excerpt → Xem thêm 13px. */
+	color: var(--news-pdesc-color, #A8AEB8);
+	font-size: clamp(13px, calc(20 * var(--fig1px)), var(--news-pdesc-size, 20px));
+	line-height: 1.21; /* Figma Auto (24.2/20). */
 }
 
-/* Read More neo đáy card + căn PHẢI (design) — thẳng hàng dù title 1-2 dòng. */
+/* Read More neo đáy card + căn PHẢI (design) — thẳng hàng dù title 1-2 dòng.
+   Figma: 20/400 vàng đồng #B8955A. */
 .news-card__readmore {
 	margin-top: auto;
 	align-self: flex-end;
-	color: var(--news-readmore-color, #E9A13B);
-	font-size: var(--news-pdesc-size, 13px);
-	font-weight: 600;
+	color: var(--news-readmore-color, #B8955A);
+	font-size: clamp(13px, calc(20 * var(--fig1px)), var(--news-pdesc-size, 20px));
+	font-weight: 400;
 	transition: color 0.2s ease;
 }
 
 .news-card__readmore:hover,
 .news-card__readmore:focus-visible {
-	color: var(--news-readmore-hover, #C77F1B);
+	color: var(--news-readmore-hover, #9A7A46);
 }
 
 /* ==================== RESPONSIVE ==================== */

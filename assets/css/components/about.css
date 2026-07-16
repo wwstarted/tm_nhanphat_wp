@@ -18,13 +18,15 @@
 	/* HỆ TOẠ ĐỘ FIGMA (audit lần 2): Polygon (1925×808) + Elevator (873×873) là MỘT CỤM ĐỒ HOẠ
 	   đặt theo toạ độ tuyệt đối như artboard Figma, không phải 2 phần tử layout độc lập.
 	   --about-fpx = "1 pixel Figma": bằng đúng 1px khi viewport ≥ 1925px (canvas gốc), co lại
-	   theo tỉ lệ 100vw/1925 khi màn hẹp hơn — MỌI kích thước/toạ độ của cả 2 asset đều nhân với
-	   biến này nên tương quan giữa chúng (khoảng cách 1020px, lệch đỉnh 27px, các đường xiên cắt
-	   qua Elevator) giữ nguyên TUYỆT ĐỐI ở mọi viewport, đúng yêu cầu "scale đồng đều, không đổi
-	   tương quan". Chặn dưới 0.6px: dưới ngưỡng đó Polygon thấp hơn khối Text (Text không scale
-	   theo composition) — khi chạm sàn, Polygon rộng hơn viewport và bị crop ĐỀU 2 bên (neo giữa
+	   theo tỉ lệ 100vw/1925 — MỌI kích thước/toạ độ của cả 2 asset đều nhân với biến này nên
+	   tương quan giữa chúng (khoảng cách 1089px, lệch đỉnh 27px, các đường xiên cắt qua
+	   Elevator) giữ nguyên TUYỆT ĐỐI ở mọi viewport, đúng yêu cầu "scale đồng đều, không đổi
+	   tương quan". KHÔNG chặn trần 1px: trên màn ≥1925 (2K/4K) composition tiếp tục scale to
+	   theo viewport để Polygon luôn full-bleed — không lộ khoảng trắng 2 bên (yêu cầu chủ dự
+	   án). Chặn dưới 0.6px: dưới ngưỡng đó Polygon thấp hơn khối Text (Text không scale theo
+	   composition) — khi chạm sàn, Polygon rộng hơn viewport và bị crop ĐỀU 2 bên (neo giữa
 	   bằng translateX(-50%)), góc xiên không đổi. */
-	--about-fpx: clamp(0.6px, 100vw / 1925, 1px);
+	--about-fpx: max(0.6px, 100vw / 1925);
 	/* 900 = đáy Elevator trong hệ Figma (27 đỉnh + 873 cao) — chân Elevator nhô khỏi Polygon
 	   (808) ~92px nằm trên nền trắng, giống hệt Figma. */
 	min-height: calc(900 * var(--about-fpx));
@@ -68,49 +70,49 @@
 	max-width: var(--about-text-width, 42%);
 	display: flex;
 	flex-direction: column;
-	/* Khoảng cách ĐỀU giữa Label → Heading → Description (yêu cầu spacing rộng, đồng đều). */
-	gap: clamp(16px, 2vw, 28px);
+	/* Figma: Label → Heading cách 12px (Heading → Description 30px, bù thêm 18px
+	   bằng margin-top của Description bên dưới). */
+	gap: 12px;
 }
 
-/* Design mới: bỏ gold — Subtitle trắng mờ nhẹ, letter-spacing rộng hơn cho thanh thoát. */
+/* Figma: Label Inter 32/400 TRẮNG ĐẶC, chữ thường, letter-spacing 0, lh Auto (~1.21). */
 .about-home__label {
 	margin: 0;
-	color: rgb(255 255 255 / 0.85);
-	font-size: 0.95rem;
-	font-weight: 600;
-	letter-spacing: 0.12em;
-	text-transform: uppercase;
+	color: #ffffff;
+	font-size: clamp(1.125rem, calc(32 * var(--fig1px)), 2rem);
+	font-weight: 400;
+	line-height: 1.21;
 }
 
-/* Design mới: Title TRẮNG, to & bold (không còn gold). */
+/* Figma: Heading 85/900 trắng — fluid theo tỉ lệ container (--fig1px). */
 .about-home__heading {
 	margin: 0;
 	color: #ffffff;
-	font-size: clamp(1.75rem, 1.3rem + 2vw, 2.75rem);
-	font-weight: 800;
-	line-height: 1.2;
+	font-size: clamp(2rem, calc(85 * var(--fig1px)), 5.3125rem);
+	font-weight: 900;
+	line-height: 1.21;
 }
 
+/* Figma: Description Inter 20/400 trắng đặc, lh Auto (~1.21), box 921px. */
 .about-home__description {
-	margin: 0;
-	max-width: var(--about-description-max-width, 660px);
-	color: rgb(255 255 255 / 0.9);
-	font-size: 1rem;
-	line-height: 1.75;
+	margin: 18px 0 0; /* gap 12 + 18 = 30px đúng khoảng Heading → Description Figma. */
+	max-width: var(--about-description-max-width, 921px);
+	color: #ffffff;
+	font-size: clamp(1rem, calc(20 * var(--fig1px)), 1.25rem);
+	line-height: 1.21;
 }
 
 /* Elevator PNG — asset tuyệt đối 873×873, đặt THEO TOẠ ĐỘ CỦA POLYGON chứ không theo mép
-   phải/Flexbox. Số liệu Figma: Polygon X=-3, Elevator X=1017 → mép trái Elevator cách mép trái
-   Polygon 1020fpx; Polygon Y=2254, Elevator Y=2281 → đỉnh Elevator thấp hơn đỉnh Polygon 27fpx.
-   Mép trái Polygon = 50% - 962.5fpx (nửa của 1925), nên left Elevator = 50% + (1020 - 962.5)fpx
-   = 50% + 57.5fpx. Với các mốc này, đường xiên trên của Polygon cắt qua ~15-18% chiều cao
-   Elevator và đường xiên dưới cắt ~88% — chân Elevator nhô khỏi Polygon đúng như Figma.
-   --about-elevator-ratio (Customizer, mặc định 1 = đúng 873fpx thiết kế) là hệ số tinh chỉnh
-   kích thước; Horizontal/Vertical Offset cộng thêm qua translate() như cũ. */
+   phải/Flexbox. Số liệu Figma (bản hiện hành, node 360:2): Polygon X=-3, Elevator X=1086 →
+   mép trái Elevator cách mép trái Polygon 1089fpx; đỉnh Elevator thấp hơn đỉnh Polygon 27fpx.
+   Mép trái Polygon = 50% - 962.5fpx (nửa của 1925), nên left Elevator = 50% + (1089 - 962.5)fpx
+   = 50% + 126.5fpx — mép phải Elevator tràn nhẹ khỏi viewport ~39px đúng như Figma (section
+   overflow:hidden tự crop). --about-elevator-ratio (Customizer, mặc định 1 = đúng 873fpx
+   thiết kế) là hệ số tinh chỉnh kích thước; Horizontal/Vertical Offset cộng qua translate(). */
 .about-home__image {
 	position: absolute;
 	top: calc(27 * var(--about-fpx));
-	left: calc(50% + 57.5 * var(--about-fpx));
+	left: calc(50% + 126.5 * var(--about-fpx));
 	--about-reveal-x: 0px;
 	transform: translate(calc(var(--about-image-offset-x, 0px) + var(--about-reveal-x)), var(--about-image-offset-y, 0px));
 	height: calc(873 * var(--about-fpx) * var(--about-elevator-ratio, 1));

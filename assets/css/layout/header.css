@@ -27,13 +27,15 @@
 	 * Xem inc/customizer/header-customizer.php (nhóm "Navigation").
 	 */
 	--header-nav-color: var(--header-nav-text-sticky, #222222);
-	--header-nav-hover: var(--header-nav-hover-sticky, #0d6efd);
-	--header-nav-active: var(--header-nav-active-sticky, #0d6efd);
+	--header-nav-hover: var(--header-nav-hover-sticky, #046AB5);
+	--header-nav-active: var(--header-nav-active-sticky, #046AB5);
 }
 
 .site-header__inner {
-	max-width: var(--header-container-width, 1200px);
-	min-height: var(--header-height, 96px);
+	/* Setting riêng của Header (mặc định 1684 = khớp Figma), min() với công thức
+	   container fluid chung (50vw+600) để logo/menu luôn THẲNG HÀNG với nội dung body. */
+	max-width: min(var(--header-container-width, 1684px), 50vw + 600px);
+	min-height: var(--header-height, 130px);
 	margin-inline: auto;
 	padding: var(--header-padding-top, 0) var(--container-padding) var(--header-padding-bottom, 0);
 	display: flex;
@@ -52,7 +54,7 @@
 }
 
 .site-branding img {
-	width: var(--header-logo-width, 160px);
+	width: var(--header-logo-width, 96px);
 	max-width: 100%;
 	height: auto;
 }
@@ -77,15 +79,19 @@
 	left: 0;
 }
 
+/* Sticky glass (yêu cầu chủ dự án): nền mờ 85% (PHP emit rgba) + backdrop-blur —
+   nội dung cuộn phía sau thấy mờ ảo như các site hiện đại. */
 .site-header--solid.site-header--fixed {
-	background-color: var(--header-sticky-bg, #ffffff);
+	background-color: var(--header-sticky-bg, rgb(255 255 255 / 0.85));
 	color: var(--header-sticky-text, #1a1a1a);
 	box-shadow: var(--header-shadow, 0 2px 10px rgb(0 0 0 / 0.06));
+	backdrop-filter: blur(14px) saturate(1.4);
+	-webkit-backdrop-filter: blur(14px) saturate(1.4);
 }
 
 /* Chừa khoảng trống bằng chiều cao header để nội dung không bị header fixed đè lên */
 body.has-fixed-header {
-	padding-top: var(--header-height, 96px);
+	padding-top: var(--header-height, 130px);
 }
 
 /* ==================== TRẠNG THÁI: TRANSPARENT (chỉ Trang chủ) ==================== */
@@ -102,8 +108,8 @@ body.has-fixed-header {
 	opacity: 1;
 	will-change: transform, background-color, box-shadow;
 	--header-nav-color: var(--header-nav-text-floating, #ffffff);
-	--header-nav-hover: var(--header-nav-hover-floating, #0d6efd);
-	--header-nav-active: var(--header-nav-active-floating, #0d6efd);
+	--header-nav-hover: var(--header-nav-hover-floating, #ffffff);
+	--header-nav-active: var(--header-nav-active-floating, #ffffff);
 }
 
 /*
@@ -120,13 +126,16 @@ body.has-fixed-header {
    chỉ đổi màu sắc/bóng đổ — KHÔNG đổi position nên không giật, không reflow, không flicker.
    Trả --header-nav-* về bộ màu Sticky vì lúc này Header đã hiện solid như các trang khác. */
 .site-header--transparent.is-scrolled {
-	background-color: var(--header-sticky-bg, #ffffff);
+	background-color: var(--header-sticky-bg, rgb(255 255 255 / 0.85));
 	color: var(--header-sticky-text, #1a1a1a);
 	box-shadow: var(--header-shadow, 0 2px 10px rgb(0 0 0 / 0.06));
+	/* Sticky glass: blur nội dung cuộn phía sau (cùng bộ với nền mờ 85%). */
+	backdrop-filter: blur(14px) saturate(1.4);
+	-webkit-backdrop-filter: blur(14px) saturate(1.4);
 	animation: tmnhanphat-header-solidify var(--header-transition-duration, 300ms) ease-out;
 	--header-nav-color: var(--header-nav-text-sticky, #222222);
-	--header-nav-hover: var(--header-nav-hover-sticky, #0d6efd);
-	--header-nav-active: var(--header-nav-active-sticky, #0d6efd);
+	--header-nav-hover: var(--header-nav-hover-sticky, #046AB5);
+	--header-nav-active: var(--header-nav-active-sticky, #046AB5);
 }
 
 /* Hiệu ứng "settle" nhẹ (translateY + opacity) đúng lúc header chuyển sang nền đặc —
@@ -162,8 +171,9 @@ body.has-fixed-header {
 	align-items: center;
 	gap: var(--header-menu-spacing, 32px);
 	font-family: var(--header-menu-font, var(--font-family-base));
-	font-size: var(--header-menu-font-size, 16px);
-	font-weight: var(--header-menu-font-weight, 500);
+	/* Figma: 24/400 — min() với fig1px để menu co theo container ở màn hẹp, không tràn. */
+	font-size: min(var(--header-menu-font-size, 24px), calc(24 * var(--fig1px)));
+	font-weight: var(--header-menu-font-weight, 400);
 }
 
 .primary-menu > li {
@@ -175,7 +185,7 @@ body.has-fixed-header {
 /*
  * Active/Hover CHỈ đổi màu chữ — không underline, không border-bottom, không pseudo-element,
  * không transform (mục 3/4/6 — thiết kế tối giản, hiện đại). Toàn bộ dùng chung 1 biến màu
- * thương hiệu qua --header-nav-hover/--header-nav-active (mặc định #0d6efd, đăng ký ở
+ * thương hiệu qua --header-nav-hover/--header-nav-active (mặc định #046AB5, đăng ký ở
  * inc/customizer/header-customizer.php nhóm "Navigation").
  */
 .primary-menu a {
@@ -189,13 +199,13 @@ body.has-fixed-header {
 
 .primary-menu a:hover,
 .primary-menu a:focus-visible {
-	color: var(--header-nav-hover, #0d6efd);
+	color: var(--header-nav-hover, #046AB5);
 }
 
 .primary-menu > li.current-menu-item > a,
 .primary-menu > li.current_page_item > a,
 .primary-menu > li.current-menu-ancestor > a {
-	color: var(--header-nav-active, #0d6efd);
+	color: var(--header-nav-active, #046AB5);
 }
 
 /* ==================== DROPDOWN (2 cấp) ==================== */

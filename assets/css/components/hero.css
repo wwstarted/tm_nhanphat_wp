@@ -86,7 +86,7 @@
 	   subtitle → Title cách ~24px. */
 	margin-bottom: var(--space-md);
 	color: var(--hero-subtitle-color, #ffffff);
-	font-size: clamp(1.125rem, 1.67vw, var(--hero-subtitle-size, 32px));
+	font-size: clamp(1.125rem, calc(32 * var(--fig1px)), var(--hero-subtitle-size, 32px));
 	font-weight: var(--hero-subtitle-weight, 400);
 	line-height: 1.21;
 }
@@ -94,8 +94,8 @@
 .hero__heading {
 	margin-bottom: var(--hero-heading-margin-bottom, 36px);
 	color: var(--hero-heading-color, #ffffff);
-	/* Figma: 96px trên canvas 1920 (= 5vw) — fluid theo bề rộng, chạm đúng 96px ở 1920. */
-	font-size: clamp(2rem, 5vw, var(--hero-heading-size, 96px));
+	/* Figma: 96px — fluid theo tỉ lệ CONTAINER (--fig1px) để giữ đúng số dòng như thiết kế. */
+	font-size: clamp(2rem, calc(96 * var(--fig1px)), var(--hero-heading-size, 96px));
 	font-weight: var(--hero-heading-weight, 900);
 	line-height: 1.21; /* Figma Auto: 116.18/96 */
 }
@@ -105,7 +105,7 @@
 	margin-bottom: var(--hero-description-margin-bottom, 46px);
 	max-width: 1100px;
 	color: var(--hero-description-color, #ffffff);
-	font-size: var(--hero-description-size, 20px);
+	font-size: clamp(1rem, calc(20 * var(--fig1px)), var(--hero-description-size, 20px));
 	line-height: 1.21;
 }
 
@@ -131,8 +131,8 @@
 	justify-content: center;
 	padding: var(--hero-btn-padding-y, 12px) var(--hero-btn-padding-x, 20px);
 	border-radius: var(--hero-btn-radius, 50px);
-	/* Figma: chữ nút Inter 24/400 (1.25vw = 24px trên canvas 1920). */
-	font-size: clamp(1rem, 1.25vw, 1.5rem);
+	/* Figma: chữ nút Inter 24/400 — fluid theo container. */
+	font-size: clamp(1rem, calc(24 * var(--fig1px)), 1.5rem);
 	font-weight: 400;
 	white-space: nowrap;
 	transition: background-color 0.2s ease, transform 0.2s ease;
@@ -171,13 +171,13 @@
 .hero__stats {
 	position: relative;
 	z-index: 1;
-	/* Figma: Buttons → Stats 166px trên canvas 1920 (8.65vw) — co theo vw ở màn nhỏ. */
-	margin-top: min(var(--hero-stats-margin-top, 166px), 8.65vw);
+	/* Figma: Buttons → Stats 166px — co theo tỉ lệ container ở màn nhỏ. */
+	margin-top: min(var(--hero-stats-margin-top, 166px), calc(166 * var(--fig1px)));
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
 	gap: var(--space-lg);
-	/* Figma: card 260 cao — padding trong 32 trên / 84 ngang (co theo vw) / 48 dưới. */
-	padding: 32px clamp(24px, 4.4vw, 84px) 48px;
+	/* Figma: card 260 cao — padding trong 32 trên / 84 ngang (fluid container) / 48 dưới. */
+	padding: 32px clamp(24px, calc(84 * var(--fig1px)), 84px) 48px;
 	/* Figma effect GLASS: nền tối 20% + blur + viền sáng mảnh (rim kính). */
 	background-color: var(--hero-stats-card-bg, rgb(34 38 46 / 0.2));
 	border-radius: var(--hero-stats-card-radius, 40px);
@@ -213,8 +213,8 @@
 .hero__stat-number {
 	margin: 0;
 	color: var(--hero-stats-number-color, #ffffff);
-	/* Figma: 70px / weight 700 trên canvas 1920 (3.65vw = 70px). */
-	font-size: clamp(1.75rem, 3.65vw, 4.375rem);
+	/* Figma: 70px / weight 700 — fluid theo container. */
+	font-size: clamp(1.75rem, calc(70 * var(--fig1px)), 4.375rem);
 	font-weight: 700;
 	line-height: 1;
 }
@@ -227,7 +227,7 @@
 	border-radius: 999px;
 	background-color: var(--hero-stats-badge-bg, #A8AEB8);
 	color: var(--hero-stats-badge-text, #22262E);
-	font-size: clamp(0.8125rem, 1.04vw, 1.25rem);
+	font-size: clamp(0.8125rem, calc(20 * var(--fig1px)), 1.25rem);
 	font-weight: 400;
 }
 
@@ -236,7 +236,7 @@
 	margin: 0;
 	max-width: 256px;
 	color: var(--hero-stats-desc-color, rgb(255 255 255 / 0.75));
-	font-size: clamp(0.75rem, 0.83vw, 1rem);
+	font-size: clamp(0.75rem, calc(16 * var(--fig1px)), 1rem);
 	line-height: 1.21;
 }
 

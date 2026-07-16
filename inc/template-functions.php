@@ -20,11 +20,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function tmnhanphat_header_defaults() {
 	return array(
+		// Figma: logo 96×96, header cao ~130 (logo 96 + 17 trên/dưới), khung nội dung
+		// khớp container chung 1684, menu Inter 24/400 #F5F5F4, gap 32.
 		'tmnhanphat_header_logo'                => '',
 		'tmnhanphat_header_logo_retina'         => '',
-		'tmnhanphat_header_logo_width'          => 160,
-		'tmnhanphat_header_height'              => 96,
-		'tmnhanphat_header_container_width'     => 1200,
+		'tmnhanphat_header_logo_width'          => 96,
+		'tmnhanphat_header_height'              => 130,
+		'tmnhanphat_header_container_width'     => 1684,
 		'tmnhanphat_header_sticky_enable'       => true,
 		'tmnhanphat_header_transparent_enable'  => true,
 		'tmnhanphat_header_sticky_bg'           => '#ffffff',
@@ -32,8 +34,8 @@ function tmnhanphat_header_defaults() {
 		'tmnhanphat_header_transparent_text'    => '#ffffff',
 		'tmnhanphat_header_bg'                  => '#ffffff',
 		'tmnhanphat_header_menu_font'           => 'inherit',
-		'tmnhanphat_header_menu_font_size'      => 16,
-		'tmnhanphat_header_menu_font_weight'    => '500',
+		'tmnhanphat_header_menu_font_size'      => 24,
+		'tmnhanphat_header_menu_font_weight'    => '400',
 		'tmnhanphat_header_menu_spacing'        => 32,
 		'tmnhanphat_header_shadow'              => 'soft',
 		'tmnhanphat_header_border_bottom'       => false,
@@ -42,16 +44,16 @@ function tmnhanphat_header_defaults() {
 		'tmnhanphat_header_padding_top'         => 0,
 		'tmnhanphat_header_padding_bottom'      => 0,
 
-		// Navigation (Floating) — màu riêng cho menu khi Header đang trong suốt, độc lập
-		// với tmnhanphat_header_transparent_text (màu đó vẫn giữ nguyên, chỉ dùng cho Logo/Site title).
-		'tmnhanphat_header_nav_text_floating'   => '#ffffff',
-		'tmnhanphat_header_nav_hover_floating'  => '#0d6efd',
-		'tmnhanphat_header_nav_active_floating' => '#0d6efd',
+		// Navigation (Floating) — Figma: menu #F5F5F4 trên hero; hover/active sáng lên
+		// trắng đặc (brand blue quá tối trên ảnh nền tối, kém tương phản).
+		'tmnhanphat_header_nav_text_floating'   => '#F5F5F4',
+		'tmnhanphat_header_nav_hover_floating'  => '#ffffff',
+		'tmnhanphat_header_nav_active_floating' => '#ffffff',
 
-		// Navigation (Sticky) — màu riêng cho menu khi Header đã sticky/solid.
+		// Navigation (Sticky) — hover/active dùng xanh brand (bỏ #0d6efd bootstrap cũ).
 		'tmnhanphat_header_nav_text_sticky'     => '#222222',
-		'tmnhanphat_header_nav_hover_sticky'    => '#0d6efd',
-		'tmnhanphat_header_nav_active_sticky'   => '#0d6efd',
+		'tmnhanphat_header_nav_hover_sticky'    => '#046AB5',
+		'tmnhanphat_header_nav_active_sticky'   => '#046AB5',
 	);
 }
 
@@ -237,7 +239,9 @@ function tmnhanphat_render_header_css_vars() {
 	$css .= '--header-logo-width:' . $logo_width . 'px;';
 	$css .= '--header-height:' . $height . 'px;';
 	$css .= '--header-container-width:' . $container_w . 'px;';
-	$css .= '--header-sticky-bg:' . $sticky_bg . ';';
+	// Sticky glass (yêu cầu chủ dự án): nền mờ 85% + backdrop-blur (blur đặt ở
+	// header.css) — màu gốc vẫn theo setting Sticky Background.
+	$css .= '--header-sticky-bg:' . tmnhanphat_hex_to_rgba( $sticky_bg, 85 ) . ';';
 	$css .= '--header-sticky-text:' . $sticky_text . ';';
 	$css .= '--header-transparent-text:' . $trans_text . ';';
 	$css .= '--header-bg:' . $bg . ';';
@@ -269,6 +273,15 @@ function tmnhanphat_render_header_css_vars() {
 	// transparent hay sticky — ép menu bên trong dùng màu chữ tối để không bị "chữ trắng
 	// trên nền trắng" khi mở offcanvas lúc Header còn ở trạng thái Floating.
 	$css .= '.main-navigation__panel{--header-nav-color:var(--color-text);}';
+	// Trong offcanvas: cỡ chữ menu CỐ ĐỊNH dễ đọc — không dùng công thức fluid
+	// min(24 * --fig1px) của desktop (fig co nhỏ trên mobile làm chữ chỉ ~11px).
+	$css .= '.main-navigation__panel .primary-menu{font-size:18px;gap:20px;}';
+	// FIX offcanvas KHÔNG full màn hình: transform/will-change/animation trên
+	// .site-header--transparent tạo CONTAINING BLOCK cho position:fixed → panel bị
+	// "nhốt" trong khung header (cao 130px). Ở vùng hamburger loại bỏ hết transform
+	// để panel fixed bám đúng viewport, cao full màn.
+	$css .= '.site-header--transparent{transform:none;will-change:auto;}';
+	$css .= '.site-header--transparent.is-scrolled{animation:none;}';
 	$css .= '}';
 	$css .= '@media (min-width:' . ( $breakpoint + 1 ) . 'px){';
 	$css .= '.main-navigation__toggle,.main-navigation__overlay,.main-navigation__panel-close{display:none;}';
@@ -296,16 +309,17 @@ function tmnhanphat_footer_defaults() {
 		// Chỉ đổi GIÁ TRỊ MẶC ĐỊNH (không đổi cấu trúc Customizer) — admin vẫn chỉnh được.
 		// Menu/contact/divider để màu TRẮNG, độ mờ (opacity) xử lý ở footer.css để giữ hex
 		// hợp lệ cho sanitize_hex_color mà vẫn ra rgba(255,255,255,.85) như Design.
-		'tmnhanphat_footer_bg'               => '#0A4F9E',
+		// Figma: nền #0C4B9B; link menu #A8AEB8 (xám xanh nhạt) hover trắng.
+		'tmnhanphat_footer_bg'               => '#0C4B9B',
 		'tmnhanphat_footer_text'             => '#ffffff',
-		'tmnhanphat_footer_link'             => '#ffffff',
+		'tmnhanphat_footer_link'             => '#A8AEB8',
 		'tmnhanphat_footer_link_hover'       => '#ffffff',
 		'tmnhanphat_footer_bottom_bg'        => '#E31F2B',
 		'tmnhanphat_footer_bottom_text'      => '#ffffff',
 		/* translators: %s: năm hiện tại */
 		'tmnhanphat_footer_copyright'        => sprintf( __( '© Copyright %s thangmaynhanphat.com All rights reserved.', 'tmnhanphat' ), gmdate( 'Y' ) ),
 		'tmnhanphat_footer_logo'             => '',
-		'tmnhanphat_footer_logo_width'       => 160,
+		'tmnhanphat_footer_logo_width'       => 124, // Figma: logo footer 124×124.
 		'tmnhanphat_footer_company_name'     => 'Thang máy Nhân Phát',
 		'tmnhanphat_footer_email'            => 'nhanphatelevator@gmail.com',
 		'tmnhanphat_footer_email_label'      => __( 'Email', 'tmnhanphat' ),
@@ -322,12 +336,13 @@ function tmnhanphat_footer_defaults() {
 		'tmnhanphat_footer_tiktok'           => '',
 		'tmnhanphat_footer_linkedin'         => '',
 		'tmnhanphat_footer_social_enable'    => true,
-		'tmnhanphat_footer_padding'          => 64,
-		'tmnhanphat_footer_container_width'  => 1200,
+		// Figma: pad trên 65 (đáy 71 ở CSS); khung khớp container chung 1684; gap cột 32.
+		'tmnhanphat_footer_padding'          => 65,
+		'tmnhanphat_footer_container_width'  => 1684,
 		'tmnhanphat_footer_heading_color'    => '#ffffff',
 		'tmnhanphat_footer_divider_color'    => '#ffffff',
-		'tmnhanphat_footer_logo_spacing'     => 24,
-		'tmnhanphat_footer_column_gap'       => 40,
+		'tmnhanphat_footer_logo_spacing'     => 22, // Figma: logo → heading 22.
+		'tmnhanphat_footer_column_gap'       => 32,
 	);
 }
 
@@ -912,12 +927,15 @@ function tmnhanphat_get_partners_slot_count() {
 function tmnhanphat_partners_defaults() {
 	$defaults = array(
 		// General
+		// Figma: CÓ heading "Đối Tác" (85/900 #046AB5, style ở partners.css); padding trên
+		// = 0 vì khoảng 57px với section trước đã nằm trong padding-bottom của Products
+		// (đáy section = 73px, cố định ở CSS).
 		'tmnhanphat_partners_enable'             => true,
-		'tmnhanphat_partners_title_enable'       => false,
-		'tmnhanphat_partners_title'              => __( 'Đối tác đồng hành', 'tmnhanphat' ),
+		'tmnhanphat_partners_title_enable'       => true,
+		'tmnhanphat_partners_title'              => __( 'Đối Tác', 'tmnhanphat' ),
 		'tmnhanphat_partners_description_enable' => false,
 		'tmnhanphat_partners_description'        => '',
-		'tmnhanphat_partners_padding_desktop'    => 64,
+		'tmnhanphat_partners_padding_desktop'    => 0,
 		'tmnhanphat_partners_padding_tablet'     => 48,
 		'tmnhanphat_partners_padding_mobile'     => 32,
 		'tmnhanphat_partners_bg'                 => '#ffffff',
@@ -929,12 +947,13 @@ function tmnhanphat_partners_defaults() {
 		'tmnhanphat_partners_columns_desktop' => 6,
 		'tmnhanphat_partners_columns_tablet'  => 3,
 		'tmnhanphat_partners_columns_mobile'  => 2,
-		'tmnhanphat_partners_gap_desktop'     => 24,
+		// Figma: card logo 284×120, radius 20, viền 1px #A8AEB8, gap giữa card 21.
+		'tmnhanphat_partners_gap_desktop'     => 21,
 		'tmnhanphat_partners_gap_tablet'      => 16,
 		'tmnhanphat_partners_gap_mobile'      => 12,
-		'tmnhanphat_partners_card_radius'     => 14,
+		'tmnhanphat_partners_card_radius'     => 20,
 		'tmnhanphat_partners_card_padding'    => 20,
-		'tmnhanphat_partners_card_border'     => '#e8e8e8',
+		'tmnhanphat_partners_card_border'     => '#A8AEB8',
 		'tmnhanphat_partners_hover_enable'    => true,
 	);
 
@@ -1140,7 +1159,8 @@ function tmnhanphat_get_partner_logo_html( $url, $alt ) {
  */
 function tmnhanphat_global_defaults() {
 	return array(
-		'tmnhanphat_container_width'            => 1200,
+		// Figma: cột nội dung 1636px (vd Services 3×510 + 2×53) + 2×24 padding = 1684.
+		'tmnhanphat_container_width'            => 1684,
 		'tmnhanphat_container_padding_desktop' => 24,
 		'tmnhanphat_container_padding_tablet'  => 20,
 		'tmnhanphat_container_padding_mobile'  => 16,
@@ -1197,7 +1217,12 @@ function tmnhanphat_render_global_css_vars() {
 	$padding_tablet  = absint( tmnhanphat_get_global_mod( 'tmnhanphat_container_padding_tablet' ) );
 	$padding_mobile  = absint( tmnhanphat_get_global_mod( 'tmnhanphat_container_padding_mobile' ) );
 
-	$css  = ':root{--container-max-width:' . $container_width . 'px;--container-padding:' . $padding_desktop . 'px;}';
+	// Container FLUID theo yêu cầu chủ dự án: khoảng hở 2 bên = MỘT NỬA khoảng hở của
+	// container 1200 cũ ((100vw-1200)/4 mỗi bên ⇒ width = 50vw+600px), chặn trần bằng
+	// Container Width setting (mặc định 1684 = cột nội dung Figma 1636 + 2×24 padding):
+	// 1920 → hở 180px/bên; 1366 → 41px/bên; ≤1200 → full-width (tablet/mobile như cũ);
+	// ≥2168 → khoá 1684px đúng Figma, nội dung không giãn vô hạn trên 2K/4K.
+	$css  = ':root{--container-max-width:min(' . $container_width . 'px, 50vw + 600px);--container-padding:' . $padding_desktop . 'px;}';
 	$css .= '@media (max-width:991px){:root{--container-padding:' . $padding_tablet . 'px;}}';
 	$css .= '@media (max-width:599px){:root{--container-padding:' . $padding_mobile . 'px;}}';
 
@@ -1281,13 +1306,14 @@ function tmnhanphat_about_defaults() {
 		'tmnhanphat_about_heading'                => __( 'Thang Máy Nhân Phát', 'tmnhanphat' ),
 		'tmnhanphat_about_description'             => __( 'Ra đời với sứ mệnh nâng tầm chất lượng sống, Thang Máy Nhân Phát chuyên cung cấp các dòng thang máy hiện đại, an toàn, phù hợp với mọi loại công trình. Chúng tôi tự hào sở hữu đội ngũ kỹ thuật viên chuyên môn cao, dịch vụ hậu mãi tận tâm và quy trình lắp đặt - bảo trì đạt chuẩn quốc tế, tạo dựng niềm tin vững chắc với khách hàng trong suốt nhiều năm qua.', 'tmnhanphat' ),
 		'tmnhanphat_about_text_width'              => 57,
-		'tmnhanphat_about_description_max_width'   => 660,
+		'tmnhanphat_about_description_max_width'   => 921, // Figma: box Description 921px.
 		'tmnhanphat_about_vertical_align'          => 'center',
 
 		// Background Shape — Upload Shape Image (Rectangle 19.png) làm background-image cho
 		// .about-home__shape (thuần decoration, KHÔNG phải container). Fallback Background
 		// Color hiển thị khi chưa upload ảnh, tránh section trống trơn không có gì.
-		'tmnhanphat_about_bg_color'          => '#cc322d',
+		// Figma: polygon Rectangle 19 fill #046AB5 (xanh brand — không phải đỏ bản cũ).
+		'tmnhanphat_about_bg_color'          => '#046AB5',
 		'tmnhanphat_about_shape_enable'      => true,
 		'tmnhanphat_about_shape_image'       => '',
 		'tmnhanphat_about_shape_bg_size'     => '100% 100%',
@@ -1504,7 +1530,10 @@ function tmnhanphat_render_about_css_vars() {
 	$css .= '--about-text-width:' . $text_width . '%;';
 	$css .= '--about-description-max-width:' . $description_max_w . 'px;';
 	$css .= '--about-vertical-align:' . $vertical_align . ';';
-	$css .= '--about-background:' . $bg_color . ';';
+	// Fallback color CHỈ khi chưa upload Shape Image — ảnh polygon PNG có vùng TRONG SUỐT
+	// (góc vát), nếu vẫn tô màu nền đằng sau thì các góc trong suốt lộ màu → polygon
+	// biến thành khối chữ nhật đặc (bug đã gặp khi fallback đổi sang xanh brand).
+	$css .= '--about-background:' . ( $shape_image_url ? 'transparent' : $bg_color ) . ';';
 	$css .= '--about-shape-display:' . ( $shape_enable ? 'block' : 'none' ) . ';';
 	$css .= '--about-shape-image:' . ( $shape_image_url ? "url('" . esc_url( $shape_image_url ) . "')" : 'none' ) . ';';
 	$css .= '--about-shape-bg-size:' . $shape_bg_size . ';';
@@ -2025,7 +2054,8 @@ function tmnhanphat_products_defaults() {
 		'tmnhanphat_products_container_width'   => 0,
 		'tmnhanphat_products_margin_top'        => 0,
 		'tmnhanphat_products_margin_bottom'     => 0,
-		'tmnhanphat_products_padding_desktop'   => 80,
+		// Figma: đáy About→Heading = 203 (padding-top; đáy section 57 cố định ở CSS).
+		'tmnhanphat_products_padding_desktop'   => 203,
 		'tmnhanphat_products_padding_tablet'    => 56,
 		'tmnhanphat_products_padding_mobile'    => 40,
 		'tmnhanphat_products_bg_color'          => '#ffffff',
@@ -2038,41 +2068,46 @@ function tmnhanphat_products_defaults() {
 		'tmnhanphat_products_heading_blue_text'       => 'Thang Máy Nhân Phát',
 		'tmnhanphat_products_heading_red_color'       => '#E31F2B',
 		'tmnhanphat_products_heading_blue_color'      => '#046AB5',
-		'tmnhanphat_products_heading_size_desktop'    => 40,
-		'tmnhanphat_products_heading_size_tablet'     => 32,
-		'tmnhanphat_products_heading_size_mobile'     => 26,
-		'tmnhanphat_products_heading_font_weight'     => '800',
-		'tmnhanphat_products_heading_line_height'     => 1.2,
+		// Figma: Heading 85/900 (canvas 1920); tablet/mobile scale theo tỉ lệ tương đương.
+		'tmnhanphat_products_heading_size_desktop'    => 85,
+		'tmnhanphat_products_heading_size_tablet'     => 44,
+		'tmnhanphat_products_heading_size_mobile'     => 30,
+		'tmnhanphat_products_heading_font_weight'     => '900',
+		'tmnhanphat_products_heading_line_height'     => 1.21,
 		'tmnhanphat_products_heading_letter_spacing'  => 0,
 		'tmnhanphat_products_heading_align'           => 'center',
 
 		// Description
 		'tmnhanphat_products_description_text'         => 'Với danh mục sản phẩm đa dạng và phong phú, Thang Máy Nhân Phát tự tin đáp ứng mọi yêu cầu của khách hàng, từ thang máy gia đình nhỏ gọn đến thang máy tải khách, tải hàng công suất lớn.',
-		'tmnhanphat_products_description_color'        => '#6b7280',
-		'tmnhanphat_products_description_size_desktop' => 15,
-		'tmnhanphat_products_description_size_tablet'  => 14,
-		'tmnhanphat_products_description_size_mobile'  => 13,
-		'tmnhanphat_products_description_max_width'    => 680,
+		// Figma: Description 20/400 #464646, box 1068; Header → Tabs cách 110px.
+		'tmnhanphat_products_description_color'        => '#464646',
+		'tmnhanphat_products_description_size_desktop' => 20,
+		'tmnhanphat_products_description_size_tablet'  => 16,
+		'tmnhanphat_products_description_size_mobile'  => 14,
+		'tmnhanphat_products_description_max_width'    => 1068,
 		'tmnhanphat_products_description_line_clamp'   => 0,
-		'tmnhanphat_products_header_bottom_spacing'    => 36,
+		'tmnhanphat_products_header_bottom_spacing'    => 110,
 
 		// Category Navigation
 		'tmnhanphat_products_parent_cat'          => $parent ? (int) $parent->term_id : 0,
 		'tmnhanphat_products_show_empty_cats'     => false,
+		// Figma: tab active = pill 295×62 r20 nền xanh chữ trắng 24/400 (padding 15/30);
+		// tab thường = CHỈ text #4A4F57 24/400 (không nền, không viền — border trắng =
+		// vô hình trên nền trắng); gap giữa tab ~36; Tabs (kèm kẻ ngang) → Cards 78.
 		'tmnhanphat_products_cats_align'          => 'left',
-		'tmnhanphat_products_cats_gap'            => 12,
-		'tmnhanphat_products_cats_padding_x'      => 18,
-		'tmnhanphat_products_cats_padding_y'      => 9,
-		'tmnhanphat_products_cats_radius'         => 4,
-		'tmnhanphat_products_cats_font_size'      => 14,
+		'tmnhanphat_products_cats_gap'            => 36,
+		'tmnhanphat_products_cats_padding_x'      => 30,
+		'tmnhanphat_products_cats_padding_y'      => 15,
+		'tmnhanphat_products_cats_radius'         => 20,
+		'tmnhanphat_products_cats_font_size'      => 24,
 		'tmnhanphat_products_cats_active_bg'      => '#046AB5',
 		'tmnhanphat_products_cats_active_color'   => '#ffffff',
 		'tmnhanphat_products_cats_inactive_bg'    => '#ffffff',
-		'tmnhanphat_products_cats_inactive_color' => '#6b7280',
-		'tmnhanphat_products_cats_border'         => '#e5e7eb',
+		'tmnhanphat_products_cats_inactive_color' => '#4A4F57',
+		'tmnhanphat_products_cats_border'         => '#ffffff',
 		'tmnhanphat_products_cats_hover_bg'       => '#eaf3fb',
 		'tmnhanphat_products_cats_hover_color'    => '#046AB5',
-		'tmnhanphat_products_cats_bottom_spacing' => 32,
+		'tmnhanphat_products_cats_bottom_spacing' => 78,
 
 		// Query — Cols × Rows quyết định số bài / slide (Desktop 3×2=6, Tablet 2×2=4, Mobile 1×1=1).
 		'tmnhanphat_products_post_type'    => 'post',
@@ -2087,21 +2122,23 @@ function tmnhanphat_products_defaults() {
 		'tmnhanphat_products_order'        => 'DESC',
 		'tmnhanphat_products_exclude_cats' => '',
 
-		// Card
-		'tmnhanphat_products_card_radius'        => 8,
-		'tmnhanphat_products_card_shadow'        => 'soft',
-		'tmnhanphat_products_card_padding'       => 16,
-		'tmnhanphat_products_card_gap'           => 24,
+		// Card — Figma: 438×638 r=30, viền 1px #E8E6E1 (ở CSS), KHÔNG shadow, padding
+		// trong 24; gap lưới: cột 123 / hàng 114 (hàng cố định ở CSS); Title 28/700;
+		// Meta 20/400 #4A4F57.
+		'tmnhanphat_products_card_radius'        => 30,
+		'tmnhanphat_products_card_shadow'        => 'none',
+		'tmnhanphat_products_card_padding'       => 24,
+		'tmnhanphat_products_card_gap'           => 123,
 		'tmnhanphat_products_image_ratio'        => '438-403',
 		'tmnhanphat_products_image_radius'       => 0,
 		'tmnhanphat_products_hover_zoom_enable'  => true,
-		'tmnhanphat_products_title_size_desktop' => 17,
-		'tmnhanphat_products_title_size_tablet'  => 16,
-		'tmnhanphat_products_title_size_mobile'  => 16,
+		'tmnhanphat_products_title_size_desktop' => 28,
+		'tmnhanphat_products_title_size_tablet'  => 20,
+		'tmnhanphat_products_title_size_mobile'  => 18,
 		'tmnhanphat_products_title_line_clamp'   => 2,
 		'tmnhanphat_products_title_align'        => 'left',
-		'tmnhanphat_products_meta_font_size'     => 13,
-		'tmnhanphat_products_meta_color'         => '#6b7280',
+		'tmnhanphat_products_meta_font_size'     => 20,
+		'tmnhanphat_products_meta_color'         => '#4A4F57',
 		'tmnhanphat_products_brand_enable'       => true,
 		'tmnhanphat_products_brand_label'        => __( 'Thương hiệu', 'tmnhanphat' ),
 		'tmnhanphat_products_brand_meta_key'     => '_tmnp_product_brand',
@@ -2127,10 +2164,11 @@ function tmnhanphat_products_defaults() {
 		'tmnhanphat_products_pause_hover'      => true,
 		'tmnhanphat_products_drag_enable'      => true,
 		'tmnhanphat_products_dots_enable'      => true,
+		// Figma: dots 15px, gap 16.
 		'tmnhanphat_products_dot_color'        => '#D9D9D9',
 		'tmnhanphat_products_dot_active_color' => '#046AB5',
-		'tmnhanphat_products_dot_size'         => 10,
-		'tmnhanphat_products_dot_gap'          => 10,
+		'tmnhanphat_products_dot_size'         => 15,
+		'tmnhanphat_products_dot_gap'          => 16,
 	);
 }
 
@@ -2640,7 +2678,7 @@ function tmnhanphat_why_choose_defaults() {
 		'tmnhanphat_why_choose_overlay_enable'  => false,
 		'tmnhanphat_why_choose_overlay_color'   => '#ffffff',
 		'tmnhanphat_why_choose_overlay_opacity' => 80,
-		'tmnhanphat_why_choose_padding_desktop' => 120, // Figma: section 1291 cao, khoảng trắng trên/dưới rộng.
+		'tmnhanphat_why_choose_padding_desktop' => 92, // Figma: bg 4696 → Heading 4788 (đáy 350 cố định ở CSS).
 		'tmnhanphat_why_choose_padding_tablet'  => 72,
 		'tmnhanphat_why_choose_padding_mobile'  => 48,
 		'tmnhanphat_why_choose_margin_desktop'  => 0,
@@ -2653,7 +2691,7 @@ function tmnhanphat_why_choose_defaults() {
 		'tmnhanphat_why_choose_deco_width'       => 828,
 		'tmnhanphat_why_choose_deco_height'      => 0,
 		'tmnhanphat_why_choose_deco_offset_x'    => -2, // Figma: Rectangle X = -2 (tràn nhẹ mép trái).
-		'tmnhanphat_why_choose_deco_offset_y'    => 0,
+		'tmnhanphat_why_choose_deco_offset_y'    => 24, // Figma: tam giác thấp hơn tâm section 24px.
 		'tmnhanphat_why_choose_deco_hide_mobile' => true,
 
 		// ----- Heading (2 dòng 2 màu: xanh trên, đỏ dưới — đúng design) -----
@@ -2661,31 +2699,33 @@ function tmnhanphat_why_choose_defaults() {
 		'tmnhanphat_why_choose_heading_red_text'       => 'Thang Máy Nhân Phát',
 		'tmnhanphat_why_choose_heading_blue_color'     => '#046AB5',
 		'tmnhanphat_why_choose_heading_red_color'      => '#E31F2B',
-		'tmnhanphat_why_choose_heading_size'           => 40,
-		'tmnhanphat_why_choose_heading_size_tablet'    => 32,
-		'tmnhanphat_why_choose_heading_size_mobile'    => 26,
-		'tmnhanphat_why_choose_heading_weight'         => '800',
-		'tmnhanphat_why_choose_heading_line_height'    => 1.2,
+		// Figma: Heading 96/900 lh1.21, 2 dòng; Heading → Description cách 24px.
+		'tmnhanphat_why_choose_heading_size'           => 96,
+		'tmnhanphat_why_choose_heading_size_tablet'    => 48,
+		'tmnhanphat_why_choose_heading_size_mobile'    => 30,
+		'tmnhanphat_why_choose_heading_weight'         => '900',
+		'tmnhanphat_why_choose_heading_line_height'    => 1.21,
 		'tmnhanphat_why_choose_heading_letter_spacing' => 0,
 		'tmnhanphat_why_choose_heading_align'          => 'left',
-		'tmnhanphat_why_choose_heading_margin_bottom'  => 8, // Figma: Description nằm sát ngay dưới Title.
+		'tmnhanphat_why_choose_heading_margin_bottom'  => 24,
 
 		// ----- Description -----
 		'tmnhanphat_why_choose_desc_text'          => 'Sản phẩm chính hãng, đội ngũ kỹ thuật chuyên nghiệp cùng chế độ bảo hành - bảo trì tận tâm là lý do hàng nghìn khách hàng tin chọn Nhân Phát.',
-		'tmnhanphat_why_choose_desc_color'         => '#5c5c5c',
-		'tmnhanphat_why_choose_desc_size'          => 15,
-		'tmnhanphat_why_choose_desc_size_tablet'   => 14,
+		// Figma: Description 20/400 ĐEN, box 1080; Description → Cards cách 86px.
+		'tmnhanphat_why_choose_desc_color'         => '#000000',
+		'tmnhanphat_why_choose_desc_size'          => 20,
+		'tmnhanphat_why_choose_desc_size_tablet'   => 16,
 		'tmnhanphat_why_choose_desc_size_mobile'   => 14,
-		'tmnhanphat_why_choose_desc_max_width'     => 640,
+		'tmnhanphat_why_choose_desc_max_width'     => 1080,
 		'tmnhanphat_why_choose_desc_clamp'         => 0,
-		'tmnhanphat_why_choose_desc_margin_bottom' => 48,
+		'tmnhanphat_why_choose_desc_margin_bottom' => 86,
 
 		// ----- Slider (KHÔNG có dots — autoplay + drag/swipe) -----
 		'tmnhanphat_why_choose_cards_desktop'    => '4',
 		'tmnhanphat_why_choose_cards_tablet'     => '2',
 		'tmnhanphat_why_choose_cards_mobile'     => '1',
-		'tmnhanphat_why_choose_gap_desktop'      => 24,
-		'tmnhanphat_why_choose_gap_tablet'       => 20,
+		'tmnhanphat_why_choose_gap_desktop'      => 10, // Figma: card cách nhau 10px.
+		'tmnhanphat_why_choose_gap_tablet'       => 16,
 		'tmnhanphat_why_choose_gap_mobile'       => 16,
 		'tmnhanphat_why_choose_autoplay_enable'  => true,
 		'tmnhanphat_why_choose_autoplay_speed'   => 4000,
@@ -2695,30 +2735,32 @@ function tmnhanphat_why_choose_defaults() {
 		'tmnhanphat_why_choose_drag_enable'      => true,
 
 		// ----- Card (Figma: 453 × 459, radius 39, ảnh 423 × 290 inset 15) -----
+		// Figma: viền card 1px ĐEN, KHÔNG shadow; nội dung cách mép trái/trên card ~48.
 		'tmnhanphat_why_choose_card_height'          => 459,
 		'tmnhanphat_why_choose_card_radius'          => 39,
 		'tmnhanphat_why_choose_card_border_width'    => 1,
-		'tmnhanphat_why_choose_card_border_color'    => '#E5E7EB',
+		'tmnhanphat_why_choose_card_border_color'    => '#000000',
 		'tmnhanphat_why_choose_card_bg'              => '#ffffff',
-		'tmnhanphat_why_choose_card_shadow'          => 'soft',
+		'tmnhanphat_why_choose_card_shadow'          => 'none',
 		'tmnhanphat_why_choose_card_hover_shadow'    => 'medium',
 		'tmnhanphat_why_choose_card_hover_translate' => 6,
-		'tmnhanphat_why_choose_card_padding'         => 30,
+		'tmnhanphat_why_choose_card_padding'         => 48,
 		'tmnhanphat_why_choose_card_content_align'   => 'flex-start',
 		'tmnhanphat_why_choose_icon_enable'          => false,
 
-		'tmnhanphat_why_choose_card_title_size'          => 18,
-		'tmnhanphat_why_choose_card_title_size_tablet'   => 17,
-		'tmnhanphat_why_choose_card_title_size_mobile'   => 16,
+		// Figma: Title card 28/700 ĐEN, cách Description 14; Description card 20/400 #464646.
+		'tmnhanphat_why_choose_card_title_size'          => 28,
+		'tmnhanphat_why_choose_card_title_size_tablet'   => 20,
+		'tmnhanphat_why_choose_card_title_size_mobile'   => 18,
 		'tmnhanphat_why_choose_card_title_weight'        => '700',
-		'tmnhanphat_why_choose_card_title_color'         => '#1a1a1a',
+		'tmnhanphat_why_choose_card_title_color'         => '#000000',
 		'tmnhanphat_why_choose_card_title_clamp'         => 2,
-		'tmnhanphat_why_choose_card_title_margin_bottom' => 10,
+		'tmnhanphat_why_choose_card_title_margin_bottom' => 14,
 
-		'tmnhanphat_why_choose_card_desc_size'          => 14,
-		'tmnhanphat_why_choose_card_desc_size_tablet'   => 14,
-		'tmnhanphat_why_choose_card_desc_size_mobile'   => 13,
-		'tmnhanphat_why_choose_card_desc_color'         => '#5c5c5c',
+		'tmnhanphat_why_choose_card_desc_size'          => 20,
+		'tmnhanphat_why_choose_card_desc_size_tablet'   => 15,
+		'tmnhanphat_why_choose_card_desc_size_mobile'   => 14,
+		'tmnhanphat_why_choose_card_desc_color'         => '#464646',
 		'tmnhanphat_why_choose_card_desc_clamp'         => 4,
 		'tmnhanphat_why_choose_card_desc_margin_bottom' => 12, // Figma: Description → Image gần nhau hơn.
 
@@ -3196,7 +3238,8 @@ function tmnhanphat_process_defaults() {
 		'tmnhanphat_process_container_width' => 0,
 		'tmnhanphat_process_bg_color'        => '#ffffff',
 		'tmnhanphat_process_bg_image'        => '',
-		'tmnhanphat_process_padding_desktop' => 96,
+		// Figma: đáy Why-Choose (5987) → Heading (6040) = 53; đáy = 0 (ảnh phải chạm Projects).
+		'tmnhanphat_process_padding_desktop' => 53,
 		'tmnhanphat_process_padding_tablet'  => 64,
 		'tmnhanphat_process_padding_mobile'  => 48,
 		'tmnhanphat_process_margin_desktop'  => 0,
@@ -3208,39 +3251,42 @@ function tmnhanphat_process_defaults() {
 		'tmnhanphat_process_heading_red_text'       => 'hợp tác',
 		'tmnhanphat_process_heading_blue_color'     => '#046AB5',
 		'tmnhanphat_process_heading_red_color'      => '#E31F2B',
-		'tmnhanphat_process_heading_size'           => 40,
-		'tmnhanphat_process_heading_size_tablet'    => 32,
-		'tmnhanphat_process_heading_size_mobile'    => 26,
-		'tmnhanphat_process_heading_weight'         => '800',
-		'tmnhanphat_process_heading_line_height'    => 1.2,
+		// Figma: Heading 96/900 lh1.21; Heading → Description cách 24px.
+		'tmnhanphat_process_heading_size'           => 96,
+		'tmnhanphat_process_heading_size_tablet'    => 48,
+		'tmnhanphat_process_heading_size_mobile'    => 30,
+		'tmnhanphat_process_heading_weight'         => '900',
+		'tmnhanphat_process_heading_line_height'    => 1.21,
 		'tmnhanphat_process_heading_letter_spacing' => 0,
 		'tmnhanphat_process_heading_align'          => 'left',
-		'tmnhanphat_process_heading_margin_bottom'  => 12,
+		'tmnhanphat_process_heading_margin_bottom'  => 24,
 
 		// ----- Description -----
 		'tmnhanphat_process_desc_text'          => 'Sản phẩm chính hãng, đội ngũ kỹ thuật chuyên nghiệp cùng chế độ bảo hành - bảo trì tận tâm là lý do hàng nghìn khách hàng tin chọn Nhân Phát.',
-		'tmnhanphat_process_desc_color'         => '#5c5c5c',
-		'tmnhanphat_process_desc_size'          => 15,
-		'tmnhanphat_process_desc_size_tablet'   => 14,
+		// Figma: Description 20/400 ĐEN, box 1080; Description → Timeline cách 85px.
+		'tmnhanphat_process_desc_color'         => '#000000',
+		'tmnhanphat_process_desc_size'          => 20,
+		'tmnhanphat_process_desc_size_tablet'   => 16,
 		'tmnhanphat_process_desc_size_mobile'   => 14,
-		'tmnhanphat_process_desc_max_width'     => 640,
+		'tmnhanphat_process_desc_max_width'     => 1080,
 		'tmnhanphat_process_desc_clamp'         => 0,
-		'tmnhanphat_process_desc_margin_bottom' => 48,
+		'tmnhanphat_process_desc_margin_bottom' => 85,
 
-		// ----- Timeline (trái) -----
-		'tmnhanphat_process_timeline_width'         => 46, // % bề rộng content row (Desktop).
-		'tmnhanphat_process_line_color'             => '#E5E7EB',
-		'tmnhanphat_process_line_width'             => 2,
-		'tmnhanphat_process_step_gap'               => 40,
-		'tmnhanphat_process_circle_size'            => 44,
+		// ----- Timeline (trái) — Figma: cột ~43%, line dọc 1px #ECECEC, circle 76px,
+		// step cách nhau 98px; title inactive #ECECEC (nhạt), active #1A1D23. -----
+		'tmnhanphat_process_timeline_width'         => 43,
+		'tmnhanphat_process_line_color'             => '#ECECEC',
+		'tmnhanphat_process_line_width'             => 1,
+		'tmnhanphat_process_step_gap'               => 98,
+		'tmnhanphat_process_circle_size'            => 76,
 		'tmnhanphat_process_circle_border_width'    => 1,
 		'tmnhanphat_process_circle_border_color'    => '#D9D9D9',
 		'tmnhanphat_process_circle_active_bg'       => '#E31F2B',
 		'tmnhanphat_process_circle_inactive_bg'     => '#ffffff',
-		'tmnhanphat_process_active_text_color'      => '#1a1a1a',
-		'tmnhanphat_process_inactive_text_color'    => '#C4C9D0',
+		'tmnhanphat_process_active_text_color'      => '#1A1D23',
+		'tmnhanphat_process_inactive_text_color'    => '#ECECEC',
 		'tmnhanphat_process_active_desc_opacity'    => 100,
-		'tmnhanphat_process_inactive_desc_opacity'  => 45,
+		'tmnhanphat_process_inactive_desc_opacity'  => 15,
 		'tmnhanphat_process_step_padding'           => 0,
 		'tmnhanphat_process_step_radius'            => 0,
 
@@ -3256,9 +3302,9 @@ function tmnhanphat_process_defaults() {
 		'tmnhanphat_process_image'        => '',
 		'tmnhanphat_process_image_width'  => 0, // 0 = auto theo cột.
 		'tmnhanphat_process_image_height' => 0, // 0 = khung landscape 4:3 cố định (CSS aspect-ratio).
-		'tmnhanphat_process_image_fit'    => 'cover', // Lấp đầy khung 4:3, crop center — ảnh dọc không kéo giãn section.
+		'tmnhanphat_process_image_fit'    => 'cover', // Lấp đầy khung vuông, crop center — ảnh dọc không kéo giãn section.
 		'tmnhanphat_process_image_align'  => 'center',
-		'tmnhanphat_process_image_radius' => 12,
+		'tmnhanphat_process_image_radius' => 0, // Figma: ảnh 856×856 không bo góc.
 		'tmnhanphat_process_image_lazy'   => true,
 	);
 
@@ -3538,7 +3584,8 @@ function tmnhanphat_projects_defaults() {
 		'tmnhanphat_projects_enable'          => true,
 		'tmnhanphat_projects_section_id'      => 'du-an',
 		'tmnhanphat_projects_container_width' => 0,
-		'tmnhanphat_projects_padding_desktop' => 96,
+		// Figma: nền xanh (7060) → Heading (7221) = 161 (đáy 91 cố định ở CSS).
+		'tmnhanphat_projects_padding_desktop' => 161,
 		'tmnhanphat_projects_padding_tablet'  => 64,
 		'tmnhanphat_projects_padding_mobile'  => 48,
 		'tmnhanphat_projects_margin_desktop'  => 0,
@@ -3552,22 +3599,24 @@ function tmnhanphat_projects_defaults() {
 		'tmnhanphat_projects_deco_size'       => 'cover',
 
 		// ----- Header (1 màu trắng trên nền xanh — khác các section 2 màu) -----
+		// Figma: Heading 96/900 trắng; Description 20/400 TRẮNG ĐẶC box 1006;
+		// Description → Card cách 72px.
 		'tmnhanphat_projects_title'                => 'Dự án tiêu biểu',
 		'tmnhanphat_projects_title_color'          => '#ffffff',
-		'tmnhanphat_projects_title_size'           => 40,
-		'tmnhanphat_projects_title_size_tablet'    => 32,
-		'tmnhanphat_projects_title_size_mobile'    => 26,
-		'tmnhanphat_projects_title_weight'         => '800',
+		'tmnhanphat_projects_title_size'           => 96,
+		'tmnhanphat_projects_title_size_tablet'    => 48,
+		'tmnhanphat_projects_title_size_mobile'    => 30,
+		'tmnhanphat_projects_title_weight'         => '900',
 		'tmnhanphat_projects_title_align'          => 'center',
 		'tmnhanphat_projects_desc_text'            => 'Đây là những công trình Thang Máy Nhân Phát đã tư vấn, lắp đặt và bàn giao. Mỗi dự án thể hiện sự chuyên nghiệp, an toàn và tính thẩm mỹ trong từng giải pháp thang máy.',
-		'tmnhanphat_projects_desc_color'           => '#D8E6F3',
-		'tmnhanphat_projects_desc_size'            => 14,
-		'tmnhanphat_projects_desc_size_tablet'     => 14,
-		'tmnhanphat_projects_desc_size_mobile'     => 13,
-		'tmnhanphat_projects_desc_max_width'       => 560,
+		'tmnhanphat_projects_desc_color'           => '#ffffff',
+		'tmnhanphat_projects_desc_size'            => 20,
+		'tmnhanphat_projects_desc_size_tablet'     => 16,
+		'tmnhanphat_projects_desc_size_mobile'     => 14,
+		'tmnhanphat_projects_desc_max_width'       => 1006,
 		'tmnhanphat_projects_desc_clamp'           => 0,
 		'tmnhanphat_projects_desc_align'           => 'center',
-		'tmnhanphat_projects_header_margin_bottom' => 48,
+		'tmnhanphat_projects_header_margin_bottom' => 72,
 
 		// ----- Query -----
 		'tmnhanphat_projects_category'    => 0, // Admin BẮT BUỘC chọn — 0 = chưa cấu hình, không render.
@@ -3576,48 +3625,49 @@ function tmnhanphat_projects_defaults() {
 		'tmnhanphat_projects_order'       => 'DESC',
 		'tmnhanphat_projects_exclude_ids' => '',
 
-		// ----- Content Layout (card lớn chứa 2 cột 65/35 — đúng design) -----
+		// ----- Content Layout — Figma: card 1590×750 r=40 nền ĐẶC #A1ACC1 (không phải
+		// kính mờ), shadow 0/4/4/25%; padding 4 phía 67/97/55/90 đặt ở CSS. -----
 		'tmnhanphat_projects_left_width'   => 65,
-		'tmnhanphat_projects_content_gap'  => 48,
+		'tmnhanphat_projects_content_gap'  => 33,
 		'tmnhanphat_projects_valign'       => 'center',
-		'tmnhanphat_projects_card_bg'      => '#ffffff',
-		'tmnhanphat_projects_card_opacity' => 14,
-		'tmnhanphat_projects_card_radius'  => 24,
+		'tmnhanphat_projects_card_bg'      => '#A1ACC1',
+		'tmnhanphat_projects_card_opacity' => 100,
+		'tmnhanphat_projects_card_radius'  => 40,
 		'tmnhanphat_projects_card_padding' => 40,
 
-		// ----- Project Title -----
-		'tmnhanphat_projects_ptitle_size'          => 30,
-		'tmnhanphat_projects_ptitle_size_tablet'   => 26,
-		'tmnhanphat_projects_ptitle_size_mobile'   => 22,
-		'tmnhanphat_projects_ptitle_weight'        => '800',
+		// ----- Project Title — Figma: 55/700 trắng, cách Description 27px. -----
+		'tmnhanphat_projects_ptitle_size'          => 55,
+		'tmnhanphat_projects_ptitle_size_tablet'   => 32,
+		'tmnhanphat_projects_ptitle_size_mobile'   => 24,
+		'tmnhanphat_projects_ptitle_weight'        => '700',
 		'tmnhanphat_projects_ptitle_color'         => '#ffffff',
 		'tmnhanphat_projects_ptitle_clamp'         => 2,
-		'tmnhanphat_projects_ptitle_margin_bottom' => 16,
+		'tmnhanphat_projects_ptitle_margin_bottom' => 27,
 
-		// ----- Project Description (excerpt) -----
-		'tmnhanphat_projects_pdesc_size'          => 14,
-		'tmnhanphat_projects_pdesc_size_tablet'   => 14,
-		'tmnhanphat_projects_pdesc_size_mobile'   => 13,
-		'tmnhanphat_projects_pdesc_color'         => '#DCE9F5',
+		// ----- Project Description (excerpt) — Figma: 20/400 trắng, cách Meta 37px. -----
+		'tmnhanphat_projects_pdesc_size'          => 20,
+		'tmnhanphat_projects_pdesc_size_tablet'   => 15,
+		'tmnhanphat_projects_pdesc_size_mobile'   => 14,
+		'tmnhanphat_projects_pdesc_color'         => '#ffffff',
 		'tmnhanphat_projects_pdesc_clamp'         => 3,
-		'tmnhanphat_projects_pdesc_margin_bottom' => 28,
+		'tmnhanphat_projects_pdesc_margin_bottom' => 37,
 
-		// ----- Meta -----
+		// ----- Meta — Figma: divider TRẮNG 1px rộng 376, label 20 #E7F0FF, value 32/700. -----
 		'tmnhanphat_projects_meta_enable'          => true,
 		'tmnhanphat_projects_divider_enable'       => true,
-		'tmnhanphat_projects_divider_color'        => '#7FB3DD',
+		'tmnhanphat_projects_divider_color'        => '#ffffff',
 		'tmnhanphat_projects_divider_width'        => 1,
-		'tmnhanphat_projects_meta_label_color'     => '#BCD7EE',
+		'tmnhanphat_projects_meta_label_color'     => '#E7F0FF',
 		'tmnhanphat_projects_meta_value_color'     => '#ffffff',
-		'tmnhanphat_projects_meta_label_size'      => 13,
-		'tmnhanphat_projects_meta_value_size'      => 18,
+		'tmnhanphat_projects_meta_label_size'      => 20,
+		'tmnhanphat_projects_meta_value_size'      => 32,
 		'tmnhanphat_projects_meta_gap'             => 18,
 		'tmnhanphat_projects_meta_fallback_enable' => true,
 
-		// ----- Thumbnail -----
+		// ----- Thumbnail — Figma: 492×628, radius 30. -----
 		'tmnhanphat_projects_thumb_width'  => 0, // 0 = auto theo cột phải.
-		'tmnhanphat_projects_thumb_height' => 525, // 420 × 1.25 — ảnh cao hơn, cân đối hơn với cột trái.
-		'tmnhanphat_projects_thumb_radius' => 16,
+		'tmnhanphat_projects_thumb_height' => 628,
+		'tmnhanphat_projects_thumb_radius' => 30,
 		'tmnhanphat_projects_thumb_fit'    => 'cover',
 		'tmnhanphat_projects_thumb_shadow' => 'soft',
 		'tmnhanphat_projects_thumb_zoom'   => true,
@@ -3629,10 +3679,11 @@ function tmnhanphat_projects_defaults() {
 		'tmnhanphat_projects_infinite'         => true,
 		'tmnhanphat_projects_pause_hover'      => true,
 		'tmnhanphat_projects_drag_enable'      => true,
+		// Figma: dots 19px, gap 27, inactive #A2A2A2, active trắng.
 		'tmnhanphat_projects_show_dots'        => true,
-		'tmnhanphat_projects_dot_size'         => 10,
-		'tmnhanphat_projects_dot_gap'          => 10,
-		'tmnhanphat_projects_dot_color'        => '#9CC3E8',
+		'tmnhanphat_projects_dot_size'         => 19,
+		'tmnhanphat_projects_dot_gap'          => 27,
+		'tmnhanphat_projects_dot_color'        => '#A2A2A2',
 		'tmnhanphat_projects_dot_active_color' => '#ffffff',
 	);
 
@@ -3997,7 +4048,8 @@ function tmnhanphat_customer_review_defaults() {
 		'tmnhanphat_review_container_width' => 0,
 		'tmnhanphat_review_bg_color'        => '#ffffff',
 		'tmnhanphat_review_bg_image'        => '',
-		'tmnhanphat_review_padding_desktop' => 96,
+		// Figma: đáy Projects (8387) → Heading (8558) = 171 (đáy 88 cố định ở CSS).
+		'tmnhanphat_review_padding_desktop' => 171,
 		'tmnhanphat_review_padding_tablet'  => 64,
 		'tmnhanphat_review_padding_mobile'  => 48,
 		'tmnhanphat_review_margin_desktop'  => 0,
@@ -4006,19 +4058,20 @@ function tmnhanphat_customer_review_defaults() {
 
 		// ----- Header (Figma 2 màu 1 dòng: phần đầu đỏ + 2 từ cuối "khách hàng" xanh —
 		// template tự tách 2 từ cuối thành span accent xanh, Title Color chỉnh phần đỏ) -----
+		// Figma: Heading 85/900; Description 20/400 #464646 box 1068; Desc → Marquee 59.
 		'tmnhanphat_review_title'                => 'Đánh giá thực tế của khách hàng',
 		'tmnhanphat_review_title_color'          => '#E31F2B',
-		'tmnhanphat_review_title_size'           => 40,
-		'tmnhanphat_review_title_size_tablet'    => 32,
-		'tmnhanphat_review_title_size_mobile'    => 24,
+		'tmnhanphat_review_title_size'           => 85,
+		'tmnhanphat_review_title_size_tablet'    => 44,
+		'tmnhanphat_review_title_size_mobile'    => 28,
 		'tmnhanphat_review_title_align'          => 'center',
 		'tmnhanphat_review_desc_text'            => 'Những chia sẻ chân thực từ khách hàng đã và đang sử dụng dịch vụ tại Thang Máy Nhân Phát, là minh chứng rõ nét nhất cho chất lượng sản phẩm và sự tận tâm trong từng công trình mà chúng tôi mang lại.',
-		'tmnhanphat_review_desc_color'           => '#5c5c5c',
-		'tmnhanphat_review_desc_size'            => 15,
-		'tmnhanphat_review_desc_size_tablet'     => 14,
+		'tmnhanphat_review_desc_color'           => '#464646',
+		'tmnhanphat_review_desc_size'            => 20,
+		'tmnhanphat_review_desc_size_tablet'     => 16,
 		'tmnhanphat_review_desc_size_mobile'     => 14,
-		'tmnhanphat_review_desc_max_width'       => 720,
-		'tmnhanphat_review_header_margin_bottom' => 48,
+		'tmnhanphat_review_desc_max_width'       => 1068,
+		'tmnhanphat_review_header_margin_bottom' => 59,
 
 		// ----- Query -----
 		'tmnhanphat_review_posts_per_column' => 4,
@@ -4033,13 +4086,14 @@ function tmnhanphat_customer_review_defaults() {
 		'tmnhanphat_review_cols_mobile'       => 1,
 		'tmnhanphat_review_card_gap'          => 24, // Figma: gap dọc = gap ngang giữa các Column.
 		'tmnhanphat_review_column_gap'        => 24,
+		// Figma: card r12, viền 1px #212121, KHÔNG shadow, padding trong 25.
 		'tmnhanphat_review_card_radius'       => 12,
 		'tmnhanphat_review_card_border_width' => 1,
-		'tmnhanphat_review_card_border_color' => '#EAEAEA',
+		'tmnhanphat_review_card_border_color' => '#212121',
 		'tmnhanphat_review_card_bg'           => '#ffffff',
-		'tmnhanphat_review_card_shadow'       => 'soft',
+		'tmnhanphat_review_card_shadow'       => 'none',
 		'tmnhanphat_review_card_hover_shadow' => 'medium',
-		'tmnhanphat_review_card_padding'      => 20,
+		'tmnhanphat_review_card_padding'      => 25,
 
 		// ----- Avatar -----
 		'tmnhanphat_review_avatar_size'          => 44,
@@ -4048,14 +4102,16 @@ function tmnhanphat_customer_review_defaults() {
 		'tmnhanphat_review_avatar_radius'        => 100,
 		'tmnhanphat_review_avatar_fit'           => 'cover',
 
-		// ----- Name / Role / Comment -----
-		'tmnhanphat_review_name_size'     => 14,
-		'tmnhanphat_review_name_weight'   => '700',
+		// ----- Name / Role / Comment — Figma: Name 15/400 (fill gốc #F5F5F5 là LỖI design
+		// — trắng nhạt vô hình trên card trắng — nên giữ màu tối đọc được), Role 13 #AEAEAE,
+		// Comment 15/400 ĐEN lh 160%. -----
+		'tmnhanphat_review_name_size'     => 15,
+		'tmnhanphat_review_name_weight'   => '400',
 		'tmnhanphat_review_name_color'    => '#1a1a1a',
-		'tmnhanphat_review_role_size'     => 12,
-		'tmnhanphat_review_role_color'    => '#9CA3AF',
-		'tmnhanphat_review_comment_size'         => 13,
-		'tmnhanphat_review_comment_color'        => '#4B5563',
+		'tmnhanphat_review_role_size'     => 13,
+		'tmnhanphat_review_role_color'    => '#AEAEAE',
+		'tmnhanphat_review_comment_size'         => 15,
+		'tmnhanphat_review_comment_color'        => '#000000',
 		'tmnhanphat_review_comment_clamp'        => 4,
 		'tmnhanphat_review_comment_clamp_mobile' => 3,
 
@@ -4515,7 +4571,8 @@ function tmnhanphat_news_defaults() {
 		// Dùng Global Container (0) để padding 2 bên KHỚP các section khác — 3 card tự co
 		// theo container (~384px mỗi card ở 1200), không giữ width cố định 513 gây tràn.
 		'tmnhanphat_news_container_width' => 0,
-		'tmnhanphat_news_padding_desktop' => 96,
+		// Figma: bg (9791) → Header (9827) = 36 (đáy 90 cố định ở CSS).
+		'tmnhanphat_news_padding_desktop' => 36,
 		'tmnhanphat_news_padding_tablet'  => 64,
 		'tmnhanphat_news_padding_mobile'  => 48,
 		'tmnhanphat_news_margin_desktop'  => 0,
@@ -4532,22 +4589,24 @@ function tmnhanphat_news_defaults() {
 		'tmnhanphat_news_deco_width'      => 381,
 		'tmnhanphat_news_deco_height'     => 464,
 
-		// ----- Header (reuse style review-home__heading) -----
+		// ----- Header (reuse style review-home__heading) — Figma: eyebrow 12/700 #0C4B9B,
+		// Heading 60/700 MỘT MÀU #0C4B9B (2 span giữ nguyên markup, cùng màu), ls -3.3,
+		// Description 14/400 #667180 box 817; Header → Cards cách 151. -----
 		'tmnhanphat_news_small_title'          => 'KIẾN THỨC & XU HƯỚNG',
-		'tmnhanphat_news_small_size'           => 13,
+		'tmnhanphat_news_small_size'           => 12,
 		'tmnhanphat_news_heading_blue_text'    => 'Tin tức',
 		'tmnhanphat_news_heading_red_text'     => 'nổi bật',
-		'tmnhanphat_news_heading_blue_color'   => '#046AB5',
-		'tmnhanphat_news_heading_red_color'    => '#E31F2B',
-		'tmnhanphat_news_title_size'           => 40,
-		'tmnhanphat_news_title_size_tablet'    => 32,
-		'tmnhanphat_news_title_size_mobile'    => 24,
+		'tmnhanphat_news_heading_blue_color'   => '#0C4B9B',
+		'tmnhanphat_news_heading_red_color'    => '#E31F2B', // Chủ dự án chốt: "nổi bật" giữ màu đỏ.
+		'tmnhanphat_news_title_size'           => 60,
+		'tmnhanphat_news_title_size_tablet'    => 36,
+		'tmnhanphat_news_title_size_mobile'    => 26,
 		'tmnhanphat_news_desc_text'            => 'Tổng hợp thông tin hữu ích, kiến thức chuyên ngành và những cập nhật mới nhất từ Nhân Phát, giúp khách hàng nắm bắt xu hướng thị trường.',
-		'tmnhanphat_news_desc_color'           => '#5c5c5c',
+		'tmnhanphat_news_desc_color'           => '#667180',
 		'tmnhanphat_news_desc_size'            => 14,
-		'tmnhanphat_news_desc_max_width'       => 720,
+		'tmnhanphat_news_desc_max_width'       => 817,
 		'tmnhanphat_news_header_align'         => 'center',
-		'tmnhanphat_news_header_margin_bottom' => 56,
+		'tmnhanphat_news_header_margin_bottom' => 151,
 		'tmnhanphat_news_reuse_heading'        => true,
 
 		// ----- Query -----
@@ -4560,46 +4619,48 @@ function tmnhanphat_news_defaults() {
 
 		// ----- Card (Figma 513×561 ở khung rộng — co theo container, chiều cao AUTO cân
 		// theo nội dung, flex-track tự đồng đều chiều cao các card cùng hàng) -----
-		'tmnhanphat_news_card_width'        => 420,
+		// Figma: card 513×561 r=20, viền #E8E6E1 (CSS), KHÔNG shadow, padding trong 28,
+		// gap giữa card 15.
+		'tmnhanphat_news_card_width'        => 513,
 		'tmnhanphat_news_card_height'       => 0, // 0 = auto (giảm chiều cao box, không ép 561).
-		'tmnhanphat_news_card_radius'       => 16,
-		'tmnhanphat_news_card_shadow'       => 'soft',
+		'tmnhanphat_news_card_radius'       => 20,
+		'tmnhanphat_news_card_shadow'       => 'none',
 		'tmnhanphat_news_card_hover_shadow' => 'medium',
-		'tmnhanphat_news_card_padding'      => 20,
-		'tmnhanphat_news_gap'               => 28,
+		'tmnhanphat_news_card_padding'      => 28,
+		'tmnhanphat_news_gap'               => 15,
 
 		// ----- Thumbnail (ảnh khớp SÁT viền card, bo góc trên theo Card Radius — không
 		// có khoảng thừa quanh ảnh; radius để 0 vì card overflow:hidden tự bo góc trên) -----
-		'tmnhanphat_news_thumb_height' => 240,
+		'tmnhanphat_news_thumb_height' => 286, // Figma: ảnh card 513×286.
 		'tmnhanphat_news_thumb_radius' => 0,
 		'tmnhanphat_news_thumb_fit'    => 'cover',
 		'tmnhanphat_news_thumb_zoom'   => true,
 
-		// ----- Meta -----
+		// ----- Meta — Figma: date/author 20/400 #A8AEB8. -----
 		'tmnhanphat_news_show_date'   => true,
 		'tmnhanphat_news_show_author' => true,
 		'tmnhanphat_news_date_format' => 'd/m/Y',
-		'tmnhanphat_news_meta_size'   => 12,
-		'tmnhanphat_news_meta_color'  => '#9CA3AF',
+		'tmnhanphat_news_meta_size'   => 20,
+		'tmnhanphat_news_meta_color'  => '#A8AEB8',
 
-		// ----- Card Title -----
-		'tmnhanphat_news_ptitle_size'        => 20,
-		'tmnhanphat_news_ptitle_size_tablet' => 18,
-		'tmnhanphat_news_ptitle_size_mobile' => 16,
+		// ----- Card Title — Figma: 30/700 ĐEN. -----
+		'tmnhanphat_news_ptitle_size'        => 30,
+		'tmnhanphat_news_ptitle_size_tablet' => 20,
+		'tmnhanphat_news_ptitle_size_mobile' => 18,
 		'tmnhanphat_news_ptitle_weight'      => '700',
 		'tmnhanphat_news_ptitle_clamp'       => 2,
-		'tmnhanphat_news_ptitle_color'       => '#1a1a1a',
+		'tmnhanphat_news_ptitle_color'       => '#000000',
 
-		// ----- Card Description -----
-		'tmnhanphat_news_pdesc_size'         => 13,
+		// ----- Card Description — Figma: 20/400 #A8AEB8. -----
+		'tmnhanphat_news_pdesc_size'         => 20,
 		'tmnhanphat_news_pdesc_clamp'        => 2,
 		'tmnhanphat_news_pdesc_clamp_mobile' => 2,
-		'tmnhanphat_news_pdesc_color'        => '#6B7280',
+		'tmnhanphat_news_pdesc_color'        => '#A8AEB8',
 
-		// ----- Read More -----
+		// ----- Read More — Figma: 20/400 vàng đồng #B8955A, căn phải. -----
 		'tmnhanphat_news_readmore_text'        => 'Xem thêm',
-		'tmnhanphat_news_readmore_color'       => '#E9A13B',
-		'tmnhanphat_news_readmore_hover_color' => '#C77F1B',
+		'tmnhanphat_news_readmore_color'       => '#B8955A',
+		'tmnhanphat_news_readmore_hover_color' => '#9A7A46',
 
 		// ----- Slider -----
 		'tmnhanphat_news_autoplay_enable'  => true,
@@ -4608,13 +4669,14 @@ function tmnhanphat_news_defaults() {
 		'tmnhanphat_news_infinite'         => true,
 		'tmnhanphat_news_pause_hover'      => true,
 		'tmnhanphat_news_drag_enable'      => true,
-		'tmnhanphat_news_show_arrows'      => false, // Design không có nút Prev/Next — chỉ dots + swipe/drag.
+		// Figma CÓ nút Prev/Next (Ellipse 68×68 #046AB5 hai bên) + dots 15px active #0D5EA3.
+		'tmnhanphat_news_show_arrows'      => true,
 		'tmnhanphat_news_show_dots'        => true,
-		'tmnhanphat_news_dot_size'         => 8,
-		'tmnhanphat_news_dot_gap'          => 8,
-		'tmnhanphat_news_dot_active'       => '#046AB5',
+		'tmnhanphat_news_dot_size'         => 15,
+		'tmnhanphat_news_dot_gap'          => 16,
+		'tmnhanphat_news_dot_active'       => '#0D5EA3',
 		'tmnhanphat_news_dot_inactive'     => '#D9D9D9',
-		'tmnhanphat_news_arrow_size'       => 40,
+		'tmnhanphat_news_arrow_size'       => 68,
 		'tmnhanphat_news_arrow_bg'         => '#046AB5',
 		'tmnhanphat_news_arrow_color'      => '#ffffff',
 		'tmnhanphat_news_arrow_radius'     => 100,
@@ -4836,7 +4898,8 @@ function tmnhanphat_quote_defaults() {
 		'tmnhanphat_quote_enable'          => true,
 		'tmnhanphat_quote_section_id'      => 'lien-he-bao-gia',
 		'tmnhanphat_quote_container_width' => 0,
-		'tmnhanphat_quote_padding_desktop' => 96,
+		// Figma: đáy News (10878) → Form (11030) = 152 (đáy 153 cố định ở CSS).
+		'tmnhanphat_quote_padding_desktop' => 152,
 		'tmnhanphat_quote_padding_tablet'  => 64,
 		'tmnhanphat_quote_padding_mobile'  => 48,
 		'tmnhanphat_quote_margin_desktop'  => 0,
@@ -4844,22 +4907,23 @@ function tmnhanphat_quote_defaults() {
 		'tmnhanphat_quote_margin_mobile'   => 0,
 		'tmnhanphat_quote_bg_color'        => '#ffffff',
 		'tmnhanphat_quote_bg_image'        => '',
-		'tmnhanphat_quote_gap'             => 64,
+		'tmnhanphat_quote_gap'             => 92, // Figma: 2 cột cách nhau 92.
 
-		// ----- Left Card -----
+		// ----- Left Card — Figma: r=31, nền GRADIENT xanh đậm (#062B69→#0A4D96, vẽ ở
+		// CSS đè lên màu nền này), shadow 0/20/44 (CSS), padding 48/64/34/64 (CSS). -----
 		'tmnhanphat_quote_card_enable'  => true,
-		'tmnhanphat_quote_card_radius'  => 28,
+		'tmnhanphat_quote_card_radius'  => 31,
 		'tmnhanphat_quote_card_shadow'  => 'medium',
-		'tmnhanphat_quote_card_bg'      => '#0B2A5B',
-		'tmnhanphat_quote_card_padding' => 40,
+		'tmnhanphat_quote_card_bg'      => '#07306F',
+		'tmnhanphat_quote_card_padding' => 48,
 
-		// ----- Form Header -----
+		// ----- Form Header — Figma: title 37/700 trắng, underline đỏ 86×4 (#ED1C24). -----
 		'tmnhanphat_quote_header_title'          => 'Thông tin khách hàng',
 		'tmnhanphat_quote_header_title_color'    => '#ffffff',
-		'tmnhanphat_quote_underline_color'       => '#E31F2B',
-		'tmnhanphat_quote_header_size'           => 22,
-		'tmnhanphat_quote_header_size_tablet'    => 20,
-		'tmnhanphat_quote_header_size_mobile'    => 18,
+		'tmnhanphat_quote_underline_color'       => '#ED1C24',
+		'tmnhanphat_quote_header_size'           => 37,
+		'tmnhanphat_quote_header_size_tablet'    => 24,
+		'tmnhanphat_quote_header_size_mobile'    => 20,
 
 		// ----- Form Fields (toggle + required) -----
 		'tmnhanphat_quote_show_name'    => true,
@@ -4869,58 +4933,63 @@ function tmnhanphat_quote_defaults() {
 		'tmnhanphat_quote_show_message' => true,
 		'tmnhanphat_quote_required'     => true,
 
-		// ----- Form Input Style -----
-		'tmnhanphat_quote_input_height'      => 50,
+		// ----- Form Input Style — Figma: field cao 67, r10, viền #D0D8E3,
+		// placeholder 17/400 #7A8495, cách nhau 15. -----
+		'tmnhanphat_quote_input_height'      => 67,
 		'tmnhanphat_quote_input_radius'      => 10,
-		'tmnhanphat_quote_input_font_size'   => 14,
-		'tmnhanphat_quote_placeholder_color' => '#9CA3AF',
-		'tmnhanphat_quote_border_color'      => '#E5E7EB',
+		'tmnhanphat_quote_input_font_size'   => 17,
+		'tmnhanphat_quote_placeholder_color' => '#7A8495',
+		'tmnhanphat_quote_border_color'      => '#D0D8E3',
 		'tmnhanphat_quote_focus_color'       => '#046AB5',
-		'tmnhanphat_quote_input_gap'         => 14,
+		'tmnhanphat_quote_input_gap'         => 15,
 		// Danh sách loại dịch vụ — mỗi dòng 1 lựa chọn (admin sửa tự do, không hardcode/CPT).
 		'tmnhanphat_quote_service_options'   => "Thang máy gia đình\nThang máy tải khách\nThang máy tải hàng\nBảo trì\nSửa chữa",
 
-		// ----- Submit Button -----
+		// ----- Submit Button — Figma: 632×71 r11, GRADIENT đỏ + viền vàng 2px #F4B844
+		// (vẽ ở CSS đè lên màu nền này), chữ 21/700 trắng. -----
 		'tmnhanphat_quote_btn_text'       => 'Yêu cầu tư vấn',
-		'tmnhanphat_quote_btn_bg'         => '#E31F2B',
+		'tmnhanphat_quote_btn_bg'         => '#D11821',
 		'tmnhanphat_quote_btn_hover_bg'   => '#C01823',
 		'tmnhanphat_quote_btn_text_color' => '#ffffff',
-		'tmnhanphat_quote_btn_radius'     => 10,
-		'tmnhanphat_quote_btn_height'     => 52,
+		'tmnhanphat_quote_btn_radius'     => 11,
+		'tmnhanphat_quote_btn_height'     => 71,
 		'tmnhanphat_quote_btn_icon'       => true,
 
-		// ----- Verify -----
+		// ----- Verify — Figma: 15/400 TRẮNG. -----
 		'tmnhanphat_quote_verify_enable' => true,
 		'tmnhanphat_quote_verify_text'   => 'Thông tin của bạn được bảo mật tuyệt đối',
-		'tmnhanphat_quote_verify_color'  => '#B9C4D6',
-		'tmnhanphat_quote_verify_size'   => 12,
+		'tmnhanphat_quote_verify_color'  => '#ffffff',
+		'tmnhanphat_quote_verify_size'   => 15,
 
 		// ----- Right Content -----
 		'tmnhanphat_quote_show_logo'          => true,
 		'tmnhanphat_quote_logo'               => '', // Bỏ trống = dùng Logo Footer (tmnhanphat_footer_logo).
-		'tmnhanphat_quote_logo_width'         => 120,
+		// Figma: logo 137; Heading 70/700 "Liên hệ" #073B91 + "báo giá" #D81721;
+		// Description 17/400 #1D2430 box 619.
+		'tmnhanphat_quote_logo_width'         => 137,
 		'tmnhanphat_quote_heading_blue_text'  => 'Liên hệ',
 		'tmnhanphat_quote_heading_red_text'   => 'báo giá',
-		'tmnhanphat_quote_heading_blue_color' => '#046AB5',
-		'tmnhanphat_quote_heading_red_color'  => '#E31F2B',
-		'tmnhanphat_quote_heading_size'       => 40,
+		'tmnhanphat_quote_heading_blue_color' => '#073B91',
+		'tmnhanphat_quote_heading_red_color'  => '#D81721',
+		'tmnhanphat_quote_heading_size'       => 70,
 		'tmnhanphat_quote_desc_text'          => 'Sản phẩm chính hãng, đội ngũ kỹ thuật chuyên nghiệp cùng chế độ bảo hành - bảo trì tận tâm là lý do hàng nghìn khách hàng tin chọn Nhân Phát.',
-		'tmnhanphat_quote_desc_color'         => '#5c5c5c',
-		'tmnhanphat_quote_desc_size'          => 14,
+		'tmnhanphat_quote_desc_color'         => '#1D2430',
+		'tmnhanphat_quote_desc_size'          => 17,
 		'tmnhanphat_quote_right_align'        => 'left',
-		'tmnhanphat_quote_right_max_width'    => 460,
+		'tmnhanphat_quote_right_max_width'    => 650,
 
-		// ----- Contact Information (display; VALUE reuse footer mods) -----
+		// ----- Contact Information — Figma: icon tròn 69 viền #DDE5EF, nét icon #0955AA;
+		// label 19/700 #003C91 (CSS); value 17/400 #1C2430; item pad-block 17. -----
 		'tmnhanphat_quote_show_contact_email'   => true,
 		'tmnhanphat_quote_show_contact_phone'   => true,
 		'tmnhanphat_quote_show_contact_address' => true,
 		'tmnhanphat_quote_icon_bg'              => '#ffffff',
-		'tmnhanphat_quote_icon_color'           => '#046AB5',
+		'tmnhanphat_quote_icon_color'           => '#0955AA',
 		'tmnhanphat_quote_icon_shadow'          => 'soft',
-		'tmnhanphat_quote_label_size'           => 13,
-		'tmnhanphat_quote_value_size'           => 15,
-		'tmnhanphat_quote_divider_color'        => '#E5E7EB',
-		'tmnhanphat_quote_contact_gap'          => 20,
+		'tmnhanphat_quote_label_size'           => 19,
+		'tmnhanphat_quote_value_size'           => 17,
+		'tmnhanphat_quote_divider_color'        => '#CFD6DF',
+		'tmnhanphat_quote_contact_gap'          => 17,
 	);
 }
 
@@ -5143,7 +5212,8 @@ function tmnhanphat_faq_defaults() {
 		'tmnhanphat_faq_enable'          => true,
 		'tmnhanphat_faq_section_id'      => 'faq',
 		'tmnhanphat_faq_container_width' => 0,
-		'tmnhanphat_faq_padding_desktop' => 96,
+		// Figma: pad trên 76 (đáy 135 cố định ở CSS — grid → Footer).
+		'tmnhanphat_faq_padding_desktop' => 76,
 		'tmnhanphat_faq_padding_tablet'  => 64,
 		'tmnhanphat_faq_padding_mobile'  => 48,
 		'tmnhanphat_faq_margin_desktop'  => 0,
@@ -5153,22 +5223,25 @@ function tmnhanphat_faq_defaults() {
 		'tmnhanphat_faq_bg_image'        => '',
 
 		// ----- Header (reuse review-home__heading) -----
+		// Figma: eyebrow 12/700 #0C4B9B; Heading 62/700 "Câu hỏi" #0C4B9B + "thường gặp"
+		// #ED2429 (char-override), ls -3.41; Description 14/400 #5E6978 box 768;
+		// Header → Grid cách 42.
 		'tmnhanphat_faq_reuse_heading'        => true,
 		'tmnhanphat_faq_small_title'          => 'HỖ TRỢ KHÁCH HÀNG',
-		'tmnhanphat_faq_small_size'           => 13,
+		'tmnhanphat_faq_small_size'           => 12,
 		'tmnhanphat_faq_heading_blue_text'    => 'Câu hỏi',
 		'tmnhanphat_faq_heading_red_text'     => 'thường gặp',
-		'tmnhanphat_faq_heading_blue_color'   => '#046AB5',
-		'tmnhanphat_faq_heading_red_color'    => '#E31F2B',
-		'tmnhanphat_faq_title_size'           => 40,
-		'tmnhanphat_faq_title_size_tablet'    => 32,
+		'tmnhanphat_faq_heading_blue_color'   => '#0C4B9B',
+		'tmnhanphat_faq_heading_red_color'    => '#ED2429',
+		'tmnhanphat_faq_title_size'           => 62,
+		'tmnhanphat_faq_title_size_tablet'    => 36,
 		'tmnhanphat_faq_title_size_mobile'    => 26,
 		'tmnhanphat_faq_desc_text'            => 'Giải đáp những thắc mắc phổ biến về sản phẩm, chi phí, quy trình lắp đặt, bảo hành và sửa chữa thang máy tại Nhân Phát.',
-		'tmnhanphat_faq_desc_color'           => '#5c5c5c',
+		'tmnhanphat_faq_desc_color'           => '#5E6978',
 		'tmnhanphat_faq_desc_size'            => 14,
-		'tmnhanphat_faq_desc_max_width'       => 640,
+		'tmnhanphat_faq_desc_max_width'       => 768,
 		'tmnhanphat_faq_header_align'         => 'center',
-		'tmnhanphat_faq_header_margin_bottom' => 48,
+		'tmnhanphat_faq_header_margin_bottom' => 42,
 
 		// ----- Query -----
 		'tmnhanphat_faq_count'      => 6,
@@ -5178,48 +5251,51 @@ function tmnhanphat_faq_defaults() {
 		'tmnhanphat_faq_hide_empty' => true,
 
 		// ----- FAQ Card -----
+		// Figma: grid gap cột 17 (hàng 18 ở CSS); card r16 viền #DCE4ED (mở #B4CCE1 +
+		// dải trái 5px #0C4B9B), shadow tĩnh ở CSS.
 		'tmnhanphat_faq_cols_desktop'         => 2,
 		'tmnhanphat_faq_cols_tablet'          => 2,
 		'tmnhanphat_faq_cols_mobile'          => 1,
-		'tmnhanphat_faq_gap'                  => 20,
-		'tmnhanphat_faq_card_radius'          => 12,
+		'tmnhanphat_faq_gap'                  => 17,
+		'tmnhanphat_faq_card_radius'          => 16,
 		'tmnhanphat_faq_card_padding'         => 20,
 		'tmnhanphat_faq_border_width'         => 1,
-		'tmnhanphat_faq_border_color'         => '#EAEEF3',
-		'tmnhanphat_faq_active_border_color'  => '#046AB5',
+		'tmnhanphat_faq_border_color'         => '#DCE4ED',
+		'tmnhanphat_faq_active_border_color'  => '#0C4B9B',
 		'tmnhanphat_faq_card_shadow'          => 'none',
 		'tmnhanphat_faq_card_hover_shadow'    => 'soft',
 
-		// ----- Number Badge -----
+		// ----- Number Badge — Figma: 42×42 r12, thường #EAF3FB chữ #0C4B9B, active
+		// #ED2429 chữ trắng, số 16/700. -----
 		'tmnhanphat_faq_badge_enable'   => true,
-		'tmnhanphat_faq_badge_size'     => 34,
-		'tmnhanphat_faq_badge_radius'   => 8,
-		'tmnhanphat_faq_badge_bg'       => '#EAF2FB',
-		'tmnhanphat_faq_badge_color'    => '#046AB5',
-		'tmnhanphat_faq_badge_active_bg'    => '#E31F2B',
+		'tmnhanphat_faq_badge_size'     => 42,
+		'tmnhanphat_faq_badge_radius'   => 12,
+		'tmnhanphat_faq_badge_bg'       => '#EAF3FB',
+		'tmnhanphat_faq_badge_color'    => '#0C4B9B',
+		'tmnhanphat_faq_badge_active_bg'    => '#ED2429',
 		'tmnhanphat_faq_badge_active_color' => '#ffffff',
 
-		// ----- Question -----
-		'tmnhanphat_faq_q_size'        => 16,
-		'tmnhanphat_faq_q_size_tablet' => 15,
-		'tmnhanphat_faq_q_size_mobile' => 14,
+		// ----- Question — Figma: 24/700, thường #172437, card mở #062B69. -----
+		'tmnhanphat_faq_q_size'        => 24,
+		'tmnhanphat_faq_q_size_tablet' => 18,
+		'tmnhanphat_faq_q_size_mobile' => 16,
 		'tmnhanphat_faq_q_weight'      => '700',
-		'tmnhanphat_faq_q_color'       => '#1a1a1a',
-		'tmnhanphat_faq_q_hover_color' => '#046AB5',
+		'tmnhanphat_faq_q_color'       => '#172437',
+		'tmnhanphat_faq_q_hover_color' => '#062B69',
 
-		// ----- Answer -----
-		'tmnhanphat_faq_a_size'           => 14,
-		'tmnhanphat_faq_a_color'          => '#6B7280',
-		'tmnhanphat_faq_a_line_height'    => 1.7,
-		'tmnhanphat_faq_a_padding_top'    => 12,
+		// ----- Answer — Figma: 15/400 #5E6978 lh 136%, pad trên 14. -----
+		'tmnhanphat_faq_a_size'           => 15,
+		'tmnhanphat_faq_a_color'          => '#5E6978',
+		'tmnhanphat_faq_a_line_height'    => 1.36,
+		'tmnhanphat_faq_a_padding_top'    => 14,
 		'tmnhanphat_faq_a_padding_bottom' => 4,
 
-		// ----- Icon -----
+		// ----- Icon — Figma: ô tròn 31×31, thường #F2F6FA nét #0C4B9B, mở #0C4B9B. -----
 		'tmnhanphat_faq_icon_enable'      => true,
 		'tmnhanphat_faq_icon_size'        => 16,
-		'tmnhanphat_faq_circle_size'      => 30,
-		'tmnhanphat_faq_circle_bg'        => '#EAF2FB',
-		'tmnhanphat_faq_circle_active_bg' => '#046AB5',
+		'tmnhanphat_faq_circle_size'      => 31,
+		'tmnhanphat_faq_circle_bg'        => '#F2F6FA',
+		'tmnhanphat_faq_circle_active_bg' => '#0C4B9B',
 
 		// ----- Accordion -----
 		'tmnhanphat_faq_allow_multiple'    => false,

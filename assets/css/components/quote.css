@@ -11,7 +11,8 @@
 .quote-home {
 	position: relative;
 	margin-block: var(--quote-margin, 0);
-	padding-block: var(--quote-padding, 96px);
+	/* Figma bất đối xứng: trên 152 (setting), dưới 153 (form → FAQ). */
+	padding-block: var(--quote-padding, 152px) calc(153 * var(--fig1px));
 	background-color: var(--quote-bg, #ffffff);
 	background-image: var(--quote-bg-image, none);
 	background-size: cover;
@@ -26,56 +27,62 @@
 .quote-home__grid {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
-	gap: var(--quote-gap, 64px);
+	gap: var(--quote-gap, 92px);
 	align-items: center;
 }
 
 /* ==================== LEFT: FORM CARD ==================== */
+/* Figma: r=31, GRADIENT xanh đậm dọc + shadow 0/20/44 #0F315E 16%, padding 48/64/34. */
 .quote-form--card {
-	border-radius: var(--quote-card-radius, 28px);
-	background-color: var(--quote-card-bg, #0B2A5B);
-	box-shadow: var(--quote-card-shadow, 0 14px 34px rgb(6 24 44 / 0.14));
-	padding: var(--quote-card-padding, 40px);
+	border-radius: var(--quote-card-radius, 31px);
+	background-color: var(--quote-card-bg, #07306F);
+	background-image: linear-gradient(180deg, #062B69 0%, #07306F 42%, #0A4D96 100%);
+	box-shadow: 0 20px 44px rgb(15 49 94 / 0.16);
+	padding: calc(48 * var(--fig1px)) calc(64 * var(--fig1px)) calc(34 * var(--fig1px));
 }
 
 .quote-form__header {
 	display: flex;
 	align-items: center;
-	gap: 12px;
-	margin-bottom: 24px;
+	gap: 22px; /* Figma: icon → title 22px. */
+	margin-bottom: 20px;
 }
 
+/* Figma: icon tròn 80×80 trắng, viền 2px #E4EAF2, shadow 0/6/18. */
 .quote-form__header-icon {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	width: 44px;
-	height: 44px;
+	width: calc(80 * var(--fig1px));
+	height: calc(80 * var(--fig1px));
 	border-radius: 50%;
-	background-color: rgb(255 255 255 / 0.12);
-	color: #ffffff;
+	background-color: rgb(255 255 255 / 0.97);
+	border: 2px solid #E4EAF2;
+	box-shadow: 0 6px 18px rgb(1 24 69 / 0.18);
+	color: #003E93;
 }
 
 .quote-form__title {
 	position: relative;
 	margin: 0;
-	padding-bottom: 8px;
+	padding-bottom: 15px; /* Figma: title → underline 15px. */
 	color: var(--quote-header-color, #ffffff);
-	font-size: var(--quote-header-size, 22px);
+	/* Figma: 37/700 — fluid theo container. */
+	font-size: clamp(20px, calc(37 * var(--fig1px)), var(--quote-header-size, 37px));
 	font-weight: 700;
-	line-height: 1.3;
+	line-height: 1.17; /* Figma: lh 117%. */
 }
 
-/* Underline đỏ ngắn — chỉ bằng bề rộng chữ (fit-content), không full width. */
+/* Underline đỏ ngắn — Figma: 86×4 #ED1C24. */
 .quote-form__title::after {
 	content: "";
 	position: absolute;
 	left: 0;
 	bottom: 0;
-	width: 48px;
-	height: 3px;
-	border-radius: 2px;
-	background-color: var(--quote-underline, #E31F2B);
+	width: 86px;
+	height: 4px;
+	border-radius: 999px;
+	background-color: var(--quote-underline, #ED1C24);
 }
 
 .quote-form__fields {
@@ -91,41 +98,42 @@
 
 .quote-field__icon {
 	position: absolute;
-	left: 14px;
-	top: calc(var(--quote-input-height, 50px) / 2);
+	left: 22px; /* Figma: icon cách mép trái field 22px. */
+	top: calc(var(--quote-input-height, 67px) / 2);
 	transform: translateY(-50%);
 	display: inline-flex;
-	color: var(--quote-placeholder, #9CA3AF);
+	color: #647085; /* Figma: nét icon #647085. */
 	pointer-events: none;
 }
 
 /* Textarea: icon neo phía trên thay vì giữa. */
 .quote-field__icon--top {
-	top: 16px;
+	top: 20px;
 	transform: none;
 }
 
 .quote-field__input {
 	width: 100%;
-	height: var(--quote-input-height, 50px);
-	padding: 0 14px 0 44px;
-	border: 1px solid var(--quote-border, #E5E7EB);
+	height: var(--quote-input-height, 67px);
+	/* Figma: text bắt đầu sau icon 27 + gap 18 = 67 từ mép trái. */
+	padding: 0 22px 0 67px;
+	border: 1px solid var(--quote-border, #D0D8E3);
 	border-radius: var(--quote-input-radius, 10px);
-	background-color: #ffffff;
+	background-color: rgb(255 255 255 / 0.98);
 	color: #1a1a1a;
-	font-size: var(--quote-input-size, 14px);
+	font-size: var(--quote-input-size, 17px);
 	font-family: inherit;
 	transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .quote-field__input::placeholder {
-	color: var(--quote-placeholder, #9CA3AF);
+	color: var(--quote-placeholder, #7A8495);
 }
 
 .quote-field__textarea {
 	height: auto;
-	min-height: 96px;
-	padding-top: 14px;
+	min-height: calc(106 * var(--fig1px)); /* Figma: khung textarea 142 tổng. */
+	padding-top: 20px;
 	resize: vertical;
 	line-height: 1.6;
 }
@@ -166,28 +174,33 @@
 }
 
 /* ==================== SUBMIT ==================== */
+/* Figma: nút 632×71 r11 — GRADIENT đỏ + VIỀN VÀNG 2px #F4B844 + shadow 0/8/17,
+   chữ 21/700 trắng, icon → chữ 16px. */
 .quote-form__submit {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	gap: 8px;
+	gap: 16px;
 	width: 100%;
-	height: var(--quote-btn-height, 52px);
-	margin-top: 20px;
-	border: none;
-	border-radius: var(--quote-btn-radius, 10px);
-	background-color: var(--quote-btn-bg, #E31F2B);
+	height: var(--quote-btn-height, 71px);
+	margin-top: 15px; /* = Input Gap Figma. */
+	border: 2px solid #F4B844;
+	border-radius: var(--quote-btn-radius, 11px);
+	background-color: var(--quote-btn-bg, #D11821);
+	background-image: linear-gradient(180deg, #A5161D 0%, #D11821 48%, #F01822 100%);
+	box-shadow: 0 8px 17px rgb(124 7 18 / 0.24);
 	color: var(--quote-btn-text, #ffffff);
-	font-size: 15px;
+	font-size: clamp(16px, calc(21 * var(--fig1px)), 21px);
 	font-weight: 700;
 	font-family: inherit;
 	cursor: pointer;
-	transition: background-color 0.2s ease, transform 0.15s ease;
+	transition: filter 0.2s ease, transform 0.15s ease;
 }
 
 .quote-form__submit:hover,
 .quote-form__submit:focus-visible {
-	background-color: var(--quote-btn-hover-bg, #C01823);
+	/* Nền là gradient (background-image) nên hover dùng filter thay vì đổi bg-color. */
+	filter: brightness(1.1);
 }
 
 .quote-form__submit:active {
@@ -203,10 +216,10 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	gap: 6px;
-	margin: 14px 0 0;
-	color: var(--quote-verify-color, #B9C4D6);
-	font-size: var(--quote-verify-size, 12px);
+	gap: 10px;
+	margin: 20px 0 0; /* Figma: nút → dòng bảo mật 20px. */
+	color: var(--quote-verify-color, #ffffff);
+	font-size: var(--quote-verify-size, 15px);
 }
 
 .quote-form__verify-icon {
@@ -240,39 +253,45 @@
 }
 
 .quote-info__logo {
-	margin-bottom: 18px;
+	margin-bottom: 24px; /* Figma: logo → heading 24px. */
 }
 
 .quote-info__logo-img {
-	width: var(--quote-logo-width, 120px);
+	width: var(--quote-logo-width, 137px);
 	height: auto;
 }
 
-/* Heading reuse .review-home__heading — chỉ override màu span + căn lề theo Quote align. */
+/* Heading reuse .review-home__heading — override màu span + typography theo Figma:
+   70/700 lh 105% ls -2.2px (-0.031em), fluid theo container. */
 .quote-info__heading {
-	margin: 0 0 14px;
-	font-size: var(--quote-heading-size, 40px);
-	font-weight: 800;
-	line-height: 1.2;
+	margin: 0 0 23px; /* Figma: heading → cặp vạch 23px. */
+	font-size: clamp(28px, calc(70 * var(--fig1px)), var(--quote-heading-size, 70px));
+	font-weight: 700;
+	line-height: 1.05;
+	letter-spacing: -0.031em;
 }
 
+/* Figma: cặp vạch của Quote to hơn bản Review — 2×(50×4) #D81822/#073F98, cách 6. */
 .quote-info__heading::after {
-	margin-inline: var(--quote-right-margin-x, 0);
+	width: 106px;
+	height: 4px;
+	margin: 23px var(--quote-right-margin-x, 0) 0;
+	background: linear-gradient(90deg, #D81822 0 50px, transparent 50px 56px, #073F98 56px 106px);
 }
 
 .quote-info__heading-blue {
-	color: var(--quote-heading-blue, #046AB5);
+	color: var(--quote-heading-blue, #073B91);
 }
 
 .quote-info__heading-red {
-	color: var(--quote-heading-red, #E31F2B);
+	color: var(--quote-heading-red, #D81721);
 }
 
 .quote-info__description {
-	margin: 0 0 28px;
-	color: var(--quote-desc-color, #5c5c5c);
-	font-size: var(--quote-desc-size, 14px);
-	line-height: 1.7;
+	margin: 0 0 35px; /* Figma: desc → danh sách liên hệ 35px. */
+	color: var(--quote-desc-color, #1D2430);
+	font-size: var(--quote-desc-size, 17px);
+	line-height: 1.75; /* Figma: lh 175%. */
 }
 
 .quote-info__list {
@@ -284,9 +303,9 @@
 .quote-info__item {
 	display: flex;
 	align-items: center;
-	gap: 14px;
-	padding: var(--quote-contact-gap, 20px) 0;
-	border-bottom: 1px solid var(--quote-divider, #E5E7EB);
+	gap: 28px; /* Figma: icon → chữ 28px. */
+	padding: var(--quote-contact-gap, 17px) 0;
+	border-bottom: 1px solid var(--quote-divider, #CFD6DF);
 	text-align: left;
 }
 
@@ -299,17 +318,19 @@
 	padding-bottom: 0;
 }
 
+/* Figma: icon tròn 69×69 trắng, viền 2px #DDE5EF, shadow 0/6/18, nét icon #0955AA. */
 .quote-info__icon {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	flex: 0 0 46px;
-	width: 46px;
-	height: 46px;
+	flex: 0 0 calc(69 * var(--fig1px));
+	width: calc(69 * var(--fig1px));
+	height: calc(69 * var(--fig1px));
 	border-radius: 50%;
 	background-color: var(--quote-icon-bg, #ffffff);
-	color: var(--quote-icon-color, #046AB5);
-	box-shadow: var(--quote-icon-shadow, 0 6px 20px rgb(6 24 44 / 0.06));
+	border: 2px solid #DDE5EF;
+	color: var(--quote-icon-color, #0955AA);
+	box-shadow: 0 6px 18px rgb(1 24 69 / 0.18);
 }
 
 .quote-info__content {
@@ -319,20 +340,20 @@
 }
 
 .quote-info__label {
-	color: #1a1a1a;
-	font-size: var(--quote-label-size, 13px);
+	color: #003C91; /* Figma: label xanh đậm 19/700. */
+	font-size: var(--quote-label-size, 19px);
 	font-weight: 700;
 }
 
 .quote-info__value {
-	color: var(--quote-value-color, #5c5c5c);
-	font-size: var(--quote-value-size, 15px);
-	line-height: 1.5;
+	color: var(--quote-value-color, #1C2430);
+	font-size: var(--quote-value-size, 17px);
+	line-height: 1.56; /* Figma: lh ~27px. */
 	word-break: break-word;
 }
 
 a.quote-info__value {
-	color: #4B5563;
+	color: #1C2430; /* Figma: value #1C2430. */
 	transition: color 0.2s ease;
 }
 

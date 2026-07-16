@@ -31,6 +31,6 @@ function tmnhanphat_setup() {
 	add_theme_support( 'wp-block-styles' );
 
 	// SOLID/DRY: content width dùng chung cho embed & oEmbed, khớp với biến CSS --container-max-width.
-	$GLOBALS['content_width'] = apply_filters( 'tmnhanphat_content_width', 1200 );
+	$GLOBALS['content_width'] = apply_filters( 'tmnhanphat_content_width', 1684 );
 }
 add_action( 'after_setup_theme', 'tmnhanphat_setup' );

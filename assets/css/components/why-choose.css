@@ -15,34 +15,35 @@
  */
 
 .why-choose-home {
-	position: relative;
-	isolation: isolate; /* stacking context riêng cho background/overlay/decoration */
-	overflow: hidden; /* decoration góc trái không tạo scroll ngang */
-	margin-block: var(--why-choose-margin, 0);
-	padding-block: var(--why-choose-padding, 96px);
-	background-color: var(--why-choose-bg, #ffffff);
+  position: relative;
+  isolation: isolate; /* stacking context riêng cho background/overlay/decoration */
+  overflow: hidden; /* decoration góc trái không tạo scroll ngang */
+  margin-block: var(--why-choose-margin, 0);
+  /* Figma bất đối xứng: trên 92 (setting), dưới 350 (vùng ảnh nền kéo dài dưới cards). */
+  padding-block: var(--why-choose-padding, 92px) calc(350 * var(--fig1px));
+  background-color: var(--why-choose-bg, #ffffff);
 }
 
 /* ==================== BACKGROUND LAYERS ==================== */
 /* Layer 1: ảnh nền (1920×1291) — <img> để có lazy load/srcset, cover không méo. */
 .why-choose-home__background {
-	position: absolute;
-	inset: 0;
-	z-index: 0;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
 }
 
 .why-choose-home__bg-image {
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-	object-position: center;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .why-choose-home__overlay {
-	position: absolute;
-	inset: 0;
-	z-index: 1;
-	background-color: var(--why-choose-overlay, transparent);
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-color: var(--why-choose-overlay, transparent);
 }
 
 /* Layer 2: Decoration tam giác xanh (Figma 828.5×857.5 trong section cao 1291 →
@@ -51,63 +52,73 @@
    (z-index 1 < container 2), không bắt sự kiện chuột. --why-choose-deco-top giờ là
    offset TÍNH TỪ TÂM (0 = giữa đúng như Figma), không phải từ mép trên. */
 .why-choose-home__decoration {
-	position: absolute;
-	top: calc(50% + var(--why-choose-deco-top, 0px));
-	left: var(--why-choose-deco-left, 0);
-	z-index: 1;
-	width: min(var(--why-choose-deco-width, 828px), 45vw);
-	height: var(--why-choose-deco-height, auto);
-	transform: translateY(-50%);
-	pointer-events: none;
+  position: absolute;
+  top: calc(50% + var(--why-choose-deco-top, 0px));
+  left: var(--why-choose-deco-left, 0);
+  z-index: 1;
+  width: min(var(--why-choose-deco-width, 828px), 45vw);
+  height: var(--why-choose-deco-height, auto);
+  transform: translateY(-50%);
+  pointer-events: none;
 }
 
 .why-choose-home__container {
-	position: relative;
-	z-index: 2;
-	max-width: var(--why-choose-container-width, var(--container-max-width));
+  position: relative;
+  z-index: 2;
+  max-width: var(--why-choose-container-width, var(--container-max-width));
 }
 
 /* ==================== HEADER ==================== */
 .why-choose-home__header {
-	text-align: var(--why-choose-heading-align, left);
+  text-align: var(--why-choose-heading-align, left);
 }
 
 .why-choose-home__heading {
-	margin: 0 0 var(--why-choose-heading-margin, 12px);
-	font-size: var(--why-choose-heading-size, 40px);
-	font-weight: var(--why-choose-heading-weight, 800);
-	line-height: var(--why-choose-heading-lh, 1.2);
-	letter-spacing: var(--why-choose-heading-ls, 0);
+  margin: 0 0 var(--why-choose-heading-margin, 24px);
+  /* Figma 96/900 — fluid theo tỉ lệ container, trần = setting theo breakpoint. */
+  font-size: clamp(
+    30px,
+    calc(96 * var(--fig1px)),
+    var(--why-choose-heading-size, 96px)
+  );
+  font-weight: var(--why-choose-heading-weight, 900);
+  line-height: var(--why-choose-heading-lh, 1.21);
+  letter-spacing: var(--why-choose-heading-ls, 0);
 }
 
 /* 2 dòng 2 màu đúng design: xanh trên, đỏ dưới. */
 .why-choose-home__heading-blue {
-	display: block;
-	color: var(--why-choose-heading-blue, #046AB5);
+  display: block;
+  color: var(--why-choose-heading-blue, #046ab5);
 }
 
 .why-choose-home__heading-red {
-	display: block;
-	color: var(--why-choose-heading-red, #E31F2B);
+  display: block;
+  color: var(--why-choose-heading-red, #e31f2b);
 }
 
 .why-choose-home__description {
-	/* margin-x = auto khi Heading Alignment: center (hộp max-width tự căn giữa). */
-	margin: 0 var(--why-choose-desc-margin-x, 0) var(--why-choose-desc-margin, 48px);
-	max-width: var(--why-choose-desc-max-width, 640px);
-	color: var(--why-choose-desc-color, #5c5c5c);
-	font-size: var(--why-choose-desc-size, 15px);
-	line-height: 1.7;
+  /* margin-x = auto khi Heading Alignment: center (hộp max-width tự căn giữa). */
+  margin: 0 var(--why-choose-desc-margin-x, 0)
+    var(--why-choose-desc-margin, 86px);
+  max-width: var(--why-choose-desc-max-width, 1080px);
+  color: var(--why-choose-desc-color, #000000);
+  font-size: clamp(
+    13px,
+    calc(20 * var(--fig1px)),
+    var(--why-choose-desc-size, 20px)
+  );
+  line-height: 1.21; /* Figma Auto (24.2/20). */
 }
 
 /* ==================== TRỤC NỘI DUNG 3/7 (Figma) ==================== */
 /* Figma chia bề ngang section theo tỉ lệ 3/7: 3 phần trái là vùng Triangle, Header và
-   Slider cùng bắt đầu tại mốc 30% bề rộng màn hình (content left 599/1920 ≈ 31%).
-   (100vw - 100%)/2 = mép trái content của .container (container căn giữa) → margin-left
-   bù phần chênh từ đó tới mốc 30vw. Header và Slider dùng CHUNG một trục canh lề. */
+   Slider cùng bắt đầu tại mốc content left 599/1920 = 31.2vw. (100vw - 100%)/2 = mép
+   trái content của .container (container căn giữa) → margin-left bù phần chênh từ đó
+   tới mốc 31.2vw. Header và Slider dùng CHUNG một trục canh lề. */
 .why-choose-home__header,
 .why-choose-home__slider {
-	margin-left: calc(30vw - (100vw - 100%) / 2);
+  margin-left: calc(31.2vw - (100vw - 100%) / 2);
 }
 
 /* ==================== SLIDER (override base .tmnp-slider theo scope) ==================== */
@@ -115,126 +126,156 @@
    mép màn hình đúng Figma (card cuối bị cắt ở mép khung, không bị cắt ở mép container).
    (100% - 100vw)/2 = khoảng cách từ mép phải content container tới mép phải viewport. */
 .why-choose-home__slider {
-	margin-right: calc((100% - 100vw) / 2);
+  margin-right: calc((100% - 100vw) / 2);
 }
 
 .why-choose-home .tmnp-slider__track {
-	gap: var(--why-choose-gap, 24px);
-	/* Card có shadow — chừa chỗ cho shadow không bị overflow:hidden của viewport cắt. */
-	padding-block: 8px 16px;
+  gap: var(--why-choose-gap, 24px);
+  /* Card có shadow — chừa chỗ cho shadow không bị overflow:hidden của viewport cắt. */
+  padding-block: 8px 16px;
 }
 
-/* Desktop: card theo TỈ LỆ Figma — 453px trên khung 1920 = 23.6vw, co giãn đồng dạng
-   trên màn nhỏ hơn (không giữ px cứng làm card "phình" tương đối), trần 453px trên màn
-   siêu rộng. Số card/khung nhìn desktop do bề rộng quyết định như Figma (~3 card trọn
-   + 1 card cắt), data-cards-desktop chỉ phục vụ logic clone/loop của slider.js. */
+/* Desktop: card theo TỈ LỆ Figma — 453px thiết kế, co giãn đồng dạng theo container
+   (--fig1px), trần 453px trên màn siêu rộng. Số card/khung nhìn desktop do bề rộng
+   quyết định như Figma (~3 card trọn + 1 card cắt), data-cards-desktop chỉ phục vụ
+   logic clone/loop của slider.js. */
 .why-choose-home .tmnp-slider__slide {
-	flex: 0 0 min(453px, 23.6vw);
-	max-width: min(453px, 23.6vw);
+  flex: 0 0 calc(453 * var(--fig1px));
+  max-width: calc(453 * var(--fig1px));
 }
 
 /* Tablet/Mobile: bỏ trục 3/7 (nội dung dùng trọn container chuẩn), quay về công thức số
    cột của theme (2/1 card mỗi khung nhìn theo Customizer) — card co theo màn hình, không
    méo, không tràn; chiều cao card/ảnh trả về giá trị Customizer (trần vw chỉ cho desktop). */
 @media (max-width: 991px) {
-	.why-choose-home__header,
-	.why-choose-home__slider {
-		margin-left: 0;
-	}
+  .why-choose-home__header,
+  .why-choose-home__slider {
+    margin-left: 0;
+  }
 
-	.why-choose-home__slider {
-		margin-right: 0;
-	}
+  .why-choose-home__slider {
+    margin-right: 0;
+  }
 
-	.why-choose-home .tmnp-slider__slide {
-		flex: 0 0 calc((100% - (var(--why-choose-cols, 2) - 1) * var(--why-choose-gap, 20px)) / var(--why-choose-cols, 2));
-		max-width: calc((100% - (var(--why-choose-cols, 2) - 1) * var(--why-choose-gap, 20px)) / var(--why-choose-cols, 2));
-	}
+  .why-choose-home .tmnp-slider__slide {
+    flex: 0 0
+      calc(
+        (100% - (var(--why-choose-cols, 2) - 1) * var(--why-choose-gap, 20px)) /
+          var(--why-choose-cols, 2)
+      );
+    max-width: calc(
+      (100% - (var(--why-choose-cols, 2) - 1) * var(--why-choose-gap, 20px)) /
+        var(--why-choose-cols, 2)
+    );
+  }
 
-	.feature-card {
-		min-height: var(--why-choose-card-height, 459px);
-	}
+  .feature-card {
+    min-height: var(--why-choose-card-height, 459px);
+  }
 
-	.feature-card__image {
-		height: var(--why-choose-image-height, 290px);
-	}
+  .feature-card__image {
+    height: var(--why-choose-image-height, 290px);
+  }
 }
 
 .why-choose-home .tmnp-slider.is-enhanced .tmnp-slider__track {
-	transition: transform var(--why-choose-transition, 600ms) ease;
+  transition: transform var(--why-choose-transition, 600ms) ease;
 }
 
 .why-choose-home .tmnp-slider__viewport:focus-visible {
-	outline: 2px solid var(--why-choose-heading-blue, #046AB5);
-	outline-offset: 4px;
+  outline: 2px solid var(--why-choose-heading-blue, #046ab5);
+  outline-offset: 4px;
 }
 
 /* ==================== FEATURE CARD (thiết kế 453×459) ==================== */
 .feature-card {
-	display: flex;
-	flex-direction: column;
-	justify-content: var(--why-choose-card-align, flex-start);
-	/* Chiều cao co đồng dạng theo chiều rộng card (459/1920 = 23.9vw) — giữ đúng tỉ lệ
-	   453×459 của Figma ở mọi bề rộng desktop, trần = giá trị Customizer. */
-	min-height: min(var(--why-choose-card-height, 459px), 23.9vw);
-	padding: var(--why-choose-card-padding, 24px);
-	border: var(--why-choose-card-border, 1px solid #E5E7EB);
-	border-radius: var(--why-choose-card-radius, 12px);
-	background-color: var(--why-choose-card-bg, #ffffff);
-	box-shadow: var(--why-choose-card-shadow, 0 6px 20px rgb(6 24 44 / 0.06));
-	transition: transform 0.25s ease, box-shadow 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: var(--why-choose-card-align, flex-start);
+  /* Chiều cao co đồng dạng theo container (--fig1px) — giữ đúng tỉ lệ 453×459 của
+	   Figma ở mọi bề rộng desktop, trần = giá trị Customizer. Padding fluid đặt trong
+	   biến cục bộ --wc-card-pad để công thức margin âm của ảnh bên dưới dùng CHUNG. */
+  --wc-card-pad: min(
+    var(--why-choose-card-padding, 48px),
+    calc(48 * var(--fig1px))
+  );
+  min-height: min(
+    var(--why-choose-card-height, 459px),
+    calc(459 * var(--fig1px))
+  );
+  padding: var(--wc-card-pad);
+  border: var(--why-choose-card-border, 1px solid #e5e7eb);
+  border-radius: var(--why-choose-card-radius, 12px);
+  background-color: var(--why-choose-card-bg, #ffffff);
+  box-shadow: var(--why-choose-card-shadow, 0 6px 20px rgb(6 24 44 / 0.06));
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .feature-card:hover,
 .feature-card:focus-within {
-	transform: translateY(var(--why-choose-card-hover-translate, -6px));
-	box-shadow: var(--why-choose-card-hover-shadow, 0 14px 34px rgb(6 24 44 / 0.14));
+  transform: translateY(var(--why-choose-card-hover-translate, -6px));
+  box-shadow: var(
+    --why-choose-card-hover-shadow,
+    0 14px 34px rgb(6 24 44 / 0.14)
+  );
 }
 
 .feature-card__icon {
-	display: inline-flex;
-	width: 40px;
-	height: 40px;
-	margin-bottom: 12px;
-	color: var(--why-choose-heading-blue, #046AB5);
+  display: inline-flex;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 12px;
+  color: var(--why-choose-heading-blue, #046ab5);
 }
 
 .feature-card__icon-image {
-	width: 100%;
-	height: 100%;
-	object-fit: contain;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .feature-card__title {
-	margin: 0 0 var(--why-choose-title-margin, 10px);
-	color: var(--why-choose-title-color, #1a1a1a);
-	font-size: var(--why-choose-title-size, 18px);
-	font-weight: var(--why-choose-title-weight, 700);
-	line-height: 1.35;
+  margin: 0 0 var(--why-choose-title-margin, 14px);
+  color: var(--why-choose-title-color, #000000);
+  /* Figma 28/700 — fluid theo container. */
+  font-size: clamp(
+    16px,
+    calc(28 * var(--fig1px)),
+    var(--why-choose-title-size, 28px)
+  );
+  font-weight: var(--why-choose-title-weight, 700);
+  line-height: 1.21;
 }
 
 .feature-card__description {
-	margin: 0 0 var(--why-choose-card-desc-margin, 12px);
-	/* Figma: text không kéo sát mép phải Card — chừa khoảng thở để line break giống design. */
-	max-width: 94%;
-	color: var(--why-choose-card-desc-color, #5c5c5c);
-	font-size: var(--why-choose-card-desc-size, 14px);
-	line-height: 1.6;
+  margin: 0 0 var(--why-choose-card-desc-margin, 12px);
+  /* Figma: text không kéo sát mép phải Card — chừa khoảng thở để line break giống design. */
+  max-width: 94%;
+  color: var(--why-choose-card-desc-color, #464646);
+  /* Figma 20/400, lh Auto — fluid theo container. */
+  font-size: clamp(
+    13px,
+    calc(20 * var(--fig1px)),
+    var(--why-choose-card-desc-size, 20px)
+  );
+  line-height: 1.21;
 }
 
 .feature-card__button {
-	align-self: flex-start;
-	margin-bottom: var(--why-choose-card-desc-margin, 16px);
-	color: var(--why-choose-heading-blue, #046AB5);
-	font-size: var(--why-choose-card-desc-size, 14px);
-	font-weight: 600;
-	text-decoration: underline;
-	text-underline-offset: 3px;
+  align-self: flex-start;
+  margin-bottom: var(--why-choose-card-desc-margin, 16px);
+  color: var(--why-choose-heading-blue, #046ab5);
+  font-size: var(--why-choose-card-desc-size, 14px);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .feature-card__button:hover,
 .feature-card__button:focus-visible {
-	color: var(--why-choose-heading-red, #E31F2B);
+  color: var(--why-choose-heading-red, #e31f2b);
 }
 
 /* Ảnh (Figma 423×290, inset 15px) nằm dưới cùng Card: margin-top auto đẩy xuống đáy khi
@@ -242,41 +283,46 @@
    text (inset 15 < Card Padding 30) — margin âm (inset − padding) "bung" ảnh khỏi padding
    ngang lẫn đáy, khớp Figma: image X 613 vs card X 599, đáy ảnh cách đáy card ~15px. */
 .feature-card__media {
-	margin-top: auto;
-	margin-inline: calc(var(--why-choose-image-inset, 15px) - var(--why-choose-card-padding, 30px));
-	margin-bottom: calc(var(--why-choose-image-inset, 15px) - var(--why-choose-card-padding, 30px));
-	padding-top: var(--why-choose-image-margin-top, 8px);
-	border-radius: var(--why-choose-image-radius, 0);
-	overflow: hidden;
+  margin-top: auto;
+  /* Dùng --wc-card-pad (padding fluid ở trên) để ảnh luôn bung đúng mép 15px Figma. */
+  margin-inline: calc(
+    var(--why-choose-image-inset, 15px) - var(--wc-card-pad, 48px)
+  );
+  margin-bottom: calc(
+    var(--why-choose-image-inset, 15px) - var(--wc-card-pad, 48px)
+  );
+  padding-top: var(--why-choose-image-margin-top, 8px);
+  border-radius: var(--why-choose-image-radius, 0);
+  overflow: hidden;
 }
 
 .feature-card__image {
-	width: 100%;
-	/* Ảnh co đồng dạng cùng card (290/1920 = 15.1vw), trần = giá trị Customizer. */
-	height: min(var(--why-choose-image-height, 290px), 15.1vw);
-	object-fit: var(--why-choose-image-fit, contain);
-	object-position: center;
-	transition: transform 0.3s ease;
+  width: 100%;
+  /* Ảnh co đồng dạng cùng card theo container (--fig1px), trần = giá trị Customizer. */
+  height: min(var(--why-choose-image-height, 290px), calc(290 * var(--fig1px)));
+  object-fit: var(--why-choose-image-fit, contain);
+  object-position: center;
+  transition: transform 0.3s ease;
 }
 
 .feature-card:hover .feature-card__image {
-	transform: scale(var(--why-choose-image-zoom, 1.05));
+  transform: scale(var(--why-choose-image-zoom, 1.05));
 }
 
 /* ==================== REDUCED MOTION ==================== */
 @media (prefers-reduced-motion: reduce) {
-	.why-choose-home .tmnp-slider.is-enhanced .tmnp-slider__track,
-	.feature-card,
-	.feature-card__image {
-		transition: none;
-	}
+  .why-choose-home .tmnp-slider.is-enhanced .tmnp-slider__track,
+  .feature-card,
+  .feature-card__image {
+    transition: none;
+  }
 
-	.feature-card:hover,
-	.feature-card:focus-within {
-		transform: none;
-	}
+  .feature-card:hover,
+  .feature-card:focus-within {
+    transform: none;
+  }
 
-	.feature-card:hover .feature-card__image {
-		transform: none;
-	}
+  .feature-card:hover .feature-card__image {
+    transform: none;
+  }
 }

@@ -11,9 +11,11 @@
 .faq-home {
 	position: relative;
 	margin-block: var(--faq-margin, 0);
-	padding-block: var(--faq-padding, 96px);
+	/* Figma bất đối xứng: trên 76 (setting), dưới 135 (grid → Footer);
+	   nền gradient trắng → #FBFDFF rất nhẹ (đè được bằng BG Image trong Customizer). */
+	padding-block: var(--faq-padding, 76px) calc(135 * var(--fig1px));
 	background-color: var(--faq-bg, #ffffff);
-	background-image: var(--faq-bg-image, none);
+	background-image: var(--faq-bg-image, linear-gradient(180deg, #FFFFFF 0%, #FBFDFF 100%));
 	background-size: cover;
 	background-position: center;
 }
@@ -24,33 +26,36 @@
 
 /* ==================== HEADER ==================== */
 .faq-home__header {
-	margin-bottom: var(--faq-header-margin, 48px);
+	margin-bottom: var(--faq-header-margin, 42px);
 	text-align: var(--faq-header-align, center);
 }
 
 .faq-home__small {
 	display: block;
 	margin-bottom: 10px;
-	color: var(--faq-heading-blue, #046AB5);
-	font-size: var(--faq-small-size, 13px);
+	color: var(--faq-heading-blue, #0C4B9B);
+	font-size: var(--faq-small-size, 12px);
 	font-weight: 700;
-	letter-spacing: 0.14em;
+	letter-spacing: 0.14em; /* Figma: ls 1.68/12 = 14%. */
 	text-transform: uppercase;
 }
 
 .faq-home__heading {
 	margin: 0 0 12px;
-	font-size: var(--faq-title-size, 40px);
-	font-weight: 800;
-	line-height: 1.2;
+	/* Figma: 62/700 ls -3.41px (-0.055em) — fluid theo container; đè style reuse
+	   .review-home__heading (900/ls 0) vì faq.css load sau. */
+	font-size: clamp(26px, calc(62 * var(--fig1px)), var(--faq-title-size, 62px));
+	font-weight: 700;
+	line-height: 1.21;
+	letter-spacing: -0.055em;
 }
 
 .faq-home__heading-blue {
-	color: var(--faq-heading-blue, #046AB5);
+	color: var(--faq-heading-blue, #0C4B9B);
 }
 
 .faq-home__heading-red {
-	color: var(--faq-heading-red, #E31F2B);
+	color: var(--faq-heading-red, #ED2429);
 }
 
 /* Divider fallback khi KHÔNG reuse review-home__heading. */
@@ -70,40 +75,43 @@
 
 .faq-home__description {
 	margin: 0 var(--faq-header-margin-x, auto);
-	max-width: var(--faq-desc-max-width, 640px);
-	color: var(--faq-desc-color, #5c5c5c);
+	max-width: var(--faq-desc-max-width, 768px);
+	color: var(--faq-desc-color, #5E6978);
 	font-size: var(--faq-desc-size, 14px);
-	line-height: 1.7;
+	line-height: 1.75; /* Figma: lh 24.5px (175%). */
 }
 
 /* ==================== GRID (2 cột × 3 hàng) ==================== */
 .faq-home__grid {
 	display: grid;
 	grid-template-columns: repeat(var(--faq-cols, 2), 1fr);
-	gap: var(--faq-gap, 20px);
+	gap: 18px var(--faq-gap, 17px); /* Figma: hàng 18 / cột 17. */
 	align-items: start; /* card cao theo nội dung — mở FAQ không kéo giãn card cùng hàng. */
 }
 
 /* ==================== FAQ CARD ==================== */
+/* Figma: r16, viền #DCE4ED, shadow 0/8/26 #062B69 5% (giá trị đặc thù design —
+   không qua whitelist shadow setting). */
 .faq-card {
 	position: relative;
-	border: var(--faq-border-width, 1px) solid var(--faq-border-color, #EAEEF3);
-	border-left: var(--faq-border-width, 1px) solid var(--faq-border-color, #EAEEF3);
-	border-radius: var(--faq-card-radius, 12px);
+	border: var(--faq-border-width, 1px) solid var(--faq-border-color, #DCE4ED);
+	border-left: var(--faq-border-width, 1px) solid var(--faq-border-color, #DCE4ED);
+	border-radius: var(--faq-card-radius, 16px);
 	background-color: #ffffff;
-	box-shadow: var(--faq-card-shadow, none);
+	box-shadow: 0 8px 26px rgb(6 43 105 / 0.05);
 	overflow: hidden;
 	transition: box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
 .faq-card:hover {
-	box-shadow: var(--faq-card-hover-shadow, 0 6px 20px rgb(6 24 44 / 0.06));
+	box-shadow: 0 12px 32px rgb(6 43 105 / 0.08);
 }
 
-/* Mở: viền trái xanh dày (design). */
+/* Mở — Figma: dải trái 5px #0C4B9B, viền quanh #B4CCE1, shadow đậm hơn 0/16/38 11%. */
 .faq-card.is-open {
-	border-left: 3px solid var(--faq-active-border, #046AB5);
-	box-shadow: var(--faq-card-hover-shadow, 0 6px 20px rgb(6 24 44 / 0.06));
+	border-color: #B4CCE1;
+	border-left: 5px solid var(--faq-active-border, #0C4B9B);
+	box-shadow: 0 16px 38px rgb(6 43 105 / 0.11);
 }
 
 .faq-card__question-heading {
@@ -115,9 +123,9 @@
 .faq-card__toggle {
 	display: flex;
 	align-items: center;
-	gap: 14px;
+	gap: 12px; /* Figma: badge → câu hỏi 12px. */
 	width: 100%;
-	padding: var(--faq-card-padding, 20px);
+	padding: 26px 15px 26px 17px; /* Figma: pad hàng toggle. */
 	border: none;
 	background: transparent;
 	text-align: left;
@@ -130,13 +138,13 @@
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	flex: 0 0 var(--faq-badge-size, 34px);
-	width: var(--faq-badge-size, 34px);
-	height: var(--faq-badge-size, 34px);
-	border-radius: var(--faq-badge-radius, 8px);
-	background-color: var(--faq-badge-bg, #EAF2FB);
-	color: var(--faq-badge-color, #046AB5);
-	font-size: 13px;
+	flex: 0 0 var(--faq-badge-size, 42px);
+	width: var(--faq-badge-size, 42px);
+	height: var(--faq-badge-size, 42px);
+	border-radius: var(--faq-badge-radius, 12px);
+	background-color: var(--faq-badge-bg, #EAF3FB);
+	color: var(--faq-badge-color, #0C4B9B);
+	font-size: 16px; /* Figma: số 16/700. */
 	font-weight: 700;
 	transition: background-color 0.25s ease, color 0.25s ease;
 }
@@ -150,10 +158,12 @@
 .faq-card__question {
 	flex: 1;
 	min-width: 0;
-	color: var(--faq-q-color, #1a1a1a);
-	font-size: var(--faq-q-size, 16px);
+	color: var(--faq-q-color, #172437);
+	/* Figma: 24/700 — fluid theo container (lh Figma 81% không khả thi trên web,
+	   dùng 1.2 giữ 1 dòng gọn). */
+	font-size: clamp(16px, calc(24 * var(--fig1px)), var(--faq-q-size, 24px));
 	font-weight: var(--faq-q-weight, 700);
-	line-height: 1.4;
+	line-height: 1.2;
 	transition: color 0.2s ease;
 }
 
@@ -170,12 +180,12 @@
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	flex: 0 0 var(--faq-circle-size, 30px);
-	width: var(--faq-circle-size, 30px);
-	height: var(--faq-circle-size, 30px);
+	flex: 0 0 var(--faq-circle-size, 31px);
+	width: var(--faq-circle-size, 31px);
+	height: var(--faq-circle-size, 31px);
 	border-radius: 50%;
-	background-color: var(--faq-circle-bg, #EAF2FB);
-	color: var(--faq-badge-color, #046AB5);
+	background-color: var(--faq-circle-bg, #F2F6FA);
+	color: var(--faq-badge-color, #0C4B9B);
 	transition: background-color 0.25s ease, color 0.25s ease;
 }
 
@@ -213,10 +223,14 @@
 }
 
 .faq-card__answer {
-	padding: var(--faq-a-pt, 12px) var(--faq-card-padding, 20px) calc(var(--faq-card-padding, 20px) + var(--faq-a-pb, 4px));
-	color: var(--faq-a-color, #6B7280);
-	font-size: var(--faq-a-size, 14px);
-	line-height: var(--faq-a-lh, 1.7);
+	/* Figma: answer thụt trái 73 (thẳng hàng chữ câu hỏi sau badge 17+42+12+2),
+	   trên 14 / phải 16 / đáy 18; ngăn với câu hỏi bằng kẻ mảnh #E6ECF2. */
+	margin-inline: 17px 16px;
+	border-top: 1px solid #E6ECF2;
+	padding: var(--faq-a-pt, 14px) 0 18px 56px;
+	color: var(--faq-a-color, #5E6978);
+	font-size: var(--faq-a-size, 15px);
+	line-height: var(--faq-a-lh, 1.36);
 }
 
 .faq-card__answer p {

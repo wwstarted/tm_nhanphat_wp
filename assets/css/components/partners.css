@@ -7,18 +7,28 @@
 
 .partners {
 	background-color: var(--partners-bg, #ffffff);
-	padding-block: var(--partners-padding-desktop, 64px);
+	/* Figma bất đối xứng: trên 0 (khoảng 57px với Products nằm trong padding-bottom của
+	   Products), dưới 73 — co theo tỉ lệ container. */
+	padding-block: var(--partners-padding-desktop, 0px) calc(73 * var(--fig1px));
 }
 
 .partners__inner {
-	max-width: var(--container-max-width);
+	/* NGOẠI LỆ có chủ đích (PROJECT_RULES.md mục 27): Figma hàng logo rộng 1809px —
+	   TRÀN ra ngoài cột nội dung chuẩn 1636 (~86px mỗi bên). 1857 = 1809 + 2×24 padding,
+	   nhân --fig1px để scale cùng hệ với container fluid. */
+	max-width: calc(1857 * var(--fig1px));
 	margin-inline: auto;
 	padding-inline: var(--container-padding);
 }
 
+/* Figma: heading "Đối Tác" Inter 85/900 #046AB5, center, cách hàng logo 32px. */
 .partners__title {
 	text-align: center;
-	margin-bottom: var(--space-xs);
+	margin-bottom: calc(32 * var(--fig1px));
+	color: #046AB5;
+	font-size: clamp(2rem, calc(85 * var(--fig1px)), 5.3125rem);
+	font-weight: 900;
+	line-height: 1.21;
 }
 
 .partners__description {
@@ -44,7 +54,7 @@
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
-	gap: var(--partners-gap-desktop, 24px);
+	gap: var(--partners-gap-desktop, 21px);
 }
 
 /* ==================== CARD ==================== */
@@ -52,8 +62,8 @@
 	list-style: none;
 	/* flex-basis tính đúng bề rộng 1/N cột, trừ đủ gap giữa các cột — items không co giãn
 	   (flex-grow:0, flex-shrink:0) nên luôn đều nhau bất kể hàng đủ hay thiếu item. */
-	flex: 0 0 calc((100% - (var(--partners-cols-desktop, 6) - 1) * var(--partners-gap-desktop, 24px)) / var(--partners-cols-desktop, 6));
-	max-width: calc((100% - (var(--partners-cols-desktop, 6) - 1) * var(--partners-gap-desktop, 24px)) / var(--partners-cols-desktop, 6));
+	flex: 0 0 calc((100% - (var(--partners-cols-desktop, 6) - 1) * var(--partners-gap-desktop, 21px)) / var(--partners-cols-desktop, 6));
+	max-width: calc((100% - (var(--partners-cols-desktop, 6) - 1) * var(--partners-gap-desktop, 21px)) / var(--partners-cols-desktop, 6));
 }
 
 .partners__link {
@@ -64,14 +74,15 @@
 .partners__figure {
 	margin: 0;
 	height: 100%;
-	min-height: 96px;
+	/* Figma: card logo cao 120px — co theo tỉ lệ container, sàn 80px. */
+	min-height: clamp(80px, calc(120 * var(--fig1px)), 120px);
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	padding: var(--partners-card-padding, 20px);
 	background-color: #ffffff;
-	border: 1px solid var(--partners-card-border, #e8e8e8);
-	border-radius: var(--partners-card-radius, 14px);
+	border: 1px solid var(--partners-card-border, #A8AEB8);
+	border-radius: var(--partners-card-radius, 20px);
 	transition: border-color 0.28s ease, transform 0.28s ease, opacity 0.28s ease;
 }
 

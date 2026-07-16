@@ -8,8 +8,9 @@
 	--color-text-muted: #5c5c5c;
 	--color-bg: #ffffff;
 	--color-bg-alt: #f5f5f5;
-	--color-primary: #0d6efd;
-	--color-primary-hover: #0b5ed7;
+	/* Xanh brand Figma (#046AB5) thay #0d6efd bootstrap của scaffold ban đầu. */
+	--color-primary: #046AB5;
+	--color-primary-hover: #03518a;
 	--color-border: #e0e0e0;
 
 	/* Typography */
@@ -19,8 +20,16 @@
 	--font-size-base: 1rem;
 	--line-height-base: 1.6;
 
-	/* Layout */
-	--container-max-width: 1200px;
+	/* Layout — container FLUID: hở 2 bên = 1/2 khoảng hở của container 1200 cũ
+	   (width = 50vw + 600px), trần 1684px (= cột nội dung Figma 1636 + 2×24 padding).
+	   Giá trị dự phòng — bản thật do tmnhanphat_render_global_css_vars() bơm inline. */
+	--container-max-width: min(1684px, 50vw + 600px);
+	/* "1px Figma" quy đổi theo bề rộng CONTAINER THỰC (không phải viewport):
+	   container = min(1684, 50vw+600) → 1px thiết kế = container/1684. Mọi kích thước
+	   Figma F(px) viết là calc(F * var(--fig1px)) sẽ giữ ĐÚNG tỉ lệ chữ/khối so với
+	   thiết kế ở mọi viewport (trần = F khi màn ≥2168 vì min với 1px). Cùng triết lý
+	   --about-fpx của About Section nhưng neo theo container toàn site. */
+	--fig1px: min(1px, calc((50vw + 600px) / 1684));
 	/* Giá trị dự phòng — thực tế luôn được ghi đè theo Customizer "Global Settings" → Layout
 	   qua wp_add_inline_style() trong inc/enqueue.php (PROJECT_RULES.md mục 27). Không sửa
 	   khoảng cách 2 bên ở đây; đổi trong Customizer để áp dụng toàn site. */

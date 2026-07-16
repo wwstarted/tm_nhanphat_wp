@@ -12,13 +12,15 @@
 
 /* ==================== TOP FOOTER ==================== */
 .footer-top {
-	background-color: var(--footer-bg, #f2f2f2);
-	color: var(--footer-text, #4a4a4a);
-	padding-block: var(--footer-padding, 64px);
+	background-color: var(--footer-bg, #0C4B9B);
+	color: var(--footer-text, #ffffff);
+	/* Figma bất đối xứng: trên 65 (setting), dưới 71. */
+	padding-block: var(--footer-padding, 65px) calc(71 * var(--fig1px));
 }
 
 .footer-top__inner {
-	max-width: var(--footer-container-width, 1200px);
+	/* min() với công thức container fluid chung để footer thẳng hàng với body. */
+	max-width: min(var(--footer-container-width, 1684px), 50vw + 600px);
 	margin-inline: auto;
 	padding-inline: var(--container-padding);
 	display: grid;
@@ -36,14 +38,14 @@
 	min-width: 0;
 }
 
-/* Heading: gạch dưới NGẮN (không full-width) màu trắng mờ đúng Design — dùng ::after
-   để kiểm soát chiều dài, opacity trên pseudo nên vẫn tôn trọng Divider Color mod (hex). */
+/* Heading — Figma: 20/700 trắng, kẻ ngang 274×1 trắng đặc bên dưới (cách heading 19,
+   cách link đầu 24). */
 .footer-column__heading {
 	position: relative;
-	font-size: 1.0625rem;
+	font-size: clamp(1rem, calc(20 * var(--fig1px)), 1.25rem);
 	font-weight: 700;
 	color: var(--footer-heading-color, #ffffff);
-	padding-bottom: var(--space-sm);
+	padding-bottom: 19px;
 	margin-bottom: var(--space-md);
 }
 
@@ -52,29 +54,29 @@
 	position: absolute;
 	left: 0;
 	bottom: 0;
-	width: 48px;
-	height: 2px;
+	width: min(calc(274 * var(--fig1px)), 100%);
+	height: 1px;
 	background-color: var(--footer-divider-color, #ffffff);
-	opacity: 0.35;
 }
 
+/* Figma: link 20/400 #A8AEB8, các dòng cách nhau 32 (top→top, lh 112% → gap ~10). */
 .footer-menu {
 	display: flex;
 	flex-direction: column;
-	gap: var(--space-sm);
+	gap: 10px;
+	font-size: clamp(0.875rem, calc(20 * var(--fig1px)), 1.25rem);
+	line-height: 1.12;
 }
 
-/* Menu: trắng 85% (opacity trên link giữ màu hex trong mod), hover → trắng đặc. */
+/* Menu: màu #A8AEB8 từ mod, hover → trắng đặc. */
 .footer-menu a {
-	color: var(--footer-link, #ffffff);
-	opacity: 0.85;
+	color: var(--footer-link, #A8AEB8);
 	transition: opacity 0.2s ease, color 0.2s ease;
 }
 
 .footer-menu a:hover,
 .footer-menu a:focus-visible {
 	color: var(--footer-hover, #ffffff);
-	opacity: 1;
 }
 
 /* Divider giữa "Sản phẩm" và "Dịch vụ": trắng mờ, giữ full-width cột (đúng Design). */
@@ -93,7 +95,7 @@
 }
 
 .footer-branding img {
-	width: var(--footer-logo-width, 160px);
+	width: var(--footer-logo-width, 124px);
 	max-width: 100%;
 	height: auto;
 }
@@ -105,18 +107,19 @@
 	margin-bottom: var(--footer-logo-spacing, 24px);
 }
 
+/* Figma: liên hệ 20/400 TRẮNG ĐẶC, các dòng cách ~19, địa chỉ lh 145%. */
 .footer-contact {
 	font-style: normal;
 	display: flex;
 	flex-direction: column;
-	gap: var(--space-sm);
+	gap: 19px;
 	margin-bottom: var(--space-md);
 	color: var(--footer-text, #ffffff);
-	opacity: 0.85; /* Trắng 85% như Design; link hover nâng lên trắng đặc riêng bên dưới. */
+	font-size: clamp(0.875rem, calc(20 * var(--fig1px)), 1.25rem);
 	/* Email dài (không có khoảng trắng) vẫn phải xuống dòng thay vì tràn ra ngoài cột
 	   ở tablet/mobile — không được cắt chữ (mục 6 "Không text bị cắt"). */
 	overflow-wrap: anywhere;
-	line-height: 1.6;
+	line-height: 1.45;
 }
 
 .footer-contact__item {
@@ -124,7 +127,8 @@
 }
 
 .footer-contact a {
-	color: var(--footer-link, #ffffff);
+	/* Figma: liên hệ TRẮNG ĐẶC (khác link menu #A8AEB8) — dùng --footer-text. */
+	color: var(--footer-text, #ffffff);
 	transition: color 0.2s ease, opacity 0.2s ease;
 }
 
@@ -136,27 +140,26 @@
 
 .footer-social {
 	display: flex;
-	gap: var(--space-sm);
+	gap: 12px; /* Figma: ô social cách nhau 12. */
 }
 
-/* Social: ô vuông bo góc nền trắng mờ (đúng Design — không dùng nền đỏ như bản cũ),
-   hover sáng nhẹ. Nền/hover hardcode translucent trắng (tối ưu UI, không phải mod). */
+/* Social — Figma: ô 40×40 r8 nền #A8AEB8 đặc, icon trắng; hover sáng lên. */
 .footer-social__link {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
 	flex-shrink: 0;
-	width: 36px;
-	height: 36px;
+	width: 40px;
+	height: 40px;
 	border-radius: 8px;
-	background-color: rgb(255 255 255 / 0.14);
+	background-color: #A8AEB8;
 	color: #ffffff;
 	transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 .footer-social__link:hover,
 .footer-social__link:focus-visible {
-	background-color: rgb(255 255 255 / 0.28);
+	background-color: #c2c7cf;
 	transform: translateY(-2px);
 }
 
@@ -164,7 +167,7 @@
 .footer-bottom {
 	background-color: var(--footer-bottom-bg, #E31F2B);
 	color: var(--footer-bottom-text, #ffffff);
-	min-height: 48px;
+	min-height: 47px; /* Figma: bar cao 47. */
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -175,7 +178,7 @@
 
 .footer-bottom__copyright {
 	margin: 0;
-	font-size: 0.8125rem;
+	font-size: 0.75rem; /* Figma: 12/400. */
 	line-height: 1.5;
 }
 

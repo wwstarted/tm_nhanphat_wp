@@ -15,7 +15,8 @@
 .review-home {
 	position: relative;
 	margin-block: var(--review-margin, 0);
-	padding-block: var(--review-padding, 96px);
+	/* Figma bất đối xứng: trên 171 (setting), dưới 88 (marquee → News). */
+	padding-block: var(--review-padding, 171px) calc(88 * var(--fig1px));
 	background-color: var(--review-bg, #ffffff);
 	background-image: var(--review-bg-image, none);
 	background-size: cover;
@@ -32,11 +33,12 @@
 }
 
 .review-home__heading {
-	margin: 0 0 12px;
+	margin: 0 0 9px; /* Figma: heading → cặp gạch 9px. */
 	color: var(--review-title-color, #E31F2B);
-	font-size: var(--review-title-size, 40px);
-	font-weight: 800;
-	line-height: 1.2;
+	/* Figma 85/900 — fluid theo tỉ lệ container, trần = setting theo breakpoint. */
+	font-size: clamp(28px, calc(85 * var(--fig1px)), var(--review-title-size, 85px));
+	font-weight: 900;
+	line-height: 1.21;
 }
 
 /* Figma: 2 từ cuối title màu xanh brand — hằng thiết kế (template tự tách span). */
@@ -44,23 +46,25 @@
 	color: #046AB5;
 }
 
-/* Figma: 2 gạch ngang nhỏ đỏ + xanh ngay dưới title (căn theo Alignment của header). */
+/* Figma: 2 vạch RỜI 34×3 (đỏ #ED2429 + xanh #0C4B9B, cách nhau 7px) dưới title —
+   vẽ bằng 1 pseudo gradient chia đoạn px (34 đỏ / 7 trống / 34 xanh = 75 tổng).
+   Style này được News/Quote/FAQ tái sử dụng qua class .review-home__heading. */
 .review-home__heading::after {
 	content: "";
 	display: block;
-	width: 56px;
-	height: 4px;
-	margin: 10px var(--review-desc-margin-x, auto) 0;
+	width: 75px;
+	height: 3px;
+	margin: 9px var(--review-desc-margin-x, auto) 0;
 	border-radius: 2px;
-	background: linear-gradient(90deg, #E31F2B 0 45%, transparent 45% 55%, #046AB5 55% 100%);
+	background: linear-gradient(90deg, #ED2429 0 34px, transparent 34px 41px, #0C4B9B 41px 75px);
 }
 
 .review-home__description {
-	margin: 0 var(--review-desc-margin-x, auto) var(--review-header-margin, 48px);
-	max-width: var(--review-desc-max-width, 720px);
-	color: var(--review-desc-color, #5c5c5c);
-	font-size: var(--review-desc-size, 15px);
-	line-height: 1.7;
+	margin: 0 var(--review-desc-margin-x, auto) var(--review-header-margin, 59px);
+	max-width: var(--review-desc-max-width, 1068px);
+	color: var(--review-desc-color, #464646);
+	font-size: clamp(13px, calc(20 * var(--fig1px)), var(--review-desc-size, 20px));
+	line-height: 1.21; /* Figma Auto (24.2/20). */
 }
 
 /* ==================== MARQUEE ==================== */
@@ -70,9 +74,9 @@
 	align-items: flex-start;
 	gap: var(--review-column-gap, 24px);
 	/* Chiều cao khung nhìn cố định — vùng cuộn bên trong, không kéo giãn section theo
-	   tổng số Review (dù Posts Per Column lớn). Figma: frame marquee 1414×893, giữ
-	   tỉ lệ tương đối ~720px cho container 1200. */
-	height: 720px;
+	   tổng số Review (dù Posts Per Column lớn). Figma: cột marquee cao 840px — co theo
+	   tỉ lệ container. */
+	height: min(840px, calc(840 * var(--fig1px)));
 	overflow: hidden;
 }
 
@@ -153,11 +157,11 @@
 /* ==================== REVIEW CARD ==================== */
 .review-card {
 	flex-shrink: 0;
-	padding: var(--review-card-padding, 20px);
-	border: var(--review-card-border, 1px solid #EAEAEA);
+	padding: var(--review-card-padding, 25px);
+	border: var(--review-card-border, 1px solid #212121);
 	border-radius: var(--review-card-radius, 12px);
 	background-color: var(--review-card-bg, #ffffff);
-	box-shadow: var(--review-card-shadow, 0 6px 20px rgb(6 24 44 / 0.06));
+	box-shadow: var(--review-card-shadow, none);
 	transition: box-shadow 0.25s ease;
 }
 
@@ -168,8 +172,8 @@
 .review-card__head {
 	display: flex;
 	align-items: center;
-	gap: 10px;
-	margin-bottom: 12px;
+	gap: 12px; /* Figma: avatar → tên 12px. */
+	margin-bottom: 22px; /* Figma: head → comment 22px. */
 }
 
 .review-card__avatar {
@@ -205,22 +209,23 @@
 
 .review-card__name {
 	color: var(--review-name-color, #1a1a1a);
-	font-size: var(--review-name-size, 14px);
-	font-weight: var(--review-name-weight, 700);
-	line-height: 1.3;
+	/* Figma: 15/400, lh 24px (160%). */
+	font-size: var(--review-name-size, 15px);
+	font-weight: var(--review-name-weight, 400);
+	line-height: 1.6;
 }
 
 .review-card__role {
-	color: var(--review-role-color, #9CA3AF);
-	font-size: var(--review-role-size, 12px);
-	line-height: 1.3;
+	color: var(--review-role-color, #AEAEAE);
+	font-size: var(--review-role-size, 13px);
+	line-height: 1.23; /* Figma: lh 16px (123%). */
 }
 
 .review-card__comment {
 	margin: 0;
-	color: var(--review-comment-color, #4B5563);
-	font-size: var(--review-comment-size, 13px);
-	line-height: 1.6;
+	color: var(--review-comment-color, #000000);
+	font-size: var(--review-comment-size, 15px);
+	line-height: 1.6; /* Figma: lh 24px (160%). */
 	display: -webkit-box;
 	-webkit-box-orient: vertical;
 	-webkit-line-clamp: var(--review-comment-clamp, 4);
