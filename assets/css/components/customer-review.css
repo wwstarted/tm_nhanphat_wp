@@ -143,9 +143,22 @@
 	}
 }
 
-/* Pause on Hover — thuần CSS, chỉ áp dụng khi setting bật (class do PHP gắn có điều kiện). */
-.review-marquee--pause-hover:hover .review-marquee__track,
-.review-marquee--pause-hover:focus-within .review-marquee__track {
+/* Pause on Hover — thuần CSS, chỉ áp dụng khi setting bật (class do PHP gắn có điều kiện).
+   3 điều kiện chống "kẹt pause" quanh nút Tạm dừng/Phát (nút nằm BÊN TRONG marquee):
+   1) @media (hover: hover): touch không có hover thật — tap xong :hover DÍNH trên element
+      tới lần chạm kế → mobile kẹt pause vĩnh viễn nếu không loại.
+   2) :not(:has(.review-marquee__toggle:hover)): chuột đang đậu trên nút thì không pause —
+      bấm Play phải thấy chạy NGAY, không phải rời chuột khỏi nút mới chạy.
+   3) :has(:focus-visible:not(...)) thay :focus-within: click/tap để lại focus THƯỜNG trên
+      nút → :focus-within cũ giữ pause mãi dù JS đã gỡ .is-paused; :focus-visible chỉ khớp
+      focus bàn phím, và loại trừ chính nút toggle (Enter bấm Play xong focus vẫn ở nút). */
+@media (hover: hover) {
+	.review-marquee--pause-hover:hover:not(:has(.review-marquee__toggle:hover)) .review-marquee__track {
+		animation-play-state: paused;
+	}
+}
+
+.review-marquee--pause-hover:has(:focus-visible:not(.review-marquee__toggle)) .review-marquee__track {
 	animation-play-state: paused;
 }
 
