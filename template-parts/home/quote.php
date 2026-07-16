@@ -5,8 +5,9 @@
  * phải = Company Information. Mọi tuỳ chỉnh từ Customizer panel "Quote Contact
  * Home"; Email/Phone/Address TÁI SỬ DỤNG mod Footer (nhập 1 lần ở panel Footer).
  *
- * Form ở bước này chỉ HTML + validation Frontend (assets/js/components/quote.js) —
- * chưa gửi mail (backend sau, mục 15). Heading phải reuse review-home__heading
+ * Form: HTML + validation Frontend (assets/js/components/quote.js) + gửi mail qua
+ * AJAX handler tmnhanphat_ajax_submit_quote (inc/ajax.php, wp_mail về admin_email).
+ * Heading phải reuse review-home__heading
  * (mục 11): H2 gắn class review-home__heading để lấy gạch đôi đỏ/xanh + typography.
  *
  * SEO (mục 14/23): Heading dùng H2. Không in Schema.
@@ -150,7 +151,7 @@ $tmnhanphat_q_fields = array(
 						</p>
 					<?php endif; ?>
 
-					<?php /* Thông báo sau submit (JS điền — chưa gửi backend ở bước này). */ ?>
+					<?php /* Thông báo kết quả gửi (JS điền từ response AJAX — thành công/thất bại). */ ?>
 					<p class="quote-form__notice" data-quote-notice role="status" aria-live="polite" hidden></p>
 				</form>
 			</div>

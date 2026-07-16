@@ -43,7 +43,7 @@
 
 .services-home__description {
 	margin: 0 auto var(--services-desc-margin, 57px);
-	max-width: var(--services-desc-max-width, 1068px);
+	max-width: var(--services-desc-max-width, 820px);
 	color: var(--services-desc-color, #464646);
 	font-size: clamp(13px, calc(20 * var(--fig1px)), var(--services-desc-size, 20px));
 	line-height: 1.21; /* Figma Auto (24.2/20). */
@@ -103,6 +103,7 @@
 }
 
 .tmnp-slider__dot {
+	position: relative;
 	width: 15px;
 	height: 15px;
 	padding: 0;
@@ -111,6 +112,14 @@
 	background-color: var(--services-dot-inactive, #D9D9D9);
 	cursor: pointer;
 	transition: background-color 0.25s ease, transform 0.25s ease;
+}
+
+/* Vùng chạm trong suốt mở rộng 8px mỗi phía (dot 15px → hit ~31px, đạt WCAG 2.5.8
+   ≥24px) — gap dots 16px nên 2 vùng chạm kề nhau vừa chạm mép, không chồng lấn. */
+.tmnp-slider__dot::before {
+	content: "";
+	position: absolute;
+	inset: -8px;
 }
 
 .tmnp-slider__dot:hover,

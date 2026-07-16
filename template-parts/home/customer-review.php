@@ -112,6 +112,19 @@ if ( ! function_exists( 'tmnhanphat_render_review_card' ) ) {
 			class="review-marquee<?php echo $tmnhanphat_rv_pause_hover_on ? ' review-marquee--pause-hover' : ''; ?>"
 			data-tmnp-review-marquee
 		>
+			<?php if ( $tmnhanphat_rv_animation_on ) : ?>
+				<?php // Nút Tạm dừng/Phát — WCAG 2.2.2: nội dung tự chuyển động cần cơ chế pause NHÌN THẤY được (pause-hover không dùng được trên touch). JS toggle .is-paused (customer-review.js). ?>
+				<button
+					type="button"
+					class="review-marquee__toggle"
+					data-marquee-toggle
+					aria-pressed="false"
+					aria-label="<?php esc_attr_e( 'Tạm dừng cuộn tự động', 'tmnhanphat' ); ?>"
+				>
+					<svg class="review-marquee__toggle-pause" viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true"><rect x="3" y="2" width="4" height="12" rx="1"/><rect x="9" y="2" width="4" height="12" rx="1"/></svg>
+					<svg class="review-marquee__toggle-play" viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M4.5 2.5a1 1 0 0 1 1.53-.85l8 5.5a1 1 0 0 1 0 1.7l-8 5.5a1 1 0 0 1-1.53-.85v-11Z"/></svg>
+				</button>
+			<?php endif; ?>
 			<?php foreach ( $tmnhanphat_rv_columns as $tmnhanphat_rv_col_index => $tmnhanphat_rv_items ) : ?>
 				<?php if ( empty( $tmnhanphat_rv_items ) ) : ?>
 					<?php continue; ?>

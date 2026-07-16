@@ -135,8 +135,9 @@ function tmnhanphat_enqueue_assets() {
 		tmnhanphat_enqueue_script_file( 'tmnhanphat-process', 'assets/js/components/process.js' );
 		// Customer Review Marquee (pause khi tab ẩn/prefers-reduced-motion) — JS độc lập, không deps.
 		tmnhanphat_enqueue_script_file( 'tmnhanphat-review', 'assets/js/components/customer-review.js' );
-		// Quote Contact Form (validation Frontend) — JS độc lập, không deps.
-		tmnhanphat_enqueue_script_file( 'tmnhanphat-quote', 'assets/js/components/quote.js' );
+		// Quote Contact Form (validation Frontend + gửi AJAX) — phụ thuộc app vì cần
+		// tmnhanphatData (ajaxUrl + nonce) được wp_localize_script gắn vào handle đó.
+		tmnhanphat_enqueue_script_file( 'tmnhanphat-quote', 'assets/js/components/quote.js', array( 'tmnhanphat-app' ) );
 		// FAQ Accordion (slide down/up, 1 FAQ mở cùng lúc) — JS độc lập, không deps.
 		tmnhanphat_enqueue_script_file( 'tmnhanphat-faq', 'assets/js/components/faq.js' );
 	} elseif ( is_singular( 'post' ) ) {

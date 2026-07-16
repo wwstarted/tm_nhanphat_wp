@@ -57,3 +57,17 @@ table {
 	border-collapse: collapse;
 	width: 100%;
 }
+
+/* Focus ring nhất quán toàn site cho người dùng bàn phím (:focus-visible không ảnh
+   hưởng click chuột). Component có ring riêng (vd dots slider) tự override theo scope. */
+:focus-visible {
+	outline: 2px solid var(--color-primary, #046AB5);
+	outline-offset: 2px;
+}
+
+/* Trên nền tối (footer navy, card form Quote xanh đậm) ring xanh primary chìm vào nền
+   — đổi sang trắng để giữ độ nhận biết tương đương. */
+.site-footer :focus-visible,
+.quote-form :focus-visible {
+	outline-color: #ffffff;
+}

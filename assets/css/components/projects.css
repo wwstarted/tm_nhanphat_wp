@@ -51,7 +51,7 @@
 
 .projects-home__description {
 	margin: 0 var(--projects-desc-margin-x, auto) var(--projects-header-margin, 72px);
-	max-width: var(--projects-desc-max-width, 1006px);
+	max-width: var(--projects-desc-max-width, 820px);
 	color: var(--projects-desc-color, #ffffff);
 	font-size: clamp(13px, calc(20 * var(--fig1px)), var(--projects-desc-size, 20px));
 	line-height: 1.21; /* Figma Auto (24.2/20). */
@@ -87,7 +87,7 @@
 .projects-home .tmnp-slider__dot {
 	width: var(--projects-dot-size, 19px);
 	height: var(--projects-dot-size, 19px);
-	background-color: var(--projects-dot-color, #A2A2A2);
+	background-color: var(--projects-dot-color, #A8AEB8);
 }
 
 .projects-home .tmnp-slider__dot.is-active {
@@ -110,7 +110,10 @@
 	padding: calc(67 * var(--fig1px)) calc(97 * var(--fig1px)) calc(55 * var(--fig1px)) calc(90 * var(--fig1px));
 	border-radius: var(--projects-card-radius, 40px);
 	background-color: var(--projects-card-bg, #A1ACC1);
-	box-shadow: 0 4px 4px rgb(0 0 0 / 0.25);
+	/* Figma gốc 0 4px 4px /25% — blur bằng offset + opacity cao trông như viền bẩn
+	   (anti-pattern shadow). Làm mềm theo đúng ngôn ngữ shadow FAQ card: blur lớn,
+	   opacity thấp — độ nổi tương đương, mắt dễ chịu hơn. */
+	box-shadow: 0 16px 38px rgb(0 0 0 / 0.12);
 }
 
 .project-card__content {

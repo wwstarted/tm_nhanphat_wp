@@ -34,7 +34,7 @@
 /* ==================== LEFT: FORM CARD ==================== */
 /* Figma: r=31, GRADIENT xanh đậm dọc + shadow 0/20/44 #0F315E 16%, padding 48/64/34. */
 .quote-form--card {
-	border-radius: var(--quote-card-radius, 31px);
+	border-radius: var(--quote-card-radius, 30px);
 	background-color: var(--quote-card-bg, #07306F);
 	background-image: linear-gradient(180deg, #062B69 0%, #07306F 42%, #0A4D96 100%);
 	box-shadow: 0 20px 44px rgb(15 49 94 / 0.16);
@@ -73,7 +73,7 @@
 	line-height: 1.17; /* Figma: lh 117%. */
 }
 
-/* Underline đỏ ngắn — Figma: 86×4 #ED1C24. */
+/* Underline đỏ ngắn — Figma: 86×4 (gom token đỏ #E31F2B). */
 .quote-form__title::after {
 	content: "";
 	position: absolute;
@@ -82,7 +82,7 @@
 	width: 86px;
 	height: 4px;
 	border-radius: 999px;
-	background-color: var(--quote-underline, #ED1C24);
+	background-color: var(--quote-underline, #E31F2B);
 }
 
 .quote-form__fields {
@@ -127,7 +127,7 @@
 }
 
 .quote-field__input::placeholder {
-	color: var(--quote-placeholder, #7A8495);
+	color: var(--quote-placeholder, #667180);
 }
 
 .quote-field__textarea {
@@ -280,11 +280,11 @@
 }
 
 .quote-info__heading-blue {
-	color: var(--quote-heading-blue, #073B91);
+	color: var(--quote-heading-blue, #0C4B9B);
 }
 
 .quote-info__heading-red {
-	color: var(--quote-heading-red, #D81721);
+	color: var(--quote-heading-red, #E31F2B);
 }
 
 .quote-info__description {
@@ -329,7 +329,7 @@
 	border-radius: 50%;
 	background-color: var(--quote-icon-bg, #ffffff);
 	border: 2px solid #DDE5EF;
-	color: var(--quote-icon-color, #0955AA);
+	color: var(--quote-icon-color, #046AB5);
 	box-shadow: 0 6px 18px rgb(1 24 69 / 0.18);
 }
 

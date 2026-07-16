@@ -1,11 +1,13 @@
 /**
  * Quote Contact Form ([data-tmnp-quote-form]) — validation Frontend thuần, không thư
- * viện ngoài (PROJECT_RULES.md mục 21). Bước này CHƯA gửi mail (backend sau, mục 15):
- * submit hợp lệ chỉ hiện thông báo tạm + reset form.
+ * viện ngoài (PROJECT_RULES.md mục 21). Submit hợp lệ gửi AJAX tới handler
+ * tmnhanphat_ajax_submit_quote (inc/ajax.php — validate lại server + wp_mail), dùng
+ * ajaxUrl/nonce từ window.tmnhanphatData (wp_localize_script gắn vào handle app).
  *
  * Validation (mục 16): Tên không rỗng, Phone đúng định dạng, Email đúng định dạng,
  * Service phải chọn, Message không rỗng — CHỈ với field đang bật (data-required).
  * Lỗi hiển thị DƯỚI từng field (không alert). Field lỗi tự xoá lỗi khi người dùng sửa.
+ * Lỗi server theo field (errors{name: message}) cũng đổ về đúng field tương ứng.
  */
 ( function () {
 	'use strict';
@@ -64,11 +66,23 @@
 		return true;
 	}
 
+	function showNotice( notice, message, isSuccess ) {
+		if ( ! notice ) {
+			return;
+		}
+
+		notice.hidden = false;
+		notice.classList.toggle( 'is-success', isSuccess );
+		notice.textContent = message;
+	}
+
 	function initForm( form ) {
 		var controls = Array.prototype.slice.call(
 			form.querySelectorAll( '.quote-field__input' )
 		);
 		var notice = form.querySelector( '[data-quote-notice]' );
+		var submitBtn = form.querySelector( '.quote-form__submit' );
+		var isSending = false;
 
 		// Xoá lỗi ngay khi người dùng sửa lại field.
 		controls.forEach( function ( control ) {
@@ -83,6 +97,10 @@
 
 		form.addEventListener( 'submit', function ( event ) {
 			event.preventDefault();
+
+			if ( isSending ) {
+				return; // Chống double-submit khi request trước chưa xong.
+			}
 
 			var valid = true;
 			var firstInvalid = null;
@@ -103,14 +121,69 @@
 				return;
 			}
 
-			// Hợp lệ — bước này chưa gửi backend (mục 15). Hiện thông báo + reset.
-			if ( notice ) {
-				notice.hidden = false;
-				notice.classList.add( 'is-success' );
-				notice.textContent = 'Cảm ơn bạn! Yêu cầu đã được ghi nhận, chúng tôi sẽ liên hệ lại sớm.';
+			var config = window.tmnhanphatData || {};
+
+			if ( ! config.ajaxUrl || ! window.fetch ) {
+				// Không có endpoint/fetch (rất hiếm) — không được báo thành công giả.
+				showNotice( notice, 'Không thể gửi yêu cầu lúc này. Vui lòng liên hệ trực tiếp qua hotline.', false );
+				return;
 			}
 
-			form.reset();
+			var data = new FormData( form );
+			data.append( 'action', 'tmnhanphat_submit_quote' );
+			data.append( 'nonce', config.nonce || '' );
+
+			isSending = true;
+			form.classList.add( 'is-loading' );
+			if ( submitBtn ) {
+				submitBtn.disabled = true;
+			}
+			if ( notice ) {
+				notice.hidden = true;
+				notice.classList.remove( 'is-success' );
+			}
+
+			window.fetch( config.ajaxUrl, {
+				method: 'POST',
+				credentials: 'same-origin',
+				body: data
+			} )
+				.then( function ( response ) {
+					return response.json();
+				} )
+				.then( function ( result ) {
+					if ( result && result.success ) {
+						showNotice( notice, ( result.data && result.data.message ) || 'Cảm ơn bạn! Yêu cầu đã được gửi, chúng tôi sẽ liên hệ lại sớm.', true );
+						form.reset();
+						return;
+					}
+
+					// Lỗi validate server theo field — đổ về đúng field tương ứng.
+					var errors = result && result.data && result.data.errors;
+					if ( errors ) {
+						controls.forEach( function ( control ) {
+							var name = control.getAttribute( 'name' ) || '';
+							if ( errors[ name ] ) {
+								var field = control.closest( '.quote-field' );
+								if ( field ) {
+									setError( field, errors[ name ] );
+								}
+							}
+						} );
+					}
+
+					showNotice( notice, ( result && result.data && result.data.message ) || 'Không thể gửi yêu cầu lúc này. Vui lòng thử lại sau.', false );
+				} )
+				.catch( function () {
+					showNotice( notice, 'Không thể gửi yêu cầu lúc này. Vui lòng kiểm tra kết nối và thử lại.', false );
+				} )
+				.then( function () {
+					isSending = false;
+					form.classList.remove( 'is-loading' );
+					if ( submitBtn ) {
+						submitBtn.disabled = false;
+					}
+				} );
 		} );
 	}
 

@@ -1596,7 +1596,7 @@ function tmnhanphat_services_defaults() {
 		// Figma: Inter 20/400 màu #464646, box 1068px; Description → Cards cách 57px.
 		'tmnhanphat_services_description_color'         => '#464646',
 		'tmnhanphat_services_description_font_size'     => 20,
-		'tmnhanphat_services_description_max_width'     => 1068,
+		'tmnhanphat_services_description_max_width'     => 820, // Figma 1068 → dòng ~95 ký tự, quá vùng đọc 45–75; hạ 820 (~73 ký tự) cho dễ đọc.
 		'tmnhanphat_services_description_margin_bottom' => 57,
 
 		// Query
@@ -2090,7 +2090,7 @@ function tmnhanphat_products_defaults() {
 		'tmnhanphat_products_description_size_desktop' => 20,
 		'tmnhanphat_products_description_size_tablet'  => 16,
 		'tmnhanphat_products_description_size_mobile'  => 14,
-		'tmnhanphat_products_description_max_width'    => 1068,
+		'tmnhanphat_products_description_max_width'    => 820, // Figma 1068 → hạ 820 cho measure dễ đọc (cùng lý do Services).
 		'tmnhanphat_products_description_line_clamp'   => 0,
 		'tmnhanphat_products_header_bottom_spacing'    => 110,
 
@@ -2109,7 +2109,7 @@ function tmnhanphat_products_defaults() {
 		'tmnhanphat_products_cats_active_bg'      => '#046AB5',
 		'tmnhanphat_products_cats_active_color'   => '#ffffff',
 		'tmnhanphat_products_cats_inactive_bg'    => '#ffffff',
-		'tmnhanphat_products_cats_inactive_color' => '#4A4F57',
+		'tmnhanphat_products_cats_inactive_color' => '#464646', // Gom token: Figma #4A4F57 → xám body chung.
 		'tmnhanphat_products_cats_border'         => '#ffffff',
 		'tmnhanphat_products_cats_hover_bg'       => '#eaf3fb',
 		'tmnhanphat_products_cats_hover_color'    => '#046AB5',
@@ -2144,7 +2144,7 @@ function tmnhanphat_products_defaults() {
 		'tmnhanphat_products_title_line_clamp'   => 2,
 		'tmnhanphat_products_title_align'        => 'left',
 		'tmnhanphat_products_meta_font_size'     => 20,
-		'tmnhanphat_products_meta_color'         => '#4A4F57',
+		'tmnhanphat_products_meta_color'         => '#464646', // Gom token: Figma #4A4F57 → xám body chung.
 		'tmnhanphat_products_brand_enable'       => true,
 		'tmnhanphat_products_brand_label'        => __( 'Thương hiệu', 'tmnhanphat' ),
 		'tmnhanphat_products_brand_meta_key'     => '_tmnp_product_brand',
@@ -2722,7 +2722,7 @@ function tmnhanphat_why_choose_defaults() {
 		'tmnhanphat_why_choose_desc_size'          => 20,
 		'tmnhanphat_why_choose_desc_size_tablet'   => 16,
 		'tmnhanphat_why_choose_desc_size_mobile'   => 14,
-		'tmnhanphat_why_choose_desc_max_width'     => 1080,
+		'tmnhanphat_why_choose_desc_max_width'     => 820, // Figma 1080 → hạ 820 cho measure dễ đọc (cùng lý do Services).
 		'tmnhanphat_why_choose_desc_clamp'         => 0,
 		'tmnhanphat_why_choose_desc_margin_bottom' => 86,
 
@@ -3274,7 +3274,7 @@ function tmnhanphat_process_defaults() {
 		'tmnhanphat_process_desc_size'          => 20,
 		'tmnhanphat_process_desc_size_tablet'   => 16,
 		'tmnhanphat_process_desc_size_mobile'   => 14,
-		'tmnhanphat_process_desc_max_width'     => 1080,
+		'tmnhanphat_process_desc_max_width'     => 820, // Figma 1080 → hạ 820 cho measure dễ đọc (cùng lý do Services).
 		'tmnhanphat_process_desc_clamp'         => 0,
 		'tmnhanphat_process_desc_margin_bottom' => 85,
 
@@ -3619,7 +3619,7 @@ function tmnhanphat_projects_defaults() {
 		'tmnhanphat_projects_desc_size'            => 20,
 		'tmnhanphat_projects_desc_size_tablet'     => 16,
 		'tmnhanphat_projects_desc_size_mobile'     => 14,
-		'tmnhanphat_projects_desc_max_width'       => 1006,
+		'tmnhanphat_projects_desc_max_width'       => 820, // Figma 1006 → hạ 820 cho measure dễ đọc (cùng lý do Services).
 		'tmnhanphat_projects_desc_clamp'           => 0,
 		'tmnhanphat_projects_desc_align'           => 'center',
 		'tmnhanphat_projects_header_margin_bottom' => 72,
@@ -3689,7 +3689,7 @@ function tmnhanphat_projects_defaults() {
 		'tmnhanphat_projects_show_dots'        => true,
 		'tmnhanphat_projects_dot_size'         => 19,
 		'tmnhanphat_projects_dot_gap'          => 27,
-		'tmnhanphat_projects_dot_color'        => '#A2A2A2',
+		'tmnhanphat_projects_dot_color'        => '#A8AEB8', // Gom token: Figma #A2A2A2 → xám nhạt chung.
 		'tmnhanphat_projects_dot_active_color' => '#ffffff',
 	);
 
@@ -4076,7 +4076,7 @@ function tmnhanphat_customer_review_defaults() {
 		'tmnhanphat_review_desc_size'            => 20,
 		'tmnhanphat_review_desc_size_tablet'     => 16,
 		'tmnhanphat_review_desc_size_mobile'     => 14,
-		'tmnhanphat_review_desc_max_width'       => 1068,
+		'tmnhanphat_review_desc_max_width'       => 820, // Figma 1068 → hạ 820 cho measure dễ đọc (cùng lý do Services).
 		'tmnhanphat_review_header_margin_bottom' => 59,
 
 		// ----- Query -----
@@ -4109,13 +4109,14 @@ function tmnhanphat_customer_review_defaults() {
 		'tmnhanphat_review_avatar_fit'           => 'cover',
 
 		// ----- Name / Role / Comment — Figma: Name 15/400 (fill gốc #F5F5F5 là LỖI design
-		// — trắng nhạt vô hình trên card trắng — nên giữ màu tối đọc được), Role 13 #AEAEAE,
+		// — trắng nhạt vô hình trên card trắng — nên giữ màu tối đọc được), Role 13 (Figma
+		// #AEAEAE chỉ đạt ~2.3:1 trên nền trắng — fail WCAG AA, nâng lên #667180 ~4.9:1),
 		// Comment 15/400 ĐEN lh 160%. -----
 		'tmnhanphat_review_name_size'     => 15,
 		'tmnhanphat_review_name_weight'   => '400',
 		'tmnhanphat_review_name_color'    => '#1a1a1a',
 		'tmnhanphat_review_role_size'     => 13,
-		'tmnhanphat_review_role_color'    => '#AEAEAE',
+		'tmnhanphat_review_role_color'    => '#667180',
 		'tmnhanphat_review_comment_size'         => 15,
 		'tmnhanphat_review_comment_color'        => '#000000',
 		'tmnhanphat_review_comment_clamp'        => 4,
@@ -4642,12 +4643,13 @@ function tmnhanphat_news_defaults() {
 		'tmnhanphat_news_thumb_fit'    => 'cover',
 		'tmnhanphat_news_thumb_zoom'   => true,
 
-		// ----- Meta — Figma: date/author 20/400 #A8AEB8. -----
+		// ----- Meta — Figma: date/author 20/400 #A8AEB8 (~2.3:1 trên nền trắng — fail
+		// WCAG AA, nâng lên #667180 ~4.9:1, giữ đúng họ xám xanh của design). -----
 		'tmnhanphat_news_show_date'   => true,
 		'tmnhanphat_news_show_author' => true,
 		'tmnhanphat_news_date_format' => 'd/m/Y',
 		'tmnhanphat_news_meta_size'   => 20,
-		'tmnhanphat_news_meta_color'  => '#A8AEB8',
+		'tmnhanphat_news_meta_color'  => '#667180',
 
 		// ----- Card Title — Figma: 30/700 ĐEN. -----
 		'tmnhanphat_news_ptitle_size'        => 30,
@@ -4657,11 +4659,12 @@ function tmnhanphat_news_defaults() {
 		'tmnhanphat_news_ptitle_clamp'       => 2,
 		'tmnhanphat_news_ptitle_color'       => '#000000',
 
-		// ----- Card Description — Figma: 20/400 #A8AEB8. -----
+		// ----- Card Description — Figma: 20/400 #A8AEB8 (fail WCAG AA trên nền trắng,
+		// nâng lên #667180 — cùng lý do Meta ở trên). -----
 		'tmnhanphat_news_pdesc_size'         => 20,
 		'tmnhanphat_news_pdesc_clamp'        => 2,
 		'tmnhanphat_news_pdesc_clamp_mobile' => 2,
-		'tmnhanphat_news_pdesc_color'        => '#A8AEB8',
+		'tmnhanphat_news_pdesc_color'        => '#667180',
 
 		// ----- Read More — Figma: 20/400 vàng đồng #B8955A, căn phải. -----
 		'tmnhanphat_news_readmore_text'        => 'Xem thêm',
@@ -4918,15 +4921,16 @@ function tmnhanphat_quote_defaults() {
 		// ----- Left Card — Figma: r=31, nền GRADIENT xanh đậm (#062B69→#0A4D96, vẽ ở
 		// CSS đè lên màu nền này), shadow 0/20/44 (CSS), padding 48/64/34/64 (CSS). -----
 		'tmnhanphat_quote_card_enable'  => true,
-		'tmnhanphat_quote_card_radius'  => 31,
+		'tmnhanphat_quote_card_radius'  => 30, // Gom token radius: Figma 31 → nấc chuẩn 30 (đồng bộ Services/Products card).
 		'tmnhanphat_quote_card_shadow'  => 'medium',
 		'tmnhanphat_quote_card_bg'      => '#07306F',
 		'tmnhanphat_quote_card_padding' => 48,
 
-		// ----- Form Header — Figma: title 37/700 trắng, underline đỏ 86×4 (#ED1C24). -----
+		// ----- Form Header — Figma: title 37/700 trắng, underline đỏ 86×4 (Figma #ED1C24
+		// gom về token đỏ thương hiệu #E31F2B — chênh lệch dưới ngưỡng mắt phân biệt). -----
 		'tmnhanphat_quote_header_title'          => 'Thông tin khách hàng',
 		'tmnhanphat_quote_header_title_color'    => '#ffffff',
-		'tmnhanphat_quote_underline_color'       => '#ED1C24',
+		'tmnhanphat_quote_underline_color'       => '#E31F2B',
 		'tmnhanphat_quote_header_size'           => 37,
 		'tmnhanphat_quote_header_size_tablet'    => 24,
 		'tmnhanphat_quote_header_size_mobile'    => 20,
@@ -4940,11 +4944,12 @@ function tmnhanphat_quote_defaults() {
 		'tmnhanphat_quote_required'     => true,
 
 		// ----- Form Input Style — Figma: field cao 67, r10, viền #D0D8E3,
-		// placeholder 17/400 #7A8495, cách nhau 15. -----
+		// placeholder 17/400 (Figma #7A8495 ~3.8:1 — fail WCAG AA, nâng lên #667180
+		// ~4.9:1 trên nền input trắng), cách nhau 15. -----
 		'tmnhanphat_quote_input_height'      => 67,
 		'tmnhanphat_quote_input_radius'      => 10,
 		'tmnhanphat_quote_input_font_size'   => 17,
-		'tmnhanphat_quote_placeholder_color' => '#7A8495',
+		'tmnhanphat_quote_placeholder_color' => '#667180',
 		'tmnhanphat_quote_border_color'      => '#D0D8E3',
 		'tmnhanphat_quote_focus_color'       => '#046AB5',
 		'tmnhanphat_quote_input_gap'         => 15,
@@ -4975,8 +4980,9 @@ function tmnhanphat_quote_defaults() {
 		'tmnhanphat_quote_logo_width'         => 137,
 		'tmnhanphat_quote_heading_blue_text'  => 'Liên hệ',
 		'tmnhanphat_quote_heading_red_text'   => 'báo giá',
-		'tmnhanphat_quote_heading_blue_color' => '#073B91',
-		'tmnhanphat_quote_heading_red_color'  => '#D81721',
+		// Gom token: Figma #073B91/#D81721 → navy #0C4B9B + đỏ #E31F2B (đồng bộ heading News/FAQ).
+		'tmnhanphat_quote_heading_blue_color' => '#0C4B9B',
+		'tmnhanphat_quote_heading_red_color'  => '#E31F2B',
 		'tmnhanphat_quote_heading_size'       => 70,
 		'tmnhanphat_quote_desc_text'          => 'Sản phẩm chính hãng, đội ngũ kỹ thuật chuyên nghiệp cùng chế độ bảo hành - bảo trì tận tâm là lý do hàng nghìn khách hàng tin chọn Nhân Phát.',
 		'tmnhanphat_quote_desc_color'         => '#1D2430',
@@ -4990,7 +4996,7 @@ function tmnhanphat_quote_defaults() {
 		'tmnhanphat_quote_show_contact_phone'   => true,
 		'tmnhanphat_quote_show_contact_address' => true,
 		'tmnhanphat_quote_icon_bg'              => '#ffffff',
-		'tmnhanphat_quote_icon_color'           => '#0955AA',
+		'tmnhanphat_quote_icon_color'           => '#046AB5', // Gom token: Figma #0955AA → primary.
 		'tmnhanphat_quote_icon_shadow'          => 'soft',
 		'tmnhanphat_quote_label_size'           => 19,
 		'tmnhanphat_quote_value_size'           => 17,
@@ -5238,12 +5244,12 @@ function tmnhanphat_faq_defaults() {
 		'tmnhanphat_faq_heading_blue_text'    => 'Câu hỏi',
 		'tmnhanphat_faq_heading_red_text'     => 'thường gặp',
 		'tmnhanphat_faq_heading_blue_color'   => '#0C4B9B',
-		'tmnhanphat_faq_heading_red_color'    => '#ED2429',
+		'tmnhanphat_faq_heading_red_color'    => '#E31F2B', // Gom token: Figma #ED2429 → đỏ thương hiệu.
 		'tmnhanphat_faq_title_size'           => 62,
 		'tmnhanphat_faq_title_size_tablet'    => 36,
 		'tmnhanphat_faq_title_size_mobile'    => 26,
 		'tmnhanphat_faq_desc_text'            => 'Giải đáp những thắc mắc phổ biến về sản phẩm, chi phí, quy trình lắp đặt, bảo hành và sửa chữa thang máy tại Nhân Phát.',
-		'tmnhanphat_faq_desc_color'           => '#5E6978',
+		'tmnhanphat_faq_desc_color'           => '#667180', // Gom token: Figma #5E6978 → xám muted chung.
 		'tmnhanphat_faq_desc_size'            => 14,
 		'tmnhanphat_faq_desc_max_width'       => 768,
 		'tmnhanphat_faq_header_align'         => 'center',
@@ -5278,7 +5284,7 @@ function tmnhanphat_faq_defaults() {
 		'tmnhanphat_faq_badge_radius'   => 12,
 		'tmnhanphat_faq_badge_bg'       => '#EAF3FB',
 		'tmnhanphat_faq_badge_color'    => '#0C4B9B',
-		'tmnhanphat_faq_badge_active_bg'    => '#ED2429',
+		'tmnhanphat_faq_badge_active_bg'    => '#E31F2B', // Gom token: Figma #ED2429 → đỏ thương hiệu.
 		'tmnhanphat_faq_badge_active_color' => '#ffffff',
 
 		// ----- Question — Figma: 24/700, thường #172437, card mở #062B69. -----
@@ -5291,7 +5297,7 @@ function tmnhanphat_faq_defaults() {
 
 		// ----- Answer — Figma: 15/400 #5E6978 lh 136%, pad trên 14. -----
 		'tmnhanphat_faq_a_size'           => 15,
-		'tmnhanphat_faq_a_color'          => '#5E6978',
+		'tmnhanphat_faq_a_color'          => '#667180', // Gom token: Figma #5E6978 → xám muted chung.
 		'tmnhanphat_faq_a_line_height'    => 1.36,
 		'tmnhanphat_faq_a_padding_top'    => 14,
 		'tmnhanphat_faq_a_padding_bottom' => 4,

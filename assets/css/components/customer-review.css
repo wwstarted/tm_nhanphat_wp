@@ -46,7 +46,7 @@
 	color: #046AB5;
 }
 
-/* Figma: 2 vạch RỜI 34×3 (đỏ #ED2429 + xanh #0C4B9B, cách nhau 7px) dưới title —
+/* Figma: 2 vạch RỜI 34×3 (đỏ token #E31F2B + xanh #0C4B9B, cách nhau 7px) dưới title —
    vẽ bằng 1 pseudo gradient chia đoạn px (34 đỏ / 7 trống / 34 xanh = 75 tổng).
    Style này được News/Quote/FAQ tái sử dụng qua class .review-home__heading. */
 .review-home__heading::after {
@@ -56,12 +56,12 @@
 	height: 3px;
 	margin: 9px var(--review-desc-margin-x, auto) 0;
 	border-radius: 2px;
-	background: linear-gradient(90deg, #ED2429 0 34px, transparent 34px 41px, #0C4B9B 41px 75px);
+	background: linear-gradient(90deg, #E31F2B 0 34px, transparent 34px 41px, #0C4B9B 41px 75px);
 }
 
 .review-home__description {
 	margin: 0 var(--review-desc-margin-x, auto) var(--review-header-margin, 59px);
-	max-width: var(--review-desc-max-width, 1068px);
+	max-width: var(--review-desc-max-width, 820px);
 	color: var(--review-desc-color, #464646);
 	font-size: clamp(13px, calc(20 * var(--fig1px)), var(--review-desc-size, 20px));
 	line-height: 1.21; /* Figma Auto (24.2/20). */
@@ -149,9 +149,46 @@
 	animation-play-state: paused;
 }
 
-/* JS gắn khi tab ẩn / prefers-reduced-motion — dừng animation tiết kiệm CPU. */
+/* JS gắn khi tab ẩn / prefers-reduced-motion / nút Tạm dừng — dừng animation. */
 .review-marquee.is-paused .review-marquee__track {
 	animation-play-state: paused;
+}
+
+/* ==================== NÚT TẠM DỪNG/PHÁT (WCAG 2.2.2) ==================== */
+/* Nút tròn nhỏ góc trên phải khung marquee — pause-hover không dùng được trên touch
+   nên cần control nhìn thấy được. z-index 3 để nổi trên gradient mask (z-index 2). */
+.review-marquee__toggle {
+	position: absolute;
+	top: 8px;
+	right: 8px;
+	z-index: 3;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+	padding: 0;
+	border: 1px solid #D0D8E3;
+	border-radius: 50%;
+	background-color: rgb(255 255 255 / 0.9);
+	color: #0C4B9B;
+	cursor: pointer;
+	transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.review-marquee__toggle:hover {
+	background-color: #ffffff;
+	color: var(--color-primary, #046AB5);
+}
+
+/* Đang chạy → hiện icon pause; đã dừng (.is-paused trên root) → hiện icon play. */
+.review-marquee__toggle-play,
+.review-marquee.is-paused .review-marquee__toggle-pause {
+	display: none;
+}
+
+.review-marquee.is-paused .review-marquee__toggle-play {
+	display: block;
 }
 
 /* ==================== REVIEW CARD ==================== */
@@ -216,7 +253,7 @@
 }
 
 .review-card__role {
-	color: var(--review-role-color, #AEAEAE);
+	color: var(--review-role-color, #667180);
 	font-size: var(--review-role-size, 13px);
 	line-height: 1.23; /* Figma: lh 16px (123%). */
 }

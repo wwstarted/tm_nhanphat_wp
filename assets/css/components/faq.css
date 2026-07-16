@@ -55,7 +55,7 @@
 }
 
 .faq-home__heading-red {
-	color: var(--faq-heading-red, #ED2429);
+	color: var(--faq-heading-red, #E31F2B);
 }
 
 /* Divider fallback khi KHÔNG reuse review-home__heading. */
@@ -76,7 +76,7 @@
 .faq-home__description {
 	margin: 0 var(--faq-header-margin-x, auto);
 	max-width: var(--faq-desc-max-width, 768px);
-	color: var(--faq-desc-color, #5E6978);
+	color: var(--faq-desc-color, #667180);
 	font-size: var(--faq-desc-size, 14px);
 	line-height: 1.75; /* Figma: lh 24.5px (175%). */
 }
@@ -228,7 +228,7 @@
 	margin-inline: 17px 16px;
 	border-top: 1px solid #E6ECF2;
 	padding: var(--faq-a-pt, 14px) 0 18px 56px;
-	color: var(--faq-a-color, #5E6978);
+	color: var(--faq-a-color, #667180);
 	font-size: var(--faq-a-size, 15px);
 	line-height: var(--faq-a-lh, 1.36);
 }
