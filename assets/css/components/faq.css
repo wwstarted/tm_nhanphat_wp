@@ -246,6 +246,11 @@
 	.faq-card__toggle {
 		gap: 10px;
 	}
+
+	/* Mobile: bỏ thụt trái 56px của câu trả lời (màn hẹp cần tối đa bề ngang chữ). */
+	.faq-card__answer {
+		padding-left: 0;
+	}
 }
 
 /* ==================== REDUCED MOTION ==================== */

@@ -369,6 +369,22 @@ body.has-fixed-header {
 	color: inherit;
 }
 
+/* Mobile: header gọn lại — logo nhỏ hơn, thấp hơn (130px chiếm quá nhiều màn nhỏ). */
+@media (max-width: 599px) {
+	.site-header__inner {
+		min-height: 96px;
+	}
+
+	.site-branding img {
+		width: 72px;
+	}
+
+	/* Đồng bộ khoảng bù cho header fixed với chiều cao mobile ở trên. */
+	body.has-fixed-header {
+		padding-top: 96px;
+	}
+}
+
 /* Fullscreen trên màn hình rất nhỏ (điện thoại) thay vì panel hẹp như tablet */
 @media (max-width: 480px) {
 	.main-navigation__panel {

@@ -388,6 +388,11 @@
 	.tmnp-products-slider__page {
 		gap: 24px;
 	}
+
+	/* Mobile: ẩn tam giác trang trí — không đủ không gian, che nội dung (yêu cầu chủ dự án). */
+	.products-home__decoration {
+		display: none;
+	}
 }
 
 /* ==================== REDUCED MOTION ==================== */

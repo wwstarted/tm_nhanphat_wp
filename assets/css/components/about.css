@@ -148,23 +148,21 @@
 		align-items: stretch;
 	}
 
-	/* Mobile: composition Figma nhường chỗ cho luồng dọc — Polygon quay về vai trò background
-	   phủ kín section (Text/Elevator xếp chồng theo document flow bên trên), vẫn giữ ảnh xiên
-	   qua background-size nên hiệu ứng góc cạnh không mất. */
+	/* Mobile (yêu cầu chủ dự án): KHÔNG đủ không gian cho composition Polygon+Elevator —
+	   ẨN ảnh thang máy, Polygon bỏ ảnh xiên (có vùng trong suốt gây khoảng trắng chéo)
+	   → thành KHỐI CHỮ NHẬT xanh brand đặc phủ kín dưới Text. */
 	.about-home__shape {
 		left: 0;
 		width: 100%;
 		height: 100%;
 		transform: none;
-	}
-
-	.about-home > .container,
-	.about-home__image {
-		position: static;
-		transform: none;
+		background-image: none;
+		background-color: #046AB5;
 	}
 
 	.about-home > .container {
+		position: static;
+		transform: none;
 		margin-bottom: 0;
 	}
 
@@ -173,19 +171,7 @@
 	}
 
 	.about-home__image {
-		display: flex;
-		justify-content: center;
-		padding: 24px var(--container-padding);
-	}
-
-	.about-home__image-el {
-		height: auto;
-		width: 70%;
-		max-width: 320px;
-	}
-
-	.about-home--image-first {
-		flex-direction: column-reverse;
+		display: none;
 	}
 }
 
