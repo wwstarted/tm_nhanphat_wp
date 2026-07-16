@@ -33,6 +33,19 @@
 	line-height: 1.21;
 }
 
+/* Gạch đôi đỏ–xanh (motif .review-home__heading::after) — lan tỏa lên nửa trên trang
+   theo quyết định owner, nối liền 2 ngôn ngữ heading của Homepage. Căn giữa theo
+   alignment mặc định của section. */
+.services-home__heading::after {
+	content: "";
+	display: block;
+	width: 75px;
+	height: 3px;
+	margin: 9px auto 0;
+	border-radius: 2px;
+	background: linear-gradient(90deg, #E31F2B 0 34px, transparent 34px 41px, #0C4B9B 41px 75px);
+}
+
 .services-home__heading-red {
 	color: var(--services-heading-red, #E31F2B);
 }

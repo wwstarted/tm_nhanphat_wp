@@ -49,6 +49,19 @@
 	text-align: var(--projects-title-align, center);
 }
 
+/* Gạch đôi (motif .review-home__heading::after) — bắc cầu 2 ngôn ngữ heading. Section
+   nền ẢNH TỐI: vạch navy #0C4B9B chìm vào nền → thay bằng TRẮNG (cùng logic đổi màu
+   theo nền như heading trắng của section). */
+.projects-home__heading::after {
+	content: "";
+	display: block;
+	width: 75px;
+	height: 3px;
+	margin: 9px auto 0;
+	border-radius: 2px;
+	background: linear-gradient(90deg, #E31F2B 0 34px, transparent 34px 41px, #ffffff 41px 75px);
+}
+
 .projects-home__description {
 	margin: 0 var(--projects-desc-margin-x, auto) var(--projects-header-margin, 72px);
 	max-width: var(--projects-desc-max-width, 820px);

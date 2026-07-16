@@ -54,6 +54,18 @@
 	letter-spacing: var(--process-heading-ls, 0);
 }
 
+/* Gạch đôi đỏ–xanh (motif .review-home__heading::after) — bắc cầu 2 ngôn ngữ heading.
+   Section căn TRÁI mặc định → gạch căn trái (margin-inline 0). */
+.process-home__heading::after {
+	content: "";
+	display: block;
+	width: 75px;
+	height: 3px;
+	margin: 9px 0 0;
+	border-radius: 2px;
+	background: linear-gradient(90deg, #E31F2B 0 34px, transparent 34px 41px, #0C4B9B 41px 75px);
+}
+
 .process-home__heading-blue {
 	color: var(--process-heading-blue, #046AB5);
 }
