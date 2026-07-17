@@ -31,6 +31,7 @@
 	font-size: clamp(2rem, calc(85 * var(--fig1px)), var(--services-heading-size, 85px));
 	font-weight: var(--services-heading-weight, 900);
 	line-height: 1.21;
+	letter-spacing: -0.02em; /* Taste B: tracking âm nhẹ cho display lớn (premium). */
 }
 
 /* Gạch đôi đỏ–xanh (motif .review-home__heading::after) — lan tỏa lên nửa trên trang
@@ -59,7 +60,7 @@
 	max-width: var(--services-desc-max-width, 820px);
 	color: var(--services-desc-color, #464646);
 	font-size: clamp(13px, calc(20 * var(--fig1px)), var(--services-desc-size, 20px));
-	line-height: 1.21; /* Figma Auto (24.2/20). */
+	line-height: 1.5; /* Taste A: body văn xuôi leading thoáng. */
 }
 
 /* ==================== SLIDER (generic .tmnp-slider) ==================== */
@@ -261,7 +262,7 @@
 	color: var(--services-excerpt-color, #ffffff);
 	/* Figma: 20/400 trắng, lh Auto (~1.21), tối đa 3 dòng — fluid theo container. */
 	font-size: clamp(0.875rem, calc(20 * var(--fig1px)), var(--services-excerpt-size, 20px));
-	line-height: 1.21;
+	line-height: 1.5; /* Taste A: excerpt 3 dòng cần leading thoáng để đọc. */
 	display: -webkit-box;
 	-webkit-box-orient: vertical;
 	-webkit-line-clamp: 3;

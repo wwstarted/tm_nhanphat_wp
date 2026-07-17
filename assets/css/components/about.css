@@ -91,6 +91,7 @@
 	font-size: clamp(2rem, calc(85 * var(--fig1px)), 5.3125rem);
 	font-weight: 900;
 	line-height: 1.21;
+	letter-spacing: -0.02em; /* Taste B: tracking âm nhẹ cho display lớn (premium). */
 }
 
 /* Figma: Description Inter 20/400 trắng đặc, lh Auto (~1.21), box 921px. */
@@ -99,7 +100,7 @@
 	max-width: var(--about-description-max-width, 921px);
 	color: #ffffff;
 	font-size: clamp(1rem, calc(20 * var(--fig1px)), 1.25rem);
-	line-height: 1.21;
+	line-height: 1.5; /* Taste A: body văn xuôi leading thoáng. */
 }
 
 /* Elevator PNG — asset tuyệt đối 873×873, đặt THEO TOẠ ĐỘ CỦA POLYGON chứ không theo mép

@@ -29,6 +29,7 @@
 	font-size: clamp(2rem, calc(85 * var(--fig1px)), 5.3125rem);
 	font-weight: 900;
 	line-height: 1.21;
+	letter-spacing: -0.02em; /* Taste B: tracking âm nhẹ cho display lớn (premium). */
 }
 
 .partners__description {

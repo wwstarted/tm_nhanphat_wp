@@ -98,6 +98,7 @@
 	font-size: clamp(2rem, calc(96 * var(--fig1px)), var(--hero-heading-size, 96px));
 	font-weight: var(--hero-heading-weight, 900);
 	line-height: 1.21; /* Figma Auto: 116.18/96 */
+	letter-spacing: -0.02em; /* Taste B: tracking âm nhẹ cho display lớn (premium). */
 }
 
 /* Figma: Description box 1100px, Inter 20/400, line-height Auto (~1.21), trắng đặc. */
@@ -106,7 +107,7 @@
 	max-width: 1100px;
 	color: var(--hero-description-color, #ffffff);
 	font-size: clamp(1rem, calc(20 * var(--fig1px)), var(--hero-description-size, 20px));
-	line-height: 1.21;
+	line-height: 1.5; /* Taste A: body văn xuôi cần leading thoáng (~1.5), không dùng 1.21 của display. */
 }
 
 /* Giới hạn số dòng — không để Description kéo Hero cao hơn 100vh (mục 3). */

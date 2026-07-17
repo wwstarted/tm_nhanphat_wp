@@ -79,7 +79,7 @@
 	max-width: var(--process-desc-max-width, 820px);
 	color: var(--process-desc-color, #000000);
 	font-size: clamp(13px, calc(20 * var(--fig1px)), var(--process-desc-size, 20px));
-	line-height: 1.21; /* Figma Auto (24.2/20). */
+	line-height: 1.5; /* Taste A: body văn xuôi leading thoáng. */
 }
 
 /* ==================== CONTENT 2 CỘT ==================== */
@@ -194,7 +194,7 @@
 	   riêng nên hardcode theo design; inactive nhạt đi bằng opacity bên dưới). */
 	color: #464646; /* Gom token: Figma #4A4F57 → xám body chung. */
 	font-size: clamp(13px, calc(20 * var(--fig1px)), 20px);
-	line-height: 1.21;
+	line-height: 1.5; /* Taste A: mô tả step là body — leading thoáng. */
 	opacity: var(--process-inactive-desc-opacity, 0.15);
 	transform: translateY(5px);
 	transition: opacity var(--process-transition, 400ms) ease,

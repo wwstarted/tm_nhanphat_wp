@@ -120,7 +120,7 @@
     calc(20 * var(--fig1px)),
     var(--why-choose-desc-size, 20px)
   );
-  line-height: 1.21; /* Figma Auto (24.2/20). */
+  line-height: 1.5; /* Taste A: body văn xuôi leading thoáng. */
 }
 
 /* ==================== TRỤC NỘI DUNG 3/7 (Figma) ==================== */
@@ -272,7 +272,7 @@
     calc(20 * var(--fig1px)),
     var(--why-choose-card-desc-size, 20px)
   );
-  line-height: 1.21;
+  line-height: 1.5; /* Taste A: mô tả card là body — leading thoáng. */
 }
 
 .feature-card__button {

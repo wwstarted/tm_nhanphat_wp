@@ -2082,7 +2082,7 @@ function tmnhanphat_products_defaults() {
 		'tmnhanphat_products_heading_size_mobile'     => 30,
 		'tmnhanphat_products_heading_font_weight'     => '900',
 		'tmnhanphat_products_heading_line_height'     => 1.21,
-		'tmnhanphat_products_heading_letter_spacing'  => 0,
+		'tmnhanphat_products_heading_letter_spacing'  => -2, // Taste B: tracking âm nhẹ cho display (-2px ≈ -0.02em @ heading 85-96px).
 		'tmnhanphat_products_heading_align'           => 'center',
 
 		// Description
@@ -2716,7 +2716,7 @@ function tmnhanphat_why_choose_defaults() {
 		'tmnhanphat_why_choose_heading_size_mobile'    => 30,
 		'tmnhanphat_why_choose_heading_weight'         => '900',
 		'tmnhanphat_why_choose_heading_line_height'    => 1.21,
-		'tmnhanphat_why_choose_heading_letter_spacing' => 0,
+		'tmnhanphat_why_choose_heading_letter_spacing' => -2, // Taste B: tracking âm nhẹ cho display (-2px ≈ -0.02em @ heading 96px).
 		'tmnhanphat_why_choose_heading_align'          => 'left',
 		'tmnhanphat_why_choose_heading_margin_bottom'  => 24,
 
@@ -3268,7 +3268,7 @@ function tmnhanphat_process_defaults() {
 		'tmnhanphat_process_heading_size_mobile'    => 30,
 		'tmnhanphat_process_heading_weight'         => '900',
 		'tmnhanphat_process_heading_line_height'    => 1.21,
-		'tmnhanphat_process_heading_letter_spacing' => 0,
+		'tmnhanphat_process_heading_letter_spacing' => -2, // Taste B: tracking âm nhẹ cho display (-2px ≈ -0.02em @ heading 96px).
 		'tmnhanphat_process_heading_align'          => 'left',
 		'tmnhanphat_process_heading_margin_bottom'  => 24,
 
