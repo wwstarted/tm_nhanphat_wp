@@ -555,8 +555,12 @@ function tmnhanphat_hero_defaults() {
 		'tmnhanphat_hero_content_max_width_mobile' => 600,
 		'tmnhanphat_hero_content_align'            => 'center',
 		'tmnhanphat_hero_height_desktop'           => 100,
-		'tmnhanphat_hero_padding_tablet'           => 100,
-		'tmnhanphat_hero_padding_mobile'           => 90,
+		// Spacing dọc responsive: padding_tablet/mobile giờ là padding-TOP theo breakpoint
+		// (đủ tránh header overlay: tablet ~130, mobile ~96); bottom tách riêng bên dưới.
+		'tmnhanphat_hero_padding_tablet'           => 140,
+		'tmnhanphat_hero_padding_mobile'           => 108,
+		'tmnhanphat_hero_padding_bottom_tablet'    => 60,
+		'tmnhanphat_hero_padding_bottom_mobile'    => 52,
 
 		// Hero Stats Card — Figma Rectangle 14: 1732×260, radius 40, fill #22262E @20%
 		// + effect GLASS (kính: backdrop blur + viền sáng mảnh). CSS mô phỏng glass bằng
@@ -574,17 +578,18 @@ function tmnhanphat_hero_defaults() {
 		'tmnhanphat_hero_stats_badge_bg'          => '#A8AEB8',
 		'tmnhanphat_hero_stats_badge_text_color'  => '#22262E',
 
-		// Hero Spacing (desktop) — Figma: đỉnh Hero→Subtitle 176, đáy Card→đáy Hero 77.
-		'tmnhanphat_hero_padding_top'              => 176,
-		'tmnhanphat_hero_padding_bottom'           => 77,
-		// Figma spacing (canvas 1184px @1920, Hero cao theo NỘI DUNG — không còn 100vh):
-		// đỉnh Hero→Subtitle 176 (header float đè lên trong khoảng này), Subtitle→Heading
-		// 24 (space-md ở CSS), Heading→Desc 37≈36, Desc→Buttons 46, Buttons→Stats 166
-		// (CSS co theo 8.65vw ở màn nhỏ), đáy Card→đáy Hero 77.
-		'tmnhanphat_hero_heading_margin_bottom'    => 36,
-		'tmnhanphat_hero_description_margin_bottom' => 46,
-		'tmnhanphat_hero_cta_margin_bottom'        => 24,
-		'tmnhanphat_hero_stats_margin_top'         => 166,
+		// Hero Spacing (desktop) — chỉnh lại theo yêu cầu: bỏ khoảng trắng thừa + nhịp dọc
+		// ĐỀU giữa các thành phần. padding-top 150 (đủ tránh header overlay 130 + thở 20),
+		// bottom 72. Trước đây 176/77 (Figma) tạo khoảng trống lớn ở đỉnh và đáy.
+		'tmnhanphat_hero_padding_top'              => 150,
+		'tmnhanphat_hero_padding_bottom'           => 72,
+		// Cụm text (Subtitle→Heading→Desc→Buttons) dùng CHUNG nhịp 28px cho đều (trước đây
+		// 24/36/46 tăng dần loạn); khối Stats tách khỏi cụm bằng 28 (cta mb) + 44 (stats mt)
+		// = 72px thay vì 190px trống thừa. Subtitle→Heading 28 đặt ở CSS (.hero__subtitle).
+		'tmnhanphat_hero_heading_margin_bottom'    => 28,
+		'tmnhanphat_hero_description_margin_bottom' => 28,
+		'tmnhanphat_hero_cta_margin_bottom'        => 28,
+		'tmnhanphat_hero_stats_margin_top'         => 44,
 
 		// Animation
 		'tmnhanphat_hero_animation_enable'         => true,
@@ -816,6 +821,8 @@ function tmnhanphat_render_hero_css_vars() {
 	$padding_bottom = absint( tmnhanphat_get_hero_mod( 'tmnhanphat_hero_padding_bottom' ) );
 	$padding_tablet = absint( tmnhanphat_get_hero_mod( 'tmnhanphat_hero_padding_tablet' ) );
 	$padding_mobile = absint( tmnhanphat_get_hero_mod( 'tmnhanphat_hero_padding_mobile' ) );
+	$padding_bottom_tablet = absint( tmnhanphat_get_hero_mod( 'tmnhanphat_hero_padding_bottom_tablet' ) );
+	$padding_bottom_mobile = absint( tmnhanphat_get_hero_mod( 'tmnhanphat_hero_padding_bottom_mobile' ) );
 
 	$heading_margin_bottom     = absint( tmnhanphat_get_hero_mod( 'tmnhanphat_hero_heading_margin_bottom' ) );
 	$description_margin_bottom = absint( tmnhanphat_get_hero_mod( 'tmnhanphat_hero_description_margin_bottom' ) );
@@ -891,13 +898,13 @@ function tmnhanphat_render_hero_css_vars() {
 
 	$css .= '@media (max-width:991px){:root{';
 	$css .= '--hero-padding-top:' . $padding_tablet . 'px;';
-	$css .= '--hero-padding-bottom:' . $padding_tablet . 'px;';
+	$css .= '--hero-padding-bottom:' . $padding_bottom_tablet . 'px;';
 	$css .= '--hero-content-max-width:' . $content_max_width_tablet . 'px;';
 	$css .= '}}';
 
 	$css .= '@media (max-width:599px){:root{';
 	$css .= '--hero-padding-top:' . $padding_mobile . 'px;';
-	$css .= '--hero-padding-bottom:' . $padding_mobile . 'px;';
+	$css .= '--hero-padding-bottom:' . $padding_bottom_mobile . 'px;';
 	$css .= '--hero-content-max-width:' . $content_max_width_mobile . 'px;';
 	$css .= '}}';
 
