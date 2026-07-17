@@ -550,7 +550,9 @@ function tmnhanphat_hero_defaults() {
 
 		// Layout — Figma: Heading box 1524px trên canvas 1920 → content không tự bó hẹp
 		// dưới container; 1560 để heading luôn fill hết bề rộng container chung.
-		'tmnhanphat_hero_content_max_width'        => 1560,
+		// Bề rộng khối content (căn trái): 1300 để heading 96px nằm 2 DÒNG trên màn lớn
+		// (1080 bị chật → 3 dòng). Ở màn hẹp hơn tự giới hạn theo inner (container).
+		'tmnhanphat_hero_content_max_width'        => 1300,
 		'tmnhanphat_hero_content_max_width_tablet' => 600,
 		'tmnhanphat_hero_content_max_width_mobile' => 600,
 		'tmnhanphat_hero_content_align'            => 'center',
@@ -558,17 +560,18 @@ function tmnhanphat_hero_defaults() {
 		'tmnhanphat_hero_padding_tablet'           => 100,
 		'tmnhanphat_hero_padding_mobile'           => 90,
 
-		// Hero Stats Card — Figma Rectangle 14: 1732×260, radius 40, fill #22262E @20%
-		// + effect GLASS (kính: backdrop blur + viền sáng mảnh). CSS mô phỏng glass bằng
-		// blur 18 + border 1px trắng mờ (độ mờ viền đặt trong render, 35%). Không shadow.
+		// Hero Stats Card — LAYOUT MỚI (straddle): card nổi vắt qua đáy Hero, NỬA DƯỚI nằm
+		// trên nền SÁNG phía dưới → nền card phải ĐỤC (opacity 92) để chữ trắng đọc được
+		// trên cả 2 nửa (bản cũ 20% chỉ hợp khi card nằm hẳn trên ảnh tối). Thêm shadow
+		// medium cho card nổi (floating). Viền mảnh 20% (đặt trong render).
 		'tmnhanphat_hero_stats_card_enable'       => true,
 		'tmnhanphat_hero_stats_card_bg'           => '#22262E',
-		'tmnhanphat_hero_stats_card_opacity'      => 20,
+		'tmnhanphat_hero_stats_card_opacity'      => 92,
 		'tmnhanphat_hero_stats_card_radius'       => 40,
 		'tmnhanphat_hero_stats_card_border_color' => '#ffffff',
 		'tmnhanphat_hero_stats_card_border_width' => 1,
 		'tmnhanphat_hero_stats_card_blur'         => 18,
-		'tmnhanphat_hero_stats_card_shadow'       => 'none',
+		'tmnhanphat_hero_stats_card_shadow'       => 'medium',
 		// Figma: số trắng; badge pill nền #A8AEB8, chữ tối #22262E.
 		'tmnhanphat_hero_stats_number_color'      => '#ffffff',
 		'tmnhanphat_hero_stats_badge_bg'          => '#A8AEB8',
@@ -874,8 +877,8 @@ function tmnhanphat_render_hero_css_vars() {
 	$css .= '--hero-stats-margin-top:' . $stats_margin_top . 'px;';
 	$css .= '--hero-stats-card-bg:' . ( $card_enable ? tmnhanphat_hex_to_rgba( $card_bg, $card_opacity ) : 'transparent' ) . ';';
 	$css .= '--hero-stats-card-radius:' . ( $card_enable ? $card_radius : 0 ) . 'px;';
-	// 35%: viền sáng của effect GLASS trong Figma rõ hơn mức 12% cũ (mô phỏng rim kính).
-	$css .= '--hero-stats-card-border:' . ( $card_enable ? $card_border_width . 'px solid ' . tmnhanphat_hex_to_rgba( $card_border_color, 35 ) : 'none' ) . ';';
+	// Viền rim mảnh 20% — card giờ đục (opacity 92) nên rim sáng chỉ cần nhẹ để gợi mép kính.
+	$css .= '--hero-stats-card-border:' . ( $card_enable ? $card_border_width . 'px solid ' . tmnhanphat_hex_to_rgba( $card_border_color, 20 ) : 'none' ) . ';';
 	$css .= '--hero-stats-card-blur:' . ( $card_enable ? $card_blur : 0 ) . 'px;';
 	$css .= '--hero-stats-card-shadow:' . ( $card_enable ? $card_shadow : 'none' ) . ';';
 	// Number/Badge/Description luôn đọc trực tiếp từ setting riêng (không còn phụ thuộc

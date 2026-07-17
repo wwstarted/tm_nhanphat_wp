@@ -1,11 +1,17 @@
 <?php
 /**
- * Hero Banner trang chủ — component độc lập (PROJECT_RULES.md mục 5).
+ * Hero Banner (trang chủ) — 2 phần trong 1 section:
+ *  1) .hero__stage: ảnh nền + overlay + content căn GIỮA (subtitle → heading → desc → CTA).
+ *     Desktop thường (992–2559px) cao đúng 100vh (ôm 1 màn hình); ngoài dải đó (mobile/
+ *     tablet, và màn ≥2560) cao theo nội dung — tránh khoảng trắng thừa khi viewport quá cao.
+ *  2) .hero__stats: card 4 cột STRADDLE — nửa trên đè đáy stage, nửa dưới tràn xuống nền
+ *     phía dưới (chỉ desktop; tablet/mobile card nằm bình thường dưới stage). Nội dung mỗi
+ *     cột (number/badge/desc) căn giữa.
+ *
  * Toàn bộ nội dung/màu/kích thước lấy từ Customizer panel "Homepage" → Hero
  * (inc/customizer/hero-customizer.php), đọc qua tmnhanphat_get_hero_mod() — không hardcode.
  *
- * Heading dùng thẻ <h1> — đây là H1 DUY NHẤT của trang chủ (front-page.php không gọi
- * the_title() ở nơi khác), đúng PROJECT_RULES.md mục 14 "chỉ có 1 H1".
+ * Heading dùng <h1> — H1 DUY NHẤT của trang chủ (PROJECT_RULES.md mục 14).
  *
  * @package TMNhanPhat
  */
@@ -22,7 +28,7 @@ $tmnhanphat_subtitle_text   = tmnhanphat_get_hero_mod( 'tmnhanphat_hero_subtitle
 $tmnhanphat_heading_text = tmnhanphat_get_hero_mod( 'tmnhanphat_hero_heading_text' );
 $tmnhanphat_description  = tmnhanphat_get_hero_mod( 'tmnhanphat_hero_description_text' );
 
-$tmnhanphat_btn_primary_enable  = tmnhanphat_get_hero_mod( 'tmnhanphat_hero_btn_primary_enable' );
+$tmnhanphat_btn_primary_enable   = tmnhanphat_get_hero_mod( 'tmnhanphat_hero_btn_primary_enable' );
 $tmnhanphat_btn_secondary_enable = tmnhanphat_get_hero_mod( 'tmnhanphat_hero_btn_secondary_enable' );
 
 $tmnhanphat_hero_stats = array_filter(
@@ -41,69 +47,73 @@ $tmnhanphat_counter_enable   = tmnhanphat_get_hero_mod( 'tmnhanphat_hero_counter
 		data-hero-animate="true"
 	<?php endif; ?>
 >
-	<div class="hero__background">
-		<?php if ( $tmnhanphat_bg_image ) : ?>
-			<img
-				class="hero__bg-image"
-				src="<?php echo esc_url( $tmnhanphat_bg_image ); ?>"
-				alt=""
-				loading="eager"
-				fetchpriority="high"
-				decoding="async"
-			/>
-		<?php endif; ?>
-	</div>
-
-	<?php if ( tmnhanphat_get_hero_mod( 'tmnhanphat_hero_overlay_enable' ) ) : ?>
-		<div class="hero__overlay" aria-hidden="true"></div>
-	<?php endif; ?>
-
-	<div class="hero__inner">
-		<div class="hero__content">
-			<?php if ( $tmnhanphat_subtitle_enable && $tmnhanphat_subtitle_text ) : ?>
-				<p class="hero__subtitle"><?php echo esc_html( $tmnhanphat_subtitle_text ); ?></p>
-			<?php endif; ?>
-
-			<?php if ( $tmnhanphat_heading_text ) : ?>
-				<h1 class="hero__heading"><?php echo esc_html( $tmnhanphat_heading_text ); ?></h1>
-			<?php endif; ?>
-
-			<?php if ( $tmnhanphat_description ) : ?>
-				<?php
-				$tmnhanphat_desc_class = 'hero__description';
-				if ( tmnhanphat_get_hero_mod( 'tmnhanphat_hero_description_clamp_enable' ) ) {
-					$tmnhanphat_desc_class .= ' hero__description--clamp';
-				}
-				?>
-				<p class="<?php echo esc_attr( $tmnhanphat_desc_class ); ?>"><?php echo esc_html( $tmnhanphat_description ); ?></p>
-			<?php endif; ?>
-
-			<?php if ( $tmnhanphat_btn_primary_enable || $tmnhanphat_btn_secondary_enable ) : ?>
-				<div class="hero__cta">
-					<?php if ( $tmnhanphat_btn_primary_enable && tmnhanphat_get_hero_mod( 'tmnhanphat_hero_btn_primary_text' ) ) : ?>
-						<a
-							class="hero__btn hero__btn--primary"
-							href="<?php echo esc_url( tmnhanphat_get_hero_mod( 'tmnhanphat_hero_btn_primary_url' ) ); ?>"
-							<?php if ( tmnhanphat_get_hero_mod( 'tmnhanphat_hero_btn_primary_new_tab' ) ) : ?>
-								target="_blank" rel="noopener noreferrer"
-							<?php endif; ?>
-						><?php echo esc_html( tmnhanphat_get_hero_mod( 'tmnhanphat_hero_btn_primary_text' ) ); ?></a>
-					<?php endif; ?>
-
-					<?php if ( $tmnhanphat_btn_secondary_enable && tmnhanphat_get_hero_mod( 'tmnhanphat_hero_btn_secondary_text' ) ) : ?>
-						<a
-							class="hero__btn hero__btn--secondary"
-							href="<?php echo esc_url( tmnhanphat_get_hero_mod( 'tmnhanphat_hero_btn_secondary_url' ) ); ?>"
-							<?php if ( tmnhanphat_get_hero_mod( 'tmnhanphat_hero_btn_secondary_new_tab' ) ) : ?>
-								target="_blank" rel="noopener noreferrer"
-							<?php endif; ?>
-						><?php echo esc_html( tmnhanphat_get_hero_mod( 'tmnhanphat_hero_btn_secondary_text' ) ); ?></a>
-					<?php endif; ?>
-				</div>
+	<div class="hero__stage">
+		<div class="hero__background">
+			<?php if ( $tmnhanphat_bg_image ) : ?>
+				<img
+					class="hero__bg-image"
+					src="<?php echo esc_url( $tmnhanphat_bg_image ); ?>"
+					alt=""
+					loading="eager"
+					fetchpriority="high"
+					decoding="async"
+				/>
 			<?php endif; ?>
 		</div>
 
-		<?php if ( ! empty( $tmnhanphat_hero_stats ) ) : ?>
+		<?php if ( tmnhanphat_get_hero_mod( 'tmnhanphat_hero_overlay_enable' ) ) : ?>
+			<div class="hero__overlay" aria-hidden="true"></div>
+		<?php endif; ?>
+
+		<div class="hero__inner">
+			<div class="hero__content">
+				<?php if ( $tmnhanphat_subtitle_enable && $tmnhanphat_subtitle_text ) : ?>
+					<p class="hero__subtitle"><?php echo esc_html( $tmnhanphat_subtitle_text ); ?></p>
+				<?php endif; ?>
+
+				<?php if ( $tmnhanphat_heading_text ) : ?>
+					<h1 class="hero__heading"><?php echo esc_html( $tmnhanphat_heading_text ); ?></h1>
+				<?php endif; ?>
+
+				<?php if ( $tmnhanphat_description ) : ?>
+					<?php
+					$tmnhanphat_desc_class = 'hero__description';
+					if ( tmnhanphat_get_hero_mod( 'tmnhanphat_hero_description_clamp_enable' ) ) {
+						$tmnhanphat_desc_class .= ' hero__description--clamp';
+					}
+					?>
+					<p class="<?php echo esc_attr( $tmnhanphat_desc_class ); ?>"><?php echo esc_html( $tmnhanphat_description ); ?></p>
+				<?php endif; ?>
+
+				<?php if ( $tmnhanphat_btn_primary_enable || $tmnhanphat_btn_secondary_enable ) : ?>
+					<div class="hero__cta">
+						<?php if ( $tmnhanphat_btn_primary_enable && tmnhanphat_get_hero_mod( 'tmnhanphat_hero_btn_primary_text' ) ) : ?>
+							<a
+								class="hero__btn hero__btn--primary"
+								href="<?php echo esc_url( tmnhanphat_get_hero_mod( 'tmnhanphat_hero_btn_primary_url' ) ); ?>"
+								<?php if ( tmnhanphat_get_hero_mod( 'tmnhanphat_hero_btn_primary_new_tab' ) ) : ?>
+									target="_blank" rel="noopener noreferrer"
+								<?php endif; ?>
+							><?php echo esc_html( tmnhanphat_get_hero_mod( 'tmnhanphat_hero_btn_primary_text' ) ); ?></a>
+						<?php endif; ?>
+
+						<?php if ( $tmnhanphat_btn_secondary_enable && tmnhanphat_get_hero_mod( 'tmnhanphat_hero_btn_secondary_text' ) ) : ?>
+							<a
+								class="hero__btn hero__btn--secondary"
+								href="<?php echo esc_url( tmnhanphat_get_hero_mod( 'tmnhanphat_hero_btn_secondary_url' ) ); ?>"
+								<?php if ( tmnhanphat_get_hero_mod( 'tmnhanphat_hero_btn_secondary_new_tab' ) ) : ?>
+									target="_blank" rel="noopener noreferrer"
+								<?php endif; ?>
+							><?php echo esc_html( tmnhanphat_get_hero_mod( 'tmnhanphat_hero_btn_secondary_text' ) ); ?></a>
+						<?php endif; ?>
+					</div>
+				<?php endif; ?>
+			</div>
+		</div>
+	</div>
+
+	<?php if ( ! empty( $tmnhanphat_hero_stats ) ) : ?>
+		<div class="hero__stats-wrap">
 			<div class="hero__stats">
 				<?php foreach ( array_values( $tmnhanphat_hero_stats ) as $tmnhanphat_index => $tmnhanphat_stat ) : ?>
 					<?php $tmnhanphat_number_parts = tmnhanphat_get_hero_number_parts( $tmnhanphat_stat['number'] ); ?>
@@ -131,6 +141,6 @@ $tmnhanphat_counter_enable   = tmnhanphat_get_hero_mod( 'tmnhanphat_hero_counter
 					</div>
 				<?php endforeach; ?>
 			</div>
-		<?php endif; ?>
-	</div>
+		</div>
+	<?php endif; ?>
 </section>
