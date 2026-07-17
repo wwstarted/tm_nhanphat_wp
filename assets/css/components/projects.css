@@ -111,18 +111,24 @@
 	outline-color: var(--projects-dot-active, #ffffff);
 }
 
-/* ==================== PROJECT CARD (nền đặc #A1ACC1, 2 cột 65/35) ==================== */
+/* ==================== PROJECT CARD (kính mờ trên nền xanh, 2 cột 65/35) ==================== */
+/* Figma vẽ nền ĐẶC #A1ACC1 + chữ trắng = ~2.2:1 (lỗi design). Card chuyển thành kính mờ
+   25% (PHP hex_to_rgba) — chữ trắng đạt ~4.5:1, cùng vật liệu glass với Hero stats card. */
 .project-card {
 	display: flex;
 	align-items: var(--projects-valign, center);
 	gap: var(--projects-content-gap, 33px);
 	/* Figma: card 1590×750 (hẹp hơn container 1636, căn giữa), padding 4 phía
-	   67/97/55/90, shadow 0/4/4 25% — co theo tỉ lệ container. */
+	   67/97/55/90 — co theo tỉ lệ container. */
 	max-width: calc(1590 * var(--fig1px));
 	margin-inline: auto;
 	padding: calc(67 * var(--fig1px)) calc(97 * var(--fig1px)) calc(55 * var(--fig1px)) calc(90 * var(--fig1px));
 	border-radius: var(--projects-card-radius, 40px);
-	background-color: var(--projects-card-bg, #A1ACC1);
+	background-color: var(--projects-card-bg, rgb(161 172 193 / 0.25));
+	/* Rim kính mảnh — cùng công thức viền glass của Hero stats (border trắng mờ). */
+	border: 1px solid rgb(255 255 255 / 0.28);
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
 	/* Figma gốc 0 4px 4px /25% — blur bằng offset + opacity cao trông như viền bẩn
 	   (anti-pattern shadow). Làm mềm theo đúng ngôn ngữ shadow FAQ card: blur lớn,
 	   opacity thấp — độ nổi tương đương, mắt dễ chịu hơn. */

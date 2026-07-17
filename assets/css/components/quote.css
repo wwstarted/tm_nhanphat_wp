@@ -130,6 +130,73 @@
 	color: var(--quote-placeholder, #667180);
 }
 
+/* ==================== FLOATING LABEL (Taste review mục 4, owner duyệt) ==================== */
+/* Bỏ placeholder-làm-label (Taste hard rule 4.6): <label> thật đứng ĐÚNG vị trí + màu
+   của placeholder cũ nên form TRỐNG nhìn y hệt design; khi focus/có nội dung label thu
+   nhỏ nổi lên mép trên field — người dùng rà lại form luôn biết ô nào là gì. Input giữ
+   placeholder=" " (1 khoảng trắng) CHỈ để selector :placeholder-shown hoạt động. */
+.quote-field__label {
+	position: absolute;
+	left: 67px; /* Thẳng hàng điểm bắt đầu text của input (icon 22 + 27 + gap 18). */
+	top: calc(var(--quote-input-height, 67px) / 2);
+	transform: translateY(-50%);
+	color: var(--quote-placeholder, #667180);
+	font-size: var(--quote-input-size, 17px);
+	line-height: 1.2;
+	pointer-events: none;
+	transition: top 0.18s ease, transform 0.18s ease, font-size 0.18s ease, color 0.18s ease;
+}
+
+/* Trạng thái NỔI: focus hoặc đã có nội dung (select xử lý riêng bên dưới vì không có
+   placeholder → :not(:placeholder-shown) luôn đúng với select, phải loại trừ). */
+.quote-field__input:not(.quote-field__select):focus ~ .quote-field__label,
+.quote-field__input:not(.quote-field__select):not(:placeholder-shown) ~ .quote-field__label {
+	top: 7px;
+	transform: none;
+	font-size: 11px;
+}
+
+.quote-field__input:focus ~ .quote-field__label {
+	color: var(--quote-focus, #046AB5);
+}
+
+/* Giá trị dồn xuống nhẹ nhường chỗ label nổi — chỉ khi label đang nổi, form trống
+   không đổi 1px nào so với design. */
+.quote-field__input:not(.quote-field__select):not(.quote-field__textarea):focus,
+.quote-field__input:not(.quote-field__select):not(.quote-field__textarea):not(:placeholder-shown) {
+	padding-top: 16px;
+}
+
+/* Textarea: label neo theo padding-top 20px của khung (icon cũng neo trên). */
+.quote-field__label--textarea {
+	top: 20px;
+	transform: none;
+}
+
+.quote-field__textarea:focus,
+.quote-field__textarea:not(:placeholder-shown) {
+	padding-top: 28px;
+}
+
+/* Select: option đầu ("Chọn loại dịch vụ") đóng vai placeholder hiển thị nên label ẨN
+   khi chưa chọn; focus hoặc đã chọn giá trị thật → label nổi lên mép trên. :has() —
+   trình duyệt cũ không hỗ trợ chỉ mất hiệu ứng nổi (quay về hành vi cũ), không mất gì. */
+.quote-field__label--select {
+	opacity: 0;
+}
+
+.quote-field__select:focus ~ .quote-field__label--select,
+.quote-field__select:has(option:checked:not([value=""])) ~ .quote-field__label--select {
+	top: 7px;
+	transform: none;
+	font-size: 11px;
+	opacity: 1;
+}
+
+.quote-field__select:has(option:checked:not([value=""])) {
+	padding-top: 16px;
+}
+
 .quote-field__textarea {
 	height: auto;
 	min-height: calc(106 * var(--fig1px)); /* Figma: khung textarea 142 tổng. */
@@ -174,7 +241,9 @@
 }
 
 /* ==================== SUBMIT ==================== */
-/* Figma: nút 632×71 r11 — GRADIENT đỏ + VIỀN VÀNG 2px #F4B844 + shadow 0/8/17,
+/* Figma: nút 632×71 r11 — GRADIENT đỏ + VIỀN VÀNG 2px #F4B844 + shadow 0/8/17.
+   #F4B844 là NGOẠI LỆ có ghi chú của token gold (#B8955A — xem news defaults):
+   viền phát sáng trên nền navy cần độ chói cao hơn gold trầm — vai trò khác, giữ riêng.
    chữ 21/700 trắng, icon → chữ 16px. */
 .quote-form__submit {
 	display: inline-flex;

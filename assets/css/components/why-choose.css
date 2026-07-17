@@ -321,6 +321,21 @@
   transform: scale(var(--why-choose-image-zoom, 1.05));
 }
 
+/* ==================== DOTS (override palette theo scope) ==================== */
+/* Dots bật lại (Taste review mục 2) — trên NỀN ẢNH nên đổi palette xanh/xám của
+   Services thành trắng mờ/trắng đặc để luôn nhìn thấy được trên mọi ảnh nền. */
+.why-choose-home .tmnp-slider__dot {
+  background-color: rgb(255 255 255 / 0.55);
+}
+
+.why-choose-home .tmnp-slider__dot.is-active {
+  background-color: #ffffff;
+}
+
+.why-choose-home .tmnp-slider__dot:focus-visible {
+  outline-color: #ffffff;
+}
+
 /* ==================== REDUCED MOTION ==================== */
 @media (prefers-reduced-motion: reduce) {
   .why-choose-home .tmnp-slider.is-enhanced .tmnp-slider__track,

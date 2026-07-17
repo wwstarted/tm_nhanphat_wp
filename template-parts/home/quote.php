@@ -77,6 +77,9 @@ $tmnhanphat_q_fields = array(
 							<?php if ( ! $tmnhanphat_q_field['show'] ) : ?>
 								<?php continue; ?>
 							<?php endif; ?>
+							<?php /* Floating label (Taste 4.6 — không placeholder-làm-label): <label> thật thay
+							aria-label, đứng đúng chỗ placeholder cũ khi field trống, nổi lên mép trên khi có
+							nội dung/focus. placeholder=" " (1 space) chỉ để :placeholder-shown hoạt động. */ ?>
 							<div class="quote-field">
 								<span class="quote-field__icon" aria-hidden="true">
 									<?php echo tmnhanphat_get_quote_icon_svg( $tmnhanphat_q_field['icon'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- SVG tĩnh. ?>
@@ -84,11 +87,12 @@ $tmnhanphat_q_fields = array(
 								<input
 									class="quote-field__input"
 									type="<?php echo esc_attr( $tmnhanphat_q_field['type'] ); ?>"
+									id="quote-field-<?php echo esc_attr( $tmnhanphat_q_key ); ?>"
 									name="quote_<?php echo esc_attr( $tmnhanphat_q_key ); ?>"
-									placeholder="<?php echo esc_attr( $tmnhanphat_q_field['placeholder'] ); ?>"
+									placeholder=" "
 									<?php echo $tmnhanphat_q_required ? 'data-required="true"' : ''; ?>
-									aria-label="<?php echo esc_attr( $tmnhanphat_q_field['placeholder'] ); ?>"
 								/>
+								<label class="quote-field__label" for="quote-field-<?php echo esc_attr( $tmnhanphat_q_key ); ?>"><?php echo esc_html( $tmnhanphat_q_field['placeholder'] ); ?></label>
 								<span class="quote-field__error" data-error></span>
 							</div>
 						<?php endforeach; ?>
@@ -98,17 +102,21 @@ $tmnhanphat_q_fields = array(
 								<span class="quote-field__icon" aria-hidden="true">
 									<?php echo tmnhanphat_get_quote_icon_svg( 'service' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- SVG tĩnh. ?>
 								</span>
+								<?php /* Option đầu đóng vai placeholder hiển thị; label thật ẩn khi chưa chọn,
+								nổi lên mép trên khi focus/đã chọn giá trị (CSS :has — trình duyệt cũ giữ
+								nguyên hành vi hiện tại, không mất gì). */ ?>
 								<select
 									class="quote-field__input quote-field__select"
+									id="quote-field-service"
 									name="quote_service"
 									<?php echo $tmnhanphat_q_required ? 'data-required="true"' : ''; ?>
-									aria-label="<?php esc_attr_e( 'Chọn loại dịch vụ', 'tmnhanphat' ); ?>"
 								>
 									<option value=""><?php esc_html_e( 'Chọn loại dịch vụ', 'tmnhanphat' ); ?></option>
 									<?php foreach ( $tmnhanphat_q_services as $tmnhanphat_q_service ) : ?>
 										<option value="<?php echo esc_attr( $tmnhanphat_q_service ); ?>"><?php echo esc_html( $tmnhanphat_q_service ); ?></option>
 									<?php endforeach; ?>
 								</select>
+								<label class="quote-field__label quote-field__label--select" for="quote-field-service"><?php esc_html_e( 'Loại dịch vụ', 'tmnhanphat' ); ?></label>
 								<span class="quote-field__error" data-error></span>
 							</div>
 						<?php endif; ?>
@@ -120,12 +128,13 @@ $tmnhanphat_q_fields = array(
 								</span>
 								<textarea
 									class="quote-field__input quote-field__textarea"
+									id="quote-field-message"
 									name="quote_message"
 									rows="3"
-									placeholder="<?php esc_attr_e( 'Nội dung yêu cầu ...', 'tmnhanphat' ); ?>"
+									placeholder=" "
 									<?php echo $tmnhanphat_q_required ? 'data-required="true"' : ''; ?>
-									aria-label="<?php esc_attr_e( 'Nội dung yêu cầu', 'tmnhanphat' ); ?>"
 								></textarea>
+								<label class="quote-field__label quote-field__label--textarea" for="quote-field-message"><?php esc_html_e( 'Nội dung yêu cầu ...', 'tmnhanphat' ); ?></label>
 								<span class="quote-field__error" data-error></span>
 							</div>
 						<?php endif; ?>

@@ -304,7 +304,9 @@
 	/* Figma: chữ CTA Inter 24/400 + shadow 0/4/4 25% — fluid theo container. */
 	font-size: clamp(1rem, calc(24 * var(--fig1px)), var(--services-cta-size, 24px));
 	font-weight: 400;
-	box-shadow: 0 4px 4px rgb(0 0 0 / 0.25);
+	/* Shadow mềm theo ngôn ngữ chung của trang (blur lớn, opacity thấp) — thay
+	   0 4px 4px /25% cũ (blur = offset trông như viền bẩn, anti-pattern). */
+	box-shadow: 0 10px 24px rgb(4 106 181 / 0.25);
 	transition: background-color 0.2s ease, transform 0.2s ease;
 }
 

@@ -941,7 +941,9 @@ function tmnhanphat_partners_defaults() {
 		'tmnhanphat_partners_title'              => __( 'Đối Tác', 'tmnhanphat' ),
 		'tmnhanphat_partners_description_enable' => false,
 		'tmnhanphat_partners_description'        => '',
-		'tmnhanphat_partners_padding_desktop'    => 0,
+		// Đỉnh 64px (Taste review mục 6, owner duyệt): Figma để 0 → section nghẹt sát
+		// vai About, là điểm gãy nhịp thở dọc duy nhất của trang (các section khác 36-203).
+		'tmnhanphat_partners_padding_desktop'    => 64,
 		'tmnhanphat_partners_padding_tablet'     => 48,
 		'tmnhanphat_partners_padding_mobile'     => 32,
 		'tmnhanphat_partners_bg'                 => '#ffffff',
@@ -2163,7 +2165,10 @@ function tmnhanphat_products_defaults() {
 		'tmnhanphat_products_button_color'       => '#ffffff',
 
 		// Slider
-		'tmnhanphat_products_autoplay_enable'  => true,
+		// Autoplay TẮT mặc định (Taste review mục 5, owner duyệt): người dùng đang đọc/
+		// so sánh sản phẩm mà lưới tự lật trang là motion chống lại nhiệm vụ của section.
+		// Dots + drag + tabs vẫn đủ điều hướng; bật lại được trong Customizer nếu cần.
+		'tmnhanphat_products_autoplay_enable'  => false,
 		'tmnhanphat_products_autoplay_delay'   => 4000,
 		'tmnhanphat_products_transition_speed' => 600,
 		'tmnhanphat_products_infinite'         => true,
@@ -3631,13 +3636,16 @@ function tmnhanphat_projects_defaults() {
 		'tmnhanphat_projects_order'       => 'DESC',
 		'tmnhanphat_projects_exclude_ids' => '',
 
-		// ----- Content Layout — Figma: card 1590×750 r=40 nền ĐẶC #A1ACC1 (không phải
-		// kính mờ), shadow 0/4/4/25%; padding 4 phía 67/97/55/90 đặt ở CSS. -----
+		// ----- Content Layout — Figma: card 1590×750 r=40; padding 4 phía 67/97/55/90
+		// đặt ở CSS. Figma vẽ nền ĐẶC #A1ACC1 nhưng chữ trên card toàn TRẮNG → tương
+		// phản ~2.2:1 (fail WCAG AA, lỗi design). Taste review (mục 1, owner duyệt):
+		// hạ opacity 100→25 thành kính mờ trên nền xanh section — nền hiệu dụng sau
+		// chữ ~#2B7AB9, trắng đạt ~4.5:1, đồng bộ vật liệu glass với Hero stats card. -----
 		'tmnhanphat_projects_left_width'   => 65,
 		'tmnhanphat_projects_content_gap'  => 33,
 		'tmnhanphat_projects_valign'       => 'center',
 		'tmnhanphat_projects_card_bg'      => '#A1ACC1',
-		'tmnhanphat_projects_card_opacity' => 100,
+		'tmnhanphat_projects_card_opacity' => 25,
 		'tmnhanphat_projects_card_radius'  => 40,
 		'tmnhanphat_projects_card_padding' => 40,
 
@@ -4666,7 +4674,10 @@ function tmnhanphat_news_defaults() {
 		'tmnhanphat_news_pdesc_clamp_mobile' => 2,
 		'tmnhanphat_news_pdesc_color'        => '#667180',
 
-		// ----- Read More — Figma: 20/400 vàng đồng #B8955A, căn phải. -----
+		// ----- Read More — Figma: 20/400 vàng đồng #B8955A, căn phải. TOKEN GOLD CHÍNH
+		// của theme (vai trò: điểm nhấn hành động phụ trên nền sáng; hover #9A7A46).
+		// Ngoại lệ duy nhất được ghi chú: viền submit Quote #F4B844 (glow trên nền navy
+		// — vai trò khác, cần độ chói cao hơn). Thêm gold mới phải quy về 1 trong 2. -----
 		'tmnhanphat_news_readmore_text'        => 'Xem thêm',
 		'tmnhanphat_news_readmore_color'       => '#B8955A',
 		'tmnhanphat_news_readmore_hover_color' => '#9A7A46',

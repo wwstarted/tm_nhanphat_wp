@@ -88,9 +88,11 @@
 /* Yêu cầu responsive: KHÔNG xuống nhiều dòng — thiếu chỗ thì cuộn ngang (overflow-x). */
 .products-home__cats {
 	margin-bottom: min(var(--products-cats-bottom, 78px), calc(78 * var(--fig1px)));
-	/* Figma: đường kẻ ngang 1px đen chạy dưới dải tab, cách đáy tab 37px (Line 6). */
+	/* Figma: đường kẻ ngang 1px đen dưới dải tab, cách đáy tab 37px (Line 6). Taste
+	   review mục 9 (owner duyệt): đen full-width là đường kẻ nặng nhất trên nền trắng,
+	   hút mắt hơn heading — hạ về hairline của hệ, vai trò tổ chức giữ nguyên. */
 	padding-bottom: calc(37 * var(--fig1px));
-	border-bottom: 1px solid #000000;
+	border-bottom: 1px solid var(--color-border, #e0e0e0);
 }
 
 .products-home__cat-list {

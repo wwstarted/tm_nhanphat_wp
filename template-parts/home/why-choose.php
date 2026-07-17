@@ -56,8 +56,10 @@ $tmnhanphat_wc_slider_attrs = array(
 	'data-pause-hover'    => tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_pause_hover' ) ? 'true' : 'false',
 	'data-infinite'       => tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_infinite' ) ? 'true' : 'false',
 	'data-drag'           => tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_drag_enable' ) ? 'true' : 'false',
-	// Section này KHÔNG có Dots/Arrows theo design — chỉ autoplay + drag/swipe.
-	'data-dots'           => 'false',
+	// Dots BẬT (Taste review mục 2, owner duyệt): không có dots thì khi autoplay không
+	// chạy (admin tắt / prefers-reduced-motion) các card ngoài khung nhìn vô hình hoàn
+	// toàn — không affordance nào báo còn nội dung. Arrows vẫn tắt theo design.
+	'data-dots'           => 'true',
 	'data-arrows'         => 'false',
 	'data-cards-desktop'  => max( 1, absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_cards_desktop' ) ) ),
 	'data-cards-tablet'   => max( 1, absint( tmnhanphat_get_why_choose_mod( 'tmnhanphat_why_choose_cards_tablet' ) ) ),
@@ -171,7 +173,7 @@ foreach ( $tmnhanphat_wc_slider_attrs as $tmnhanphat_wc_attr_name => $tmnhanphat
 					<?php endforeach; ?>
 				</div>
 			</div>
-			<?php /* Không in Dots/Arrows — section này chỉ autoplay + drag/swipe (đúng design). */ ?>
+			<?php /* Dots do slider.js tự sinh (bật ở data-dots — xem chú thích trên); Arrows tắt theo design. */ ?>
 		</div>
 	</div>
 </section>
