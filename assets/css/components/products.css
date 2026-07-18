@@ -54,19 +54,10 @@
 	font-size: clamp(30px, calc(85 * var(--fig1px)), var(--products-heading-size, 85px));
 	font-weight: var(--products-heading-weight, 900);
 	line-height: var(--products-heading-lh, 1.21);
-	letter-spacing: var(--products-heading-ls, 0);
+	letter-spacing: -0.02em; /* Chuẩn hoá heading system (token -0.02em). */
 }
 
-/* Gạch đôi đỏ–xanh (motif .review-home__heading::after) — bắc cầu 2 ngôn ngữ heading. */
-.products-home__heading::after {
-	content: "";
-	display: block;
-	width: 75px;
-	height: 3px;
-	margin: 9px auto 0;
-	border-radius: 2px;
-	background: linear-gradient(90deg, #E31F2B 0 34px, transparent 34px 41px, #0C4B9B 41px 75px);
-}
+/* Heading dùng TYPOGRAPHY làm điểm nhấn — KHÔNG underline/gạch (chuẩn hoá Design System). */
 
 .products-home__heading-red {
 	color: var(--products-heading-red, #E31F2B);
@@ -80,7 +71,7 @@
 	margin: 0 auto;
 	max-width: var(--products-desc-max-width, 820px);
 	color: var(--products-desc-color, #464646);
-	font-size: clamp(13px, calc(20 * var(--fig1px)), var(--products-desc-size, 20px));
+	font-size: clamp(16px, calc(20 * var(--fig1px)), var(--products-desc-size, 20px)); /* Migrate: sàn 16. */
 	line-height: 1.5; /* Taste A: body văn xuôi leading thoáng. */
 }
 

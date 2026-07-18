@@ -178,13 +178,13 @@
 	/* Chừa đáy stage = phần card overlap + gap 48px → content (căn giữa dọc trong 100vh)
 	   dịch LÊN, không sát card. Tự khớp khi --hero-stats-overlap đổi. */
 	.hero__stage {
-		padding-bottom: calc(var(--hero-stats-overlap, 150px) + 48px);
+		padding-bottom: calc(var(--hero-stats-overlap, 106px) + 48px);
 	}
 
 	.hero__stats-wrap {
 		/* Kéo lên 150px = ~55% chiều cao card nằm TRÊN đáy stage (55/45) — badge (nằm ở
 		   nửa trên card) không bị đường ranh cắt. Chỉnh 1 số này để đè nhiều/ít hơn. */
-		margin-top: calc(-1 * var(--hero-stats-overlap, 150px));
+		margin-top: calc(-1 * var(--hero-stats-overlap, 106px));
 	}
 }
 

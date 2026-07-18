@@ -20,16 +20,15 @@
 	--font-size-base: 1rem;
 	--line-height-base: 1.6;
 
-	/* Layout — container FLUID: hở 2 bên = 1/2 khoảng hở của container 1200 cũ
-	   (width = 50vw + 600px), trần 1684px (= cột nội dung Figma 1636 + 2×24 padding).
-	   Giá trị dự phòng — bản thật do tmnhanphat_render_global_css_vars() bơm inline. */
-	--container-max-width: min(1684px, 50vw + 600px);
-	/* "1px Figma" quy đổi theo bề rộng CONTAINER THỰC (không phải viewport):
-	   container = min(1684, 50vw+600) → 1px thiết kế = container/1684. Mọi kích thước
-	   Figma F(px) viết là calc(F * var(--fig1px)) sẽ giữ ĐÚNG tỉ lệ chữ/khối so với
-	   thiết kế ở mọi viewport (trần = F khi màn ≥2168 vì min với 1px). Cùng triết lý
-	   --about-fpx của About Section nhưng neo theo container toàn site. */
-	--fig1px: min(1px, calc((50vw + 600px) / 1684));
+	/* Layout — container FLUID trần MỚI 1200px (migrate từ 1684). Giá trị dự phòng —
+	   bản thật do tmnhanphat_render_global_css_vars() bơm inline (default 1200). */
+	--container-max-width: min(1200px, 50vw + 600px);
+	/* "1px Figma" quy đổi theo container. Giữ MẪU SỐ 1684 (F vẫn là px Figma trên canvas
+	   nội dung 1636) nhưng CAP ở 0.71px thay vì 1px: trên màn lớn mọi kích thước không-gian
+	   (heading/gap/card-width/section-bottom) dừng ở F×0.71 — tương ứng container 1200 —
+	   thay vì phóng tới F×1 của container 1684 cũ. Body/icon/radius KHÔNG dùng biến này (đặt
+	   giá trị optical cố định theo từng component — xem Scale Guideline). */
+	--fig1px: min(0.71px, calc((50vw + 600px) / 1684));
 	/* Giá trị dự phòng — thực tế luôn được ghi đè theo Customizer "Global Settings" → Layout
 	   qua wp_add_inline_style() trong inc/enqueue.php (PROJECT_RULES.md mục 27). Không sửa
 	   khoảng cách 2 bên ở đây; đổi trong Customizer để áp dụng toàn site. */

@@ -26,7 +26,7 @@ function tmnhanphat_header_defaults() {
 		'tmnhanphat_header_logo_retina'         => '',
 		'tmnhanphat_header_logo_width'          => 96,
 		'tmnhanphat_header_height'              => 130,
-		'tmnhanphat_header_container_width'     => 1684,
+		'tmnhanphat_header_container_width'     => 1200, // Migrate: khớp container site 1200.
 		'tmnhanphat_header_sticky_enable'       => true,
 		'tmnhanphat_header_transparent_enable'  => true,
 		'tmnhanphat_header_sticky_bg'           => '#ffffff',
@@ -344,7 +344,7 @@ function tmnhanphat_footer_defaults() {
 		'tmnhanphat_footer_social_enable'    => true,
 		// Figma: pad trên 65 (đáy 71 ở CSS); khung khớp container chung 1684; gap cột 32.
 		'tmnhanphat_footer_padding'          => 65,
-		'tmnhanphat_footer_container_width'  => 1684,
+		'tmnhanphat_footer_container_width'  => 1200, // Migrate: khớp container site 1200.
 		'tmnhanphat_footer_heading_color'    => '#ffffff',
 		'tmnhanphat_footer_divider_color'    => '#ffffff',
 		'tmnhanphat_footer_logo_spacing'     => 22, // Figma: logo → heading 22.
@@ -550,9 +550,9 @@ function tmnhanphat_hero_defaults() {
 
 		// Layout — Figma: Heading box 1524px trên canvas 1920 → content không tự bó hẹp
 		// dưới container; 1560 để heading luôn fill hết bề rộng container chung.
-		// Bề rộng khối content (căn trái): 1300 để heading 96px nằm 2 DÒNG trên màn lớn
-		// (1080 bị chật → 3 dòng). Ở màn hẹp hơn tự giới hạn theo inner (container).
-		'tmnhanphat_hero_content_max_width'        => 1300,
+		// Migrate 1200: heading giờ ~68px (fig cap 0.71) → khối content 940 đủ cho 2 dòng,
+		// vừa trong inner 1152 (container 1200 − padding). Trước 1300 (heading 96 cũ).
+		'tmnhanphat_hero_content_max_width'        => 940,
 		'tmnhanphat_hero_content_max_width_tablet' => 600,
 		'tmnhanphat_hero_content_max_width_mobile' => 600,
 		'tmnhanphat_hero_content_align'            => 'center',
@@ -567,7 +567,7 @@ function tmnhanphat_hero_defaults() {
 		'tmnhanphat_hero_stats_card_enable'       => true,
 		'tmnhanphat_hero_stats_card_bg'           => '#22262E',
 		'tmnhanphat_hero_stats_card_opacity'      => 92,
-		'tmnhanphat_hero_stats_card_radius'       => 40,
+		'tmnhanphat_hero_stats_card_radius'       => 28, // Migrate: radius lớn giảm (40→28) cho card nhỏ hơn.
 		'tmnhanphat_hero_stats_card_border_color' => '#ffffff',
 		'tmnhanphat_hero_stats_card_border_width' => 1,
 		'tmnhanphat_hero_stats_card_blur'         => 18,
@@ -946,7 +946,7 @@ function tmnhanphat_partners_defaults() {
 		'tmnhanphat_partners_description'        => '',
 		// Đỉnh 64px (Taste review mục 6, owner duyệt): Figma để 0 → section nghẹt sát
 		// vai About, là điểm gãy nhịp thở dọc duy nhất của trang (các section khác 36-203).
-		'tmnhanphat_partners_padding_desktop'    => 64,
+		'tmnhanphat_partners_padding_desktop'    => 48, // Migrate: nhịp dọc mới (64→48).
 		'tmnhanphat_partners_padding_tablet'     => 48,
 		'tmnhanphat_partners_padding_mobile'     => 32,
 		'tmnhanphat_partners_bg'                 => '#ffffff',
@@ -1170,8 +1170,9 @@ function tmnhanphat_get_partner_logo_html( $url, $alt ) {
  */
 function tmnhanphat_global_defaults() {
 	return array(
-		// Figma: cột nội dung 1636px (vd Services 3×510 + 2×53) + 2×24 padding = 1684.
-		'tmnhanphat_container_width'            => 1684,
+		// Migrate container: trần 1200px (từ 1684 cũ). Nội dung ~1152 (1200 − 2×24). Toàn bộ
+		// Design System re-scale theo Scale Guideline (fig1px cap 0.71 + giá trị optical).
+		'tmnhanphat_container_width'            => 1200,
 		'tmnhanphat_container_padding_desktop' => 24,
 		'tmnhanphat_container_padding_tablet'  => 20,
 		'tmnhanphat_container_padding_mobile'  => 16,
@@ -1581,7 +1582,7 @@ function tmnhanphat_services_defaults() {
 		// 0 = dùng chung Container Width của Global Settings (mục 27).
 		'tmnhanphat_services_container_width' => 0,
 		// Figma: khoảng cách đáy Hero→Heading = 137 (padding-top; đáy section 47 cố định ở CSS).
-		'tmnhanphat_services_padding_desktop' => 137,
+		'tmnhanphat_services_padding_desktop' => 96, // Migrate: nhịp dọc mới (137→96).
 		'tmnhanphat_services_padding_tablet'  => 56,
 		'tmnhanphat_services_padding_mobile'  => 40,
 
@@ -1621,7 +1622,7 @@ function tmnhanphat_services_defaults() {
 		'tmnhanphat_services_show_arrows'        => false,
 		'tmnhanphat_services_show_dots'          => true,
 		'tmnhanphat_services_drag_enable'        => true,
-		'tmnhanphat_services_gap'                => 53, // Figma: khoảng cách giữa các card 53px.
+		'tmnhanphat_services_gap'                => 38, // Migrate: gap card co theo container hẹp (53→38).
 		'tmnhanphat_services_cards_desktop'      => '3',
 		'tmnhanphat_services_cards_tablet'       => '2',
 		'tmnhanphat_services_cards_mobile'       => '1',
@@ -1630,7 +1631,7 @@ function tmnhanphat_services_defaults() {
 
 		// Card — Figma: 510×453 r=30, inner-shadow đen 70% (tối dần về đáy), Title 48/900
 		// trắng, Excerpt 20/400 trắng, nội dung cách mép trái card 35px.
-		'tmnhanphat_services_card_radius'        => 30,
+		'tmnhanphat_services_card_radius'        => 22, // Migrate: radius mềm theo card nhỏ hơn (30→22).
 		'tmnhanphat_services_card_ratio'         => '510-453',
 		'tmnhanphat_services_overlay_color'      => '#000000',
 		'tmnhanphat_services_overlay_opacity'    => 70,
@@ -2066,7 +2067,7 @@ function tmnhanphat_products_defaults() {
 		'tmnhanphat_products_margin_top'        => 0,
 		'tmnhanphat_products_margin_bottom'     => 0,
 		// Figma: đáy About→Heading = 203 (padding-top; đáy section 57 cố định ở CSS).
-		'tmnhanphat_products_padding_desktop'   => 203,
+		'tmnhanphat_products_padding_desktop'   => 128, // Migrate: nhịp dọc mới (203→128).
 		'tmnhanphat_products_padding_tablet'    => 56,
 		'tmnhanphat_products_padding_mobile'    => 40,
 		'tmnhanphat_products_bg_color'          => '#ffffff',
@@ -2136,7 +2137,7 @@ function tmnhanphat_products_defaults() {
 		// Card — Figma: 438×638 r=30, viền 1px #E8E6E1 (ở CSS), KHÔNG shadow, padding
 		// trong 24; gap lưới: cột 123 / hàng 114 (hàng cố định ở CSS); Title 28/700;
 		// Meta 20/400 #4A4F57.
-		'tmnhanphat_products_card_radius'        => 30,
+		'tmnhanphat_products_card_radius'        => 22, // Migrate: radius mềm (30→22).
 		'tmnhanphat_products_card_shadow'        => 'none',
 		'tmnhanphat_products_card_padding'       => 24,
 		'tmnhanphat_products_card_gap'           => 123,
@@ -2692,7 +2693,7 @@ function tmnhanphat_why_choose_defaults() {
 		'tmnhanphat_why_choose_overlay_enable'  => false,
 		'tmnhanphat_why_choose_overlay_color'   => '#ffffff',
 		'tmnhanphat_why_choose_overlay_opacity' => 80,
-		'tmnhanphat_why_choose_padding_desktop' => 92, // Figma: bg 4696 → Heading 4788 (đáy 350 cố định ở CSS).
+		'tmnhanphat_why_choose_padding_desktop' => 64, // Migrate: nhịp dọc mới (92→64).
 		'tmnhanphat_why_choose_padding_tablet'  => 72,
 		'tmnhanphat_why_choose_padding_mobile'  => 48,
 		'tmnhanphat_why_choose_margin_desktop'  => 0,
@@ -2751,14 +2752,14 @@ function tmnhanphat_why_choose_defaults() {
 		// ----- Card (Figma: 453 × 459, radius 39, ảnh 423 × 290 inset 15) -----
 		// Figma: viền card 1px ĐEN, KHÔNG shadow; nội dung cách mép trái/trên card ~48.
 		'tmnhanphat_why_choose_card_height'          => 459,
-		'tmnhanphat_why_choose_card_radius'          => 39,
+		'tmnhanphat_why_choose_card_radius'          => 28, // Migrate: radius mềm (39→28).
 		'tmnhanphat_why_choose_card_border_width'    => 1,
 		'tmnhanphat_why_choose_card_border_color'    => '#000000',
 		'tmnhanphat_why_choose_card_bg'              => '#ffffff',
 		'tmnhanphat_why_choose_card_shadow'          => 'none',
 		'tmnhanphat_why_choose_card_hover_shadow'    => 'medium',
 		'tmnhanphat_why_choose_card_hover_translate' => 6,
-		'tmnhanphat_why_choose_card_padding'         => 48,
+		'tmnhanphat_why_choose_card_padding'         => 34, // Migrate: padding card mềm (48→34).
 		'tmnhanphat_why_choose_card_content_align'   => 'flex-start',
 		'tmnhanphat_why_choose_icon_enable'          => false,
 
@@ -3253,7 +3254,7 @@ function tmnhanphat_process_defaults() {
 		'tmnhanphat_process_bg_color'        => '#ffffff',
 		'tmnhanphat_process_bg_image'        => '',
 		// Figma: đáy Why-Choose (5987) → Heading (6040) = 53; đáy = 0 (ảnh phải chạm Projects).
-		'tmnhanphat_process_padding_desktop' => 53,
+		'tmnhanphat_process_padding_desktop' => 40, // Migrate: nhịp dọc mới (53→40).
 		'tmnhanphat_process_padding_tablet'  => 64,
 		'tmnhanphat_process_padding_mobile'  => 48,
 		'tmnhanphat_process_margin_desktop'  => 0,
@@ -3292,7 +3293,7 @@ function tmnhanphat_process_defaults() {
 		'tmnhanphat_process_line_color'             => '#ECECEC',
 		'tmnhanphat_process_line_width'             => 1,
 		'tmnhanphat_process_step_gap'               => 98,
-		'tmnhanphat_process_circle_size'            => 76,
+		'tmnhanphat_process_circle_size'            => 56, // Migrate: circle số gọn theo scale mới (76→56); padding-top title tự tính theo biến này.
 		'tmnhanphat_process_circle_border_width'    => 1,
 		'tmnhanphat_process_circle_border_color'    => '#D9D9D9',
 		'tmnhanphat_process_circle_active_bg'       => '#E31F2B',
@@ -3599,7 +3600,7 @@ function tmnhanphat_projects_defaults() {
 		'tmnhanphat_projects_section_id'      => 'du-an',
 		'tmnhanphat_projects_container_width' => 0,
 		// Figma: nền xanh (7060) → Heading (7221) = 161 (đáy 91 cố định ở CSS).
-		'tmnhanphat_projects_padding_desktop' => 161,
+		'tmnhanphat_projects_padding_desktop' => 112, // Migrate: nhịp dọc mới (161→112).
 		'tmnhanphat_projects_padding_tablet'  => 64,
 		'tmnhanphat_projects_padding_mobile'  => 48,
 		'tmnhanphat_projects_margin_desktop'  => 0,
@@ -3649,8 +3650,8 @@ function tmnhanphat_projects_defaults() {
 		'tmnhanphat_projects_valign'       => 'center',
 		'tmnhanphat_projects_card_bg'      => '#A1ACC1',
 		'tmnhanphat_projects_card_opacity' => 25,
-		'tmnhanphat_projects_card_radius'  => 40,
-		'tmnhanphat_projects_card_padding' => 40,
+		'tmnhanphat_projects_card_radius'  => 28, // Migrate: radius mềm (40→28).
+		'tmnhanphat_projects_card_padding' => 30, // Migrate: padding card mềm (40→30).
 
 		// ----- Project Title — Figma: 55/700 trắng, cách Description 27px. -----
 		'tmnhanphat_projects_ptitle_size'          => 55,
@@ -4066,7 +4067,7 @@ function tmnhanphat_customer_review_defaults() {
 		'tmnhanphat_review_bg_color'        => '#ffffff',
 		'tmnhanphat_review_bg_image'        => '',
 		// Figma: đáy Projects (8387) → Heading (8558) = 171 (đáy 88 cố định ở CSS).
-		'tmnhanphat_review_padding_desktop' => 171,
+		'tmnhanphat_review_padding_desktop' => 112, // Migrate: nhịp dọc mới (171→112).
 		'tmnhanphat_review_padding_tablet'  => 64,
 		'tmnhanphat_review_padding_mobile'  => 48,
 		'tmnhanphat_review_margin_desktop'  => 0,
@@ -4110,7 +4111,7 @@ function tmnhanphat_customer_review_defaults() {
 		'tmnhanphat_review_card_bg'           => '#ffffff',
 		'tmnhanphat_review_card_shadow'       => 'none',
 		'tmnhanphat_review_card_hover_shadow' => 'medium',
-		'tmnhanphat_review_card_padding'      => 25,
+		'tmnhanphat_review_card_padding'      => 20, // Migrate: padding card mềm (25→20).
 
 		// ----- Avatar -----
 		'tmnhanphat_review_avatar_size'          => 44,
@@ -4590,7 +4591,7 @@ function tmnhanphat_news_defaults() {
 		// theo container (~384px mỗi card ở 1200), không giữ width cố định 513 gây tràn.
 		'tmnhanphat_news_container_width' => 0,
 		// Figma: bg (9791) → Header (9827) = 36 (đáy 90 cố định ở CSS).
-		'tmnhanphat_news_padding_desktop' => 36,
+		'tmnhanphat_news_padding_desktop' => 28, // Migrate: nhịp dọc mới (36→28).
 		'tmnhanphat_news_padding_tablet'  => 64,
 		'tmnhanphat_news_padding_mobile'  => 48,
 		'tmnhanphat_news_margin_desktop'  => 0,
@@ -4644,7 +4645,7 @@ function tmnhanphat_news_defaults() {
 		'tmnhanphat_news_card_radius'       => 20,
 		'tmnhanphat_news_card_shadow'       => 'none',
 		'tmnhanphat_news_card_hover_shadow' => 'medium',
-		'tmnhanphat_news_card_padding'      => 28,
+		'tmnhanphat_news_card_padding'      => 22, // Migrate: padding card mềm (28→22).
 		'tmnhanphat_news_gap'               => 15,
 
 		// ----- Thumbnail (ảnh khớp SÁT viền card, bo góc trên theo Card Radius — không
@@ -4922,7 +4923,7 @@ function tmnhanphat_quote_defaults() {
 		'tmnhanphat_quote_section_id'      => 'lien-he-bao-gia',
 		'tmnhanphat_quote_container_width' => 0,
 		// Figma: đáy News (10878) → Form (11030) = 152 (đáy 153 cố định ở CSS).
-		'tmnhanphat_quote_padding_desktop' => 152,
+		'tmnhanphat_quote_padding_desktop' => 104, // Migrate: nhịp dọc mới (152→104).
 		'tmnhanphat_quote_padding_tablet'  => 64,
 		'tmnhanphat_quote_padding_mobile'  => 48,
 		'tmnhanphat_quote_margin_desktop'  => 0,
@@ -4935,10 +4936,10 @@ function tmnhanphat_quote_defaults() {
 		// ----- Left Card — Figma: r=31, nền GRADIENT xanh đậm (#062B69→#0A4D96, vẽ ở
 		// CSS đè lên màu nền này), shadow 0/20/44 (CSS), padding 48/64/34/64 (CSS). -----
 		'tmnhanphat_quote_card_enable'  => true,
-		'tmnhanphat_quote_card_radius'  => 30, // Gom token radius: Figma 31 → nấc chuẩn 30 (đồng bộ Services/Products card).
+		'tmnhanphat_quote_card_radius'  => 22, // Migrate: radius mềm (30→22).
 		'tmnhanphat_quote_card_shadow'  => 'medium',
 		'tmnhanphat_quote_card_bg'      => '#07306F',
-		'tmnhanphat_quote_card_padding' => 48,
+		'tmnhanphat_quote_card_padding' => 34, // Migrate: padding card mềm (48→34).
 
 		// ----- Form Header — Figma: title 37/700 trắng, underline đỏ 86×4 (Figma #ED1C24
 		// gom về token đỏ thương hiệu #E31F2B — chênh lệch dưới ngưỡng mắt phân biệt). -----
@@ -4960,7 +4961,7 @@ function tmnhanphat_quote_defaults() {
 		// ----- Form Input Style — Figma: field cao 67, r10, viền #D0D8E3,
 		// placeholder 17/400 (Figma #7A8495 ~3.8:1 — fail WCAG AA, nâng lên #667180
 		// ~4.9:1 trên nền input trắng), cách nhau 15. -----
-		'tmnhanphat_quote_input_height'      => 67,
+		'tmnhanphat_quote_input_height'      => 52, // Migrate: input gọn theo form hẹp hơn (67→52); floating-label top tự tính theo biến này.
 		'tmnhanphat_quote_input_radius'      => 10,
 		'tmnhanphat_quote_input_font_size'   => 17,
 		'tmnhanphat_quote_placeholder_color' => '#667180',
@@ -5239,7 +5240,7 @@ function tmnhanphat_faq_defaults() {
 		'tmnhanphat_faq_section_id'      => 'faq',
 		'tmnhanphat_faq_container_width' => 0,
 		// Figma: pad trên 76 (đáy 135 cố định ở CSS — grid → Footer).
-		'tmnhanphat_faq_padding_desktop' => 76,
+		'tmnhanphat_faq_padding_desktop' => 56, // Migrate: nhịp dọc mới (76→56).
 		'tmnhanphat_faq_padding_tablet'  => 64,
 		'tmnhanphat_faq_padding_mobile'  => 48,
 		'tmnhanphat_faq_margin_desktop'  => 0,

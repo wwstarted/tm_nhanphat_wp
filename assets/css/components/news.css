@@ -70,13 +70,12 @@
 }
 
 .news-home__heading {
-	margin: 0 0 12px;
-	/* Figma: 60/700 MỘT MÀU #0C4B9B, ls -3.3px (-0.055em) — fluid theo container.
-	   Weight/ls đặt ở đây thắng .review-home__heading reuse (news.css load sau). */
-	font-size: clamp(26px, calc(60 * var(--fig1px)), var(--news-title-size, 60px));
-	font-weight: 700;
+	margin: 0 0 20px; /* Chuẩn hoá: heading → nội dung 20px (trước 12px tới gạch đã bỏ). */
+	/* Chuẩn hoá heading system: size 85·fig, weight 900, lh 1.21, ls -0.02em (= products). */
+	font-size: clamp(30px, calc(85 * var(--fig1px)), 85px);
+	font-weight: 900;
 	line-height: 1.21;
-	letter-spacing: -0.055em;
+	letter-spacing: -0.02em;
 }
 
 .news-home__heading-blue {
@@ -87,21 +86,7 @@
 	color: var(--news-heading-red, #E31F2B); /* Chủ dự án chốt: "nổi bật" màu đỏ. */
 }
 
-/* Divider fallback khi KHÔNG reuse review-home__heading — vẽ gạch đôi đỏ/xanh riêng. */
-.news-home__header:not(.news-home__header--reuse) .news-home__heading::after {
-	content: "";
-	display: block;
-	width: 56px;
-	height: 4px;
-	margin: 10px var(--news-header-margin-x, auto) 0;
-	border-radius: 2px;
-	background: linear-gradient(90deg, #046AB5 0 45%, transparent 45% 55%, #E31F2B 55% 100%);
-}
-
-/* Khi reuse: divider do .review-home__heading::after lo — chỉ căn lề theo News align. */
-.news-home__header--reuse .news-home__heading::after {
-	margin-inline: var(--news-header-margin-x, auto);
-}
+/* Gạch đôi ĐÃ BỎ — heading dùng TYPOGRAPHY làm điểm nhấn (chuẩn hoá Design System). */
 
 .news-home__description {
 	margin: 0 var(--news-header-margin-x, auto) 0;
@@ -265,7 +250,7 @@
 .news-card__excerpt {
 	margin: 0 0 calc(13 * var(--fig1px)); /* Figma: excerpt → Xem thêm 13px. */
 	color: var(--news-pdesc-color, #667180);
-	font-size: clamp(13px, calc(20 * var(--fig1px)), var(--news-pdesc-size, 20px));
+	font-size: clamp(16px, calc(20 * var(--fig1px)), var(--news-pdesc-size, 20px)); /* Migrate: sàn 16. */
 	line-height: 1.5; /* Taste A: excerpt là body — leading thoáng. */
 }
 
@@ -275,7 +260,7 @@
 	margin-top: auto;
 	align-self: flex-end;
 	color: var(--news-readmore-color, #B8955A);
-	font-size: clamp(13px, calc(20 * var(--fig1px)), var(--news-pdesc-size, 20px));
+	font-size: clamp(16px, calc(20 * var(--fig1px)), var(--news-pdesc-size, 20px)); /* Migrate: sàn 16. */
 	font-weight: 400;
 	transition: color 0.2s ease;
 }

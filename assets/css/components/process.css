@@ -48,23 +48,14 @@
 .process-home__heading {
 	margin: 0 0 var(--process-heading-margin, 24px);
 	/* Figma 96/900 — fluid theo tỉ lệ container, trần = setting theo breakpoint. */
-	font-size: clamp(30px, calc(96 * var(--fig1px)), var(--process-heading-size, 96px));
+	/* Chuẩn hoá heading system: size 85·fig, ls -0.02em. */
+	font-size: clamp(30px, calc(85 * var(--fig1px)), var(--process-heading-size, 96px));
 	font-weight: var(--process-heading-weight, 900);
 	line-height: var(--process-heading-lh, 1.21);
-	letter-spacing: var(--process-heading-ls, 0);
+	letter-spacing: -0.02em;
 }
 
-/* Gạch đôi đỏ–xanh (motif .review-home__heading::after) — bắc cầu 2 ngôn ngữ heading.
-   Section căn TRÁI mặc định → gạch căn trái (margin-inline 0). */
-.process-home__heading::after {
-	content: "";
-	display: block;
-	width: 75px;
-	height: 3px;
-	margin: 9px 0 0;
-	border-radius: 2px;
-	background: linear-gradient(90deg, #E31F2B 0 34px, transparent 34px 41px, #0C4B9B 41px 75px);
-}
+/* Heading dùng TYPOGRAPHY làm điểm nhấn — KHÔNG underline/gạch (chuẩn hoá Design System). */
 
 .process-home__heading-blue {
 	color: var(--process-heading-blue, #046AB5);
@@ -78,7 +69,7 @@
 	margin: 0 var(--process-desc-margin-x, 0) var(--process-desc-margin, 85px);
 	max-width: var(--process-desc-max-width, 820px);
 	color: var(--process-desc-color, #000000);
-	font-size: clamp(13px, calc(20 * var(--fig1px)), var(--process-desc-size, 20px));
+	font-size: clamp(16px, calc(20 * var(--fig1px)), var(--process-desc-size, 20px)); /* Migrate: sàn 16. */
 	line-height: 1.5; /* Taste A: body văn xuôi leading thoáng. */
 }
 
@@ -193,7 +184,7 @@
 	/* Figma: mô tả step #4A4F57 20/400 (khác Description của section — không có setting
 	   riêng nên hardcode theo design; inactive nhạt đi bằng opacity bên dưới). */
 	color: #464646; /* Gom token: Figma #4A4F57 → xám body chung. */
-	font-size: clamp(13px, calc(20 * var(--fig1px)), 20px);
+	font-size: clamp(16px, calc(20 * var(--fig1px)), 20px); /* Migrate: sàn 16. */
 	line-height: 1.5; /* Taste A: mô tả step là body — leading thoáng. */
 	opacity: var(--process-inactive-desc-opacity, 0.15);
 	transform: translateY(5px);

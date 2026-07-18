@@ -11,9 +11,8 @@
 
 .services-home {
 	background-color: var(--services-bg, #ffffff);
-	/* Figma bất đối xứng: trên 137 (đáy Hero→Heading, điều khiển bằng setting Padding),
-	   dưới cố định 47 (đáy CTA→Section kế tiếp). */
-	padding-block: var(--services-padding, 137px) 47px;
+	/* Migrate nhịp dọc: trên = setting (96), dưới 32 (47→32). */
+	padding-block: var(--services-padding, 96px) 32px;
 }
 
 .services-home__container {
@@ -34,18 +33,7 @@
 	letter-spacing: -0.02em; /* Taste B: tracking âm nhẹ cho display lớn (premium). */
 }
 
-/* Gạch đôi đỏ–xanh (motif .review-home__heading::after) — lan tỏa lên nửa trên trang
-   theo quyết định owner, nối liền 2 ngôn ngữ heading của Homepage. Căn giữa theo
-   alignment mặc định của section. */
-.services-home__heading::after {
-	content: "";
-	display: block;
-	width: 75px;
-	height: 3px;
-	margin: 9px auto 0;
-	border-radius: 2px;
-	background: linear-gradient(90deg, #E31F2B 0 34px, transparent 34px 41px, #0C4B9B 41px 75px);
-}
+/* Heading dùng TYPOGRAPHY làm điểm nhấn — KHÔNG underline/gạch (chuẩn hoá Design System). */
 
 .services-home__heading-red {
 	color: var(--services-heading-red, #E31F2B);
@@ -59,8 +47,8 @@
 	margin: 0 auto var(--services-desc-margin, 57px);
 	max-width: var(--services-desc-max-width, 820px);
 	color: var(--services-desc-color, #464646);
-	font-size: clamp(13px, calc(20 * var(--fig1px)), var(--services-desc-size, 20px));
-	line-height: 1.5; /* Taste A: body văn xuôi leading thoáng. */
+	font-size: clamp(16px, calc(20 * var(--fig1px)), var(--services-desc-size, 20px));
+	line-height: 1.5; /* Taste A: body văn xuôi leading thoáng. Migrate: sàn 16 (readability). */
 }
 
 /* ==================== SLIDER (generic .tmnp-slider) ==================== */
@@ -261,8 +249,8 @@
 	margin: 0;
 	color: var(--services-excerpt-color, #ffffff);
 	/* Figma: 20/400 trắng, lh Auto (~1.21), tối đa 3 dòng — fluid theo container. */
-	font-size: clamp(0.875rem, calc(20 * var(--fig1px)), var(--services-excerpt-size, 20px));
-	line-height: 1.5; /* Taste A: excerpt 3 dòng cần leading thoáng để đọc. */
+	font-size: clamp(15px, calc(20 * var(--fig1px)), var(--services-excerpt-size, 20px));
+	line-height: 1.5; /* Taste A: excerpt 3 dòng cần leading thoáng để đọc. Migrate: sàn 15. */
 	display: -webkit-box;
 	-webkit-box-orient: vertical;
 	-webkit-line-clamp: 3;

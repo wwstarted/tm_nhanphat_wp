@@ -16,7 +16,8 @@
 	/* NGOẠI LỆ có chủ đích (PROJECT_RULES.md mục 27): Figma hàng logo rộng 1809px —
 	   TRÀN ra ngoài cột nội dung chuẩn 1636 (~86px mỗi bên). 1857 = 1809 + 2×24 padding,
 	   nhân --fig1px để scale cùng hệ với container fluid. */
-	max-width: calc(1857 * var(--fig1px));
+	/* Migrate: thu về container chung 1200 (bỏ ngoại lệ 1857 — giờ rộng hơn container gây lệch). */
+	max-width: var(--container-max-width);
 	margin-inline: auto;
 	padding-inline: var(--container-padding);
 }

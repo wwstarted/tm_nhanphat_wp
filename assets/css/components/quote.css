@@ -333,20 +333,15 @@
 /* Heading reuse .review-home__heading — override màu span + typography theo Figma:
    70/700 lh 105% ls -2.2px (-0.031em), fluid theo container. */
 .quote-info__heading {
-	margin: 0 0 23px; /* Figma: heading → cặp vạch 23px. */
-	font-size: clamp(28px, calc(70 * var(--fig1px)), var(--quote-heading-size, 70px));
-	font-weight: 700;
-	line-height: 1.05;
-	letter-spacing: -0.031em;
+	margin: 0 0 20px; /* Chuẩn hoá: heading → nội dung 20px (trước 23px tới vạch đã bỏ). */
+	/* Chuẩn hoá heading system: size 85·fig, weight 900, lh 1.21, ls -0.02em (= products). */
+	font-size: clamp(30px, calc(85 * var(--fig1px)), 85px);
+	font-weight: 900;
+	line-height: 1.21;
+	letter-spacing: -0.02em;
 }
 
-/* Figma: cặp vạch của Quote to hơn bản Review — 2×(50×4) #D81822/#073F98, cách 6. */
-.quote-info__heading::after {
-	width: 106px;
-	height: 4px;
-	margin: 23px var(--quote-right-margin-x, 0) 0;
-	background: linear-gradient(90deg, #D81822 0 50px, transparent 50px 56px, #073F98 56px 106px);
-}
+/* Cặp vạch ĐÃ BỎ — heading dùng TYPOGRAPHY làm điểm nhấn (chuẩn hoá Design System). */
 
 .quote-info__heading-blue {
 	color: var(--quote-heading-blue, #0C4B9B);

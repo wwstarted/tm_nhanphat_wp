@@ -49,16 +49,42 @@ $tmnhanphat_counter_enable   = tmnhanphat_get_hero_mod( 'tmnhanphat_hero_counter
 >
 	<div class="hero__stage">
 		<div class="hero__background">
-			<?php if ( $tmnhanphat_bg_image ) : ?>
-				<img
-					class="hero__bg-image"
-					src="<?php echo esc_url( $tmnhanphat_bg_image ); ?>"
-					alt=""
-					loading="eager"
-					fetchpriority="high"
-					decoding="async"
-				/>
-			<?php endif; ?>
+			<?php
+			if ( $tmnhanphat_bg_image ) :
+				// Dùng wp_get_attachment_image (size 'full') để WP TỰ SINH srcset từ các bản
+				// có sẵn (768/1024/1536/1600/1920) + sizes=100vw → trình duyệt chọn bản NÉT
+				// NHẤT theo viewport × DPR (màn retina/lớn không bị phóng bản nhỏ → hết mờ).
+				// Layout không đổi (vẫn .hero__bg-image object-fit:cover). Fallback <img src>
+				// cứng nếu ảnh là URL ngoài Media Library (không tra được attachment ID).
+				$tmnhanphat_bg_id = attachment_url_to_postid( $tmnhanphat_bg_image );
+				if ( $tmnhanphat_bg_id ) {
+					echo wp_get_attachment_image(
+						$tmnhanphat_bg_id,
+						'full',
+						false,
+						array(
+							'class'         => 'hero__bg-image',
+							'alt'           => '',
+							'sizes'         => '100vw',
+							'loading'       => 'eager',
+							'fetchpriority' => 'high',
+							'decoding'      => 'async',
+						)
+					);
+				} else {
+					?>
+					<img
+						class="hero__bg-image"
+						src="<?php echo esc_url( $tmnhanphat_bg_image ); ?>"
+						alt=""
+						loading="eager"
+						fetchpriority="high"
+						decoding="async"
+					/>
+					<?php
+				}
+			endif;
+			?>
 		</div>
 
 		<?php if ( tmnhanphat_get_hero_mod( 'tmnhanphat_hero_overlay_enable' ) ) : ?>
