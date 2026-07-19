@@ -15,6 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 function tmnhanphat_register_menus() {
 	register_nav_menus( array(
 		'primary'        => __( 'Menu chính (Header)', 'tmnhanphat' ),
+		'header_top'     => __( 'Menu phụ (Top Bar Header)', 'tmnhanphat' ),
 		'footer_company' => __( 'Footer - Cột công ty', 'tmnhanphat' ),
 		'footer_policy'  => __( 'Footer - Cột chính sách', 'tmnhanphat' ),
 		'footer_product' => __( 'Footer - Cột sản phẩm', 'tmnhanphat' ),

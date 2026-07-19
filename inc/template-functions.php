@@ -25,10 +25,12 @@ function tmnhanphat_header_defaults() {
 		'tmnhanphat_header_logo'                => '',
 		'tmnhanphat_header_logo_retina'         => '',
 		'tmnhanphat_header_logo_width'          => 96,
-		'tmnhanphat_header_height'              => 130,
+		'tmnhanphat_header_height'              => 98, // Redesign: giảm ~0.75 (130→98) cho gọn.
+		'tmnhanphat_header_height_sticky'       => 60, // Chiều cao header khi cuộn (co lại, Top Bar collapse).
 		'tmnhanphat_header_container_width'     => 1200, // Migrate: khớp container site 1200.
 		'tmnhanphat_header_sticky_enable'       => true,
-		'tmnhanphat_header_transparent_enable'  => true,
+		// Redesign: header LUÔN có nền (không float trong suốt trên hero nữa). Hero sẽ chỉnh sau.
+		'tmnhanphat_header_transparent_enable'  => false,
 		'tmnhanphat_header_sticky_bg'           => '#ffffff',
 		'tmnhanphat_header_sticky_text'         => '#1a1a1a',
 		'tmnhanphat_header_transparent_text'    => '#ffffff',
@@ -39,10 +41,27 @@ function tmnhanphat_header_defaults() {
 		'tmnhanphat_header_menu_spacing'        => 32,
 		'tmnhanphat_header_shadow'              => 'soft',
 		'tmnhanphat_header_border_bottom'       => false,
-		'tmnhanphat_header_transition_duration' => 250,
+		'tmnhanphat_header_transition_duration' => 400, // Redesign: mượt hơn (250→400), không quá nhanh.
+		'tmnhanphat_header_anim_easing'         => 'cubic-bezier(0.22, 1, 0.36, 1)', // ease-out mượt, premium.
 		'tmnhanphat_header_mobile_breakpoint'   => 992,
 		'tmnhanphat_header_padding_top'         => 0,
 		'tmnhanphat_header_padding_bottom'      => 0,
+
+		// Redesign 2 tầng: Top Bar (tầng trên) + logo cao span 2 tầng, thu nhỏ khi sticky.
+		'tmnhanphat_header_topbar_enable'       => true,
+		'tmnhanphat_header_topbar_bg'           => '#ffffff',
+		'tmnhanphat_header_topbar_text'         => '#5C5C5C',
+		'tmnhanphat_header_topbar_height'       => 34, // ×0.75 (46→34).
+		'tmnhanphat_header_topbar_show_hotline' => true,
+		'tmnhanphat_header_topbar_show_email'   => true,
+		'tmnhanphat_header_logo_height'         => 64, // ×0.75 (84→64), vẫn span 2 tầng, cao trội hơn menu.
+		'tmnhanphat_header_logo_height_sticky'  => 40, // ×0.75 (52→40), logo khi sticky.
+
+		// CTA nút trên Main Nav (phải menu) — bật/tắt + text + link (màu/riêng đầy đủ ở B7).
+		'tmnhanphat_header_cta_enable'          => true,
+		'tmnhanphat_header_cta_text'            => __( 'Yêu cầu báo giá', 'tmnhanphat' ),
+		'tmnhanphat_header_cta_url'             => '#',
+		'tmnhanphat_header_cta_new_tab'         => false,
 
 		// Navigation (Floating) — Figma: menu #F5F5F4 trên hero; hover/active sáng lên
 		// trắng đặc (brand blue quá tối trên ảnh nền tối, kém tương phản).
@@ -129,6 +148,40 @@ function tmnhanphat_get_header_shadow_value( $key ) {
 	);
 
 	return isset( $shadows[ $key ] ) ? $shadows[ $key ] : $shadows['soft'];
+}
+
+/**
+ * Markup liên hệ Header (hotline + email) — DÙNG CHUNG cho Top Bar (desktop) và offcanvas
+ * (mobile/tablet), tránh copy markup (PROJECT_RULES.md mục 5). Tái dùng phone/email của
+ * Footer. Trả chuỗi đã escape (SVG tĩnh, tel/mailto đã esc, số/email esc_html + antispambot).
+ *
+ * @return string
+ */
+function tmnhanphat_get_header_contact_html() {
+	$html = '';
+
+	if ( tmnhanphat_get_header_mod( 'tmnhanphat_header_topbar_show_hotline' )
+		&& tmnhanphat_get_footer_mod( 'tmnhanphat_footer_phone_enable' ) ) {
+		$phone = tmnhanphat_get_footer_mod( 'tmnhanphat_footer_phone' );
+		if ( $phone ) {
+			$html .= '<a class="site-header__hotline" href="tel:' . esc_attr( preg_replace( '/[^0-9+]/', '', $phone ) ) . '">'
+				. '<svg class="site-header__util-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M6.5 3h3l1.5 4-2 1.5a11 11 0 0 0 5 5l1.5-2 4 1.5v3a2 2 0 0 1-2 2A16 16 0 0 1 4.5 5a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>'
+				. '<span>' . esc_html( $phone ) . '</span></a>';
+		}
+	}
+
+	if ( tmnhanphat_get_header_mod( 'tmnhanphat_header_topbar_show_email' )
+		&& tmnhanphat_get_footer_mod( 'tmnhanphat_footer_email_enable' ) ) {
+		$email = tmnhanphat_get_footer_mod( 'tmnhanphat_footer_email' );
+		if ( $email ) {
+			$safe = antispambot( $email );
+			$html .= '<a class="site-header__topbar-email" href="mailto:' . esc_attr( $safe ) . '">'
+				. '<svg class="site-header__util-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="m4 7 8 6 8-6" stroke="currentColor" stroke-width="1.6"/></svg>'
+				. '<span>' . esc_html( $safe ) . '</span></a>';
+		}
+	}
+
+	return $html;
 }
 
 /**
@@ -235,9 +288,21 @@ function tmnhanphat_render_header_css_vars() {
 	$nav_hover_sticky    = tmnhanphat_get_header_mod( 'tmnhanphat_header_nav_hover_sticky' );
 	$nav_active_sticky   = tmnhanphat_get_header_mod( 'tmnhanphat_header_nav_active_sticky' );
 
+	$topbar_bg      = tmnhanphat_get_header_mod( 'tmnhanphat_header_topbar_bg' );
+	$topbar_text    = tmnhanphat_get_header_mod( 'tmnhanphat_header_topbar_text' );
+	$topbar_h       = absint( tmnhanphat_get_header_mod( 'tmnhanphat_header_topbar_height' ) );
+	$logo_h         = absint( tmnhanphat_get_header_mod( 'tmnhanphat_header_logo_height' ) );
+	$logo_h_sticky  = absint( tmnhanphat_get_header_mod( 'tmnhanphat_header_logo_height_sticky' ) );
+
 	$css  = ':root{';
 	$css .= '--header-logo-width:' . $logo_width . 'px;';
+	$css .= '--header-logo-height:' . $logo_h . 'px;';
+	$css .= '--header-logo-height-sticky:' . $logo_h_sticky . 'px;';
+	$css .= '--header-topbar-bg:' . $topbar_bg . ';';
+	$css .= '--header-topbar-text:' . $topbar_text . ';';
+	$css .= '--header-topbar-height:' . $topbar_h . 'px;';
 	$css .= '--header-height:' . $height . 'px;';
+	$css .= '--header-height-sticky:' . absint( tmnhanphat_get_header_mod( 'tmnhanphat_header_height_sticky' ) ) . 'px;';
 	$css .= '--header-container-width:' . $container_w . 'px;';
 	// Sticky glass (yêu cầu chủ dự án): nền mờ 85% + backdrop-blur (blur đặt ở
 	// header.css) — màu gốc vẫn theo setting Sticky Background.
@@ -252,6 +317,7 @@ function tmnhanphat_render_header_css_vars() {
 	$css .= '--header-shadow:' . $shadow . ';';
 	$css .= '--header-border-bottom:' . $border . ';';
 	$css .= '--header-transition-duration:' . $duration . 'ms;';
+	$css .= '--header-anim-easing:' . tmnhanphat_get_header_mod( 'tmnhanphat_header_anim_easing' ) . ';';
 	$css .= '--header-padding-top:' . $padding_top . 'px;';
 	$css .= '--header-padding-bottom:' . $padding_bot . 'px;';
 	$css .= '--header-nav-text-floating:' . $nav_text_floating . ';';
@@ -265,6 +331,11 @@ function tmnhanphat_render_header_css_vars() {
 	// Ngưỡng chuyển hamburger — bắt buộc render tĩnh (xem docblock).
 	$css .= '@media (max-width:' . $breakpoint . 'px){';
 	$css .= '.main-navigation__toggle{display:flex;}';
+	// Vùng hamburger: ẩn Top Bar + CTA (chuyển vào offcanvas ở B6) + tắt gạch indicator
+	// (offcanvas mỗi item full-width có border-bottom riêng, không cần gạch trượt).
+	$css .= '.site-header__topbar{display:none;}';
+	$css .= '.site-header__cta{display:none;}';
+	$css .= '.main-navigation__panel .primary-menu>li>a::after{display:none;}';
 	$css .= '.primary-menu{flex-direction:column;align-items:flex-start;}';
 	$css .= '.sub-menu{position:static;box-shadow:none;opacity:1;visibility:visible;transform:none;display:none;}';
 	$css .= '.menu-item-has-children.is-submenu-open>.sub-menu{display:block;}';
@@ -285,12 +356,12 @@ function tmnhanphat_render_header_css_vars() {
 	// tính đó (glass chỉ giữ trên desktop) để panel fixed bám đúng viewport.
 	$css .= '.site-header--transparent{transform:none;will-change:auto;}';
 	$css .= '.site-header--transparent.is-scrolled{animation:none;}';
-	$css .= '.site-header--solid.site-header--fixed,.site-header--transparent.is-scrolled{backdrop-filter:none;-webkit-backdrop-filter:none;background-color:' . tmnhanphat_hex_to_rgba( $sticky_bg, 97 ) . ';}';
+	$css .= '.site-header--solid.site-header--fixed,.site-header--transparent.is-scrolled{backdrop-filter:none;-webkit-backdrop-filter:none;background-color:' . $bg . ';}';
 	$css .= '}';
 	$css .= '@media (min-width:' . ( $breakpoint + 1 ) . 'px){';
 	// Desktop: ẩn toàn bộ phần offcanvas-only — hamburger, overlay, head (logo + nút
 	// đóng) và footer (social) của panel; menu inline như bình thường.
-	$css .= '.main-navigation__toggle,.main-navigation__overlay,.main-navigation__panel-head,.main-navigation__panel-footer{display:none;}';
+	$css .= '.main-navigation__toggle,.main-navigation__overlay,.main-navigation__panel-head,.main-navigation__panel-footer,.main-navigation__panel-contact{display:none;}';
 	$css .= '.main-navigation__panel{position:static;width:auto;height:auto;transform:none;box-shadow:none;background:transparent;padding:0;overflow:visible;}';
 	$css .= '.submenu-toggle{display:none;}';
 	$css .= '}';

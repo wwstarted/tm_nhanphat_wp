@@ -1,19 +1,27 @@
 /**
  * Hero Banner (trang chủ) — LAYOUT MỚI, 2 phần:
  *  1) .hero__stage: ảnh nền + overlay + content căn GIỮA (subtitle → heading → desc → CTA).
- *     Desktop thường (992–2559px) cao đúng 100vh (ôm 1 màn hình); ngoài dải đó (mobile/
- *     tablet, và màn ≥2560) cao theo nội dung — tránh khoảng trắng thừa khi viewport cao.
+ *     Desktop: toàn bộ Hero (stage + Stats) nhận phần viewport còn lại sau Header đặc;
+ *     tablet/mobile cao theo nội dung.
  *  2) .hero__stats: card 4 cột STRADDLE — nửa trên đè đáy stage, nửa dưới tràn xuống nền
  *     dưới (chỉ desktop; tablet/mobile card nằm bình thường dưới stage). Nội dung căn giữa.
  *
  * Giá trị --hero-* do inc/template-functions.php emit inline (wp_add_inline_style) — file
  * này KHÔNG hardcode giá trị người dùng đổi được trong Customizer. Header trang chủ là
- * Transparent Floating (position:fixed) — padding-top của stage tự chừa chỗ cho header.
+ * Header đặc có chiều cao thực; khoảng Header được tính riêng khỏi Hero.
  */
 
 .hero {
 	position: relative;
 	color: #ffffff;
+	--hero-viewport-height: 100vh;
+}
+
+/* Dùng viewport động khi trình duyệt hỗ trợ, để resize/orientation không giữ chiều cao cũ. */
+@supports (height: 100dvh) {
+	.hero {
+		--hero-viewport-height: 100dvh;
+	}
 }
 
 /* ==================== STAGE (ảnh nền + content — 1 màn hình ở desktop) ==================== */
@@ -30,11 +38,14 @@
 	background-color: var(--hero-fallback-bg, #1a1a1a);
 }
 
-/* 100vh CHỈ ở desktop thường (992–2559). Màn ≥2560 hoặc <992: cao theo nội dung (không
-   ép 100vh) — viewport quá cao thì 100vh tạo khoảng trắng thừa, viewport thấp thì tràn. */
-@media (min-width: 992px) and (max-width: 2559.98px) {
-	.hero__stage {
-		min-height: 100vh;
+/* Desktop: Header + toàn bộ Hero (stage + Stats straddle) vừa viewport. Grid để phần Stats
+   tự chiếm chiều cao theo nội dung, không cần trừ một số px cố định khỏi stage. Nếu nội dung
+   lớn hơn viewport (zoom/nội dung Customizer dài), min-height cho phép Hero nở tự nhiên. */
+@media (min-width: 993px) {
+	.hero {
+		min-height: calc(var(--hero-viewport-height) - var(--header-height, 98px));
+		display: grid;
+		grid-template-rows: minmax(min-content, 1fr) auto;
 	}
 }
 
@@ -280,13 +291,8 @@
 }
 
 /* ==================== RESPONSIVE ==================== */
-/* Tablet: stats về 2 cột, bỏ divider dọc; stage đã cao theo nội dung (không 100vh <992). */
-@media (max-width: 991px) {
-	/* Sàn padding-top: header overlay tablet ~130px — đảm bảo content không bị che dù
-	   Customizer/Figma đặt padding nhỏ hơn (max() lấy giá trị lớn hơn). */
-	.hero__stage {
-		padding-top: max(var(--hero-padding-top, 100px), 140px);
-	}
+/* Tablet: stats về 2 cột, bỏ divider dọc; Hero cao theo nội dung. */
+@media (max-width: 992px) {
 
 	.hero__stats {
 		grid-template-columns: repeat(2, 1fr);
@@ -300,11 +306,6 @@
 
 /* Mobile: nhịp text gọn hơn, CTA/nút full width, card 2 cột padding gọn. */
 @media (max-width: 599px) {
-	/* Sàn padding-top: header overlay mobile ~96px. */
-	.hero__stage {
-		padding-top: max(var(--hero-padding-top, 90px), 108px);
-	}
-
 	.hero__subtitle {
 		margin-bottom: 16px;
 	}

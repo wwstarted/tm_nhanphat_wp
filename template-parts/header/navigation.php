@@ -63,6 +63,28 @@ $tmnhanphat_breakpoint = absint( tmnhanphat_get_header_mod( 'tmnhanphat_header_m
 		) );
 		?>
 
+		<?php
+		/* Offcanvas (mobile/tablet) chứa nội dung Top Bar bị ẩn ở vùng hamburger: liên hệ
+		(hotline/email — helper DRY dùng chung Top Bar) + CTA (header CTA desktop ẩn ở mobile
+		nên đưa vào đây để không mất lối chuyển đổi). */
+		$tmnhanphat_panel_contact = tmnhanphat_get_header_contact_html();
+		$tmnhanphat_panel_cta     = tmnhanphat_get_header_mod( 'tmnhanphat_header_cta_enable' ) && tmnhanphat_get_header_mod( 'tmnhanphat_header_cta_text' );
+		?>
+		<?php if ( $tmnhanphat_panel_contact || $tmnhanphat_panel_cta ) : ?>
+			<div class="main-navigation__panel-contact">
+				<?php echo $tmnhanphat_panel_contact; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- helper đã escape. ?>
+				<?php if ( $tmnhanphat_panel_cta ) : ?>
+					<a
+						class="site-header__cta main-navigation__panel-cta"
+						href="<?php echo esc_url( tmnhanphat_get_header_mod( 'tmnhanphat_header_cta_url' ) ); ?>"
+						<?php if ( tmnhanphat_get_header_mod( 'tmnhanphat_header_cta_new_tab' ) ) : ?>
+							target="_blank" rel="noopener noreferrer"
+						<?php endif; ?>
+					><?php echo esc_html( tmnhanphat_get_header_mod( 'tmnhanphat_header_cta_text' ) ); ?></a>
+				<?php endif; ?>
+			</div>
+		<?php endif; ?>
+
 		<?php /* Đáy offcanvas: Social icons tái sử dụng dữ liệu + style .footer-social
 		(footer.css load mọi trang) — DRY, không copy SVG (PROJECT_RULES.md mục 5). */ ?>
 		<div class="main-navigation__panel-footer">
@@ -89,4 +111,15 @@ $tmnhanphat_breakpoint = absint( tmnhanphat_get_header_mod( 'tmnhanphat_header_m
 			<?php endif; ?>
 		</div>
 	</div>
+
+	<?php /* CTA nút trên Main Nav (phải menu). Bật/tắt qua Customizer. */ ?>
+	<?php if ( tmnhanphat_get_header_mod( 'tmnhanphat_header_cta_enable' ) && tmnhanphat_get_header_mod( 'tmnhanphat_header_cta_text' ) ) : ?>
+		<a
+			class="site-header__cta"
+			href="<?php echo esc_url( tmnhanphat_get_header_mod( 'tmnhanphat_header_cta_url' ) ); ?>"
+			<?php if ( tmnhanphat_get_header_mod( 'tmnhanphat_header_cta_new_tab' ) ) : ?>
+				target="_blank" rel="noopener noreferrer"
+			<?php endif; ?>
+		><?php echo esc_html( tmnhanphat_get_header_mod( 'tmnhanphat_header_cta_text' ) ); ?></a>
+	<?php endif; ?>
 </nav>

@@ -8,13 +8,16 @@
  * @package TMNhanPhat
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
 	exit;
 }
 
-define( 'TMNHANPHAT_VERSION', '1.0.0' );
-define( 'TMNHANPHAT_DIR', get_template_directory() );
-define( 'TMNHANPHAT_URI', get_template_directory_uri() );
+define('TMNHANPHAT_VERSION', '1.0.0');
+define('TMNHANPHAT_DIR', get_template_directory());
+define('TMNHANPHAT_URI', get_template_directory_uri());
+
+add_filter('show_admin_bar', '__return_false');
+
 
 /**
  * Danh sách module bootstrap theo đúng thứ tự cần thiết
@@ -39,11 +42,11 @@ $tmnhanphat_modules = array(
 	'inc/customizer.php',
 );
 
-foreach ( $tmnhanphat_modules as $tmnhanphat_module ) {
+foreach ($tmnhanphat_modules as $tmnhanphat_module) {
 	$tmnhanphat_module_path = TMNHANPHAT_DIR . '/' . $tmnhanphat_module;
 
-	if ( file_exists( $tmnhanphat_module_path ) ) {
+	if (file_exists($tmnhanphat_module_path)) {
 		require_once $tmnhanphat_module_path;
 	}
 }
-unset( $tmnhanphat_modules, $tmnhanphat_module, $tmnhanphat_module_path );
+unset($tmnhanphat_modules, $tmnhanphat_module, $tmnhanphat_module_path);

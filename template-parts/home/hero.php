@@ -2,8 +2,8 @@
 /**
  * Hero Banner (trang chủ) — 2 phần trong 1 section:
  *  1) .hero__stage: ảnh nền + overlay + content căn GIỮA (subtitle → heading → desc → CTA).
- *     Desktop thường (992–2559px) cao đúng 100vh (ôm 1 màn hình); ngoài dải đó (mobile/
- *     tablet, và màn ≥2560) cao theo nội dung — tránh khoảng trắng thừa khi viewport quá cao.
+ *     Desktop: Header đặc + toàn bộ Hero (stage + Stats) vừa một viewport; tablet/mobile
+ *     cao theo nội dung.
  *  2) .hero__stats: card 4 cột STRADDLE — nửa trên đè đáy stage, nửa dưới tràn xuống nền
  *     phía dưới (chỉ desktop; tablet/mobile card nằm bình thường dưới stage). Nội dung mỗi
  *     cột (number/badge/desc) căn giữa.

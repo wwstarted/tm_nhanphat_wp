@@ -10,17 +10,36 @@
  * đạt 60fps kể cả trên mobile — event listener luôn passive để không chặn scroll thread.
  */
 ( function () {
-	var header = document.querySelector( '.site-header--transparent.site-header--sticky-enabled' );
+	// Header sticky — toggle .is-scrolled (trạng thái 2: Top Bar collapse, menu dồn giữa).
+	// LOGIC THEO HƯỚNG: cuộn XUỐNG → trạng thái 2; cuộn LÊN → trạng thái 1 (không cần về
+	// đỉnh); gần đỉnh (< MIN) luôn trạng thái 1. DELTA bỏ qua rung nhỏ. Vì đổi trạng thái
+	// liên tục theo hướng nên chuyển động do CSS transition lo cho mượt.
+	var header = document.querySelector( '.site-header--sticky-enabled' );
 
 	if ( ! header ) {
 		return;
 	}
 
-	var SCROLL_THRESHOLD = 100;
+	var MIN = 60;
+	var DELTA = 5;
+	var lastY = window.scrollY || window.pageYOffset;
 	var ticking = false;
 
 	function updateScrolledState() {
-		header.classList.toggle( 'is-scrolled', window.scrollY > SCROLL_THRESHOLD );
+		var y = Math.max( 0, window.scrollY || window.pageYOffset );
+
+		if ( y <= MIN ) {
+			header.classList.remove( 'is-scrolled' ); // gần đỉnh → trạng thái 1 (đầy đủ)
+		} else if ( y > lastY + DELTA ) {
+			header.classList.add( 'is-scrolled' );     // cuộn XUỐNG → trạng thái 2
+		} else if ( y < lastY - DELTA ) {
+			header.classList.remove( 'is-scrolled' );  // cuộn LÊN → trạng thái 1
+		}
+
+		if ( Math.abs( y - lastY ) > DELTA ) {
+			lastY = y;
+		}
+
 		ticking = false;
 	}
 

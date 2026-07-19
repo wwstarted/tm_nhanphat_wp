@@ -32,7 +32,9 @@ if (!defined('ABSPATH')) {
 	<header id="masthead" class="<?php echo esc_attr(implode(' ', tmnhanphat_get_header_classes())); ?>">
 		<div class="site-header__inner">
 			<?php
+			// Header 2 tầng: Logo (span 2 tầng) | Top Bar (tầng trên) + Main Nav (tầng dưới).
 			get_template_part('template-parts/header/site-branding');
+			get_template_part('template-parts/header/topbar');
 			get_template_part('template-parts/header/navigation');
 			?>
 		</div>
